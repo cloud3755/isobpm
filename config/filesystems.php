@@ -45,9 +45,33 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root'   => storage_path('app'),
+            'root'   => public_path().'/storage',
         ],
 
+        'quejas' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/quejas',
+        ],
+
+        'noconformidad' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/noconformidad',
+        ],
+
+        'accioncorrectiva' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/accioncorrectiva',
+        ],
+
+        'mejoras' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/mejoras',
+        ],
+
+        'documentos' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/documentos',
+        ],
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'ftp.example.com',

@@ -14,7 +14,17 @@ class CreateObjetivosTable extends Migration
     {
         Schema::create('objetivos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('');
+            $table->integer('tipo_objetivo_id')->unsigned();
+            $table->string('nombre');
+            $table->text('descripcion');
+            $table->date('fecha');
+            $table->integer('usuario_responsable_id')->unsigned();
+            $table->integer('usuario_creador_id')->unsigned();
+            $table->integer('id_compania');
+
+  //          $table->foreign('tipo_objetivo_id')->references('id')->on('tipo_objetivos')->onDelete('cascade');
+  //          $table->foreign('usuario_responsable_id')->references('id')->on('users')->onDelete('cascade');
+  //          $table->foreign('usuario_creador_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

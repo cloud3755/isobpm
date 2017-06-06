@@ -1,0 +1,10 @@
+id
+fechaactual
+cradopor
+producto y servicio (capturable)
+proceso(base)
+criterio evaludado(capturabe)
+descripcion(capturable)
+responsable(base)
+anlisis causa raiz(2 porque)
+accion correctiva12:32 a. m. 31/03/2017(capturable)

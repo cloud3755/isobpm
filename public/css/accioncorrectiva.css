@@ -1,0 +1,122 @@
+body
+{
+	padding: 5px;
+}
+
+#cajon1{
+float:left;
+margin-left: 20px;
+}
+
+#cajontitulo
+{
+	font-weight: bold;
+	float:left;
+	margin-left: 300px;
+	margin-top: 20px;
+}
+
+#cajon3{
+float:left;
+margin-left: 300px;
+}
+
+#cajon2{
+margin-left: 500px;
+font-weight: bold;
+}
+
+#contenedor
+{
+	height: 120px;
+}
+
+div img {
+	width:150px; height:60px
+	}
+
+#titulosegundo
+{
+	margin-top: 20px;
+}
+.titulo
+{
+	height: 20px;
+	background: #BCBCBC;
+}
+
+#area1
+{
+	width: 1300px;
+	margin-left: 20px;
+}
+
+#primero
+{
+	margin-top: 20px;
+	margin-left: 5px;
+}
+
+#fecha
+{
+	background: #BCBCBC;
+	height: 30px;
+}
+
+#segundo
+{
+	margin-top: 20px;
+	margin-left: 5px;
+}
+
+#descripcion
+{
+	margin-top: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+#producto{
+	background: #BCBCBC;
+	height: 70px;
+}
+
+#creador
+{
+	background: #BCBCBC;
+	height: 30px;
+}
+
+#titulo
+{
+	background: #BCBCBC;
+	height: 30px;
+	font-size: x-large;
+}
+
+#proceso
+{
+	background: #BCBCBC;
+	height: 70px;
+}
+
+#cuarta
+{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+#textareaanalisis
+{
+	width: 1300px;
+	margin-left: 20px;
+}
+
+#responsable{
+	background: #BCBCBC;
+	height: 70px;
+}
+
+#cajontercero{
+margin-left: 600px;
+font-weight: bold;
+}

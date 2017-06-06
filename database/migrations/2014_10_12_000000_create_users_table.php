@@ -14,8 +14,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->increments('id_compania');
-            $table->increments('usuario');
+            $table->integer('id_compania');
+            $table->string('usuario', 60);
             $table->string('password', 60);
             $table->rememberToken();
             $table->string('nombre');
@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('descripcion');
             $table->boolean('primero');
             $table->dateTime('cambio_password');
+            $table->integer('id_area');
+            $table->string('empresa');
         });
     }
 

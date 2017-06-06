@@ -14,7 +14,15 @@ class CreateResultadosTable extends Migration
     {
         Schema::create('resultados', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->integer('indicador_id')->unsigned();
+            $table->integer('periodo');
+            $table->float('valor');
+            $table->date('mes');
+            $table->integer('numero');
+            $table->timestamp('cambio');
+            $table->timestamp('created_at');
+
+//            $table->foreign('indicador_id')->references('id')->on('indicadores')->onDelete('cascade');
         });
     }
 
