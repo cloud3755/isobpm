@@ -89,15 +89,11 @@
                       <option value="<?=$users->id?>"> <?=$users->nombre ?> </option>
                 <?php endforeach ?>
 
+                <?php foreach ($listadeequipo as $lista): ?>
+                      <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
+                <?php endforeach ?>
+                
                </select>
-        <h2><label for="Usuario" class="control-label col-md-12">Lista actual:</label></h2>
-               <select class="form-control multi-select"  multiple="multiple" name="lista_de_accesos2[]" id="lista_de_accesos" width="100%" multiple data-actions-box="true" >
-
-                 <?php foreach ($listadeequipo as $lista): ?>
-                       <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
-                 <?php endforeach ?>
-
-                </select>
         </div>
       </div>
 

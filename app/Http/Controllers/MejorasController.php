@@ -57,14 +57,6 @@ class MejorasController extends Controller
               $lista->save();
       }
 
-      for ($i=0;$i<count($listadeequipo2);$i++)
-      {
-        $lista2 = new lista_acceso;
-        $lista2->id_usuario = $listadeequipo2[$i];
-        $lista2->id_indicador = $equipo;
-        $lista2->save();
-      }
-
       return redirect('/Promejoras');
 
     }
@@ -102,6 +94,7 @@ class MejorasController extends Controller
                        ->join('mejoras','lista_accesos.id_indicador','=','mejoras.listaequipo')
                        ->join('users','users.id','=','lista_accesos.id_usuario')
                        ->where('mejoras.id','=',$id)
+                       ->groupby('users.id')
                        ->get();
 
 
