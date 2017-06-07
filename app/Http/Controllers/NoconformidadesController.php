@@ -65,6 +65,7 @@ class NoconformidadesController extends Controller
             ->select('noconformidades.*','procesos.proceso as procesonombre','estatuses.nombre as estatusnombre','users.nombre as usuarionombre','productos.nombre as productonombre')
             ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
             ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
+            ->orwhere('noconformidades.creador_id','=',$usuarios->id)
             ->get();
       }
 
@@ -90,6 +91,7 @@ class NoconformidadesController extends Controller
     public function store(Request $request)
     {
 
+      $usuarios = Auth::user();
       $Noconformidad = new Noconformidades;
 
       $Noconformidad->fecha                 = $request->input('fecha');
@@ -115,6 +117,7 @@ class NoconformidadesController extends Controller
       $Noconformidad->monto                 = $request->input('monto');
       $Noconformidad->idcompañia            = $request->input('id_compania');
       $Noconformidad->id_area               = $request->input('id_area');
+      $Noconformidad->id_area               = $usuarios->id;
 
       $file1                                = $request->file('archivo1');
 
