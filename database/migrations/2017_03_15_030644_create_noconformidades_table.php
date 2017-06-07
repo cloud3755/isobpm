@@ -31,6 +31,7 @@ class CreateNoconformidadesTable extends Migration
             $table->double('monto');
             $table->integer('idcompañia')->unsigned();
               $table->integer('id_area')->unsigned();
+              $table->integer('creador_id')->unsigned();
         });
     }
 
