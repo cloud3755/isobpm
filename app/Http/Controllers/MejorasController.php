@@ -69,7 +69,9 @@ class MejorasController extends Controller
       $impacto = $impactos->all();
 
       $Users = new User;
-      $User = $Users->where('id_compania',$usuarios->id_compania)->get();
+      $User = $Users->where('id_compania',$usuarios->id_compania)
+      ->where('perfil',4)
+      ->get();
 
       $estatus  = new Estatus;
       $estatu   = $estatus->all();
