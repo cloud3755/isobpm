@@ -40,7 +40,6 @@ class MejorasController extends Controller
       $mejoraedit->save();
 
       $listadeequipo = $request->input('lista_de_accesos');
-      $listadeequipo2 = $request->input('lista_de_accesos2');
 
       $equipo = $mejoraedit->listaequipo;
 
@@ -156,7 +155,7 @@ class MejorasController extends Controller
         return redirect('/Promejoras');
     }
 
-    public function index()
+      public function index()
     {
 
         $usuarios = Auth::user();
@@ -164,31 +163,43 @@ class MejorasController extends Controller
         $mejoras = new Mejoras;
         $mejora  = $mejoras->all();
 
-        if($usuarios->perfil ==4)
-          {
+
+		  if($usuarios->perfil == 4)
+		  {
             $mejorarelacion = \DB::table('mejoras')
                    ->join('users','mejoras.responsable_id','=','users.id')
                    ->join('impactos','mejoras.impacto','=','impactos.id')
-                   ->join('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
+                   ->leftjoin('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
                    ->join('estatuses','mejoras.estatus_id','=','estatuses.id')
                    ->select('mejoras.*','users.nombre as usernombre','impactos.nombre as nombreimpacto','estatuses.nombre as nombreestatus')
                    ->where('lista_accesos.id_usuario','=',$usuarios->id)
                    ->orwhere('mejoras.creador_id',$usuarios->id)
                    ->groupby('mejoras.id')
                    ->get();
-          }
+		  }
 
-          else {
-            $mejorarelacion = \DB::table('mejoras')
+		  else{
+			     $mejorarelacion = \DB::table('mejoras')
                    ->join('users','mejoras.responsable_id','=','users.id')
                    ->join('impactos','mejoras.impacto','=','impactos.id')
-                   ->join('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
+                   ->leftjoin('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
                    ->join('estatuses','mejoras.estatus_id','=','estatuses.id')
                    ->select('mejoras.*','users.nombre as usernombre','impactos.nombre as nombreimpacto','estatuses.nombre as nombreestatus')
-                   ->where('users.id_compania',$usuarios->id_compania)
+                   ->where('mejoras.id_compania',$usuarios->id_compania)
                    ->groupby('mejoras.id')
                    ->get();
-          }
+		  }
+          // else {
+          //   $mejorarelacion = \DB::table('mejoras')
+          //          ->join('users','mejoras.responsable_id','=','users.id')
+          //          ->join('impactos','mejoras.impacto','=','impactos.id')
+          //          ->join('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
+          //          ->join('estatuses','mejoras.estatus_id','=','estatuses.id')
+          //          ->select('mejoras.*','users.nombre as usernombre','impactos.nombre as nombreimpacto','estatuses.nombre as nombreestatus')
+          //          ->where('mejoras.id_compania',$usuarios->id_compania)
+          //          ->groupby('mejoras.id')
+          //          ->get();
+          // }
       //dd($mejorarelacion);
 
 
