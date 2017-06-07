@@ -291,9 +291,21 @@ return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}
                         <h2><label for="fecha del periodo" class="control-label col-md-12">Severidad inherente:</label></h2>
                         <div class="col-md-6">
                           <select class="form-control input-lg" name="Severidad" id="Severidad">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            @if($Analisisriesgos2->Severidad == 1 )
+                              <option value="1" selected>1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              @else
+                                @if($Analisisriesgos2->Severidad == 2 )
+                                  <option value="1">1</option>
+                                  <option value="2" selected>2</option>
+                                  <option value="3">3</option>
+                                @else
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3" selected>3</option>
+                                @endif
+                             @endif
                           </select>
                         </div>
                       </div>
@@ -301,9 +313,21 @@ return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}
                           <h2><label for="fecha del periodo" class="control-label col-md-12">Probabilidad inherente:</label></h2>
                           <div class="col-md-6">
                             <select class="form-control input-lg" name="probabilidad" id="probabilidad">
+                              @if($Analisisriesgos2->probabilidad == 1 )
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                @else
+                                  @if($Analisisriesgos2->probabilidad == 2 )
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                  @else
                                     <option value="1">1</option>
                                     <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="3" selected>3</option>
+                                  @endif
+                               @endif
                             </select>
                           </div>
                       </div>
@@ -317,9 +341,21 @@ return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}
                           <h2><label for="fecha del periodo" class="control-label col-md-12">Severidad residual:</label></h2>
                           <div class="col-md-6">
                             <select class="form-control input-lg" name="Severidad2" id="Severidad2">
+                              @if($Analisisriesgos2->Severidad2 == 1 )
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                @else
+                                  @if($Analisisriesgos2->Severidad2 == 2 )
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                  @else
                                     <option value="1">1</option>
                                     <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="3" selected>3</option>
+                                  @endif
+                               @endif
                             </select>
                           </div>
                       </div>
@@ -327,9 +363,21 @@ return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}
                           <h2><label for="fecha del periodo" class="control-label col-md-12">Probabilidad residual:</label></h2>
                           <div class="col-md-6">
                             <select class="form-control input-lg" name="probabilidad2" id="probabilidad2">
+                              @if($Analisisriesgos2->probabilidad2 == 1 )
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                @else
+                                  @if($Analisisriesgos2->probabilidad2 == 2 )
+                                    <option value="1">1</option>
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                  @else
                                     <option value="1">1</option>
                                     <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value="3" selected>3</option>
+                                  @endif
+                               @endif
                             </select>
                           </div>
                       </div>
@@ -338,7 +386,11 @@ return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}
                           <div class="col-md-6">
                             <select class="form-control input-lg" name="id_area" id="id_area">
                               <?php foreach ($area as $areas): ?>
+                                @if($Analisisriesgos2->id_area == $areas['id'])
+                                  <option selected value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
+                                 @else
                                   <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
+                                 @endif
                               <?php endforeach ?>
                             </select>
                           </div>
