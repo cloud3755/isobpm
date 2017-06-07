@@ -117,7 +117,7 @@ class NoconformidadesController extends Controller
       $Noconformidad->monto                 = $request->input('monto');
       $Noconformidad->idcompañia            = $request->input('id_compania');
       $Noconformidad->id_area               = $request->input('id_area');
-      $Noconformidad->id_area               = $usuarios->id;
+      $Noconformidad->creador_id               = $usuarios->id;
 
       $file1                                = $request->file('archivo1');
 
