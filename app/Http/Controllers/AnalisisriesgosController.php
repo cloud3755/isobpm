@@ -154,6 +154,7 @@ class AnalisisriesgosController extends Controller
     public function edit($id,Request $request)
     {
 
+      $Users = Auth::user();
       //return(dd($request));
        $Analisisriesgo = Analisisriesgos::findorfail($id);
        $Analisisriesgo->procesos_id = $request->input('procesos_id');

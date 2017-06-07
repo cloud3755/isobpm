@@ -74,7 +74,7 @@
 
 					<select class="form-control multi-select"  multiple="multiple" name="lista_de_distribucion[]" id="lista_de_distribucion" width="100%" multiple data-actions-box="true" >
 						 <?php foreach ($User as $Users): ?>
-							 <option value="<?=$Users['id']?>"> <?=$Users['usuario']?> </option>
+							 <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
 						 <?php endforeach ?>
 					 </select>
 
