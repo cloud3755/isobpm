@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class MenuController extends Controller
 {
     /**
-     * Display a listing of the resource.a
+     * Display a listing of the resource.aa
      *
      * @return \Illuminate\Http\Response
      */
