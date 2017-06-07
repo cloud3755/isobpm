@@ -63,6 +63,7 @@ class ResultadoController extends Controller
      */
     public function store(Request $request)
     {
+      $usuarios = Auth::user();
 
         if (strlen($request->input('mes')) == 7)
         {
@@ -78,6 +79,8 @@ class ResultadoController extends Controller
         $resultado->valor = $request->input('valor');
         $resultado->mes = $fechainput;
         $resultado->numero = 1;//$request->input('numero'); no se a donde se vincula esta
+        $resultado->creador_id =  $usuarios->id;
+
         $resultado->save();
 
         session()->flash('flash_msg',"Se guardo correctamene el periodo");
