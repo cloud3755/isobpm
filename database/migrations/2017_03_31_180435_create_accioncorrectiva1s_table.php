@@ -33,7 +33,7 @@ class CreateAccioncorrectiva1sTable extends Migration
           $table->integer('estatus_id');
           $table->integer('creador_id');
           $table->integer('indicador_id');
-          $tabke->double('monto');
+          $table->double('monto');
           $table->integer('idcompañia')->unsigned();
         });
     }
