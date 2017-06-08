@@ -173,12 +173,31 @@ class ProcesosControllerVisual extends Controller
                                ->where('lista_indicadores_procesos.id_proceso',$indicator)
                                ->get();
 
-      $indicador = \DB::table('indicadores')
-                    ->select('indicadores.id','indicadores.nombre')
-                    ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
-                    ->where('objetivos.id_compania',$usuario->id_compania)
-                    ->get();
+    //  $indicador = \DB::table('indicadores')
+    //                ->select('indicadores.id','indicadores.nombre')
+    //                ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
+    //                ->where('objetivos.id_compania',$usuario->id_compania)
+    //                ->get();
 
+      $indicador = \DB::table('indicadores')
+                       ->select('lista_indicadores_procesos.id_proceso','indicadores.id','indicadores.nombre')
+                       ->leftjoin('lista_indicadores_procesos','indicadores.id','=','lista_indicadores_procesos.id_indicador')
+                       ->leftJoin('procesos', function($join) use ($indicator)
+                         {
+                             $join->on('lista_indicadores_procesos.id_proceso', '=', 'procesos.indicadores');
+                             $join->on(function($query) use ($indicator)
+                             {
+                               $query->on('lista_indicadores_procesos.id_proceso', '=', DB::raw("'".$indicator."'"));
+                             });
+                         })
+                         ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
+                         ->where('objetivos.id_compania',$usuario->id_compania)
+                         ->whereNull('id_proceso')
+                       //->where('lista_indicadores_procesos.id_proceso',$indicator)
+                       ->get();
+
+
+      //return(dd($indicador));
 
        return View('/Secundarias/ProcesosMostrar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex'));
     }
