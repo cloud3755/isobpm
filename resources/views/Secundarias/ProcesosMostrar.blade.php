@@ -104,13 +104,11 @@
                     <div class="col-md-6">
                          <select multiple name="indicadores[]" class="form-control multi-select"  id="proresponsableob" width="100%">
                            <?php foreach ($indicador as $indicadores): ?>
-                             <?php foreach ($indicadoresrelacion as $listaindicadores): ?>
-                               <?php if ($indicadores->id == $listaindicadores->id): ?>
-                                 <option value="<?=$listaindicadores->id?>" selected="true"> <?=$listaindicadores->nombre ?> </option>
-                               <?php else: ?>
-                                 <option value="<?=$indicadores->id?>"> <?=$indicadores->nombre ?> </option>
-                               <?php endif ?>
-                             <?php endforeach ?>
+                             <option value="<?=$indicadores->id?>"> <?=$indicadores->nombre ?> </option>
+                           <?php endforeach ?>
+                           
+                           <?php foreach ($indicadoresrelacion as $listaindicadores): ?>
+                             <option value="<?=$listaindicadores->id?>" selected="true"> <?=$listaindicadores->nombre ?> </option>
                            <?php endforeach ?>
                         </select>
 
