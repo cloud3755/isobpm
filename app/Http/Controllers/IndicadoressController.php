@@ -13,6 +13,7 @@ use App\Models\Objetivo;
 use App\Models\User;
 use App\Models\Logica;
 use App\Models\lista_acceso;
+use Illuminate\Support\Facades\Auth;
 
 class IndicadoressController extends Controller
 {
