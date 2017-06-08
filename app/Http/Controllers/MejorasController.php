@@ -138,10 +138,10 @@ class MejorasController extends Controller
                 return view('subiretapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','usuariosequipo','usuariosequipo2'));
 
               if($mejorarelacion->tipo == 'six sigma')
-                return view('sigmacreate',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
+                return view('sigmacreate',compact('mejorarelacion','impacto','User','estatu','relaciontabla','usuariosequipo','usuariosequipo2'));
 
               if($mejorarelacion->tipo == 'Bpm')
-                return view('bpmetapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
+                return view('bpmetapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','usuariosequipo','usuariosequipo2'));
     }
 
 
