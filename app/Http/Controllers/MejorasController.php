@@ -56,7 +56,7 @@ class MejorasController extends Controller
               $lista->save();
       }
 
-      return redirect('/Promejoras');
+      return redirect()->action('MejorasController@subiretapas', [$mejoraedit->id]);
 
     }
 
@@ -185,7 +185,9 @@ class MejorasController extends Controller
         $usuarios = Auth::user();
 
         $mejoras = new Mejoras;
-        $mejora  = $mejoras->all();
+        $mejora  = $mejoras
+        ->where('id_compania',$usuarios->id_compania)
+        ->get();
 
 
 		  if($usuarios->perfil == 4)
@@ -225,7 +227,6 @@ class MejorasController extends Controller
           //          ->get();
           // }
       //dd($mejorarelacion);
-
 
         return view('submenu/Promejora',compact('mejora','mejorarelacion'));
     }
