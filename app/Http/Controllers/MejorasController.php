@@ -159,6 +159,20 @@ class MejorasController extends Controller
         return redirect('/Promejoras');
     }
 
+    public function eliminarmejora($id)
+    {
+      $mejora = Mejoras::findorfail($id);
+
+      $equipo = $mejora->listaequipo;
+
+      $lista = new lista_acceso;
+      $lista->where('id_indicador', $equipo)->delete();
+
+      $mejora->delete();
+
+      return redirect('/Promejoras');
+    }
+
     public function guardaretapa(Request $request)
     {
         $mejoraetapas = new Mejoraetapas;

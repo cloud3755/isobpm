@@ -180,6 +180,7 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/lean/create','MejorasController@leancreate');
     Route::post('/lean/guardar','MejorasController@guardaretapa');
     Route::delete('/etapa/eliminaretapa/{id}','MejorasController@eliminaretapa');
+    Route::delete('/mejora/delete/{id}', 'MejorasController@eliminarmejora');
 
     //sixsigma
     Route::get('/sigma/create','MejorasController@sigmacreate');
