@@ -85,12 +85,13 @@
 
               <select class="form-control multi-select"  multiple="multiple" name="lista_de_accesos[]" id="lista_de_accesos" width="100%" multiple data-actions-box="true">
 
-				<?php foreach ($listadeequipo as $lista): ?>
-                      <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
-                <?php endforeach ?>
 
-				<?php foreach ($User as $users): ?>
-                      <option value="<?=$users->id?>"> <?=$users->nombre ?> </option>
+                @foreach ($User as $users)
+                    <option value="{{$users->id}}"> {{$users->nombre}} </option>
+                @endforeach
+
+				        <?php foreach ($listadeequipo as $lista): ?>
+                      <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
                 <?php endforeach ?>
 
                </select>
