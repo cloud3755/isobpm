@@ -97,7 +97,6 @@ class ResultadoController extends Controller
         $resultado->valor = $request->input('valor');
         $resultado->mes = $fechainput;
         $resultado->numero = 1;//$request->input('numero'); no se a donde se vincula esta
-        $resultado->creador_id =  $usuarios->id;
 
         $resultado->save();
 
