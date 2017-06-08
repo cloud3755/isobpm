@@ -98,20 +98,22 @@ class MejorasController extends Controller
                        ->groupby('users.id')
                        ->get();
 
-                       $usuariosequipo = \DB::table('lista_accesos')
+                       $usuariosequipo = \DB::table('users')
                        ->select('users.*', DB::raw('(CASE WHEN users.id = lista_accesos.id_usuario THEN 1 ELSE 0 END) AS is_user'))
-                       ->join('mejoras','lista_accesos.id_indicador','=','mejoras.listaequipo')
-                            ->join('users', function ($join)
+                      ->leftjoin('lista_accesos','users.id','=','lista_accesos.id_usuario')
+                      ->leftjoin('mejoras',function ($join)  use ($id)
                               {
-                                  $join->on('users.id','=','lista_accesos.id_usuario')
-                                  ->oron('users.id','!=','lista_accesos.id_usuario');
+                                  $join->on('lista_accesos.id_indicador','=','mejoras.listaequipo');
+                                  $join->on(function($query) use ($id)
+                                  {
+                                    $query->on('mejoras.id', '=', DB::raw("'".$id."'"));
+                                  });
                               })
                       //  ->join('users','users.id','=','lista_accesos.id_usuario')
-                       ->where('mejoras.id','=',$id)
-                       ->groupby('users.id')
+                       ->where('perfil',4)
                        ->get();
 
-                      dd($usuariosequipo);
+                    //  dd($usuariosequipo);
 
                        $listadeequipono = \DB:: table('lista_accesos')
                        ->select('users.*')
