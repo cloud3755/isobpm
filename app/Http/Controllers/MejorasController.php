@@ -91,6 +91,7 @@ class MejorasController extends Controller
                        ->get();
 
                        $listadeequipo = \DB:: table('lista_accesos')
+                       ->distinct()
                        ->select('users.*')
                        ->join('mejoras','lista_accesos.id_indicador','=','mejoras.listaequipo')
                        ->join('users','users.id','=','lista_accesos.id_usuario')
@@ -99,7 +100,8 @@ class MejorasController extends Controller
                        ->get();
 
                        $usuariosequipo = \DB::table('users')
-                       ->select('users.*', DB::raw('(CASE WHEN users.id = lista_accesos.id_usuario THEN 1 ELSE 0 END) AS is_user'))
+                       ->distinct()
+                       ->select('users.*')
                       ->leftjoin('lista_accesos','users.id','=','lista_accesos.id_usuario')
                       ->leftjoin('mejoras',function ($join)  use ($id)
                               {
@@ -110,10 +112,12 @@ class MejorasController extends Controller
                                   });
                               })
                       //  ->join('users','users.id','=','lista_accesos.id_usuario')
+                      ->where('users.id_compania',$usuarios->id_compania)
                        ->where('perfil',4)
+                       ->whereNull('mejoras.id')
                        ->get();
 
-                    //  dd($usuariosequipo);
+                      //dd($usuariosequipo);
 
                        $listadeequipono = \DB:: table('lista_accesos')
                        ->select('users.*')
