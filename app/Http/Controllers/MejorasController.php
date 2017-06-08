@@ -98,6 +98,20 @@ class MejorasController extends Controller
                        ->groupby('users.id')
                        ->get();
 
+                       $usuariosequipo = \DB::table('lista_accesos')
+                       ->select('users.*', DB::raw('(CASE WHEN users.id = lista_accesos.id_usuario THEN 1 ELSE 0 END) AS is_user'))
+                       ->join('mejoras','lista_accesos.id_indicador','=','mejoras.listaequipo')
+                            ->join('users', function ($join)
+                              {
+                                  $join->on('users.id','=','lista_accesos.id_usuario')
+                                  ->oron('users.id','!=','lista_accesos.id_usuario');
+                              })
+                      //  ->join('users','users.id','=','lista_accesos.id_usuario')
+                       ->where('mejoras.id','=',$id)
+                       ->groupby('users.id')
+                       ->get();
+
+                      dd($usuariosequipo);
 
                        $listadeequipono = \DB:: table('lista_accesos')
                        ->select('users.*')
@@ -111,7 +125,7 @@ class MejorasController extends Controller
 
 
               if($mejorarelacion->tipo == 'lean')
-                return view('subiretapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
+                return view('subiretapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono','usuariosequipo'));
 
               if($mejorarelacion->tipo == 'six sigma')
                 return view('sigmacreate',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
