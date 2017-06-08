@@ -57,8 +57,8 @@
                     <div class="col-md-6">
                          <select class="form-control input-lg" name="usuario_responsable_id" id="proresponsableob">
                            <option value="<?=$procesosrelacion->usuario_responsable_id?>" selected="true"> <?=$procesosrelacion->usuario?> </option>
-                           <?php foreach ($User as $Users): ?>
-                            <option value="<?=$Users['id']?>"> <?=$Users['usuario']?> </option>
+                           <?php foreach ($User as $Users1): ?>
+                            <option value="<?=$Users1['id']?>"> <?=$Users1['usuario']?> </option>
                           <?php endforeach ?>
                         </select>
                     </div>
@@ -122,14 +122,12 @@
         <div class="col-md-6">
 
                 <select multiple name="lista_de_distribucion[]" class="form-control multi-select" id="lista_de_distribucion" width="100%" >
-                 <?php foreach ($User as $user1): ?>
-                   <?php foreach ($listaenvio as $lista): ?>
-                     <?php if ($user1->id == $lista->id): ?>
-                       <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
-                     <?php else: ?>
-                       <option value="<?=$user1->id?>"> <?=$user1->nombre ?> </option>
-                     <?php endif ?>
-                   <?php endforeach ?>
+                 <?php foreach ($Users as $user1): ?>
+                   <option value="<?=$user1->id?>"> <?=$user1->nombre ?> </option>
+                 <?php endforeach ?>
+
+                 <?php foreach ($listaenvio as $lista): ?>
+                     <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
                  <?php endforeach ?>
 
                </select>

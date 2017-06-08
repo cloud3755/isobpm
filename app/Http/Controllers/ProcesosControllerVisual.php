@@ -38,21 +38,30 @@ class ProcesosControllerVisual extends Controller
     {
       $usuario = Auth::user();
       //
-      $procesos = new Proceso;
-      $proceso = $procesos
-      ->where('idcompañia',$usuario->id_compania)
-      ->where('usuario_responsable_id',$usuario->id)
-      ->orwhere('Creador_id',$usuario->id)
-      ->get();
+      if ($usuario->perfil == 4) {
+        $procesos = new Proceso;
+        $proceso = $procesos
+        ->where('idcompañia',$usuario->id_compania)
+        ->where('usuario_responsable_id',$usuario->id)
+        ->orwhere('Creador_id',$usuario->id)
+        ->get();
+      }else {
+        $procesos = new Proceso;
+        $proceso = $procesos
+        ->where('idcompañia',$usuario->id_compania)
+        ->get();
+      }
 
       $Users = new User;
-      $User = $Users->where('id_compania',$usuario->id_compania)->get();
+      $User = $Users->where('id_compania',$usuario->id_compania)
+      ->where('perfil',4)
+      ->get();
 
       $tipoprocesos = new tipoproceso;
       $tipoproceso = $tipoprocesos->orderBy('id')->get();
 
       $indicador = \DB::table('indicadores')
-                               ->leftjoin('objetivos','indicadores.objetivo_id','=','objetivos.id')
+                               ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
                                ->select('indicadores.*','objetivos.id_compania')
                                ->where('objetivos.id_compania','=',$usuario->id_compania)
                                ->get();
@@ -118,9 +127,10 @@ class ProcesosControllerVisual extends Controller
       $procesos = new Proceso;
       $proceso = $procesos->where('id',$id)->get();
 
-
       $Users = new User;
-      $User = $Users->where('id_compania',$usuario->id_compania)->get();
+      $User = $Users->where('id_compania',$usuario->id_compania)
+      ->where('perfil',4)
+      ->get();
 
       $tipoprocesos = new tipoproceso;
       $tipoproceso = $tipoprocesos->orderBy('id')->get();
@@ -137,7 +147,23 @@ class ProcesosControllerVisual extends Controller
                       ->where('lista_envios.id_proceso',$lista)
                       ->get();
 
+      //return(dd($listaenvio));
 
+      $Users = \DB::table('users')
+                      ->select('lista_envios.id_proceso','users.id','users.nombre')
+                      ->leftJoin('lista_envios', function($join) use ($lista)
+                        {
+                            $join->on('users.id', '=', 'lista_envios.id_usuario');
+                            $join->on(function($query) use ($lista)
+                            {
+                              $query->on('lista_envios.id_proceso', '=', DB::raw("'".$lista."'"));
+                            });
+                        })
+                      ->where('id_compania',$usuario->id_compania)
+                      ->where('perfil',4)
+                      ->whereNull('id_proceso')
+                      //->where('lista_envios.id_proceso',$lista)
+                      ->get();
       //return(dd($User));
 
       $indicadoresrelacion = \DB::table('indicadores')
@@ -154,7 +180,7 @@ class ProcesosControllerVisual extends Controller
                     ->get();
 
 
-       return View('/Secundarias/ProcesosMostrar', compact('proceso','User','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex'));
+       return View('/Secundarias/ProcesosMostrar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex'));
     }
 
     /**
