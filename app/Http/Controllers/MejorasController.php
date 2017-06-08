@@ -56,7 +56,7 @@ class MejorasController extends Controller
               $lista->save();
       }
 
-      return redirect('/Promejoras');
+      return redirect()->action('MejorasController@subiretapas', [$mejoraedit->id]);
 
     }
 
@@ -94,23 +94,7 @@ class MejorasController extends Controller
                        ->where('mejoraetapas.id_mejoras','=',$id)
                        ->get();
 
-
-                       $usuariosequipo2 = \DB::table('users')
-                       ->distinct()
-                       ->select('users.*')
-                      ->join('lista_accesos',function($join) use($equipo){
-                            $join->on('users.id','!=','lista_accesos.id_usuario');
-                            $join->on(function($query) use ($equipo)
-                            {
-                              $query->on('lista_accesos.id_indicador', '=', DB::raw("'".$equipo."'"));
-                            });
-                      })
-                      ->where('users.id_compania',$usuarios->id_compania)
-                      ->where('perfil',4)
-                      ->get();
-
                       $usuariosequipo = \DB::table('users')
-                      ->distinct()
                       ->select('users.*')
                      ->join('lista_accesos',function($join) use($equipo){
                            $join->on('users.id','=','lista_accesos.id_usuario');
@@ -122,6 +106,20 @@ class MejorasController extends Controller
                      ->where('users.id_compania',$usuarios->id_compania)
                      ->where('perfil',4)
                      ->get();
+
+                     $usuariosequipo2 = \DB::table('users')
+                     ->select('users.*','lista_accesos.id_indicador')
+                     ->leftjoin('lista_accesos',function($join) use($equipo){
+                          $join->on('users.id','=','lista_accesos.id_usuario');
+                          $join->on(function($query) use ($equipo)
+                          {
+                            $query->on('lista_accesos.id_indicador', '=', DB::raw("'".$equipo."'"));
+                          });
+                    })
+                    ->where('users.id_compania',$usuarios->id_compania)
+                    ->where('perfil',4)
+                    ->whereNull('id_indicador')
+                    ->get();
 
                       //  dd($usuariosequipo);
 
@@ -201,7 +199,9 @@ class MejorasController extends Controller
         $usuarios = Auth::user();
 
         $mejoras = new Mejoras;
-        $mejora  = $mejoras->all();
+        $mejora  = $mejoras
+        ->where('id_compania',$usuarios->id_compania)
+        ->get();
 
 
 		  if($usuarios->perfil == 4)
@@ -241,7 +241,6 @@ class MejorasController extends Controller
           //          ->get();
           // }
       //dd($mejorarelacion);
-
 
         return view('submenu/Promejora',compact('mejora','mejorarelacion'));
     }
