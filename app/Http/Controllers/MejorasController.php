@@ -75,6 +75,10 @@ class MejorasController extends Controller
       $estatus  = new Estatus;
       $estatu   = $estatus->all();
 
+      $mejoras = new Mejoras;
+      $mejora = $mejoras->where('id',$id)->first();
+
+      $equipo = $mejora['listaequipo'];
 
       $mejorarelacion = \DB::table('mejoras')
              ->select('mejoras.*','users.nombre as usernombre','impactos.nombre as nombreimpacto','estatuses.nombre as nombreestatus')
@@ -90,34 +94,36 @@ class MejorasController extends Controller
                        ->where('mejoraetapas.id_mejoras','=',$id)
                        ->get();
 
-                       $listadeequipo = \DB:: table('lista_accesos')
-                       ->distinct()
-                       ->select('users.*')
-                       ->join('mejoras','lista_accesos.id_indicador','=','mejoras.listaequipo')
-                       ->join('users','users.id','=','lista_accesos.id_usuario')
-                       ->where('mejoras.id','=',$id)
-                       ->groupby('users.id')
-                       ->get();
 
-                       $usuariosequipo = \DB::table('users')
+                       $usuariosequipo2 = \DB::table('users')
                        ->distinct()
                        ->select('users.*')
-                      ->leftjoin('lista_accesos','users.id','=','lista_accesos.id_usuario')
-                      ->leftjoin('mejoras',function ($join)  use ($id)
-                              {
-                                  $join->on('lista_accesos.id_indicador','=','mejoras.listaequipo');
-                                  $join->on(function($query) use ($id)
-                                  {
-                                    $query->on('mejoras.id', '=', DB::raw("'".$id."'"));
-                                  });
-                              })
-                      //  ->join('users','users.id','=','lista_accesos.id_usuario')
+                      ->join('lista_accesos',function($join) use($equipo){
+                            $join->on('users.id','!=','lista_accesos.id_usuario');
+                            $join->on(function($query) use ($equipo)
+                            {
+                              $query->on('lista_accesos.id_indicador', '=', DB::raw("'".$equipo."'"));
+                            });
+                      })
                       ->where('users.id_compania',$usuarios->id_compania)
-                       ->where('perfil',4)
-                       ->whereNull('mejoras.id')
-                       ->get();
+                      ->where('perfil',4)
+                      ->get();
 
-                      //dd($usuariosequipo);
+                      $usuariosequipo = \DB::table('users')
+                      ->distinct()
+                      ->select('users.*')
+                     ->join('lista_accesos',function($join) use($equipo){
+                           $join->on('users.id','=','lista_accesos.id_usuario');
+                           $join->on(function($query) use ($equipo)
+                           {
+                             $query->on('lista_accesos.id_indicador', '=', DB::raw("'".$equipo."'"));
+                           });
+                     })
+                     ->where('users.id_compania',$usuarios->id_compania)
+                     ->where('perfil',4)
+                     ->get();
+
+                      //  dd($usuariosequipo);
 
                        $listadeequipono = \DB:: table('lista_accesos')
                        ->select('users.*')
@@ -131,7 +137,7 @@ class MejorasController extends Controller
 
 
               if($mejorarelacion->tipo == 'lean')
-                return view('subiretapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono','usuariosequipo'));
+                return view('subiretapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','usuariosequipo','usuariosequipo2'));
 
               if($mejorarelacion->tipo == 'six sigma')
                 return view('sigmacreate',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
