@@ -141,16 +141,16 @@
                         <tbody>
                             <?php foreach ($Analisisriesgo as $Analisisriesgos): ?>
                                 <tr>
-                                    <td><?=$Analisisriesgos['actividad']?></td>
-                                    <td><?=$Analisisriesgos['riesgo_id']?></td>
-                                    <td><?=$Analisisriesgos['descripcion_modo_falla']?></td>
-                                    <td><?=$Analisisriesgos['Severidad']?></td>
-                                    <td><?=$Analisisriesgos['probabilidad']?></td>
-                                    <td><?=$Analisisriesgos['controles']?></td>
-                                    <td><?=$Analisisriesgos['Severidad2']?></td>
-                                    <td><?=$Analisisriesgos['probabilidad2']?></td>
-                                    <td><?=$Analisisriesgos['riesgo_inherente']?></td>
-                                    <td><?=$Analisisriesgos['riesgo_residual']?></td>
+                                    <td><?=$Analisisriesgos->actividad?></td>
+                                    <td><?=$Analisisriesgos->riesgo_id?></td>
+                                    <td><?=$Analisisriesgos->descripcion_modo_falla?></td>
+                                    <td><?=$Analisisriesgos->Severidad?></td>
+                                    <td><?=$Analisisriesgos->probabilidad?></td>
+                                    <td><?=$Analisisriesgos->controles?></td>
+                                    <td><?=$Analisisriesgos->Severidad2?></td>
+                                    <td><?=$Analisisriesgos->probabilidad?></td>
+                                    <td><?=$Analisisriesgos->riesgo_inherente?></td>
+                                    <td><?=$Analisisriesgos->riesgo_residual?></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>

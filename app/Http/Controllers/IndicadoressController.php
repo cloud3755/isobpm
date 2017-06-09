@@ -13,6 +13,7 @@ use App\Models\Objetivo;
 use App\Models\User;
 use App\Models\Logica;
 use App\Models\lista_acceso;
+use Illuminate\Support\Facades\Auth;
 
 class IndicadoressController extends Controller
 {
@@ -72,6 +73,8 @@ class IndicadoressController extends Controller
      */
     public function store(Request $request)
     {
+
+      $user = Auth::user();
       /*metodo corto
         $indicador = Indicadores;
         $indicador->create($request->all());
@@ -88,6 +91,7 @@ class IndicadoressController extends Controller
       $indicador->meta = $request->input("meta");
       $idacceso = uniqid();
       $indicador->acceso = $idacceso;
+      $indicador->creador_id =$user->id;
       $indicador->save();
 
       $acceso=$request->input('lista_de_acceso'); //$_POST["lista_de_distribucion"];

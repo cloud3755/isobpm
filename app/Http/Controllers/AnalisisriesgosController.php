@@ -34,8 +34,20 @@ class AnalisisriesgosController extends Controller
     public function create()
     {
       $Users = Auth::user();
-      $procesos = new Proceso;
-      $proceso = $procesos->where('idcompañia',$Users->id_compania)->get();
+
+      if ($Users->perfil == 4) {
+        $procesos = new Proceso;
+        $proceso = $procesos
+        ->where('idcompañia',$Users->id_compania)
+        ->where('usuario_responsable_id',$Users->id)
+        ->orwhere('Creador_id',$Users->id)
+        ->get();
+      }else {
+        $procesos = new Proceso;
+        $proceso = $procesos
+        ->where('idcompañia',$Users->id_compania)
+        ->get();
+      }
 
       $Users = new User;
       $User = $Users->all();

@@ -56,7 +56,7 @@ class MejorasController extends Controller
               $lista->save();
       }
 
-      return redirect('/Promejoras');
+      return redirect()->action('MejorasController@subiretapas', [$mejoraedit->id]);
 
     }
 
@@ -75,6 +75,10 @@ class MejorasController extends Controller
       $estatus  = new Estatus;
       $estatu   = $estatus->all();
 
+      $mejoras = new Mejoras;
+      $mejora = $mejoras->where('id',$id)->first();
+
+      $equipo = $mejora['listaequipo'];
 
       $mejorarelacion = \DB::table('mejoras')
              ->select('mejoras.*','users.nombre as usernombre','impactos.nombre as nombreimpacto','estatuses.nombre as nombreestatus')
@@ -90,14 +94,34 @@ class MejorasController extends Controller
                        ->where('mejoraetapas.id_mejoras','=',$id)
                        ->get();
 
-                       $listadeequipo = \DB:: table('lista_accesos')
-                       ->select('users.*')
-                       ->join('mejoras','lista_accesos.id_indicador','=','mejoras.listaequipo')
-                       ->join('users','users.id','=','lista_accesos.id_usuario')
-                       ->where('mejoras.id','=',$id)
-                       ->groupby('users.id')
-                       ->get();
+                      $usuariosequipo = \DB::table('users')
+                      ->select('users.*')
+                     ->join('lista_accesos',function($join) use($equipo){
+                           $join->on('users.id','=','lista_accesos.id_usuario');
+                           $join->on(function($query) use ($equipo)
+                           {
+                             $query->on('lista_accesos.id_indicador', '=', DB::raw("'".$equipo."'"));
+                           });
+                     })
+                     ->where('users.id_compania',$usuarios->id_compania)
+                     ->where('perfil',4)
+                     ->get();
 
+                     $usuariosequipo2 = \DB::table('users')
+                     ->select('users.*','lista_accesos.id_indicador')
+                     ->leftjoin('lista_accesos',function($join) use($equipo){
+                          $join->on('users.id','=','lista_accesos.id_usuario');
+                          $join->on(function($query) use ($equipo)
+                          {
+                            $query->on('lista_accesos.id_indicador', '=', DB::raw("'".$equipo."'"));
+                          });
+                    })
+                    ->where('users.id_compania',$usuarios->id_compania)
+                    ->where('perfil',4)
+                    ->whereNull('id_indicador')
+                    ->get();
+
+                      //  dd($usuariosequipo);
 
                        $listadeequipono = \DB:: table('lista_accesos')
                        ->select('users.*')
@@ -111,13 +135,13 @@ class MejorasController extends Controller
 
 
               if($mejorarelacion->tipo == 'lean')
-                return view('subiretapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
+                return view('subiretapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','usuariosequipo','usuariosequipo2'));
 
               if($mejorarelacion->tipo == 'six sigma')
-                return view('sigmacreate',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
+                return view('sigmacreate',compact('mejorarelacion','impacto','User','estatu','relaciontabla','usuariosequipo','usuariosequipo2'));
 
               if($mejorarelacion->tipo == 'Bpm')
-                return view('bpmetapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','listadeequipo','listadeequipono'));
+                return view('bpmetapa',compact('mejorarelacion','impacto','User','estatu','relaciontabla','usuariosequipo','usuariosequipo2'));
     }
 
 
@@ -131,6 +155,20 @@ class MejorasController extends Controller
         $mejoraetapas->delete();
 
         return redirect('/Promejoras');
+    }
+
+    public function eliminarmejora($id)
+    {
+      $mejora = Mejoras::findorfail($id);
+
+      $equipo = $mejora->listaequipo;
+
+      $lista = new lista_acceso;
+      $lista->where('id_indicador', $equipo)->delete();
+
+      $mejora->delete();
+
+      return redirect('/Promejoras');
     }
 
     public function guardaretapa(Request $request)
@@ -161,7 +199,9 @@ class MejorasController extends Controller
         $usuarios = Auth::user();
 
         $mejoras = new Mejoras;
-        $mejora  = $mejoras->all();
+        $mejora  = $mejoras
+        ->where('id_compania',$usuarios->id_compania)
+        ->get();
 
 
 		  if($usuarios->perfil == 4)
@@ -201,7 +241,6 @@ class MejorasController extends Controller
           //          ->get();
           // }
       //dd($mejorarelacion);
-
 
         return view('submenu/Promejora',compact('mejora','mejorarelacion'));
     }
