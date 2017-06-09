@@ -30,8 +30,19 @@ class mapadecalorController extends Controller
       $areas = new Areas;
       $area = $areas->where('id_compania',$usuarios->id_compania)->get();
 
-      $procesos = new Proceso;
-      $proceso = $procesos->where('idcompañia',$usuarios->id_compania)->get();
+      if ($usuarios->perfil == 4) {
+        $procesos = new Proceso;
+        $proceso = $procesos
+        ->where('idcompañia',$usuarios->id_compania)
+        ->where('usuario_responsable_id',$usuarios->id)
+        ->orwhere('Creador_id',$usuarios->id)
+        ->get();
+      }else {
+        $procesos = new Proceso;
+        $proceso = $procesos
+        ->where('idcompañia',$usuarios->id_compania)
+        ->get();
+      }
 
       $Abcriesgos = new Abcriesgos;
       $Abcriesgo = $Abcriesgos->where('id_compania',$usuarios->id_compania)->get();
@@ -51,6 +62,7 @@ class mapadecalorController extends Controller
           })
         ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
         ->orwhere('procesos.Creador_id' ,$usuarios->id)
+        ->orwhere('procesos.usuario_responsable_id' ,$usuarios->id)
         ->get());
 
 
@@ -125,6 +137,7 @@ class mapadecalorController extends Controller
             })
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
           ->orwhere('procesos.Creador_id' ,$usuarios->id)
+          ->orwhere('procesos.usuario_responsable_id' ,$usuarios->id)
           ->get());
 
           $riskmap_11 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('Severidad', '1')->where('probabilidad','1')->count();
@@ -169,6 +182,10 @@ class mapadecalorController extends Controller
             $query2->where('procesos.Creador_id' ,$user)
             ->where('id_area', $area1);
           })
+          ->orWhere(function ($query2) use ($user,$area1){
+            $query2->where('procesos.usuario_responsable_id' ,$user)
+            ->where('id_area', $area1);
+          })
           ->get());
 
           $riskmap_11 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('Severidad', '1')->where('probabilidad','1')->count();
@@ -210,6 +227,10 @@ class mapadecalorController extends Controller
           ->where('procesos_id',$request->input('procesos'))
           ->orWhere(function ($query2) use ($user,$procesos1){
             $query2->where('procesos.Creador_id' ,$user)
+            ->where('procesos_id',$procesos1);
+          })
+          ->orWhere(function ($query2) use ($user,$procesos1){
+            $query2->where('procesos.usuario_responsable_id' ,$user)
             ->where('procesos_id',$procesos1);
           })
           ->get());
@@ -257,6 +278,10 @@ class mapadecalorController extends Controller
             $query2->where('procesos.Creador_id' ,$user)
             ->where('riesgo_id',$tipo1);
           })
+          ->orWhere(function ($query2) use ($user,$tipo1){
+            $query2->where('procesos.usuario_responsable_id' ,$user)
+            ->where('riesgo_id',$tipo1);
+          })
           ->get());
 
 
@@ -302,6 +327,11 @@ class mapadecalorController extends Controller
           ->where('procesos_id',$proceso1)
           ->orWhere(function ($query2) use ($user,$area1,$proceso1){
             $query2->where('procesos.Creador_id' ,$user)
+            ->where('id_area',$area1)
+            ->where('procesos_id',$proceso1);
+          })
+          ->orWhere(function ($query2) use ($user,$area1,$proceso1){
+            $query2->where('procesos.usuario_responsable_id' ,$user)
             ->where('id_area',$area1)
             ->where('procesos_id',$proceso1);
           })
@@ -354,6 +384,12 @@ class mapadecalorController extends Controller
             ->where('procesos_id',$proceso1)
             ->where('riesgo_id',$tipo1);
           })
+          ->orWhere(function ($query2) use ($user,$area1,$proceso1,$tipo1){
+            $query2->where('procesos.usuario_responsable_id' ,$user)
+            ->where('id_area',$area1)
+            ->where('procesos_id',$proceso1)
+            ->where('riesgo_id',$tipo1);
+          })
           ->get());
 
           $riskmap_11 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('Severidad', '1')->where('probabilidad','1')->count();
@@ -401,6 +437,11 @@ class mapadecalorController extends Controller
             ->where('id_area',$area1)
             ->where('riesgo_id',$tipo1);
           })
+          ->orWhere(function ($query2) use ($user,$area1,$tipo1){
+            $query2->where('procesos.usuario_responsable_id' ,$user)
+            ->where('id_area',$area1)
+            ->where('riesgo_id',$tipo1);
+          })
           ->get());
 
           $riskmap_11 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('Severidad', '1')->where('probabilidad','1')->count();
@@ -445,6 +486,11 @@ class mapadecalorController extends Controller
           ->where('procesos_id',$proceso1)
           ->orWhere(function ($query2) use ($user,$tipo1,$proceso1){
             $query2->where('procesos.Creador_id' ,$user)
+            ->where('procesos_id',$proceso1)
+            ->where('riesgo_id',$tipo1);
+          })
+          ->orWhere(function ($query2) use ($user,$tipo1,$proceso1){
+            $query2->where('procesos.usuario_responsable_id' ,$user)
             ->where('procesos_id',$proceso1)
             ->where('riesgo_id',$tipo1);
           })
@@ -684,8 +730,19 @@ class mapadecalorController extends Controller
             $areas = new Areas;
             $area = $areas->where('id_compania',$usuarios->id_compania)->get();
 
-            $procesos = new Proceso;
-            $proceso = $procesos->where('idcompañia',$usuarios->id_compania)->get();
+            if ($usuarios->perfil == 4) {
+              $procesos = new Proceso;
+              $proceso = $procesos
+              ->where('idcompañia',$usuarios->id_compania)
+              ->where('usuario_responsable_id',$usuarios->id)
+              ->orwhere('Creador_id',$usuarios->id)
+              ->get();
+            }else {
+              $procesos = new Proceso;
+              $proceso = $procesos
+              ->where('idcompañia',$usuarios->id_compania)
+              ->get();
+            }
 
             $Abcriesgos = new Abcriesgos;
             $Abcriesgo = $Abcriesgos->where('id_compania',$usuarios->id_compania)->get();
