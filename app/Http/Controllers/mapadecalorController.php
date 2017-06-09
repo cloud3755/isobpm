@@ -27,9 +27,6 @@ class mapadecalorController extends Controller
     {
       $usuarios = Auth::user();
 
-      $Analisisriesgos = new Analisisriesgos;
-      $Analisisriesgo = $Analisisriesgos->where('idcompañia',$usuarios->id_compania)->get();
-
       $areas = new Areas;
       $area = $areas->where('id_compania',$usuarios->id_compania)->get();
 
@@ -38,26 +35,66 @@ class mapadecalorController extends Controller
 
       $Abcriesgos = new Abcriesgos;
       $Abcriesgo = $Abcriesgos->where('id_compania',$usuarios->id_compania)->get();
+      if ($usuarios->id_compania == 4) {
+        $user = $usuarios->id;
+        $Analisisriesgo = DB::table('analisisriesgos')
+        ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+        ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+        ->join('lista_envios', function($join) use ($user)
+          {
+              $join->on('lista_envios.id_proceso','=','procesos.lista_de_distribucion');
+              $join->on(function($query) use ($user)
+              {
+                $query->on('lista_envios.id_usuario', '=', DB::raw("'".$user."'"));
+              });
+          })
+        ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
+        ->get();
 
-            $riskmap_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',1)->count();
-            $riskmap_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',2)->count();
-            $riskmap_13 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',3)->count();
-            $riskmap_21 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',1)->count();
-            $riskmap_22 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',2)->count();
-            $riskmap_23 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',3)->count();
-            $riskmap_31 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',1)->count();
-            $riskmap_32 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',2)->count();
-            $riskmap_33 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',3)->count();
 
-            $riskmap2_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',1)->count();
-            $riskmap2_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',2)->count();
-            $riskmap2_13 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',3)->count();
-            $riskmap2_21 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',1)->count();
-            $riskmap2_22 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',2)->count();
-            $riskmap2_23 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',3)->count();
-            $riskmap2_31 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',1)->count();
-            $riskmap2_32 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',2)->count();
-            $riskmap2_33 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',3)->count();
+        $riskmap_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',1)->count();
+        $riskmap_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',2)->count();
+        $riskmap_13 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',3)->count();
+        $riskmap_21 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',1)->count();
+        $riskmap_22 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',2)->count();
+        $riskmap_23 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',3)->count();
+        $riskmap_31 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',1)->count();
+        $riskmap_32 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',2)->count();
+        $riskmap_33 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',3)->count();
+
+        $riskmap2_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',1)->count();
+        $riskmap2_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',2)->count();
+        $riskmap2_13 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',3)->count();
+        $riskmap2_21 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',1)->count();
+        $riskmap2_22 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',2)->count();
+        $riskmap2_23 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',3)->count();
+        $riskmap2_31 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',1)->count();
+        $riskmap2_32 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',2)->count();
+        $riskmap2_33 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',3)->count();
+      }else {
+        $Analisisriesgos = new Analisisriesgos;
+        $Analisisriesgo = $Analisisriesgos->where('idcompañia',$usuarios->id_compania)->get();
+
+        $riskmap_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',1)->count();
+        $riskmap_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',2)->count();
+        $riskmap_13 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',3)->count();
+        $riskmap_21 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',1)->count();
+        $riskmap_22 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',2)->count();
+        $riskmap_23 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 2)->where('probabilidad',3)->count();
+        $riskmap_31 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',1)->count();
+        $riskmap_32 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',2)->count();
+        $riskmap_33 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 3)->where('probabilidad',3)->count();
+
+        $riskmap2_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',1)->count();
+        $riskmap2_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',2)->count();
+        $riskmap2_13 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 1)->where('probabilidad2',3)->count();
+        $riskmap2_21 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',1)->count();
+        $riskmap2_22 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',2)->count();
+        $riskmap2_23 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 2)->where('probabilidad2',3)->count();
+        $riskmap2_31 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',1)->count();
+        $riskmap2_32 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',2)->count();
+        $riskmap2_33 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad2', 3)->where('probabilidad2',3)->count();
+      }
 
 
 
