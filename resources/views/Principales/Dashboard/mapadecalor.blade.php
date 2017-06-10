@@ -21,7 +21,7 @@
           <select class="form-control input-lg" name="procesos" id="procesos">
             <option selected value="0">Sin filtro</option>
             <?php foreach ($proceso as $procesos): ?>
-              <option value="<?=$procesos['id']?>"><?=$procesos['proceso']?></option>
+              <option value="<?=$procesos->id?>"><?=$procesos->proceso?></option>
             <?php endforeach ?>
           </select>
         </div>

@@ -34,7 +34,7 @@
 
       <?php foreach ($proceso->where('tipo',$tipoproc['nombreproceso']) as $process): ?>
 
-      <button type="button" class="btnproceso" onclick=location="/procesos/registro/<?=$process['id'] ?>" id="<?=$process['proceso'] ?>"><?=$process['proceso'] ?></button>
+      <button type="button" class="btnproceso" onclick=location="/procesos/registro/<?=$process->id ?>" id="<?=$process->proceso ?>"><?=$process->proceso ?></button>
 
       <?php endforeach ?>
 

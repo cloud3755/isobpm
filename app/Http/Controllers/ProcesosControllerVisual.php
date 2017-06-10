@@ -38,18 +38,26 @@ class ProcesosControllerVisual extends Controller
     {
       $usuario = Auth::user();
       //
+      $user = $usuario->id;
       if ($usuario->perfil == 4) {
-        $procesos = new Proceso;
-        $proceso = $procesos
+        $proceso = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->select('procesos.*')
+        ->leftjoin('lista_envios', function($join) use ($user)
+          {
+              $join->on('lista_envios.id_proceso','=','procesos.lista_de_distribucion');
+              $join->on(function($query) use ($user)
+              {
+                $query->on('lista_envios.id_usuario', '=', DB::raw("'".$user."'"));
+              });
+          })
         ->where('idcompañia',$usuario->id_compania)
-        ->where('usuario_responsable_id',$usuario->id)
+        ->WhereNotNull('lista_envios.id_usuario')
+        ->orwhere('usuario_responsable_id',$usuario->id)
         ->orwhere('Creador_id',$usuario->id)
-        ->get();
+        ->get());
+
       }else {
-        $procesos = new Proceso;
-        $proceso = $procesos
-        ->where('idcompañia',$usuario->id_compania)
-        ->get();
+        $proceso = \Illuminate\Support\Collection::make(DB::table('procesos')->where('idcompañia',$usuario->id_compania)->get());
       }
 
       $Users = new User;

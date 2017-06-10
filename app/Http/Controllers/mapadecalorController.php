@@ -29,26 +29,33 @@ class mapadecalorController extends Controller
 
       $areas = new Areas;
       $area = $areas->where('id_compania',$usuarios->id_compania)->get();
+      $user = $usuarios->id;
 
       if ($usuarios->perfil == 4) {
-        $procesos = new Proceso;
-        $proceso = $procesos
+        $proceso = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->select('procesos.*')
+        ->leftjoin('lista_envios', function($join) use ($user)
+          {
+              $join->on('lista_envios.id_proceso','=','procesos.lista_de_distribucion');
+              $join->on(function($query) use ($user)
+              {
+                $query->on('lista_envios.id_usuario', '=', DB::raw("'".$user."'"));
+              });
+          })
         ->where('idcompañia',$usuarios->id_compania)
-        ->where('usuario_responsable_id',$usuarios->id)
+        ->WhereNotNull('lista_envios.id_usuario')
+        ->orwhere('usuario_responsable_id',$usuarios->id)
         ->orwhere('Creador_id',$usuarios->id)
-        ->get();
+        ->get());
+
       }else {
-        $procesos = new Proceso;
-        $proceso = $procesos
-        ->where('idcompañia',$usuarios->id_compania)
-        ->get();
+        $proceso = \Illuminate\Support\Collection::make(DB::table('procesos')->where('idcompañia',$usuario->id_compania)->get());
       }
 
       $Abcriesgos = new Abcriesgos;
       $Abcriesgo = $Abcriesgos->where('id_compania',$usuarios->id_compania)->get();
 
       if ($usuarios->perfil == 4) {
-        $user = $usuarios->id;
         $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
         ->select('analisisriesgos.*','procesos.lista_de_distribucion')
         ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
@@ -61,6 +68,7 @@ class mapadecalorController extends Controller
               });
           })
         ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
+        ->WhereNotNull('lista_envios.id_usuario')
         ->orwhere('procesos.Creador_id' ,$usuarios->id)
         ->orwhere('procesos.usuario_responsable_id' ,$usuarios->id)
         ->get());
@@ -136,6 +144,7 @@ class mapadecalorController extends Controller
                 });
             })
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orwhere('procesos.Creador_id' ,$usuarios->id)
           ->orwhere('procesos.usuario_responsable_id' ,$usuarios->id)
           ->get());
@@ -178,6 +187,7 @@ class mapadecalorController extends Controller
             })
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
           ->where('id_area',$request->input('areas'))
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orWhere(function ($query2) use ($user,$area1){
             $query2->where('procesos.Creador_id' ,$user)
             ->where('id_area', $area1);
@@ -225,6 +235,7 @@ class mapadecalorController extends Controller
             })
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
           ->where('procesos_id',$request->input('procesos'))
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orWhere(function ($query2) use ($user,$procesos1){
             $query2->where('procesos.Creador_id' ,$user)
             ->where('procesos_id',$procesos1);
@@ -274,6 +285,7 @@ class mapadecalorController extends Controller
             })
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
           ->where('riesgo_id',$tipo1)
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orWhere(function ($query2) use ($user,$tipo1){
             $query2->where('procesos.Creador_id' ,$user)
             ->where('riesgo_id',$tipo1);
@@ -325,6 +337,7 @@ class mapadecalorController extends Controller
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
           ->where('id_area',$area1)
           ->where('procesos_id',$proceso1)
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orWhere(function ($query2) use ($user,$area1,$proceso1){
             $query2->where('procesos.Creador_id' ,$user)
             ->where('id_area',$area1)
@@ -378,6 +391,7 @@ class mapadecalorController extends Controller
           ->where('id_area',$area1)
           ->where('riesgo_id',$tipo1)
           ->where('procesos_id',$proceso1)
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orWhere(function ($query2) use ($user,$area1,$proceso1,$tipo1){
             $query2->where('procesos.Creador_id' ,$user)
             ->where('id_area',$area1)
@@ -432,6 +446,7 @@ class mapadecalorController extends Controller
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
           ->where('id_area',$area1)
           ->where('riesgo_id',$tipo1)
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orWhere(function ($query2) use ($user,$area1,$tipo1){
             $query2->where('procesos.Creador_id' ,$user)
             ->where('id_area',$area1)
@@ -484,6 +499,7 @@ class mapadecalorController extends Controller
           ->where('analisisriesgos.idcompañia',$usuarios->id_compania)
           ->where('riesgo_id',$tipo1)
           ->where('procesos_id',$proceso1)
+          ->WhereNotNull('lista_envios.id_usuario')
           ->orWhere(function ($query2) use ($user,$tipo1,$proceso1){
             $query2->where('procesos.Creador_id' ,$user)
             ->where('procesos_id',$proceso1)
@@ -730,20 +746,28 @@ class mapadecalorController extends Controller
             $areas = new Areas;
             $area = $areas->where('id_compania',$usuarios->id_compania)->get();
 
-            if ($usuarios->perfil == 4) {
-              $procesos = new Proceso;
-              $proceso = $procesos
-              ->where('idcompañia',$usuarios->id_compania)
-              ->where('usuario_responsable_id',$usuarios->id)
-              ->orwhere('Creador_id',$usuarios->id)
-              ->get();
-            }else {
-              $procesos = new Proceso;
-              $proceso = $procesos
-              ->where('idcompañia',$usuarios->id_compania)
-              ->get();
-            }
+            $user = $usuarios->id;
 
+            if ($usuarios->perfil == 4) {
+              $proceso = \Illuminate\Support\Collection::make(DB::table('procesos')
+              ->select('procesos.*')
+              ->leftjoin('lista_envios', function($join) use ($user)
+                {
+                    $join->on('lista_envios.id_proceso','=','procesos.lista_de_distribucion');
+                    $join->on(function($query) use ($user)
+                    {
+                      $query->on('lista_envios.id_usuario', '=', DB::raw("'".$user."'"));
+                    });
+                })
+              ->where('idcompañia',$usuarios->id_compania)
+              ->WhereNotNull('lista_envios.id_usuario')
+              ->orwhere('usuario_responsable_id',$usuarios->id)
+              ->orwhere('Creador_id',$usuarios->id)
+              ->get());
+
+            }else {
+              $proceso = \Illuminate\Support\Collection::make(DB::table('procesos')->where('idcompañia',$usuario->id_compania)->get());
+            }
             $Abcriesgos = new Abcriesgos;
             $Abcriesgo = $Abcriesgos->where('id_compania',$usuarios->id_compania)->get();
 
