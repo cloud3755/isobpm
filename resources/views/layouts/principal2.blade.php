@@ -52,6 +52,11 @@
     <script src="/js/daterangepicker/moment.min.js" charset="utf-8"></script>
     <script src="/js/icheck/icheck.min.js" charset="utf-8"></script>
     <script src="/js/bootstrap-select.min.js" charset="utf-8"></script>
+
+    //select multiple
+    <script src="/js/multiple-select.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/multiple-select.css" type="text/css">
+
     {{-- neón theme --}}
     <link rel="stylesheet" href="/sweet/sweetalert.css" type="text/css">
     <!-- Bootstrap Core CSS -->
