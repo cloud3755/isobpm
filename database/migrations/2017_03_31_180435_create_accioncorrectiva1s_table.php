@@ -34,6 +34,7 @@ class CreateAccioncorrectiva1sTable extends Migration
           $table->integer('creador_id');
           $table->integer('indicador_id');
           $table->double('monto');
+          $table->integer('area');
           $table->integer('idcompañia')->unsigned();
         });
     }
