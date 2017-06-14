@@ -168,18 +168,100 @@
                   <h2><label for="Usuario" class="control-label col-md-12">Lista de accesos:</label></h2>
                   <div class="col-md-12">
 
-                        <select class="form-control multi-select"  multiple="multiple" name="elista_de_accesos[]" id="elista_de_accesos" width="100%" multiple data-actions-box="true" >
-                           <?php foreach ($User as $Users): ?>
-                             <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
-                           <?php endforeach ?>
-                         </select>
+                    <div>
+                                      <p>
+                                          </p><table>
+                                              <tbody><tr>
+                                                  <td>Usuarios no elegidos</td>
+                                                  <td></td>
+                                                  <td>Usuarios elegidos</td>
+                                              </tr>
+                                              <tr>
+                                                  <td>
+                                                      <select id="listaUsuariosDisponibles" name="listaUsuariosDisponibles[]" size="7" style="width: 100%;" multiple>
+                                                        <?php foreach ($User as $Users): ?>
+                                                          <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
+                                                        <?php endforeach ?>
+                                                      </select>
+
+                                              </td>
+                                              <td>
+                                                  <table>
+                                                      <tbody><tr>
+                                                          <td>
+                                                              <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaUsuariosDisponibles', 'listaUsuariosSeleccionados');">
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <script type="text/javascript">
+                                                                  function agregaSeleccion(origen, destino) {
+                                                                      obj = document.getElementById(origen);
+                                                                      if (obj.selectedIndex == -1)
+                                                                          return;
+
+                                                                      for (i = 0; opt = obj.options[i]; i++)
+                                                                          if (opt.selected) {
+                                                                              valor = opt.value; // almacenar value
+                                                                              txt = obj.options[i].text; // almacenar el texto
+                                                                              obj.options[i] = null; // borrar el item si está seleccionado
+                                                                              obj2 = document.getElementById(destino);
+
+                                                                              opc = new Option(txt, valor);
+                                                                              eval(obj2.options[obj2.options.length] = opc);
+                                                                          }
+                                                                      }
+
+                                                                      function agregaTodo(origen, destino) {
+                                                                          obj = document.getElementById(origen);
+                                                                          obj2 = document.getElementById(destino);
+                                                                          aux = obj.options.length;
+                                                                          for (i = 0; i < aux; i++) {
+                                                                              aux2 = 0;
+                                                                              opt = obj.options[aux2];
+                                                                          valor = opt.value; // almacenar value
+                                                                          txt = obj.options[aux2].text; // almacenar el texto
+                                                                          obj.options[aux2] = null; // borrar el item si está seleccionado
+
+                                                                          opc = new Option(txt, valor);
+                                                                          eval(obj2.options[obj2.options.length] = opc);
+                                                                      }
+                                                                  }
+
+                                                              </script>
+                                                              <input type="button" name="agregar" value=">>" title="Agregar opciones seleccionadas" onclick="agregaSeleccion('listaUsuariosDisponibles', 'listaUsuariosSeleccionados');">
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <input type="button" name="quitar" value="<<" title="Quitar opciones seleccionadas" onclick="agregaSeleccion('listaUsuariosSeleccionados', 'listaUsuariosDisponibles');">
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaUsuariosSeleccionados', 'listaUsuariosDisponibles');">
+                                                          </td>
+                                                      </tr>
+                                                  </tbody></table>
+
+                                              </td>
+
+                                              <td>
+                                                  <select id="listaUsuariosSeleccionados" name="listaUsuariosSeleccionados[]" size="7" style="width: 100%;" multiple>
+
+                                                  </select>
+                                              </td>
+                                          </tr>
+                                      </tbody></table>
+                                  <p></p>
+                              </div>
 
                   </div>
                 </div>
                 <div class="form-group form-group-lg">
                   <h2><label for="Usuario" class="control-label col-md-12">Lista actual:</label></h2>
                   <div class="col-md-6 col-sm-9">
-                    <select class="form-control"  multiple="multiple" name="Select[]"  name="Select" id="Select" width="100%" multiple data-actions-box="true">
+                    <select class="form-control multi-select"  multiple name="Select[]"  id="Select" width="100%" multiple data-actions-box="true" data-size="5" title="Selecciona los usuarios" data-header="Selecciona los usuarios" multiple data-selected-text-format="values">
 
                     </select>
                   </div>
@@ -215,14 +297,19 @@ function Editar(btn){
     $("#earchivo").val(res.archivo);
   });
 
+
   var route = route+"2";
-  $("#Select").empty();
+  $("#listaUsuariosSeleccionados").empty();
 
   $.get(route, function(res){
     for (var i = 0; i < res.length; i++) {
-      $("#Select").append('<option value="1">'+res[i].nombre+'</option>');
+      $("#listaUsuariosSeleccionados").append('<option value="'+res[i].id+'">'+res[i].nombre+'</option>');
+      //$(".selectpicker").selectpicker('val', [res[i].nombre]);
     }
-  });
+  }
+
+
+);
 
 }
 
