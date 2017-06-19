@@ -284,22 +284,43 @@ class InformaciondocController extends Controller
 
 
   public function edit23($id){
+    $users = Auth::user();
     $documentos = Documentos::find($id);
     if ($documentos->status == 3) {
       $docum = Documentostmp::where('id_documento', $id)->first();
+      $lista = $docum->acceso;
       $document = DB::table('users')
-      ->leftjoin('informacion_accesos', 'users.id', '=', 'informacion_accesos.id_usuario')
+      ->leftJoin('informacion_accesos', function($join) use ($lista)
+        {
+            $join->on('users.id', '=', 'informacion_accesos.id_usuario');
+            $join->on(function($query) use ($lista)
+            {
+              $query->on('informacion_accesos.id_documento', '=', DB::raw("'".$lista."'"));
+            });
+        })
       ->select('users.*')
+      ->where('users.id_compania',$users->id_compania)
       ->WhereNull('informacion_accesos.id_documento')
+      ->where('users.perfil',4)
       ->get();
       return response()->json(
         $document
       );
     }else {
+      $lista = $documentos->acceso;
       $document = DB::table('users')
-      ->leftjoin('informacion_accesos', 'users.id', '=', 'informacion_accesos.id_usuario')
+      ->leftJoin('informacion_accesos', function($join) use ($lista)
+        {
+            $join->on('users.id', '=', 'informacion_accesos.id_usuario');
+            $join->on(function($query) use ($lista)
+            {
+              $query->on('informacion_accesos.id_documento', '=', DB::raw("'".$lista."'"));
+            });
+        })
       ->select('users.*')
+      ->where('users.id_compania',$users->id_compania)
       ->WhereNull('informacion_accesos.id_documento')
+      ->where('users.perfil',4)
       ->get();
       return response()->json(
         $document
@@ -311,7 +332,6 @@ class InformaciondocController extends Controller
 
   public function aprobar(Request $request, $id){
     $documentoe = Documentos::find($id);
-
     if ($documentoe->status == 0) {
       $documentoe->status = 1;
       $documentoe->save();

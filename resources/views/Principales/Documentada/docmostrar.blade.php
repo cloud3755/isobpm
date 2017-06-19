@@ -391,7 +391,7 @@ function Editar(btn){
 
   $.get(route, function(res){
     for (var i = 0; i < res.length; i++) {
-      $("#elistaUsuariosDisponibles").append('<option value="'+res[i].id+'" selected="selected">'+res[i].nombre+'</option>');
+      $("#elistaUsuariosDisponibles").append('<option value="'+res[i].id+'">'+res[i].nombre+'</option>');
 
     }
   });
