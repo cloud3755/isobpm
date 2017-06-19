@@ -68,8 +68,9 @@ class InformaciondocController extends Controller
                       ->select('informacion_accesos.id_documento','users.id','users.usuario')
                       ->leftjoin('documentos','informacion_accesos.id_documento','=','documentos.acceso')
                       ->get();
-                      //return dd($listaaccesos);
+                    //  return dd($listaaccesos);
     //return view('/Principales/Documentada/docmostrar');
+
     return view('/Principales/Documentada/docmostrar',compact('datos','documento','User','listaaccesos','accesosactuales'));
   }
 
@@ -112,6 +113,7 @@ class InformaciondocController extends Controller
 
     //Se guarda la lista de accesos
     $acces=$request->input('lista_de_accesos'); //$_POST["lista_de_distribucion"];
+  //  return(dd($request->input('lista_de_accesos')));
     for ($i=0;$i<count($acces);$i++)
     {
       $acce = new informacion_accesos;
@@ -279,6 +281,33 @@ class InformaciondocController extends Controller
       );
     }
   }
+
+
+  public function edit23($id){
+    $documentos = Documentos::find($id);
+    if ($documentos->status == 3) {
+      $docum = Documentostmp::where('id_documento', $id)->first();
+      $document = DB::table('users')
+      ->leftjoin('informacion_accesos', 'users.id', '=', 'informacion_accesos.id_usuario')
+      ->select('users.*')
+      ->WhereNull('informacion_accesos.id_documento')
+      ->get();
+      return response()->json(
+        $document
+      );
+    }else {
+      $document = DB::table('users')
+      ->leftjoin('informacion_accesos', 'users.id', '=', 'informacion_accesos.id_usuario')
+      ->select('users.*')
+      ->WhereNull('informacion_accesos.id_documento')
+      ->get();
+      return response()->json(
+        $document
+      );
+    }
+  }
+
+
 
   public function aprobar(Request $request, $id){
     $documentoe = Documentos::find($id);

@@ -87,6 +87,7 @@
               <form class="" action="/documentada/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="id_tipo" value="<?=$datos['id'] ?>">
+              <input type="hidden" name="lista[]" id="lista"/>
               <div class="container">
                 <div class="form-group form-group-lg">
                     <h2><label for="Usuario" class="control-label col-md-12">(*) Nombre:</label></h2>
@@ -111,11 +112,59 @@
                   <h2><label for="Usuario" class="control-label col-md-12">Lista de accesos:</label></h2>
                   <div class="col-md-12">
 
-                        <select class="form-control multi-select"  multiple="multiple" name="lista_de_accesos[]" id="lista_de_accesos" width="100%" multiple data-actions-box="true">
-                           <?php foreach ($User as $Users): ?>
-                             <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
-                           <?php endforeach ?>
-                         </select>
+
+                         <div>
+                                           <p>
+                                               </p><table>
+                                                   <tbody><tr>
+                                                       <td>Usuarios no elegidos</td>
+                                                       <td></td>
+                                                       <td>Usuarios elegidos</td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>
+                                                           <select multiple name="listaUsuariosDisponibles[]"  id="listaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('listaUsuariosDisponibles', 'lista_de_accesos');">
+                                                             <?php foreach ($User as $Users): ?>
+                                                               <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
+                                                             <?php endforeach ?>
+                                                           </select>
+
+                                                   </td>
+                                                   <td>
+                                                       <table>
+                                                           <tbody><tr>
+                                                               <td>
+                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaUsuariosDisponibles', 'lista_de_accesos');">
+                                                               </td>
+                                                           </tr>
+                                                           <tr>
+                                                               <td>
+
+                                                             </td>
+                                                           </tr>
+                                                           <tr>
+                                                               <td>
+                                                               </td>
+                                                           </tr>
+                                                           <tr>
+                                                               <td>
+                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('lista_de_accesos', 'listaUsuariosDisponibles');">
+                                                               </td>
+                                                           </tr>
+                                                       </tbody></table>
+
+                                                   </td>
+
+                                                   <td>
+                                                       <select multiple="multiple" name="lista_de_accesos[]"  id="lista_de_accesos" size="7" style="width: 100%;" onclick="agregaSeleccion('lista_de_accesos','listaUsuariosDisponibles');">
+
+                                                       </select>
+                                                   </td>
+                                               </tr>
+                                           </tbody></table>
+                                       <p></p>
+                                   </div>
+
 
                   </div>
                 </div>
@@ -178,10 +227,8 @@
                                               </tr>
                                               <tr>
                                                   <td>
-                                                      <select id="listaUsuariosDisponibles" name="listaUsuariosDisponibles[]" size="7" style="width: 100%;" multiple>
-                                                        <?php foreach ($User as $Users): ?>
-                                                          <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
-                                                        <?php endforeach ?>
+                                                      <select multiple name="elistaUsuariosDisponibles[]"  id="elistaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('elistaUsuariosDisponibles', 'elista_de_accesos');">
+
                                                       </select>
 
                                               </td>
@@ -189,7 +236,7 @@
                                                   <table>
                                                       <tbody><tr>
                                                           <td>
-                                                              <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaUsuariosDisponibles', 'listaUsuariosSeleccionados');">
+                                                              <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('elistaUsuariosDisponibles', 'elista_de_accesos');">
                                                           </td>
                                                       </tr>
                                                       <tr>
@@ -207,9 +254,26 @@
                                                                               obj.options[i] = null; // borrar el item si está seleccionado
                                                                               obj2 = document.getElementById(destino);
 
-                                                                              opc = new Option(txt, valor);
+                                                                              opc = new Option(txt, valor,"defaultSelected");
                                                                               eval(obj2.options[obj2.options.length] = opc);
                                                                           }
+
+                                                                          var select = document.getElementById('lista_de_accesos');
+
+                                                                          for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                          {
+                                                                            o = select.options[i];
+                                                                              o.selected = true;
+                                                                          }
+                                                                          var select = document.getElementById('elista_de_accesos');
+
+                                                                          for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                          {
+                                                                            o = select.options[i];
+                                                                              o.selected = true;
+                                                                          }
+
+
                                                                       }
 
                                                                       function agregaTodo(origen, destino) {
@@ -223,23 +287,35 @@
                                                                           txt = obj.options[aux2].text; // almacenar el texto
                                                                           obj.options[aux2] = null; // borrar el item si está seleccionado
 
-                                                                          opc = new Option(txt, valor);
+                                                                          opc = new Option(txt, valor,"defaultSelected");
                                                                           eval(obj2.options[obj2.options.length] = opc);
+                                                                      }
+                                                                      var select = document.getElementById('lista_de_accesos');
+
+                                                                      for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                      {
+                                                                        o = select.options[i];
+                                                                          o.selected = true;
+                                                                      }
+                                                                      var select = document.getElementById('elista_de_accesos');
+
+                                                                      for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                      {
+                                                                        o = select.options[i];
+                                                                          o.selected = true;
                                                                       }
                                                                   }
 
                                                               </script>
-                                                              <input type="button" name="agregar" value=">>" title="Agregar opciones seleccionadas" onclick="agregaSeleccion('listaUsuariosDisponibles', 'listaUsuariosSeleccionados');">
                                                           </td>
                                                       </tr>
                                                       <tr>
                                                           <td>
-                                                              <input type="button" name="quitar" value="<<" title="Quitar opciones seleccionadas" onclick="agregaSeleccion('listaUsuariosSeleccionados', 'listaUsuariosDisponibles');">
                                                           </td>
                                                       </tr>
                                                       <tr>
                                                           <td>
-                                                              <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaUsuariosSeleccionados', 'listaUsuariosDisponibles');">
+                                                              <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('elista_de_accesos', 'elistaUsuariosDisponibles');">
                                                           </td>
                                                       </tr>
                                                   </tbody></table>
@@ -247,7 +323,7 @@
                                               </td>
 
                                               <td>
-                                                  <select id="listaUsuariosSeleccionados" name="listaUsuariosSeleccionados[]" size="7" style="width: 100%;" multiple>
+                                                  <select multiple name="elista_de_accesos[]" id="elista_de_accesos"  size="7" style="width: 100%;" onclick="agregaSeleccion('elista_de_accesos', 'elistaUsuariosDisponibles');">
 
                                                   </select>
                                               </td>
@@ -258,14 +334,7 @@
 
                   </div>
                 </div>
-                <div class="form-group form-group-lg">
-                  <h2><label for="Usuario" class="control-label col-md-12">Lista actual:</label></h2>
-                  <div class="col-md-6 col-sm-9">
-                    <select class="form-control multi-select"  multiple name="Select[]"  id="Select" width="100%" multiple data-actions-box="true" data-size="5" title="Selecciona los usuarios" data-header="Selecciona los usuarios" multiple data-selected-text-format="values">
 
-                    </select>
-                  </div>
-                </div>
               </div>
                     <div class="modal-footer">
                     <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
@@ -288,7 +357,7 @@
 //Funcion para el edit
 
 function Editar(btn){
-  var route = "https://www.isobpm.com/documentada/"+btn.value+"/edit";
+  var route = "//localhost:8000/documentada/"+btn.value+"/edit";
 
   $.get(route, function(res){
     $("#enombre").val(res.nombre);
@@ -299,17 +368,33 @@ function Editar(btn){
 
 
   var route = route+"2";
-  $("#listaUsuariosSeleccionados").empty();
+  $("#elista_de_accesos").empty();
 
   $.get(route, function(res){
     for (var i = 0; i < res.length; i++) {
-      $("#listaUsuariosSeleccionados").append('<option value="'+res[i].id+'">'+res[i].nombre+'</option>');
-      //$(".selectpicker").selectpicker('val', [res[i].nombre]);
+      $("#elista_de_accesos").append('<option value="'+res[i].id+'">'+res[i].nombre+'</option>');
+
     }
-  }
 
+    var select = document.getElementById('elista_de_accesos');
 
-);
+    for ( var i = 0, l = select.options.length, o; i < l; i++ )
+    {
+      o = select.options[i];
+        o.selected = true;
+    }
+
+  });
+
+  var route = route+"3";
+  $("#elistaUsuariosDisponibles").empty();
+
+  $.get(route, function(res){
+    for (var i = 0; i < res.length; i++) {
+      $("#elistaUsuariosDisponibles").append('<option value="'+res[i].id+'" selected="selected">'+res[i].nombre+'</option>');
+
+    }
+  });
 
 }
 
@@ -424,7 +509,7 @@ $(document).ready(function(){
 
   $("#actualizar").click(function(){
     var value = $("#id").val();
-    var route = "https://www.isobpm.com/documentada/edit/"+value+"";
+    var route = "//localhost:8000/documentada/edit/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
 

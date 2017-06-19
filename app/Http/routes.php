@@ -200,6 +200,7 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/documentada/edit/{id}', 'InformaciondocController@editM');
     Route::get('/documentada/{id}/edit', 'InformaciondocController@edit');
     Route::get('/documentada/{id}/edit2', 'InformaciondocController@edit2');
+    Route::get('/documentada/{id}/edit23', 'InformaciondocController@edit23');
 
     //Admin documentos
     Route::get('/documentada', 'AdministradosController@documentos');
