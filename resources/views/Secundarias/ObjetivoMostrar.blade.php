@@ -312,9 +312,12 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
                               </h2>
                               <div class="col-md-6">
                                   <select class="form-control input-lg" name="usuario_responsable_id" id="usuario_responsable_id">
-                                    <option selected="true" value="<?=$indicadorrel->user_id?>"><?=$indicadorrel->userindicador?></option>
                                     <?php foreach ($User as $Users): ?>
-                                      <option value="<?=$Users['id']?>"><?=$Users['usuario']?></option>
+                                      @if($indicadorrel->user_id == $Users->id)
+                                        <option value="<?=$Users['id']?>" selected><?=$Users['nombre']?></option>
+                                      @else
+                                        <option value="<?=$Users['id']?>"><?=$Users['nombre']?></option>
+                                      @endif
                                     <?php endforeach ?>
                                   </select>
                               </div>
