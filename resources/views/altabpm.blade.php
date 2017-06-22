@@ -54,7 +54,7 @@
 			<div class="row" id="segundo">
 				<div class="col-md-3" id="fecha">Fecha</div>
 				<div class="col-md-3">
-			    <input class="form-control" name="fechaactual" type="text" readonly value="<?php echo date("m/d/Y"); ?>" size="10"/>
+			    <input class="form-control" name="fechaactual" type="date" readonly value="<?php echo date("Y-m-d");?>" size="10"/>
 			  </div>
 			  <div class="col-md-3" id="fecha">Estatus</div>
 				<div class="col-md-3" id="datofecha">
