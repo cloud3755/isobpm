@@ -14,9 +14,6 @@
 
     {{-- neón theme --}}
 
-    <link rel="stylesheet" href="/css/neon-theme.css">
-    <link rel="stylesheet" href="/css/neon-core.css">
-    <link rel="stylesheet" href="/css/neon-forms.css">
     <link rel="stylesheet" href="/css/skins/black.css">
     <link rel="stylesheet" href="/css/styleizr.css">
     <link rel="stylesheet" href="/css/jquery-ui/no-theme/jquery-ui-1.10.3.custom.min.css">
@@ -76,6 +73,8 @@
     <!-- Border titulos -->
     <link rel="stylesheet" href="/css/accioncorrectiva.css">
 
+    <!--Office style bar-->
+    <link rel="stylesheet" href="/css/Dropdown Office Menu.css">
     <style>
     /*@font-face{font-family: 'noto_sansbold'; src:url('/css/fonts/notosans-bold-webfont.eot') format("opentype")}
     body{font-family: 'noto_sansregular' !important;}*/
@@ -194,8 +193,149 @@
             </div> -->
 
         </nav>
+
+       <div class="officeColorStyle">
+            <ul>
+                
+                <li class="dropdown items">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            DOCUMENTOS
+                        </a>
+                    <ul class="dropdown-menu mega-menu officeColorStyle">
+    
+                        <li class="mega-menu-column">
+                            <center>
+                                <ul>
+                                    <li class="nav-header"></li>
+                                    <i class="fa fa-copyright fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
+                                    <br><a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
+                                </ul>
+                            </center>
+                        </li>
+                        <li class="mega-menu-column">
+                            <center>
+                            <ul>
+                                 <li class="nav-header"></li>
+                                <i class="fa fa-book fa-5x imagesOfficeBar"></i><br>
+                                <a class="officeColorStyleFont" href="/documentada/1">Manuales</a>
+                            </ul>
+                            </center>
+                        </li>   
+			<li class="mega-menu-column">
+                            <center>
+                            <ul>
+                                 <li class="nav-header"></li>
+                                <i class="fa fa-cogs fa-5x imagesOfficeBar"></i><br>
+                                <a class="officeColorStyleFont" href="/documentada/3">Procedimientos</a>
+                            </ul>
+                            </center>
+                        </li>
+			<li class="mega-menu-column">
+                            <center>
+                            <ul>
+                                 <li class="nav-header"></li>
+                                <i class="fa fa-level-up fa-5x imagesOfficeBar"></i><br>
+                                <a class="officeColorStyleFont" href="/documentada/4">Instrucciones de trabajo</a>
+                            </ul>
+                            </center>
+                        </li>      
+                        <li class="mega-menu-column">
+                            <center>
+                            <ul>
+                                 <li class="nav-header"></li>
+                                <i class="fa fa-sticky-note-o fa-5x imagesOfficeBar"></i><br>
+                                <a class="officeColorStyleFont" href="/documentada/5">Formatos</a>
+                            </ul>
+                            </center>
+                        </li> 
+                        <li class="mega-menu-column">
+                            <center>
+                            <ul>
+                                 <li class="nav-header"></li>
+                                <i class="fa fa-mail-forward fa-5x imagesOfficeBar"></i><br>
+                                <a class="officeColorStyleFont" href="/documentada/6">Documentos externos</a>
+                            </ul>
+                            </center>
+                        </li> 
+                    </ul>
+                </li>
+               
+            </ul>
+           
+        </div>
+
+<style>
+
+
+</style>
+
+						
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
+            <div>
+            <center>
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <table class="table">
+                                    <tr>
+                                        <td >
+                                            <img style="width: 150px;height: 150px;"  src=" /img/tableCredential images/user.jpg" />
+                                        </td>  
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="border: 1px solid #002858">
+                                                <center>
+                                                    Noticias
+                                                </center>
+                                            </div>
+                                        </td>  
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img style="width: 150px;height: 150px;" src=" /img/tableCredential images/calendar.png" />
+                                        </td>  
+                                    </tr>
+                                </table> 
+                            </td>
+                            <td>
+                            <table class="table">
+                                <tr style="border-bottom: 1px solid #002858">
+                                    <td>
+                                    <i class="fa fa-file-text fa-5x"></i>
+                                    <span>Mis Documentos</span>
+                                    </td>
+                                </tr>
+                                
+                                <tr style="border-bottom: 1px solid #002858">
+                                    <td>
+                                        <i class="fa fa fa-bar-chart fa-5x"></i>
+                                        <span>Mis Indicadores</span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #002858">
+                                    <td>
+                                        <i class="fa fa-code-fork fa-5x"></i>
+                                        <span>Mis Procesos</span>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #002858">
+                                    <td>
+                                        <i class="fa fa fa-edit fa-5x"></i>
+                                        <span>Mis Pendientes</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    
+                </div>
+            </center>
+        </div>
                 @yield('content')
             </div>
         </div>
