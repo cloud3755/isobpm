@@ -99,7 +99,7 @@ class ObjetivosControllerVisual extends Controller
       $unidades = $unidad->all();
 
       $Users = new User;
-      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','!=',1)->get();
+      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil',4)->get();
 
       $logicas = new logica;
       $logica = $logicas->all();
@@ -114,7 +114,7 @@ class ObjetivosControllerVisual extends Controller
                                 ->leftjoin('frecuencias','indicadores.frecuencia_id','=','frecuencias.id')
                                 ->leftjoin('unidades','indicadores.unidad','=','unidades.id')
                                 ->leftjoin('logicas','indicadores.logica','=','logicas.id')
-                                ->select('indicadores.id as id','indicadores.objetivo_id as objetivo_id','objetivos.nombre as indicadoresobjetivo','indicadores.nombre as nombreindicador','indicadores.descripcion as descripcionindicador','users.usuario as userindicador','frecuencias.nombre as frecuenciaindicador','unidades.simbolo as simboloindicador','logicas.simbolo as logicaindicador','indicadores.meta as indicadormeta','frecuencias.id as frecuencia_id','unidades.id as unidad_id','logicas.id as logicas_id','users.id as user_id','indicadores.acceso as acceso')
+                                ->select('indicadores.id as id','indicadores.objetivo_id as objetivo_id','objetivos.nombre as indicadoresobjetivo','indicadores.nombre as nombreindicador','indicadores.descripcion as descripcionindicador','users.nombre as userindicador','frecuencias.nombre as frecuenciaindicador','unidades.simbolo as simboloindicador','logicas.simbolo as logicaindicador','indicadores.meta as indicadormeta','frecuencias.id as frecuencia_id','unidades.id as unidad_id','logicas.id as logicas_id','users.id as user_id','indicadores.acceso as acceso')
                                 ->where('indicadores.objetivo_id','=',$id)
                                 ->get();
 

@@ -147,7 +147,13 @@
                         <td><?=$mejoras->nombreimpacto?></td>
                         <td><?=$mejoras->beneficioplan?></td>
                         <td><?=$mejoras->beneficioreal?></td>
-                        <td><?=($mejoras->beneficioreal/$mejoras->beneficioplan)*100?>%</td>
+                        <td>
+                          @if($mejoras->beneficioplan < 1)
+                            0%
+                          @else
+                            <?=($mejoras->beneficioreal/$mejoras->beneficioplan)*100?>%
+                          @endif
+                          </td>
                         <td><?=$mejoras->nombreestatus?></td>
                         <td>
                           <form class="" action="/subiretapa/etapa/<?=$mejoras->id?>">

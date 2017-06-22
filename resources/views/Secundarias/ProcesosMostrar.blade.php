@@ -9,8 +9,9 @@
   <center><a href="{{$rutaalindex}}" id="bizagi" target="_blank" class="btn btn-default btn-md active" role="button">Ver proceso</a></center>
 @endif
 
- <form method="POST" action="/procesos/edit/<?=$procesos['id']?>" accept-charset="UTF-8" enctype="multipart/form-data">
+<form id="fileinfo" method="post">
    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+   <input type="hidden" id="id" value="<?=$procesos['id']?>">
             <div class="container">
                 <div class="form-group form-group-lg">
                   <h2>  <label for="Usuario" class="control-label col-md-12" >
@@ -102,16 +103,59 @@
                     </label>
                     </h2>
                     <div class="col-md-6">
-                         <select multiple name="indicadores[]" class="form-control multi-select"  id="proresponsableob" width="100%">
-                           <?php foreach ($indicador as $indicadores): ?>
-                             <option value="<?=$indicadores->id?>"> <?=$indicadores->nombre ?> </option>
-                           <?php endforeach ?>
-                           
-                           <?php foreach ($indicadoresrelacion as $listaindicadores): ?>
-                             <option value="<?=$listaindicadores->id?>" selected="true"> <?=$listaindicadores->nombre ?> </option>
-                           <?php endforeach ?>
-                        </select>
+                        <div>
+                                          <p>
+                                              </p><table>
+                                                  <tbody><tr>
+                                                      <td>Usuarios no elegidos</td>
+                                                      <td></td>
+                                                      <td>Usuarios elegidos</td>
+                                                  </tr>
+                                                  <tr>
+                                                      <td>
+                                                          <select multiple name="listaUsuariosDisponibles[]"  id="listaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('listaUsuariosDisponibles', 'indicadores');">
+                                                            <?php foreach ($indicador as $indicadores): ?>
+                                                              <option value="<?=$indicadores->id?>"> <?=$indicadores->nombre ?> </option>
+                                                            <?php endforeach ?>
+                                                          </select>
 
+                                                  </td>
+                                                  <td>
+                                                      <table>
+                                                          <tbody><tr>
+                                                              <td>
+                                                                  <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaUsuariosDisponibles', 'indicadores');">
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td>
+
+                                                            </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td>
+                                                                  <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('indicadores', 'listaUsuariosDisponibles');">
+                                                              </td>
+                                                          </tr>
+                                                      </tbody></table>
+
+                                                  </td>
+
+                                                  <td>
+                                                      <select multiple="multiple" name="indicadores[]"  id="indicadores" size="7" style="width: 100%;" onclick="agregaSeleccion('indicadores','listaUsuariosDisponibles');">
+                                                        <?php foreach ($indicadoresrelacion as $listaindicadores): ?>
+                                                          <option value="<?=$listaindicadores->id?>" selected="true"> <?=$listaindicadores->nombre ?> </option>
+                                                        <?php endforeach ?>
+                                                      </select>
+                                                  </td>
+                                              </tr>
+                                          </tbody></table>
+                                      <p></p>
+                                  </div>
                     </div>
                 </div>
 
@@ -119,16 +163,128 @@
         <h2><label for="Usuario" class="control-label col-md-12">Lista de distribucion:</label></h2>
         <div class="col-md-6">
 
-                <select multiple name="lista_de_distribucion[]" class="form-control multi-select" id="lista_de_distribucion" width="100%" >
-                 <?php foreach ($Users as $user1): ?>
-                   <option value="<?=$user1->id?>"> <?=$user1->nombre ?> </option>
-                 <?php endforeach ?>
+               <div>
+                                 <p>
+                                     </p><table>
+                                         <tbody><tr>
+                                             <td>Usuarios no elegidos</td>
+                                             <td></td>
+                                             <td>Usuarios elegidos</td>
+                                         </tr>
+                                         <tr>
+                                             <td>
+                                                 <select multiple name="elistaUsuariosDisponibles[]"  id="elistaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('elistaUsuariosDisponibles', 'lista_de_distribucion');">
+                                                   <?php foreach ($Users as $user1): ?>
+                                                     <option value="<?=$user1->id?>"> <?=$user1->nombre ?> </option>
+                                                   <?php endforeach ?>
 
-                 <?php foreach ($listaenvio as $lista): ?>
-                     <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
-                 <?php endforeach ?>
+                                                 </select>
 
-               </select>
+                                         </td>
+                                         <td>
+                                             <table>
+                                                 <tbody><tr>
+                                                     <td>
+                                                         <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('elistaUsuariosDisponibles', 'lista_de_distribucion');">
+                                                     </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td>
+                                                         <script type="text/javascript">
+                                                             function agregaSeleccion(origen, destino) {
+                                                                 obj = document.getElementById(origen);
+                                                                 if (obj.selectedIndex == -1)
+                                                                     return;
+
+                                                                 for (i = 0; opt = obj.options[i]; i++)
+                                                                     if (opt.selected) {
+                                                                         valor = opt.value; // almacenar value
+                                                                         txt = obj.options[i].text; // almacenar el texto
+                                                                         obj.options[i] = null; // borrar el item si está seleccionado
+                                                                         obj2 = document.getElementById(destino);
+
+                                                                         opc = new Option(txt, valor,"defaultSelected");
+                                                                         eval(obj2.options[obj2.options.length] = opc);
+                                                                     }
+
+                                                                     var select = document.getElementById('indicadores');
+
+                                                                     for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                     {
+                                                                       o = select.options[i];
+                                                                         o.selected = true;
+                                                                     }
+
+                                                                     var select = document.getElementById('lista_de_distribucion');
+
+                                                                     for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                     {
+                                                                       o = select.options[i];
+                                                                         o.selected = true;
+                                                                     }
+
+
+                                                                 }
+
+                                                                 function agregaTodo(origen, destino) {
+                                                                     obj = document.getElementById(origen);
+                                                                     obj2 = document.getElementById(destino);
+                                                                     aux = obj.options.length;
+                                                                     for (i = 0; i < aux; i++) {
+                                                                         aux2 = 0;
+                                                                         opt = obj.options[aux2];
+                                                                     valor = opt.value; // almacenar value
+                                                                     txt = obj.options[aux2].text; // almacenar el texto
+                                                                     obj.options[aux2] = null; // borrar el item si está seleccionado
+
+                                                                     opc = new Option(txt, valor,"defaultSelected");
+                                                                     eval(obj2.options[obj2.options.length] = opc);
+                                                                 }
+
+                                                                 var select = document.getElementById('indicadores');
+
+                                                                 for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                 {
+                                                                   o = select.options[i];
+                                                                     o.selected = true;
+                                                                 }
+
+                                                                 var select = document.getElementById('lista_de_distribucion');
+
+                                                                 for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                                                                 {
+                                                                   o = select.options[i];
+                                                                     o.selected = true;
+                                                                 }
+                                                             }
+
+                                                         </script>
+                                                     </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td>
+                                                     </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td>
+                                                         <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('lista_de_distribucion', 'elistaUsuariosDisponibles');">
+                                                     </td>
+                                                 </tr>
+                                             </tbody></table>
+
+                                         </td>
+
+                                         <td>
+                                             <select multiple name="lista_de_distribucion[]" id="lista_de_distribucion"  size="7" style="width: 100%;" onclick="agregaSeleccion('lista_de_distribucion', 'elistaUsuariosDisponibles');">
+                                               <?php foreach ($listaenvio as $lista): ?>
+                                                   <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
+                                               <?php endforeach ?>
+                                             </select>
+                                         </td>
+                                     </tr>
+                                 </tbody></table>
+                             <p></p>
+                         </div>
 
              </div>
          </div>
@@ -141,7 +297,7 @@
           <center><button type="button" class="btnprocesoformclose" onclick=location="/procesos/visual" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-arrow-left"></i> Cerrar</button></center>
 
 
-                                      <center><button type="submit" class="btnprocesoform" ><i class="glyphicon glyphicon-pencil"></i> Guardar Cambios  </button></center>
+                                      <center><a class="btn btnprocesoform btn-md active" role="button" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-pencil"></i> Guardar Cambios</a></center>
 </form>
 
                                       <form class="" action="/procesos/delete/<?=$procesos['id']?>" method="post">
@@ -151,5 +307,33 @@
                                       </form>
 </center>
                                       <br>
+
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+
+  $("#actualizar").click(function(){
+    var value = $("#id").val();
+    var route = "https://www.isobpm.com/procesos/edit/"+value+"";
+    var token = $("#token").val();
+    var fd = new FormData(document.getElementById("fileinfo"));
+
+    $.ajax({
+      url: route,
+      headers: {'X-CSRF_TOKEN': token},
+      type: 'post',
+      data: fd,
+      processData: false,  // tell jQuery not to process the data
+      contentType: false,
+      success: function(){
+        //alert("Cambios guardados correctamente");
+        location.reload();
+      }
+    });
+  });
+
+});
+</script>
 
 @Stop
