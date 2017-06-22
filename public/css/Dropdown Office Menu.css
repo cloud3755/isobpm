@@ -1,0 +1,61 @@
+
+.officeColorStyle
+{
+background: #A0C0D3 !important;
+color: #A0C0D3;
+}
+.officeColorStyleFont
+{
+background: inherit !important;
+color: #000033;
+font-size: 15px;
+}
+.items:hover .dropdown-menu ,dropdown-item
+{
+display: block;
+margin-top: 0; 
+}
+.imagesOfficeBar{
+width: 60px; height: 60px;
+color: #002858 !important;
+}
+.mega-menu {
+padding: 0px 0px 0px 0px ! important;
+border-radius: 0;
+margin-top: 0px;
+}
+
+li center ul
+{
+    padding: 0px 0px 0px 0px ! important;
+}
+.mega-menu:last-child
+{
+    border-right: none;
+}
+
+.mega-menu li 
+{
+display: inline-block;
+float: left;
+font-size: 0.94rem;
+padding: 1px 0px;
+}
+
+.mega-menu li.mega-menu-column 
+{
+width: 150px;
+border-right: 2px solid #0000C0;
+}
+
+.mega-menu .nav-header 
+{
+padding: 0 !important;
+margin-bottom: 10px;
+display: inline-block;
+width: 100%;
+border-bottom: 1px solid #ddd;
+}
+
+
+
