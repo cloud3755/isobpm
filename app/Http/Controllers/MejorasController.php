@@ -257,7 +257,7 @@ class MejorasController extends Controller
       $impacto = $impactos->all();
 
       $Users = new User;
-      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>=','3')->get();
+      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>','3')->get();
 
       return view('leancreate',compact('User','impacto','estatu'));
     }
@@ -274,7 +274,7 @@ class MejorasController extends Controller
             $impacto = $impactos->all();
 
             $Users = new User;
-            $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>=','3')->get();
+            $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>','3')->get();
 
             return view('altabpm',compact('User','impacto','estatu'));
     }
@@ -291,7 +291,7 @@ class MejorasController extends Controller
       $impacto = $impactos->all();
 
       $Users = new User;
-      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>=','3')->get();
+      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>','3')->get();
 
       return view('altasigma',compact('User','impacto','estatu'));
     }
@@ -337,7 +337,7 @@ class MejorasController extends Controller
       // $lista2->id_indicador = $equipo;
       // $lista2->save();
 
-      return redirect('/Promejoras');
+      //return redirect('/Promejoras');
     }
 
     /**
