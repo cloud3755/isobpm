@@ -182,12 +182,7 @@ for ($i=0;$i<count($envio);$i++)
         $proceso->detalle_de_rev = $request->input('detalle_de_rev');
         //obtenemos el campo file definido en el formulario
         $file = $request->file('file');
-        if  ($file == null)
-        {
-          $proceso->archivo_html = $request->input('filetext');
-
-        }
-        else
+        if  ($file != null)
         {
           $archivoborrar = $proceso->nombreunicoarchivo;
           $file2 = $request->input('filetext');

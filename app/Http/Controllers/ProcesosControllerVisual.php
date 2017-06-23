@@ -39,12 +39,39 @@ class ProcesosControllerVisual extends Controller
       $usuario = Auth::user();
       //
       if ($usuario->perfil == 4) {
-        $procesos = new Proceso;
-        $proceso = $procesos
-        ->where('idcompañia',$usuario->id_compania)
+        $iduser = $usuario->id;
+        $collection_one = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->join('lista_envios', function($join) use ($iduser)
+          {
+              $join->on('procesos.lista_de_distribucion', '=', 'lista_envios.id_proceso');
+              $join->on(function($query) use ($iduser)
+              {
+                $query->on('lista_envios.id_usuario', '=', DB::raw("'".$iduser."'"));
+              });
+          })
+        ->select('procesos.*')
+        ->get());
+
+        $collection_two = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->leftjoin('lista_envios', function($join) use ($iduser)
+          {
+              $join->on('procesos.lista_de_distribucion', '=', 'lista_envios.id_proceso');
+              $join->on(function($query) use ($iduser)
+              {
+                $query->on('lista_envios.id_usuario', '=', DB::raw("'".$iduser."'"));
+              });
+          })
+        ->whereNull('id_proceso')
         ->where('usuario_responsable_id',$usuario->id)
-        ->orwhere('Creador_id',$usuario->id)
-        ->get();
+        ->orwhere(function ($querys) use ($iduser) {
+          $querys->whereNull('id_proceso')
+          ->Where('Creador_id', '=', DB::raw("'".$iduser."'"));
+        })
+        ->get());
+
+        $proceso = new \Illuminate\Database\Eloquent\Collection;
+        $proceso = $collection_one->merge($collection_two);
+
       }else {
         $procesos = new Proceso;
         $proceso = $procesos
