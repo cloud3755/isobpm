@@ -57,9 +57,12 @@
 
                     <div class="col-md-6">
                          <select class="form-control input-lg" name="usuario_responsable_id" id="proresponsableob">
-                           <option value="<?=$procesosrelacion->usuario_responsable_id?>" selected="true"> <?=$procesosrelacion->usuario?> </option>
                            <?php foreach ($User as $Users1): ?>
-                            <option value="<?=$Users1['id']?>"> <?=$Users1['usuario']?> </option>
+                             @if($procesosrelacion->usuario_responsable_id == $Users1['id'] )
+                              <option value="<?=$Users1['id']?>" selected="true"> <?=$Users1['nombre']?> </option>
+                             @else
+                              <option value="<?=$Users1['id']?>"> <?=$Users1['nombre']?> </option>
+                             @endif
                           <?php endforeach ?>
                         </select>
                     </div>
@@ -92,6 +95,7 @@
                     <div class="col-md-6">
                       <input class="form-control input-lg" id="probproces" type="Text" placeholder="Sin archivo adjunto" name="filetext" disabled="disabled" value ="<?=$procesos['archivo_html']?>">
                       <input class="form-control input-lg" id="probproces" type="file" accept=".zip" placeholder="<?=$procesos['archivo_html']?>" name="file" >
+                      <progress id="progress" value="0"></progress>
                   </div>
                 </div>
 
@@ -318,6 +322,7 @@ $(document).ready(function(){
     var route = "https://www.isobpm.com/procesos/edit/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
+    var progressBar = document.getElementById("progress");
 
     $.ajax({
       url: route,
@@ -326,8 +331,17 @@ $(document).ready(function(){
       data: fd,
       processData: false,  // tell jQuery not to process the data
       contentType: false,
+      xhr: function() {
+        var xhr = $.ajaxSettings.xhr();
+        xhr.upload.onprogress = function(e) {
+          progressBar.max = e.total;
+          progressBar.value = e.loaded;
+            console.log(Math.floor(e.loaded / e.total *100) + '%');
+        };
+        return xhr;
+      },
       success: function(){
-        //alert("Cambios guardados correctamente");
+        alert("Cambios guardados correctamente");
         location.reload();
       }
     });
