@@ -31,13 +31,21 @@ class InformaciondocController extends Controller
 
     if($usuarios->perfil == 4)
       {
-        $documento = \DB::table('documentos')
+        $arreglo1 = \DB::table('documentos')
         ->join('informacion_accesos','documentos.acceso','=','informacion_accesos.id_documento')
         ->select('documentos.*')
         ->where('documentos.Status',1)
         ->where('informacion_accesos.id_usuario',$usuarios->id)
-        ->where('id_tipo',$id)
+        ->where('id_tipo',$id);
+
+        $documento = \DB::table('documentos')
+        ->where('id_user',$usuarios->id)
+        ->union($arreglo1)
         ->get();
+
+
+
+      //  dd($documento);
       }
 
     // if($usuarios->perfil == 4)
@@ -121,11 +129,6 @@ class InformaciondocController extends Controller
       $acce ->id_documento = $paralista;
       $acce ->save();
     }
-
-    $access = new informacion_accesos;
-    $access ->id_usuario = $usuarios->id;
-    $access ->id_documento = $paralista;
-    $access ->save();
 
     return redirect()->action('InformaciondocController@mostrar', [$documentos->id_tipo]);
   }
