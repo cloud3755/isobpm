@@ -27,6 +27,7 @@
                           <th>  <div class="th-inner sortable both">    Perfil  </div></th>
                           <th>  <div class="th-inner sortable both">    Telefono  </div></th>
                           <th>  <div class="th-inner sortable both">    Fecha Alta  </div></th>
+                          <th>  <div class="th-inner sortable both">    Area  </div></th>
 
                           <th>  <div class="th-inner sortable both">    Modificacion  </div></th>
                         </tr>
@@ -35,29 +36,30 @@
                       <tbody id="myTable">
                         <?php foreach ($usuario as $usuarios): ?>
                         <tr>
-                          <td>  <?=$usuarios['usuario']?></td>
-                          <td>  <?=$usuarios['nombre']?></td>
+                          <td>  <?=$usuarios->usuario?></td>
+                          <td>  <?=$usuarios->nombre?></td>
                           <td>
-                            @if($usuarios['perfil'] == 1)
+                            @if($usuarios->perfil == 1)
                                 Super-Administrador
-                              @elseif($usuarios['perfil'] == 2)
+                              @elseif($usuarios->perfil == 2)
                                 Partner
-                              @elseif($usuarios['perfil'] == 3)
+                              @elseif($usuarios->perfil == 3)
                                 Administrador
                               @else
                                 Usuario
                             @endif
                             </td>
-                          <td>  <?=$usuarios['telefono']?></td>
-                          <td>  <?=$usuarios['created_at']?></td>
+                          <td>  <?=$usuarios->telefono?></td>
+                          <td>  <?=$usuarios->created_at?></td>
+                          <td>  <?=$usuarios->area?></td>
 
                           <td>
                             <form class="" action="/usuarios/destroy/{{ $usuarios->id }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                               <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-                                return confirm('Estas seguro de eliminar el Usuario <?=$usuarios['nombre']?>?')">Eliminar</button>
-                              <button type="button" class="btnobjetivo" data-toggle="modal" data-target="#modaledit<?=$usuarios['id']?>"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                                return confirm('Estas seguro de eliminar el Usuario <?=$usuarios->nombre?>?')">Eliminar</button>
+                              <button type="button" class="btnobjetivo" data-toggle="modal" data-target="#modaledit<?=$usuarios->id?>"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
                             </form>
                           </td>
                         </tr>
@@ -159,14 +161,14 @@
 <!-- Modal para editar Usuarios-->
 
 <?php foreach ($usuario as $usuarios): ?>
-<div class="modal fade" id="modaledit<?=$usuarios['id']?>" tabindex="-1" role="dialog" style="background-color:gray">
+<div class="modal fade" id="modaledit<?=$usuarios->id?>" tabindex="-1" role="dialog" style="background-color:gray">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">EDITAR USUARIO</h2>
             </div>
             <div class="modal-body">
-              <form  action="/usuarios/edit/<?=$usuarios['id']?>" method="post">
+              <form  action="/usuarios/edit/<?=$usuarios->id?>" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token()}}">
                 <div class="row">
                   @if(Auth::user()->perfil == 1)
@@ -175,7 +177,7 @@
                         <select class="form-control" style="width: 100%" id="id_compania" name="id_compania" required>
                             <option id="optionPartner" style="display: none" selected="selected"></option>
                             <?php foreach ($empresa as $empresas): ?>
-                              @if($usuarios['id_compania'] == $empresas['id'])
+                              @if($usuarios->id_compania == $empresas['id'])
                                 <option value="<?=$empresas['id']?>" selected><?=$empresas['razonSocial']?></option>
                               @else
                                 <option value="<?=$empresas['id']?>"><?=$empresas['razonSocial']?></option>
@@ -186,7 +188,7 @@
                     @endif
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">Correo:</label>
-                        <input type="text" class="form-control" id="email" name="email" value="<?=$usuarios['email']?>" />
+                        <input type="text" class="form-control" id="email" name="email" value="<?=$usuarios->email?>" />
                     </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                           <label style="font-weight: bold">Si queda vacio permanece la misma contraseña</label>
@@ -195,7 +197,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">Perfil:</label>
                         <select class="form-control" id="perfil" name="perfil">
-                          @if($usuarios['perfil'] == 2)
+                          @if($usuarios->perfil == 2)
                             @if(Auth::user()->perfil == 1)
                               <option value="1">Super-Administrador</option>
                               <option value="2" selected>Partner</option>
@@ -203,7 +205,7 @@
                             <option value="3">Administrador</option>
                             <option value="4">Usuario</option>
                           @endif
-                          @if($usuarios['perfil'] == 3)
+                          @if($usuarios->perfil == 3)
                             @if(Auth::user()->perfil == 1)
                               <option value="1">Super-Administrador</option>
                               <option value="2">Partner</option>
@@ -211,7 +213,7 @@
                             <option value="3" selected>Administrador</option>
                             <option value="4">Usuario</option>
                           @endif
-                          @if($usuarios['perfil'] == 4)
+                          @if($usuarios->perfil == 4)
                             @if(Auth::user()->perfil == 1)
                               <option value="1">Super-Administrador</option>
                               <option value="2">Partner</option>
@@ -223,17 +225,17 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">(*) Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?=$usuarios['nombre']?>"/>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?=$usuarios->nombre?>"/>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">Teléfono:</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" value="<?=$usuarios['telefono']?>"/>
+                        <input type="text" class="form-control" id="telefono" name="telefono" value="<?=$usuarios->telefono?>"/>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <label style="font-weight: bold">Estatus:</label>
                         <select class="form-control" id="status" name="status">
                           <?php foreach ($statuses as $status): ?>
-                            @if($usuarios['status'] == $status['id'])
+                            @if($usuarios->status == $status['id'])
                               <option  selected="selected" value="<?=$status['id']?>"><?=$status['nombre']?></option>
                             @else
                               <option value="<?=$status['id']?>"><?=$status['nombre']?></option>
@@ -245,7 +247,7 @@
                         <label style="font-weight: bold">Area:</label>
                         <select class="form-control" id="id_area" name="id_area">
                           <?php foreach ($area as $areas): ?>
-                            @if($usuarios['id_area'] == $areas['id'])
+                            @if($usuarios->id_area == $areas['id'])
                               <option  selected="selected" value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
                             @else
                               <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>

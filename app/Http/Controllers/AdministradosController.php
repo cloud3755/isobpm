@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Productos;
 use App\Models\Clientes;
@@ -26,12 +27,15 @@ class AdministradosController extends Controller
      */
     public function index()
     {
-      $Users = Auth::user();
+    //  $Users = Auth::user();
 
-      $usuarios = new User;
-      $usuario = $usuarios->where('id_compania',$Users->id_compania)->get();
+      //$usuario = \Illuminate\Support\Collection::make(DB::table('users')
+    //  ->join('areas','areas.id','=','users.id_area')
+    //  ->select('users.*','areas.nombre as area')
+    //  ->where('users.id',3)
+    //  ->get());
 
-      return view('/Principales/perfil', compact('usuario'));
+      return view('/Principales/perfil');
     }
     /**
      * Show the form for creating a new resource.
@@ -260,8 +264,13 @@ class AdministradosController extends Controller
       {
         $Users = Auth::user();
 
-        $usuarios = new User;
-        $usuario = $usuarios->where('id_compania',$Users->id_compania)->where('perfil','!=','1')->get();
+        $usuario = DB::table('users')
+        ->join('areas','areas.id','=','users.id_area')
+        ->select('users.*','areas.nombre as area')
+        ->where('users.id_compania',$Users->id_compania)
+        ->where('perfil','!=','1')
+        ->get();
+
         $empresas = new Empresas;
         $empresa = $empresas->get();
         $status = new Status;
