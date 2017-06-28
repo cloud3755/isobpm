@@ -111,9 +111,9 @@
                                           <p>
                                               </p><table>
                                                   <tbody><tr>
-                                                      <td>Usuarios no elegidos</td>
+                                                      <td>Indicadores no elegidos</td>
                                                       <td></td>
-                                                      <td>Usuarios elegidos</td>
+                                                      <td>Indicadores elegidos</td>
                                                   </tr>
                                                   <tr>
                                                       <td>
