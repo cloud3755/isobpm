@@ -45,7 +45,7 @@ class ObjetivosControllerVisual extends Controller
           $objetivo = $objetivos
           ->where('id_compania',$usuarios->id_compania)
           ->where('usuario_responsable_id',$usuarios->id)
-          ->orwhere('Creador_id',$usuarios->id)
+          ->orwhere('usuario_creador_id',$usuarios->id)
           ->get();
       }
 

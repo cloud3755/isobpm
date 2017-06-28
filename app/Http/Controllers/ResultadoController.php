@@ -48,9 +48,8 @@ class ResultadoController extends Controller
                                  ->leftjoin('frecuencias','indicadores.frecuencia_id','=','frecuencias.id')
                                  ->leftjoin('unidades','indicadores.unidad','=','unidades.id')
                                  ->leftjoin('logicas','indicadores.logica','=','logicas.id')
-                                 ->leftjoin('lista_accesos','indicadores.acceso','=','lista_accesos.id_indicador')
-                                 ->select('indicadores.id as id','indicadores.objetivo_id as objetivo_id','objetivos.nombre as indicadoresobjetivo','indicadores.nombre as nombreindicador','indicadores.descripcion as descripcionindicador','users.usuario as userindicador','frecuencias.nombre as frecuenciaindicador','unidades.simbolo as simboloindicador','logicas.simbolo as logicaindicador','indicadores.meta as indicadormeta')
-                                 ->where('lista_accesos.id_usuario',$usuarios->id)
+                                 ->select('indicadores.id as id','indicadores.objetivo_id as objetivo_id','objetivos.nombre as indicadoresobjetivo','indicadores.nombre as nombreindicador','indicadores.descripcion as descripcionindicador','users.nombre as userindicador','frecuencias.nombre as frecuenciaindicador','unidades.simbolo as simboloindicador','logicas.simbolo as logicaindicador','indicadores.meta as indicadormeta')
+                                 ->where('indicadores.usuario_responsable_id',$usuarios->id)
                                  ->orwhere('indicadores.creador_id',$usuarios->id)
                                  ->get();
       }
@@ -63,7 +62,7 @@ class ResultadoController extends Controller
                                  ->leftjoin('frecuencias','indicadores.frecuencia_id','=','frecuencias.id')
                                  ->leftjoin('unidades','indicadores.unidad','=','unidades.id')
                                  ->leftjoin('logicas','indicadores.logica','=','logicas.id')
-                                 ->select('indicadores.id as id','indicadores.objetivo_id as objetivo_id','objetivos.nombre as indicadoresobjetivo','indicadores.nombre as nombreindicador','indicadores.descripcion as descripcionindicador','users.usuario as userindicador','frecuencias.nombre as frecuenciaindicador','unidades.simbolo as simboloindicador','logicas.simbolo as logicaindicador','indicadores.meta as indicadormeta')
+                                 ->select('indicadores.id as id','indicadores.objetivo_id as objetivo_id','objetivos.nombre as indicadoresobjetivo','indicadores.nombre as nombreindicador','indicadores.descripcion as descripcionindicador','users.nombre as userindicador','frecuencias.nombre as frecuenciaindicador','unidades.simbolo as simboloindicador','logicas.simbolo as logicaindicador','indicadores.meta as indicadormeta')
                                  ->where('objetivos.id_compania',$usuarios->id_compania)
                                  ->get();
       }

@@ -23,6 +23,7 @@ class CreateIndicadoresTable extends Migration
             $table->integer('logica')->unsigned();
             $table->float('meta');
             $table->string('acceso');
+            $table->integer('creador_id');
 
 //            $table->foreign('objetivo_id')->references('id')->on('objetivos')->onDelete('cascade');
 //            $table->foreign('usuario_responsable_id')->references('id')->on('users')->onDelete('cascade');

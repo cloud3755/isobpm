@@ -26,6 +26,7 @@ class CreateProcesosTable extends Migration
             $table->string('lista_de_distribucion',50);
             $table->string('nombreunicoarchivo',100);
             $table->integer('idcompañia')->unsigned();
+            $table->integer('creador_id');
             $table->timestamps(); // created at and updated at
         });
     }

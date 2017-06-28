@@ -105,6 +105,7 @@ memory_limit = 10M
       $proceso->indicadores = $paraindicador;
 
       $proceso->idcompañia = $Users->id_compania;
+      $proceso->creador_id = $Users->id;
       $proceso->save();
 
 //    guardamos archivo
