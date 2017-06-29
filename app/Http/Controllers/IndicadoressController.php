@@ -89,20 +89,23 @@ class IndicadoressController extends Controller
       $indicador->unidad = $request->input("unidad");
       $indicador->logica = $request->input("logica");
       $indicador->meta = $request->input("meta");
-      $idacceso = uniqid();
-      $indicador->acceso = $idacceso;
       $indicador->creador_id = $user->id;
-      $indicador->save();
 
       $acceso=$request->input('lista_de_acceso'); //$_POST["lista_de_distribucion"];
       for ($i=0;$i<count($acceso);$i++)
       {
+        if ($i == 0) {
+          $idacceso = uniqid();
+          $indicador->acceso = $idacceso;
+        }
+
         $lista = new lista_acceso;
         $lista->id_usuario = $acceso[$i];
         $lista->id_indicador = $idacceso;
         $lista->save();
       }
-      return redirect('/objetivos/visual');
+      $indicador->save();
+      return redirect()->action('ObjetivosControllerVisual@show', [$indicador->objetivo_id]);
     }
 
     /**
@@ -125,20 +128,73 @@ class IndicadoressController extends Controller
     public function edit($id,Request $request)
     {
       $indicador = Indicadores::findorfail($id);
-      $indicador->objetivo_id = $request->input("objetivo_id");
-      $indicador->nombre = $request->input("nombre");
-      $indicador->descripcion = $request->input("descripcion");
-      $indicador->usuario_responsable_id = $request->input("usuario_responsable_id");
-      $indicador->frecuencia_id = $request->input("frecuencia_id");
-      $indicador->unidad = $request->input("unidad");
-      $indicador->logica = $request->input("logica");
-      $indicador->meta = $request->input("meta");
-      $indicador->acceso = $request->input("lista_de_acceso");
+      $indicador->nombre = $request->input("enombre");
+      $indicador->descripcion = $request->input("edescripcion");
+      $indicador->usuario_responsable_id = $request->input("eusuario_responsable_id");
+      $indicador->frecuencia_id = $request->input("efrecuencia_id");
+      $indicador->unidad = $request->input("eunidad");
+      $indicador->logica = $request->input("elogica");
+      $indicador->meta = $request->input("emeta");
+      $acceso = $request->input("elista_de_accesos");
+      for ($i=0;$i<count($acceso);$i++)
+      {
+        if ($i == 0) {
+          $idacceso = uniqid();
+          $indicador->acceso = $idacceso;
+        }
+
+        $lista = new lista_acceso;
+        $lista->id_usuario = $acceso[$i];
+        $lista->id_indicador = $idacceso;
+        $lista->save();
+      }
+
       $indicador->save();
 
       return redirect('/objetivos/visual');
     }
 
+    public function editM($id){
+      $documentos = Indicadores::find($id);
+        return response()->json(
+          $documentos->toArray()
+        );
+    }
+
+    public function editM2($id){
+      $indi = Indicadores::find($id);
+        $document = DB::table('users')
+        ->join('lista_accesos', 'users.id', '=', 'lista_accesos.id_usuario')
+        ->select('users.*')
+        ->where('lista_accesos.id_indicador', $indi->acceso)
+        ->get();
+        return response()->json(
+          $document
+        );
+    }
+
+    public function editM23($id){
+      $users = Auth::user();
+      $documentos = Indicadores::find($id);
+        $lista = $documentos->acceso;
+        $document = DB::table('users')
+        ->leftJoin('lista_accesos', function($join) use ($lista)
+          {
+              $join->on('users.id', '=', 'lista_accesos.id_usuario');
+              $join->on(function($query) use ($lista)
+              {
+                $query->on('lista_accesos.id_indicador', '=', DB::raw("'".$lista."'"));
+              });
+          })
+        ->select('users.*')
+        ->where('users.id_compania',$users->id_compania)
+        ->WhereNull('lista_accesos.id_indicador')
+        ->where('users.perfil',4)
+        ->get();
+        return response()->json(
+          $document
+        );
+    }
     /**
      * Update the specified resource in storage.
      *

@@ -51,6 +51,9 @@ Route::group( ['middleware' => 'auth'],
 			Route::post('/indicadores/store', 'IndicadoressController@store');
 			Route::post('indicadores/destroy/{id}', 'IndicadoressController@destroy');
       Route::post('/indicadores/edit/{id}','IndicadoressController@edit');
+      Route::get('/indicadores/{id}/edit','IndicadoressController@editM');
+      Route::get('/indicadores/{id}/edit2','IndicadoressController@editM2');
+      Route::get('/indicadores/{id}/edit23','IndicadoressController@editM23');
 
 			//ruta para abcriesgos
 			Route::get('abcriesgos/create', 'AbcriesgosController@create');
