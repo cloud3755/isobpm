@@ -62,10 +62,10 @@ class AccionescorrectivasControllerVisual extends Controller
        {
             $relaciontabla = \DB::table('accioncorrectiva1s')
             ->join('estatuses','accioncorrectiva1s.estatus_id','=','estatuses.id')
-            ->join('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
+            ->leftjoin('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
             ->join('users','accioncorrectiva1s.responsable_id','=','users.id')
-            ->join('indicadores','accioncorrectiva1s.indicador_id','=','indicadores.id')
-            ->join('productos','accioncorrectiva1s.producto_id','=','productos.id')
+            ->leftjoin('indicadores','accioncorrectiva1s.indicador_id','=','indicadores.id')
+            ->leftjoin('productos','accioncorrectiva1s.producto_id','=','productos.id')
             ->select('accioncorrectiva1s.*','productos.nombre as productonombre','procesos.proceso as procesonombre','users.nombre as usernombre','estatuses.nombre as statusnombre','indicadores.nombre as indicadornombre')
             ->where('accioncorrectiva1s.idcompañia','=',$usuarios->id_compania)
             ->where('accioncorrectiva1s.responsable_id','=',$usuarios->id)
@@ -76,10 +76,10 @@ class AccionescorrectivasControllerVisual extends Controller
         {
              $relaciontabla = \DB::table('accioncorrectiva1s')
              ->join('estatuses','accioncorrectiva1s.estatus_id','=','estatuses.id')
-             ->join('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
+             ->leftjoin('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
              ->join('users','accioncorrectiva1s.responsable_id','=','users.id')
-             ->join('indicadores','accioncorrectiva1s.indicador_id','=','indicadores.id')
-             ->join('productos','accioncorrectiva1s.producto_id','=','productos.id')
+             ->leftjoin('indicadores','accioncorrectiva1s.indicador_id','=','indicadores.id')
+             ->leftjoin('productos','accioncorrectiva1s.producto_id','=','productos.id')
              ->select('accioncorrectiva1s.*','productos.nombre as productonombre','procesos.proceso as procesonombre','users.nombre as usernombre','estatuses.nombre as statusnombre','indicadores.nombre as indicadornombre')
              ->where('accioncorrectiva1s.idcompañia','=',$usuarios->id_compania)
              ->get();

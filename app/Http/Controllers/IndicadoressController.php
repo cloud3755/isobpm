@@ -136,6 +136,10 @@ class IndicadoressController extends Controller
       $indicador->logica = $request->input("elogica");
       $indicador->meta = $request->input("emeta");
       $acceso = $request->input("elista_de_accesos");
+
+      //Se borran
+      $accesos = lista_acceso::where('id_indicador', $indicador->acceso)->delete();
+
       for ($i=0;$i<count($acceso);$i++)
       {
         if ($i == 0) {
