@@ -128,6 +128,19 @@
               });
 
         });
+        function hideSubMenus(){}
+        $('.Menu').click(
+                function () {
+                    
+                    $('.' + $('#sublevel' + $(this).attr("id")).attr("class").split(' ')[0]).hide();
+                    $('#sublevel' + $(this).attr("id")).show(500);
+                    var childs = $('#sublevel' + $(this).attr("id") + ' ul li').length;
+                    var porc = ((100/childs-1));
+                    $('#sublevel' + $(this).attr("id") + ' ul li div').css('width', (porc+'%'));
+                    $('#sublevel' + $(this).attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
+                },
+                
+            );
       });
 
       // $(function(){
@@ -194,359 +207,90 @@
 
         </nav>
 
-        
-        <div class="officeColorStyle">
-            <ul>
-
-                <li class="dropdown items" style="display: block">
-                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Inf. Documentada
-                    </a>
-                    <ul class="dropdown-menu mega-menu officeColorStyle">
-
-                        <li class="mega-menu-column dropdown items">
-                            <i class="fa fa-file-text fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                DOCUMENTOS
-                            </a>
-                            <ul class="dropdown-menu mega-menu officeColorStyle">
-
-                                <li class="mega-menu-column">
-                                <center>
-                                    <ul>
-                                        <li class="nav-header"></li>
-                                        <i class="fa fa-copyright fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                                        <br><a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
-                                    </ul>
-                                </center>
-                        </li>
-                        <li class="mega-menu-column">
-                        <center>
-                            <ul>
-                                <li class="nav-header"></li>
-                                <i class="fa fa-book fa-5x imagesOfficeBar"></i><br>
-                                <a class="officeColorStyleFont" href="/documentada/1">Manuales</a>
-                            </ul>
-                        </center>
-                </li>   
-                <li class="mega-menu-column">
+<div class="mainMenu officeColorStyle">
+    <ul class="mainMenu">
+        <li><a id="Documentada" class="Menu" href="#">Inf. Documentada</a></li>
+    </ul>
+</div>
+<div class="sublevel1 sublevel officeColorStyle" id="sublevelDocumentada">
+    <ul class="mainMenu">
+        <li>
+            <div>
                 <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-cogs fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/3">Procedimientos</a>
-                    </ul>
+                    <i class="fa fa-file-text fa-5x imagesOfficeBar"></i><br />
+                    <a id="Documentos" class="Menu" href="#">DOCUMENTOS</a>
                 </center>
-                </li>
-                <li class="mega-menu-column">
+            </div>
+        </li>
+        <li>
+            <div>
                 <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-level-up fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/4">Instrucciones de trabajo</a>
-                    </ul>
+                    <i class="fa fa-file-text fa-2x imagesOfficeBar"></i><br />
+                    <a>ESTRATEGIA</a>
                 </center>
-                </li>      
-                <li class="mega-menu-column">
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="sublevel2 sublevel officeColorStyle" id="sublevelDocumentos">
+    <ul class="mainMenu">
+        <li >
+            <div>
                 <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-sticky-note-o fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/5">Formatos</a>
-                    </ul>
+                    <i class="fa fa-copyright fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
                 </center>
-                </li> 
-                <li class="mega-menu-column">
+            </div>
+        </li>
+        <li>
+            <div>
                 <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-mail-forward fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/6">Documentos externos</a>
-                    </ul>
-                </center>
-                </li> 
-            </ul>
-            </li>
-            <li class="mega-menu-column dropdown items">
-                <i class="fa fa-file-text fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    DOCUMENTOS
-                </a>
-                <ul class="dropdown-menu mega-menu officeColorStyle">
-
-                    <li class="mega-menu-column">
-                    <center>
-                        <ul>
-                            <li class="nav-header"></li>
-                            <i class="fa fa-copyright fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                            <br><a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
-                        </ul>
-                    </center>
-            </li>
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-book fa-5x imagesOfficeBar"></i><br>
+                    <i class="fa fa-book fa-2x imagesOfficeBar"></i>
+                    <br>
                     <a class="officeColorStyleFont" href="/documentada/1">Manuales</a>
-                </ul>
-            </center>
-            </li>   
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-cogs fa-5x imagesOfficeBar"></i><br>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-cogs fa-2x imagesOfficeBar"></i>
+                    <br>
                     <a class="officeColorStyleFont" href="/documentada/3">Procedimientos</a>
-                </ul>
-            </center>
-            </li>
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-level-up fa-5x imagesOfficeBar"></i><br>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-level-up fa-2x imagesOfficeBar"></i>
+                    <br>
                     <a class="officeColorStyleFont" href="/documentada/4">Instrucciones de trabajo</a>
-                </ul>
-            </center>
-            </li>      
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-sticky-note-o fa-5x imagesOfficeBar"></i><br>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-sticky-note-o fa-2x imagesOfficeBar"></i>
+                    <br>
                     <a class="officeColorStyleFont" href="/documentada/5">Formatos</a>
-                </ul>
-            </center>
-            </li> 
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-mail-forward fa-5x imagesOfficeBar"></i><br>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-mail-forward fa-2x imagesOfficeBar"></i>
+                    <br>
                     <a class="officeColorStyleFont" href="/documentada/6">Documentos externos</a>
-                </ul>
-            </center>
-            </li> 
-            </ul>
-            </li>
-
-
-            </ul>
-
-            </li>
-                <li class="dropdown items" style="display: block">
-                    <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Inf. Documentada
-                    </a>
-                    <ul class="dropdown-menu mega-menu officeColorStyle">
-
-                        <li class="mega-menu-column dropdown items">
-                            <i class="fa fa-file-text fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                DOCUMENTOS
-                            </a>
-                            <ul class="dropdown-menu mega-menu officeColorStyle">
-
-                                <li class="mega-menu-column">
-                                <center>
-                                    <ul>
-                                        <li class="nav-header"></li>
-                                        <i class="fa fa-copyright fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                                        <br><a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
-                                    </ul>
-                                </center>
-                        </li>
-                        <li class="mega-menu-column">
-                        <center>
-                            <ul>
-                                <li class="nav-header"></li>
-                                <i class="fa fa-book fa-5x imagesOfficeBar"></i><br>
-                                <a class="officeColorStyleFont" href="/documentada/1">Manuales</a>
-                            </ul>
-                        </center>
-                </li>   
-                <li class="mega-menu-column">
-                <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-cogs fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/3">Procedimientos</a>
-                    </ul>
                 </center>
-                </li>
-                <li class="mega-menu-column">
-                <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-level-up fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/4">Instrucciones de trabajo</a>
-                    </ul>
-                </center>
-                </li>      
-                <li class="mega-menu-column">
-                <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-sticky-note-o fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/5">Formatos</a>
-                    </ul>
-                </center>
-                </li> 
-                <li class="mega-menu-column">
-                <center>
-                    <ul>
-                        <li class="nav-header"></li>
-                        <i class="fa fa-mail-forward fa-5x imagesOfficeBar"></i><br>
-                        <a class="officeColorStyleFont" href="/documentada/6">Documentos externos</a>
-                    </ul>
-                </center>
-                </li> 
-            </ul>
-            </li>
-            <li class="mega-menu-column dropdown items">
-                <i class="fa fa-file-text fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    DOCUMENTOS
-                </a>
-                <ul class="dropdown-menu mega-menu officeColorStyle">
+            </div>
+        </li>
+    </ul>
+</div>        
 
-                    <li class="mega-menu-column">
-                    <center>
-                        <ul>
-                            <li class="nav-header"></li>
-                            <i class="fa fa-copyright fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                            <br><a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
-                        </ul>
-                    </center>
-            </li>
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-book fa-5x imagesOfficeBar"></i><br>
-                    <a class="officeColorStyleFont" href="/documentada/1">Manuales</a>
-                </ul>
-            </center>
-            </li>   
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-cogs fa-5x imagesOfficeBar"></i><br>
-                    <a class="officeColorStyleFont" href="/documentada/3">Procedimientos</a>
-                </ul>
-            </center>
-            </li>
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-level-up fa-5x imagesOfficeBar"></i><br>
-                    <a class="officeColorStyleFont" href="/documentada/4">Instrucciones de trabajo</a>
-                </ul>
-            </center>
-            </li>      
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-sticky-note-o fa-5x imagesOfficeBar"></i><br>
-                    <a class="officeColorStyleFont" href="/documentada/5">Formatos</a>
-                </ul>
-            </center>
-            </li> 
-            <li class="mega-menu-column">
-            <center>
-                <ul>
-                    <li class="nav-header"></li>
-                    <i class="fa fa-mail-forward fa-5x imagesOfficeBar"></i><br>
-                    <a class="officeColorStyleFont" href="/documentada/6">Documentos externos</a>
-                </ul>
-            </center>
-            </li> 
-            </ul>
-            </li>
-
-
-            </ul>
-
-            </li>
-            </ul>
-
-        </div>
-
-<!--
-       <div class="officeColorStyle">
-            <ul>
-                
-                <li class="dropdown items">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            DOCUMENTOS
-                        </a>
-                    <ul class="dropdown-menu mega-menu officeColorStyle">
-    
-                        <li class="mega-menu-column">
-                            <center>
-                                <ul>
-                                    <li class="nav-header"></li>
-                                    <i class="fa fa-copyright fa-5x imagesOfficeBar" src=" /img/navBar office style images/Politicas.jpg" ></i>
-                                    <br><a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
-                                </ul>
-                            </center>
-                        </li>
-                        <li class="mega-menu-column">
-                            <center>
-                            <ul>
-                                 <li class="nav-header"></li>
-                                <i class="fa fa-book fa-5x imagesOfficeBar"></i><br>
-                                <a class="officeColorStyleFont" href="/documentada/1">Manuales</a>
-                            </ul>
-                            </center>
-                        </li>   
-			<li class="mega-menu-column">
-                            <center>
-                            <ul>
-                                 <li class="nav-header"></li>
-                                <i class="fa fa-cogs fa-5x imagesOfficeBar"></i><br>
-                                <a class="officeColorStyleFont" href="/documentada/3">Procedimientos</a>
-                            </ul>
-                            </center>
-                        </li>
-			<li class="mega-menu-column">
-                            <center>
-                            <ul>
-                                 <li class="nav-header"></li>
-                                <i class="fa fa-level-up fa-5x imagesOfficeBar"></i><br>
-                                <a class="officeColorStyleFont" href="/documentada/4">Instrucciones de trabajo</a>
-                            </ul>
-                            </center>
-                        </li>      
-                        <li class="mega-menu-column">
-                            <center>
-                            <ul>
-                                 <li class="nav-header"></li>
-                                <i class="fa fa-sticky-note-o fa-5x imagesOfficeBar"></i><br>
-                                <a class="officeColorStyleFont" href="/documentada/5">Formatos</a>
-                            </ul>
-                            </center>
-                        </li> 
-                        <li class="mega-menu-column">
-                            <center>
-                            <ul>
-                                 <li class="nav-header"></li>
-                                <i class="fa fa-mail-forward fa-5x imagesOfficeBar"></i><br>
-                                <a class="officeColorStyleFont" href="/documentada/6">Documentos externos</a>
-                            </ul>
-                            </center>
-                        </li> 
-                    </ul>
-                </li>
-               
-            </ul>
-           
-        </div>
--->
 						
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
