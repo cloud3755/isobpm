@@ -56,18 +56,22 @@
                           <td>  <?=$noconformidad->acciones?></td>
                           <td>  <?=$noconformidad->fecha_plan?></td>
                           <td>  <?=$noconformidad->evidencia?>
+                            @IF($noconformidad->evidencia != '')
                             <a href="/storage/noconformidad/<?=$noconformidad->evidencia_unic?>" downloadFile="<?=$noconformidad->evidencia_unic?>" style='color:#FFF'>
                               <button type="button" class="btn btn-default">
                                    <span class="glyphicon glyphicon-download-alt"></span>
                               </button>
                             </a>
+                            @endif
                           </td>
                           <td>  <?=$noconformidad->evidenciapertura?>
+                            @IF($noconformidad->evidenciapertura != '')
                             <a href="/storage/noconformidad/<?=$noconformidad->apertura_unic?>" downloadFile="<?=$noconformidad->apertura_unic?>" style='color:#FFF'>
                               <button type="button" class="btn btn-default">
                                    <span class="glyphicon glyphicon-download-alt"></span>
                               </button>
                             </a>
+                            @endif
                           </td>
                           <td>  <?=$noconformidad->fecha_cierre?></td>
                           <td>  <?=$noconformidad->estatusnombre?></td>
