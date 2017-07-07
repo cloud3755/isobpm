@@ -2,23 +2,8 @@
 
 @section('content')
 
-    <div class="row" style="padding: 5px">
-        <div class="col-lg-12 text-right">
-            <button type="button" class="btn btn-primary" id="btnHelp">?</button>
-        </div>
-        <div class="col-lg-12" id="divHelp" style="display:none">
-            <div class="col-lg-3 col-md-4 col-sm-4 hidden-xs text-center">
-                <img src="../../img/help/doc_ext.jpg" class="img-responsive img-thumbnail" />
-            </div>
-            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-                <p>
-                    En este apartado se publican los Documentos Externos de la organización, tales como Normas, Contratos,
-                    Acuerdos de Servicio y todo aquella documentación requerida y utilizada por la organización para su
-                    sistema de Gestión.
-                </p>
-            </div>
-        </div>
-    </div><br><br><br><br><br>
+<br><br><br><br><br>
+<br><br>
     <div class="row">
         <div class="col-lg-12">
             <h2 class="page-header" style="margin-bottom: 0px; margin: 0px; border-bottom: none">
@@ -324,7 +309,7 @@
                       <div class="form-group form-group-lg">
                           <h2><label for="Usuario" class="control-label col-md-12">Documento:</label></h2>
                           <div class="col-md-6">
-                              <input class="form-control input-lg" id="documento" type="text" placeholder="<?=$Noconformidad['documento']?>" name="documento">
+                              <input class="form-control input-lg" id="documento" type="text" value="<?=$Noconformidad['documento']?>" name="documento">
                           </div>
                       </div>
 
