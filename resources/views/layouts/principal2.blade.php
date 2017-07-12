@@ -207,9 +207,16 @@
 
         </nav>
 
+
+
+
 <div class="mainMenu officeColorStyle">
-    <ul class="mainMenu">
+    <ul class="mainMenu border">
         <li><a id="Documentada" class="Menu" href="#">Inf. Documentada</a></li>
+        <li><a id="ObjetivosIndicadores" class="Menu" href="#">Objetivos & Indicadores</a></li>
+        <li><a id="Procesos" class="Menu" href="#">Procesos</a></li>
+        <li><a id="Riesgosoportunidades" class="Menu" href="#">Riesgos & oportunidades</a></li>
+        <li><a id="Mejora" class="Menu" href="#">Mejora</a></li>
     </ul>
 </div>
 <div class="sublevel1 sublevel officeColorStyle" id="sublevelDocumentada">
@@ -217,21 +224,248 @@
         <li>
             <div>
                 <center>
-                    <i class="fa fa-file-text fa-5x imagesOfficeBar"></i><br />
-                    <a id="Documentos" class="Menu" href="#">DOCUMENTOS</a>
+                    <a id="Documentos" class="Menu" href="#">Documentos</a>
                 </center>
             </div>
         </li>
         <li>
             <div>
                 <center>
-                    <i class="fa fa-file-text fa-2x imagesOfficeBar"></i><br />
-                    <a>ESTRATEGIA</a>
+                    <a id="Estrategia" class="Menu" href="#">Estrategia</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="Procesos" class="Menu" href="#">Procesos</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="Riesgos" class="Menu" href="#">Riesgos</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="Recursos" class="Menu" href="#">Recursos</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="Operacion" class="Menu" href="#">Operacion</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="Evaluacion" class="Menu" href="#">Evaluación</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="Mejora" class="Menu" href="#">Mejora</a>
                 </center>
             </div>
         </li>
     </ul>
 </div>
+<div class="sublevel2 sublevel officeColorStyle" id="sublevelOperacion">
+    <ul class="mainMenu">
+        <li >
+            <div>
+                <center>
+                    <i class="fa fa-pencil-square-o  fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/56">DISEÑO Y DESARROLLO</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-usd fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/57">COMPRAS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    
+                    <br>
+                    <a id="Operacion2" class="Menu officeColorStyleFont" href="#">OPERACIÓN</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+    </ul>
+</div>  
+<div class="sublevel2 sublevel officeColorStyle" id="sublevelRecursos">
+    <ul class="mainMenu">
+        <li >
+            <div>
+                <center>
+                    <a id="Personal" class="Menu officeColorStyleFont" href="#">PERSONAL</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="Infraestructura" class="Menu officeColorStyleFont" href="#">INFRAESTRUCTURA</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <a id="EquipoMedicion" class="Menu officeColorStyleFont" href="#">EQUIPO DE MEDICIÓN</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>  
+<div class="sublevel2 sublevel officeColorStyle" id="sublevelRiesgos">
+    <ul class="mainMenu">
+        <li >
+            <div>
+                <center>
+                    <i class="fa fa-exclamation-circle fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/31">RIESGOS DE CALIDAD</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-tree fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/32">RIESGOS AMBIENTALES</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-plus-square fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/33">RIESGOS DE SEGURIDAD LABORAL</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-battery-quarter fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <h4><a  href="/documentada/34">RIESGOS DE SUMINISTROS</a></h4>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>  
+<div class="sublevel2 sublevel officeColorStyle" id="sublevelProcesos">
+    <ul class="mainMenu">
+        <li >
+            <div>
+                <center>
+                    <i class="fa fa-pencil fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/21">ARQUITECTURA DE PROCESOS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-cubes fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/22">PROCESOS DE GESTION</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-circle-o-notch fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/23">PROCESOS CORE</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-desktop fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/24">PROCESOS DE SOPORTE</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>  
+<div class="sublevel2 sublevel officeColorStyle" id="sublevelEstrategia">
+    <ul class="mainMenu">
+        <li >
+            <div>
+                <center>
+                    <i class="fa fa-arrows-alt fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/11">PLANIFICACION ESTRATEGICA (FODA)</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-comments fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/12">PARTES INTERESADAS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-line-chart fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/13">OBJETIVOS E INDICADORES</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-user-o fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/14">REVISIONES DIRECTIVAS</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>   
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelDocumentos">
     <ul class="mainMenu">
         <li >
@@ -289,8 +523,143 @@
             </div>
         </li>
     </ul>
-</div>        
-
+</div>
+<div class="sublevel3 sublevel officeColorStyle" id="sublevelEquipoMedicion">
+    <ul class="mainMenu">
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-tachometer fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/47">EQUIPO DE MED Y PBA</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-balance-scale fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/46">PROGRAMA DE CALIBRACIÓN</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>    
+<div class="sublevel3 sublevel officeColorStyle" id="sublevelInfraestructura">
+    <ul class="mainMenu">
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-wrench fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/45">EQUIPO O MAQUINARIA</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-paint-brush fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/44">PROGRAMA DE MANTENIMIENTO</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>          
+<div class="sublevel3 sublevel officeColorStyle" id="sublevelPersonal">
+    <ul class="mainMenu">
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-sitemap fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/40">ORGANIGRAMA</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-address-card-o fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/41">PERFIL DE PUESTO</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-folder-open-o fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/42">EXPEDIENTES</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-arrow-right fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/43">CAPACITACIÓN</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>  
+<div class="sublevel3 sublevel officeColorStyle" id="sublevelOperacion2">
+    <ul class="mainMenu">
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-thumbs-o-up fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/51">CALIDAD</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-tree fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/52">AMBIENTAL</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-lock fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/53">SEGURIDAD</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <center>
+                    <i class="fa fa-battery-three-quarters fa-2x imagesOfficeBar"></i>
+                    <br>
+                    <a class="officeColorStyleFont" href="/documentada/55">SUMINISTROS</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>  
 						
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
