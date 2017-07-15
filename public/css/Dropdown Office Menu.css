@@ -2,6 +2,11 @@
 {
      border-right: 2px solid #0000C0;
 }
+.bigdiv
+{
+    overflow: hidden;
+    white-space: nowrap;
+}
 .mainMenu li:last-child
 {
      border-right: none;
