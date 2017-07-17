@@ -135,10 +135,9 @@
                    var sublevelclass =$('#sublevel' + $(this).attr("id")).attr("class").split(' ')[0];
                     
                     var sublevelhide= sublevelclass.substring(8);
-                    alert(sublevelhide);
                     for(var i = sublevelhide; i<4; i++)
                         $('.sublevel'+i).hide();
-                    $('#sublevel' + $(this).attr("id")).show(500);
+                    
                     var childs = $('#sublevel' + $(this).attr("id") + ' ul li').length;
                     var porc = ((100/childs-1));
                     $('#sublevel' + $(this).attr("id") + ' ul li div').css('width', (porc+'%'));
@@ -146,6 +145,7 @@
                     $('#sublevel' + $(this).attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
                     $('#sublevel' + $(this).attr("id") + ' ul li div center .smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
                     $('#sublevel' + $(this).attr("id") + ' ul li div center .verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
+                    $('#sublevel' + $(this).attr("id")).show(500);
                 },
                 
             );
@@ -218,15 +218,140 @@
 
 
 
+
 <div class="mainMenu officeColorStyle">
     <ul class="mainMenu border">
         <li><a id="Documentada" class="Menu" href="#">Inf. Documentada</a></li>
         <li><a id="ObjetivosIndicadores" class="Menu" href="#">Objetivos & Indicadores</a></li>
-        <li><a id="Procesos" class="Menu" href="#">Procesos</a></li>
-        <li><a id="Riesgosoportunidades" class="Menu" href="#">Riesgos & oportunidades</a></li>
-        <li><a id="Mejora" class="Menu" href="#">Mejora</a></li>
+        <li><a href="/procesos/visual">Procesos</a></li>
+        <li><a id="RiesgosOportunidades" class="Menu" href="#">Riesgos & oportunidades</a></li>
+        <li><a id="MejoraPrincipal" class="Menu" href="#">Mejora</a></li>
     </ul>
 </div>
+<!--Mejora-->
+<div class="sublevel1 sublevel officeColorStyle" id="sublevelMejoraPrincipal">
+    <ul class="mainMenu">
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-user-times fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont"  href="/quejas/create">QUEJAS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-thumbs-o-down fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/noconformidad/create">NO CONFORMIDADES</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-shield fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/accioncorrectiva">ACCIONES CORRECTIVAS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-tasks fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/promejoras">PROYECTOS DE MEJORA</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-pie-chart fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/DashboardMejora">REPORTES DE MEJORA</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+    </ul>
+</div>
+<!--Mejora-->
+
+<!--Riesgos & oportunidades-->
+<div class="sublevel1 sublevel officeColorStyle" id="sublevelRiesgosOportunidades">
+    <ul class="mainMenu">
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-th-list fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/abcriesgos/create">ABC RIESGOS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-cogs fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/riesgos/create">ANÁLISIS DE RIESGO</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-thermometer-three-quarters fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/mapadecalor">MAPA DE CALOR</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<!--Riesgos & oportunidades-->
+<!--Objetivos & Indicadores-->
+<div class="sublevel1 sublevel officeColorStyle" id="sublevelObjetivosIndicadores">
+    <ul class="mainMenu">
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-crosshairs fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/objetivos/visual">OBJETIVOS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-table fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/resultado/create">RESULTADOS</a>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+                <center>
+                <i class="fa fa-pie-chart fa-2x imagesOfficeBar"></i>
+                <br>
+                <a class="officeColorStyleFont smallfont"  href="/Dashboard">DASHBOARD</a>
+                </center>
+            </div>
+        </li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<!--Objetivos & Indicadores-->
+<!--Info Documentada-->
 <div class="sublevel1 sublevel officeColorStyle" id="sublevelDocumentada">
     <ul class="mainMenu">
         <li>
@@ -267,7 +392,7 @@
         <li>
             <div>
                 <center>
-                    <a id="Operacion" class="Menu" href="#">Operacion</a>
+                    <a id="Operacion" class="Menu" href="#">Operación</a>
                 </center>
             </div>
         </li>
@@ -307,6 +432,8 @@
                 </center>
             </div>
         </li>
+        <li></li>
+        <li></li>
         <li></li>
     </ul>
 </div>  
@@ -843,7 +970,7 @@
         <li></li>
     </ul>
 </div>  
-						
+<!--Info Documentada-->						
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
             <div>
