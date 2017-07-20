@@ -336,6 +336,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateMejorasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_09_000915_create_mejoras_table.php',
         'CreateNivelesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_233319_create_niveles_table.php',
         'CreateNoconformidadesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_15_030644_create_noconformidades_table.php',
+        'CreateNoticiasTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_19_215124_create_noticias_table.php',
         'CreateObjetivosTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220712_create_objetivos_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePlansTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_022426_create_plans_table.php',

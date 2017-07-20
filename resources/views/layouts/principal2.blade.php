@@ -129,6 +129,12 @@
 
         });
         function hideSubMenus(){}
+        $("#presionarBotonModalNoticia").click(
+            function()
+            {
+                $("#mostrarModalNoticia").click();
+            }
+        );
         $('.Menu').click(
                 function () {
                     
@@ -196,11 +202,15 @@
                     <center><label for="" class="opcion_iluminada"><h5>{{Auth::user()->empresa}}</h5 ></label></center>
                     <div class="social">
                     		<ul>
-                    			<li><a href="/infdocumentada" class="icon-bar-graph">Inf.Docu</a></li>
+                          <li><a href="/infdocumentada" class="icon-bar-graph">Inf.Docu</a></li>
                           <li><a href="/objetivosindicadores"  class="icon-bar-graph">Objetivos</a></li>
                           <li><a href="/procesos/visual" class="icon-bar-graph">Procesos</a></li>
                           <li><a href="/riesgos"  class="icon-bar-graph">Riesgos</a></li>
                           <li><a href="/mejoras" class="icon-bar-graph">Mejoras</a></li>
+                          @if(Auth::user()->perfil == 1)
+                          <li><a href="#" id="presionarBotonModalNoticia" class="icon-bar-graph">Agregar Noticia</a></li>
+                          <button id="mostrarModalNoticia" type="hidden" data-toggle="modal" data-target="#modalAgregarNoticia"></button>
+                          @endif
                     		</ul>
                     	</div>
 
@@ -214,7 +224,6 @@
             </div> -->
 
         </nav>
-
 
 
 
@@ -1036,6 +1045,37 @@
                     
                 </div>
             </center>
+<div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Agregar Noticia</h2>
+            </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form class="" action="/administrados/noticiastore" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="form-group form-group-lg">
+                            <h2>
+                                <label for="Noticia" class="control-label col-md-12" >
+                                Noticia
+                                </label>
+                            </h2>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                            </div>
+                        </div>
+                </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btnobjetivo" id="btnNoticia" style="font-family: Arial;">Agregar Noticia</button>
+            </form>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
         </div>
                 @yield('content')
             </div>

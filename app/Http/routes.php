@@ -213,7 +213,8 @@ Route::group( ['middleware' => 'auth'],
 
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
-
+    //Ruta crear noticia
+    Route::post('/administrados/noticiastore', 'AdministradosController@noticiastore');
     }
 );
 

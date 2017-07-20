@@ -27,6 +27,7 @@ return array(
     'CreateMejorasTable' => $baseDir . '/database/migrations/2017_04_09_000915_create_mejoras_table.php',
     'CreateNivelesTable' => $baseDir . '/database/migrations/2017_03_12_233319_create_niveles_table.php',
     'CreateNoconformidadesTable' => $baseDir . '/database/migrations/2017_03_15_030644_create_noconformidades_table.php',
+    'CreateNoticiasTable' => $baseDir . '/database/migrations/2017_07_19_215124_create_noticias_table.php',
     'CreateObjetivosTable' => $baseDir . '/database/migrations/2017_02_26_220712_create_objetivos_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePlansTable' => $baseDir . '/database/migrations/2017_04_08_022426_create_plans_table.php',

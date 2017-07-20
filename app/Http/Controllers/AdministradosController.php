@@ -15,6 +15,7 @@ use App\Models\Empresas;
 use App\Models\Status;
 use App\Models\Plans;
 use App\Models\Documentos;
+use App\Noticias;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -366,6 +367,27 @@ class AdministradosController extends Controller
         //Falta agregar el area
         $usuarios->save();
         return redirect('/usuarios');
+      }
+      //functiones para las noticias
+      public function noticiastore(Request $request)
+      {
+       $user = Auth::user();
+       $noticia = new Noticias;
+       $date = Carbon::now();
+        if($user->perfil == 1){
+          $empresas = $empresa->where('id_compania',$user->id_compania)->first();
+          $noticia->id_empresa = $empresas->id;
+          $noticia->id_UsuarioCreo = $user->id;
+          $noticia->fecha_creacion->$date ;
+          $noticia->Noticia = $request->input('descripcionNoticia');
+          $noticia.save();
+          return redirect('/Bienvenida');
+        }else{
+          return redirect('/Bienvenida');
+        }
+
+        
+        
       }
 
 }
