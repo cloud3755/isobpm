@@ -128,6 +128,7 @@
               });
 
         });
+        
         function hideSubMenus(){}
         $("#presionarBotonModalNoticia").click(
             function()
@@ -207,9 +208,9 @@
                           <li><a href="/procesos/visual" class="icon-bar-graph">Procesos</a></li>
                           <li><a href="/riesgos"  class="icon-bar-graph">Riesgos</a></li>
                           <li><a href="/mejoras" class="icon-bar-graph">Mejoras</a></li>
-                          @if(Auth::user()->perfil == 1)
+                          @if(Auth::user()->perfil == 1||Auth::user()->perfil == 3)
                           <li><a href="#" id="presionarBotonModalNoticia" class="icon-bar-graph">Agregar Noticia</a></li>
-                          <button id="mostrarModalNoticia" type="hidden" data-toggle="modal" data-target="#modalAgregarNoticia"></button>
+                          <button hidden id="mostrarModalNoticia" type="hidden" data-toggle="modal" data-target="#modalAgregarNoticia"></button>
                           @endif
                     		</ul>
                     	</div>
@@ -999,6 +1000,9 @@
                                             <div style="border: 1px solid #002858">
                                                 <center>
                                                     Noticias
+                                                        <?php foreach ($noticiasw as $noticia): ?>
+                                                        <li><a href="#" class="icon-bar-graph"><?=$noticia->Noticia?></a></li>
+                                                        <?php endforeach ?>
                                                 </center>
                                             </div>
                                         </td>  

@@ -15,9 +15,10 @@ use App\Models\Empresas;
 use App\Models\Status;
 use App\Models\Plans;
 use App\Models\Documentos;
-use App\Noticias;
+use App\Models\Noticias;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades;
 
 class AdministradosController extends Controller
 {
@@ -373,21 +374,19 @@ class AdministradosController extends Controller
       {
        $user = Auth::user();
        $noticia = new Noticias;
-       $date = Carbon::now();
+       $date = date("Y-m-d");
+       $empresa = new Empresas;
         if($user->perfil == 1){
-          $empresas = $empresa->where('id_compania',$user->id_compania)->first();
-          $noticia->id_empresa = $empresas->id;
+          $noticia->id_empresa = $user->id_compania;
           $noticia->id_UsuarioCreo = $user->id;
-          $noticia->fecha_creacion->$date ;
+          $noticia->fecha_creacion=$date;
           $noticia->Noticia = $request->input('descripcionNoticia');
-          $noticia.save();
-          return redirect('/Bienvenida');
+          $noticia->save();
+          return Redirect('/Bienvenida');
         }else{
-          return redirect('/Bienvenida');
+          return Redirect('/');
         }
-
-        
-        
       }
+
 
 }

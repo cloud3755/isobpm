@@ -16,7 +16,7 @@ class CreateNoticiasTable extends Migration
             $table->increments('id');
             $table->integer('id_empresa');
             $table->integer('id_UsuarioCreo');
-            $table->dateTime('fecha_creacion');
+            $table->date('fecha_creacion');
             $table->string('Noticia');
             $table->timestamps();
         });
