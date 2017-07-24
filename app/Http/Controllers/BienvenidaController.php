@@ -11,7 +11,9 @@ use App\Models\Indicadores;
 use App\Models\Quejas;
 use App\Models\Proceso;
 use App\Models\Empresas;
+use App\Models\Noticias;
 use App\Models\User;
+use Carbon\Carbon;
 use Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -86,6 +88,9 @@ class BienvenidaController extends Controller
     public function show()
     {
       $usuarios = Auth::user();
+      $noticias = new Noticias;
+      $noticiasw = $noticias->where('id_empresa',$usuarios->id_compania)
+      ->where('fecha_creacion',date("Y-m-d"))->get();
 
       $objetivos = new Objetivo;
       $objetivo = $objetivos->where('id_compania',$usuarios->id_compania)->get();
@@ -104,7 +109,7 @@ class BienvenidaController extends Controller
       }
 
 
-      return View('bienvenida', compact('objetivo', 'quejas','proceso','empresa'));
+      return View('bienvenida', compact('objetivo', 'quejas','proceso','empresa', 'noticiasw'));
     }
 
     /**

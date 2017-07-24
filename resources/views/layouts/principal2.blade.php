@@ -128,7 +128,7 @@
               });
 
         });
-        
+
         function hideSubMenus(){}
         $("#presionarBotonModalNoticia").click(
             function()
@@ -138,13 +138,13 @@
         );
         $('.Menu').click(
                 function () {
-                    
+
                    var sublevelclass =$('#sublevel' + $(this).attr("id")).attr("class").split(' ')[0];
-                    
+
                     var sublevelhide= sublevelclass.substring(8);
                     for(var i = sublevelhide; i<4; i++)
                         $('.sublevel'+i).hide();
-                    
+
                     var childs = $('#sublevel' + $(this).attr("id") + ' ul li').length;
                     var porc = ((100/childs-1));
                     $('#sublevel' + $(this).attr("id") + ' ul li div').css('width', (porc+'%'));
@@ -154,7 +154,7 @@
                     $('#sublevel' + $(this).attr("id") + ' ul li div center .verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
                     $('#sublevel' + $(this).attr("id")).show(500);
                 },
-                
+
             );
       });
 
@@ -208,8 +208,8 @@
                           <li><a href="/procesos/visual" class="icon-bar-graph">Procesos</a></li>
                           <li><a href="/riesgos"  class="icon-bar-graph">Riesgos</a></li>
                           <li><a href="/mejoras" class="icon-bar-graph">Mejoras</a></li>
-                          @if(Auth::user()->perfil == 1||Auth::user()->perfil == 3)
-                          <li><a href="#" id="presionarBotonModalNoticia" class="icon-bar-graph">Agregar Noticia</a></li>
+                          @if(Auth::user()->perfil != 4)
+                          <li><a href="#" id="presionarBotonModalNoticia" class="icon-bar-graph">Noticia</a></li>
                           <button hidden id="mostrarModalNoticia" type="hidden" data-toggle="modal" data-target="#modalAgregarNoticia"></button>
                           @endif
                     		</ul>
@@ -446,7 +446,7 @@
         <li></li>
         <li></li>
     </ul>
-</div>  
+</div>
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelEvaluacion">
     <ul class="mainMenu">
         <li >
@@ -460,7 +460,7 @@
         <li>
             <div class="bigdiv">
                 <center>
-                    
+
                     <br>
                     <a id="PNC" class="Menu officeColorStyleFont smallfont" href="#">INCIDENTES O PNC</a>
                 </center>
@@ -486,7 +486,7 @@
 
         <li></li>
     </ul>
-</div>  
+</div>
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelOperacion">
     <ul class="mainMenu">
         <li >
@@ -517,7 +517,7 @@
         </li>
         <li></li>
     </ul>
-</div>  
+</div>
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelRecursos">
     <ul class="mainMenu">
         <li >
@@ -544,9 +544,9 @@
         <li></li>
         <li></li>
         <li></li>
-        
+
     </ul>
-</div>  
+</div>
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelRiesgos">
     <ul class="mainMenu">
         <li >
@@ -586,9 +586,9 @@
             </div>
         </li>
         <li></li>
-       
+
     </ul>
-</div>  
+</div>
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelProcesos">
     <ul class="mainMenu">
         <li >
@@ -629,7 +629,7 @@
         </li>
         <li></li>
     </ul>
-</div>  
+</div>
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelEstrategia">
     <ul class="mainMenu">
         <li >
@@ -670,7 +670,7 @@
         </li>
         <li></li>
     </ul>
-</div>   
+</div>
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelDocumentos">
     <ul class="mainMenu">
         <li >
@@ -762,7 +762,7 @@
         <li></li>
         <li></li>
     </ul>
-</div> 
+</div>
 <div class="sublevel3 sublevel officeColorStyle" id="sublevelPNC">
     <ul class="mainMenu">
         <li>
@@ -804,7 +804,7 @@
         <li></li>
         <li></li>
     </ul>
-</div> 
+</div>
 <div class="sublevel3 sublevel officeColorStyle" id="sublevelPlanesControl">
     <ul class="mainMenu">
         <li>
@@ -846,7 +846,7 @@
         <li></li>
         <li></li>
     </ul>
-</div>  
+</div>
 <div class="sublevel3 sublevel officeColorStyle" id="sublevelEquipoMedicion">
     <ul class="mainMenu">
         <li>
@@ -871,7 +871,7 @@
         <li></li>
         <li></li>
     </ul>
-</div>    
+</div>
 <div class="sublevel3 sublevel officeColorStyle" id="sublevelInfraestructura">
     <ul class="mainMenu">
         <li>
@@ -896,7 +896,7 @@
         <li></li>
         <li></li>
     </ul>
-</div>          
+</div>
 <div class="sublevel3 sublevel officeColorStyle" id="sublevelPersonal">
     <ul class="mainMenu">
         <li>
@@ -937,7 +937,7 @@
         </li>
         <li></li>
     </ul>
-</div>  
+</div>
 <div class="sublevel3 sublevel officeColorStyle" id="sublevelOperacion2">
     <ul class="mainMenu">
         <li>
@@ -979,76 +979,11 @@
         <li></li>
         <li></li>
     </ul>
-</div>  
-<!--Info Documentada-->						
+</div>
+<!--Info Documentada-->
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
             <div>
-            <center>
-                <div>
-                    <table>
-                        <tr>
-                            <td>
-                                <table class="table">
-                                    <tr>
-                                        <td >
-                                            <img style="width: 150px;height: 150px;"  src=" /img/tableCredential images/user.jpg" />
-                                        </td>  
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div style="border: 1px solid #002858">
-                                                <center>
-                                                    Noticias
-                                                        <?php foreach ($noticiasw as $noticia): ?>
-                                                        <li><a href="#" class="icon-bar-graph"><?=$noticia->Noticia?></a></li>
-                                                        <?php endforeach ?>
-                                                </center>
-                                            </div>
-                                        </td>  
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img style="width: 150px;height: 150px;" src=" /img/tableCredential images/calendar.png" />
-                                        </td>  
-                                    </tr>
-                                </table> 
-                            </td>
-                            <td>
-                            <table class="table">
-                                <tr style="border-bottom: 1px solid #002858">
-                                    <td>
-                                    <i class="fa fa-file-text fa-5x"></i>
-                                    <span>Mis Documentos</span>
-                                    </td>
-                                </tr>
-                                
-                                <tr style="border-bottom: 1px solid #002858">
-                                    <td>
-                                        <i class="fa fa fa-bar-chart fa-5x"></i>
-                                        <span>Mis Indicadores</span>
-                                    </td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #002858">
-                                    <td>
-                                        <i class="fa fa-code-fork fa-5x"></i>
-                                        <span>Mis Procesos</span>
-                                    </td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #002858">
-                                    <td>
-                                        <i class="fa fa fa-edit fa-5x"></i>
-                                        <span>Mis Pendientes</span>
-                                    </td>
-                                </tr>
-                            </table>
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    
-                </div>
-            </center>
 <div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

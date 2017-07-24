@@ -3,9 +3,71 @@
 @section('content')
 
 <br><br><br>
-<br><br><br>
-<br><br>
-<br><br><br>
+<center>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td >
+                                <img style="width: 150px;height: 150px;"  src=" /img/tableCredential images/user.jpg" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="border: 1px solid #002858">
+                                    <center>
+                                        Noticias
+                                            <?php foreach ($noticiasw as $noticia): ?>
+                                            <li><a href="#" class="icon-bar-graph"><?=$noticia->Noticia?></a></li>
+                                            <?php endforeach ?>
+                                    </center>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img style="width: 150px;height: 150px;" src=" /img/tableCredential images/calendar.png" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                <table class="table">
+                    <tr style="border-bottom: 1px solid #002858">
+                        <td>
+                        <i class="fa fa-file-text fa-5x"></i>
+                        <span>Mis Documentos</span>
+                        </td>
+                    </tr>
+
+                    <tr style="border-bottom: 1px solid #002858">
+                        <td>
+                            <i class="fa fa fa-bar-chart fa-5x"></i>
+                            <span>Mis Indicadores</span>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #002858">
+                        <td>
+                            <i class="fa fa-code-fork fa-5x"></i>
+                            <span>Mis Procesos</span>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #002858">
+                        <td>
+                            <i class="fa fa fa-edit fa-5x"></i>
+                            <span>Mis Pendientes</span>
+                        </td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+</center>
     <div class="row">
       <div class="col-lg-3 col-md-6" >
           <div class="panel panel-doc" id="divPartnersPending">

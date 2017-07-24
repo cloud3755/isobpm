@@ -382,7 +382,7 @@ class AdministradosController extends Controller
           $noticia->fecha_creacion=$date;
           $noticia->Noticia = $request->input('descripcionNoticia');
           $noticia->save();
-          return Redirect('/Bienvenida');
+          return Redirect('/bienvenida');
         }else{
           return Redirect('/');
         }
