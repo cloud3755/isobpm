@@ -212,6 +212,10 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/aprobartodo', 'InformaciondocController@aprobartodo');
 
 
+    // prueba calendario
+    Route::get('/calendarioagenda', 'calendariopersonal@index');
+
+
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Ruta crear noticia
     Route::post('/administrados/noticiastore', 'AdministradosController@noticiastore');

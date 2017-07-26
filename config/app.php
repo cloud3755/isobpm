@@ -145,7 +145,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         'Chumper\Zipper\ZipperServiceProvider',
-
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
     ],
 
@@ -196,7 +196,9 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
+        'Calendar'  => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'Zipper'    => 'Chumper\Zipper\Zipper'
+
     ],
 
 ];

@@ -278,6 +278,10 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
             array (
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
             ),
+            'MaddHatter\\LaravelFullcalendar' => 
+            array (
+                0 => __DIR__ . '/..' . '/maddhatter/laravel-fullcalendar/src',
+            ),
         ),
         'J' => 
         array (
@@ -354,6 +358,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'EstatusesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'EtapasserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'EventModels' => __DIR__ . '/../..' . '/database/migrations/2017_07_26_183129_event_models.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
