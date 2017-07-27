@@ -14,6 +14,8 @@ use App\Models\User;
 use App\Models\informacion_accesos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
 
 class InformaciondocController extends Controller
 {
@@ -171,7 +173,7 @@ class InformaciondocController extends Controller
         $documentos->nombreunico          = $nombreunicoarchivo;
         $bytes                            = \File::size($file);
         $documentos->size                 = $bytes;
-        $documentos->review = 2;
+        $documentos->review = $documentos->review + 1;
       }
       $documentos->id_tipo = $request->input('id_tipo');
       $documentos->nombre = $request->input('enombre');
@@ -203,7 +205,7 @@ class InformaciondocController extends Controller
       $document->descripcion = $request->input('edescripcion');
       $document->id_user = $usuarios->id;
       $document->id_compania = $usuarios->id_compania;
-      $document->review = 1;
+      $document->review = $documentos->review + 1;
       $document->status = 1;
       //Para lista de accesos
       $paralista = uniqid('infac_');
@@ -444,6 +446,16 @@ class InformaciondocController extends Controller
     }
 
     return Redirect('/documentada');
+  }
+
+  public function ver($id){
+    $documento = Documentos::find($id);
+    $response = Response::make(File::get("storage/documentos/".$documento->nombreunico));
+    $content_types = mime_content_type("storage/documentos/".$documento->nombreunico);
+    // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
+    $response->header('Content-Type', $content_types);
+
+    return $response;
   }
 
 }

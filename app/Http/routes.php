@@ -86,6 +86,7 @@ Route::group( ['middleware' => 'auth'],
 		Route::post('/procesos/delete/{id}','ProcesosController@destroy');
 		Route::get('/procesos/visual/{id}','ProcesosControllerVisual@visualzip');
     Route::get('/procesos/registro/{id}','ProcesosControllerVisual@show');
+    Route::get('/bizagi/{id}','ProcesosControllerVisual@ver');
 
 
 		//ruta para Resultados
@@ -198,6 +199,7 @@ Route::group( ['middleware' => 'auth'],
 
     //Documentos (Mostrar, crear y editar)
     Route::get('/documentada/{id}','InformaciondocController@mostrar');
+    Route::get('/documento/{id}','InformaciondocController@ver');
     Route::post('/documentada/store', 'InformaciondocController@store');
     Route::delete('/documentada/destroy/{id}', 'InformaciondocController@destroy');
     Route::post('/documentada/edit/{id}', 'InformaciondocController@editM');
