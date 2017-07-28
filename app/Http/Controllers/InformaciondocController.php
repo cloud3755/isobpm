@@ -167,13 +167,24 @@ class InformaciondocController extends Controller
       {
         $extension                        = strtolower($file->getclientoriginalextension());
         $nombreunicoarchivo               = uniqid().'.'.$extension;
-        \Storage::disk('documentos')->delete($documentos->nombreunico);
         \Storage::disk('documentos')->put($nombreunicoarchivo,  \File::get($file));
-        $documentos->archivo              = $file->getClientOriginalName();
-        $documentos->nombreunico          = $nombreunicoarchivo;
-        $bytes                            = \File::size($file);
-        $documentos->size                 = $bytes;
-        $documentos->review = $documentos->review + 1;
+
+        if (\Storage::disk('documentos')->exists($nombreunicoarchivo)) {
+          if (\Storage::disk('documentos')->exists($documentos->nombreunico)) {
+            \Storage::disk('documentos')->delete($documentos->nombreunico);
+          }
+          $documentos->archivo              = $file->getClientOriginalName();
+          $documentos->nombreunico          = $nombreunicoarchivo;
+          $bytes                            = \File::size($file);
+          $documentos->size                 = $bytes;
+          $documentos->review = $documentos->review + 1;
+        }
+      }else {
+        if (!\Storage::disk('documentos')->exists($documentos->nombreunico)) {
+          $documentos->archivo              = "";
+          $documentos->nombreunico          = "";
+          $documentos->size                 = 0;
+        }
       }
       $documentos->id_tipo = $request->input('id_tipo');
       $documentos->nombre = $request->input('enombre');
@@ -450,10 +461,23 @@ class InformaciondocController extends Controller
 
   public function ver($id){
     $documento = Documentos::find($id);
-    $response = Response::make(File::get("storage/documentos/".$documento->nombreunico));
-    $content_types = mime_content_type("storage/documentos/".$documento->nombreunico);
+    $cadena = $documento->nombreunico;
+    if (\Storage::disk('documentos')->exists($cadena)) {
+      $response = Response::make(File::get("storage/documentos/".$documento->nombreunico));
+
+      if(ends_with($cadena,'docx')){
+        $response->header('Content-Type', "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+      }elseif (ends_with($cadena,'txt')) {
+        $response->header('Content-Type', 'text/plain');
+      }else{
+        $content_types = File::mimeType("storage/documentos/".$documento->nombreunico);
+        $response->header('Content-Type', $content_types);
+      }
+    }else {
+        $response = "Archivo no encontrado";
+    }
+
     // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
-    $response->header('Content-Type', $content_types);
 
     return $response;
   }
