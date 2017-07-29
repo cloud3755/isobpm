@@ -74,7 +74,8 @@
     <link rel="stylesheet" href="/css/accioncorrectiva.css">
 
     <!--Office style bar-->
-    <link rel="stylesheet" href="/css/Dropdown Office Menu.css">
+    <!--<link rel="stylesheet" href="/css/Dropdown Office Menu.css">-->
+    <link rel="stylesheet" href="/css/Office2.css">
     <style>
     /*@font-face{font-family: 'noto_sansbold'; src:url('/css/fonts/notosans-bold-webfont.eot') format("opentype")}
     body{font-family: 'noto_sansregular' !important;}*/
@@ -138,9 +139,9 @@
         );
         $('.Menu').click(
                 function () {
-
+                    
                    var sublevelclass =$('#sublevel' + $(this).attr("id")).attr("class").split(' ')[0];
-
+                    $(this).addClass('clicked');
                     var sublevelhide= sublevelclass.substring(8);
                     for(var i = sublevelhide; i<4; i++)
                         $('.sublevel'+i).hide();
@@ -148,6 +149,7 @@
                     var childs = $('#sublevel' + $(this).attr("id") + ' ul li').length;
                     var porc = ((100/childs-1));
                     $('#sublevel' + $(this).attr("id") + ' ul li div').css('width', (porc+'%'));
+                    $('#sublevel' + $(this).attr("id") + ' ul li').css('width', (porc+'%')-2);
                     $('#sublevel' + $(this).attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
                     $('#sublevel' + $(this).attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
                     $('#sublevel' + $(this).attr("id") + ' ul li div center .smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
@@ -230,7 +232,7 @@
 
 
 <div class="mainMenu officeColorStyle">
-    <ul class="mainMenu border">
+    <ul class="mainMenu">
         <li><a id="Documentada" class="Menu" href="#">Inf. Documentada</a></li>
         <li><a id="ObjetivosIndicadores" class="Menu" href="#">Objetivos & Indicadores</a></li>
         <li><a href="/procesos/visual">Procesos</a></li>
@@ -365,18 +367,19 @@
 <div class="sublevel1 sublevel officeColorStyle" id="sublevelDocumentada">
     <ul class="mainMenu">
         <li>
-            <div>
-                <center>
-                    <a id="Documentos" class="Menu" href="#">Documentos</a>
+            <div id="Documentos" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Documentos</span>
                 </center>
             </div>
         </li>
         <li>
-            <div>
-                <center>
-                    <a id="Estrategia" class="Menu" href="#">Estrategia</a>
+            <div id="Estrategia" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Estrategia</span>
                 </center>
             </div>
+
         </li>
         <li>
             <div>
@@ -521,7 +524,7 @@
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelRecursos">
     <ul class="mainMenu">
         <li >
-            <div>
+            <div class="bigdiv">
                 <center>
                     <a id="Personal" class="Menu officeColorStyleFont smallfont" href="#">PERSONAL</a>
                 </center>
