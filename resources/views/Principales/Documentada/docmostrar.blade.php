@@ -40,12 +40,15 @@
                     <tr>
                       <td>  <?=$documentos->nombre?></td>
                       <td>
+                        @IF($documentos->archivo != '')
                         <?=$documentos->archivo?>
-                        <a href="/storage/documentos/<?=$documentos->nombreunico?>" target="_blank" downloadFile="<?=$documentos->nombreunico?>" style='color:#FFF'>
+
+                        <a href="/documento/<?=$documentos->id?>" target="_blank" style='color:#FFF'>
                           <button type="button" class="btn btn-default">
                                <span class="glyphicon glyphicon-download-alt"></span>
                           </button>
                         </a>
+                        @endif
                       </td>
                       <td>  <?=$documentos->size?></td>
                       <td>  <?=$documentos->updated_at?></td>
@@ -81,7 +84,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">ALTA DE DOCUMENTO</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">ALTA DE DOCUMENTO</h3>
             </div>
             <div class="modal-body">
               <form class="" action="/documentada/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
@@ -184,7 +188,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">ACTUALIZAR DOCUMENTO</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">ACTUALIZAR DOCUMENTO</h3>
             </div>
             <div class="modal-body">
               <form id="fileinfo" method="post">
@@ -210,6 +215,7 @@
                   <div class="col-md-6 col-sm-9">
                     <input class="form-control input-lg" id="earchivo" type="Text" readonly name="earchivo">
                     <input class="form-control input-lg" id="aarchivo" type="file" placeholder="Elige el archivo" name="aarchivo">
+                    <progress id="progress" value="0"></progress>
                   </div>
                 </div>
 
@@ -357,7 +363,7 @@
 //Funcion para el edit
 
 function Editar(btn){
-  var route = "https://www.isobpm.com/documentada/"+btn.value+"/edit";
+  var route = "/documentada/"+btn.value+"/edit";
 
   $.get(route, function(res){
     $("#enombre").val(res.nombre);
@@ -509,9 +515,10 @@ $(document).ready(function(){
 
   $("#actualizar").click(function(){
     var value = $("#id").val();
-    var route = "https://www.isobpm.com/documentada/edit/"+value+"";
+    var route = "/documentada/edit/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
+    var progressBar = document.getElementById("progress");
 
     $.ajax({
       url: route,
@@ -520,7 +527,17 @@ $(document).ready(function(){
       data: fd,
       processData: false,  // tell jQuery not to process the data
       contentType: false,
+      xhr: function() {
+        var xhr = $.ajaxSettings.xhr();
+        xhr.upload.onprogress = function(e) {
+          progressBar.max = e.total;
+          progressBar.value = e.loaded;
+            console.log(Math.floor(e.loaded / e.total *100) + '%');
+        };
+        return xhr;
+      },
       success: function(){
+        alert("Cambios guardados correctamente");
         location.reload();
       }
     });
