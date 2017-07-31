@@ -137,10 +137,27 @@
                 $("#mostrarModalNoticia").click();
             }
         );
+        function discolorSubMenus(sublevelClass)
+        {
+            $('.Menu').each(
+                    function()
+                    {
+                            $('this').removeClass('clicked');
+                    }
+
+            );
+        }
         $('.Menu').click(
                 function () {
                     
                    var sublevelclass =$('#sublevel' + $(this).attr("id")).attr("class").split(' ')[0];
+                    var Menu =  $(this).closest('ul');
+                    Menu.find('div').each(function(){
+                        $(this).removeClass('clicked');
+                    });
+                    Menu.find('a').each(function(){
+                        $(this).removeClass('clicked');
+                    });
                     $(this).addClass('clicked');
                     var sublevelhide= sublevelclass.substring(8);
                     for(var i = sublevelhide; i<4; i++)
@@ -677,20 +694,20 @@
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelDocumentos">
     <ul class="mainMenu">
         <li >
-            <div>
+            <div style="cursor: pointer;" onclick="window.location='/documentada/1';">
                 <center>
-                    <i class="fa fa-copyright fa-2x imagesOfficeBar"></i>
+                    <i class="fa fa-copyright fa-2x"></i>
                     <br>
-                    <a class="officeColorStyleFont" href="/documentada/1">Politicas</a>
+                    <span>Politicas</span>
                 </center>
             </div>
         </li>
         <li>
-            <div>
+            <div style="cursor: pointer;" onclick="window.location='/documentada/2';">
                 <center>
-                    <i class="fa fa-book fa-2x imagesOfficeBar"></i>
+                    <i class="fa fa-book fa-2x"></i>
                     <br>
-                    <a class="officeColorStyleFont" href="/documentada/1">Manuales</a>
+                    <span>Manuales</span>
                 </center>
             </div>
         </li>
