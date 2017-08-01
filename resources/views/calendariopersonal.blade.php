@@ -8,22 +8,22 @@
 
 
 <!-- script que pone calendario-->
+<div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 <style>
-    /* ... */
+
+#calendar {
+width: inherit;
+margin: 0 auto;
+}
+
 </style>
 
       {!! $calendar->calendar() !!}
       {!! $calendar->script() !!}
-      $calendar = \Calendar::setCallbacks([
-    'eventClick' => 'function(calEvent, jsEvent, view) {
-        alert('Hello world!');
-    }',
-]);
-
 
 </div>
 <!-- script que pone calendario-->
@@ -51,7 +51,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <img style="width: 150px;height: 150px;" src=" /img/tableCredential images/calendar.png" />
+                                <img style="width: 150px;height: 150px;" src=" /img/tableCredential images/calendar.png" data-toggle="modal" data-target="#modalcalendario" onclick="#modalcalendario"/>
                             </td>
                         </tr>
                     </table>
@@ -213,5 +213,71 @@
 
   </div>
 </div>
+
+
+<!-- modal para el el calendario-->
+
+
+<div class="modal fade" id="modalcalendario" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <center><h2 class="modal-title">Agenda de pendientes</h2></center>
+            </div>
+                <div class="modal-body">
+                    <div class="container">
+                      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                      <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+                      <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+                      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+                      <style>
+                          /* ... */
+                      </style>
+
+                            {!! $calendar->calendar() !!}
+                            {!! $calendar->script() !!}
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- modal para el el calendario-->
+
+<!-- modal para agregar evento al calendario-->
+
+<div class="modal fade" id="modalAgregarEvento" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Agregar Evento</h2>
+            </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form class="" action="/administrados/noticiastore" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="form-group form-group-lg">
+                            <h2>
+                                <label for="Noticia" class="control-label col-md-12" >
+                                Noticia
+                                </label>
+                            </h2>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                            </div>
+                        </div>
+                </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btnobjetivo" id="btnNoticia" style="font-family: Arial;">Agregar Noticia</button>
+            </form>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+
+<!-- modal para agregar evento al calendario-->
+
+
 
 @stop

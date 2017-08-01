@@ -57,4 +57,30 @@ class EventModel extends Model implements \MaddHatter\LaravelFullcalendar\Event
         {
             return $this->end;
         }
+
+
+        /**
+         * Get the seetings for event
+         *
+         * @return array
+         */
+
+       public function getEventOptions()
+       {
+           return [
+               'url' => $this->url,
+               'editable' => $this->editable,
+               'color' => $this->color,
+             ];
+        }
+
+        /**
+         * Get the Descripcion
+         *
+         * @return string
+         */
+        public function getDescripcion()
+        {
+            return $this->descripcion;
+        }
 }

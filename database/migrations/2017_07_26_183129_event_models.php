@@ -15,10 +15,15 @@ class EventModels extends Migration
       Schema::create('event_models', function (Blueprint $table) {
           $table->increments('id');
           $table->string('title');
-          $table->integer('all_day');
+          $table->boolean('all_day');
           $table->datetime('start');
           $table->datetime('end');
+          $table->string('url');
+          $table->boolean('editable');
+          $table->string('color');
+          $table->string('Descripcion');
           $table->timestamps();
+
       });
     }
 

@@ -19,24 +19,75 @@ class calendariopersonal extends Controller
     {
 
       $events = [];
+      $options = [];
 
-$events[] = \Calendar::event(
-   'Primer Evento', //event title
-   false, //full day event?
-   '2017-07-27T0800', //start time (you can also use Carbon instead of DateTime)
-   '2017-07-28T1200', //end time (you can also use Carbon instead of DateTime)
- 0 //optionally, you can specify an event ID
-);
+$allevents = EventModel::all();
+//return(dd($allevents));
 
-$events[] = \Calendar::event(
-   "Fin de mes", //event title
-   true, //full day event?
-   new \DateTime('2017-07-31'), //start time (you can also use Carbon instead of DateTime)
-   new \DateTime('2017-07-31'), //end time (you can also use Carbon instead of DateTime)
- 'stringEventId' //optionally, you can specify an event ID
-);
+    foreach ($allevents as $event) {
+        $events[] = \Calendar::event(
+            $event->title,
+            $event->all_day,
+            new \DateTime($event->start),
+            new \DateTime($event->end),
+            $event->id,
+            $options= ['url'=>$event->url,
+                       'editable'=>$event->editable,
+                       'color'=>$event->color]
+         );
+
+         }
 
 
+  $calendar = \Calendar::addEvents($events) //add an array with addEvents
+   ->setOptions(
+     [//set fullcalendar options
+     'firstDay' => 1]
+     );
+
+
+
+$calendar = \Calendar::setCallbacks([
+    'eventClick' => 'function(calEvent, jsEvent, view) {
+     alert("Hello world");
+ }',
+
+ 'dayClick' => 'function(date, jsEvent, view) {
+   alert("Clicked on: " + date.format());
+
+   alert("Coordinates: " + jsEvent.pageX + "," + jsEvent.pageY);
+
+   alert("Current view: " + view.name);
+   alert("Resource ID: " + resourceObj.id);
+ }',
+ 'eventMouseover' => 'function(calevent, jsEvent, view) {
+  $(this).css("color", "black");
+}',
+
+'eventMouseout' => 'function(calevent, jsEvent, view) {
+ $(this).css("color", "white");
+}',
+
+
+     ]);
+
+/*
+    $calendar->setCallbacks([
+        'dayClick' => 'function(date, jsEvent, view) {
+          alert('Clicked on: ' + date.format());
+
+          alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+          alert('Current view: ' + view.name);
+
+          // change the day's background color just for fun
+          $(this).css('background-color', 'red');
+            }'' ]);
+
+*/
+
+
+/*
 
 $eloquentEvent = EventModel::first(); //EventModel implements MaddHatter\LaravelFullcalendar\Event
 
@@ -49,9 +100,11 @@ $calendar = \Calendar::addEvents($events) //add an array with addEvents
    'firstDay' => 1
  ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
    'eventClick' => 'function(calEvent, jsEvent, view) {
-    alert("Hello world!");
+    showModal();
 }'
    ]);
+*/
+
 
         //muestra formulario de calendariopersonal
         return view('calendariopersonal', compact('calendar'));

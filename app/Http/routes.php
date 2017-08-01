@@ -216,6 +216,7 @@ Route::group( ['middleware' => 'auth'],
 
     // prueba calendario
     Route::get('/calendarioagenda', 'calendariopersonal@index');
+    Route::get('/calendarioagenda/store', 'calendariopersonal@store');
 
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
