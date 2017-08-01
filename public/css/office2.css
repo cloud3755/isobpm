@@ -10,13 +10,13 @@
 }
 .officeColorStyle
 {
-background: #000c59 !important;
+background: #2b579a !important;
 color: #bbd1df;
 }
 .officeColorStyleFont
 {
 background: inherit !important;
-color: #bfbfbf;
+color: white;
 }
 ul.mainMenu li{
     display:inline;
@@ -30,21 +30,33 @@ ul.mainMenu
 .sublevel {
     display:none;
 }
-ul.mainMenu li div {
+ul.mainMenu li div , ul.mainMenu li a
+{
     display: inline-block;
     border-style: solid;
     border-width: 1px;
-    border-color: #005cce
+    border-radius: 3%;
+    border-color: #040226;
+    padding: .3%;
+    border:  .2%;
+    margin: .3% .2% .3% .2%;
+}
+
+ul.mainMenu li a:hover
+{
+    text-decoration: none;
+    cursor: pointer;
+    color: currentColor;
 }
 
 .imagesOfficeBar {
-    color: #002858 !important;
+    color: #2b579a  !important;
 }
 
 li div:hover , .clicked
 {
-    color: #000c59;
-    background-color: #d7d7d7 !important;
+    color: #000c59 !important;
+    background-color: #d6d2ee !important;
 }
 li div
 {
