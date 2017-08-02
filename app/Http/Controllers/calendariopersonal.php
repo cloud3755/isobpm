@@ -8,6 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 
+
+use App\Models\User;
+use Carbon\Carbon;
+use Redirect;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
+
 class calendariopersonal extends Controller
 {
     /**
@@ -45,27 +53,33 @@ $allevents = EventModel::all();
      'firstDay' => 1]
      );
 
+/*
+     alert("Clicked on: " + date.format());
 
+     alert("Coordinates: " + jsEvent.pageX + "," + jsEvent.pageY);
+
+     alert("Current view: " + view.name);
+     alert("Resource ID: " + resourceObj.id);
+*/
 
 $calendar = \Calendar::setCallbacks([
     'eventClick' => 'function(calEvent, jsEvent, view) {
      alert("Hello world");
+     alert("Resource ID: " + resourceObj.id);
  }',
 
  'dayClick' => 'function(date, jsEvent, view) {
-   alert("Clicked on: " + date.format());
-
-   alert("Coordinates: " + jsEvent.pageX + "," + jsEvent.pageY);
-
-   alert("Current view: " + view.name);
-   alert("Resource ID: " + resourceObj.id);
+    alert("Hello world");
  }',
+
  'eventMouseover' => 'function(calevent, jsEvent, view) {
   $(this).css("color", "black");
+  $(this).css("font-weight", "bolder");
 }',
 
 'eventMouseout' => 'function(calevent, jsEvent, view) {
  $(this).css("color", "white");
+ $(this).css("font-weight", "normal");
 }',
 
 
@@ -129,6 +143,31 @@ $calendar = \Calendar::addEvents($events) //add an array with addEvents
     public function store(Request $request)
     {
         //
+
+        $user = Auth::user();
+        $Event= new EventModel;
+        $Event->title = $request->input('title');
+        $Event->all_day = $request->input('all_day');
+      //  return(dd(strtotime($request->input('start'))));
+      //2017-08-02T19:01
+      //  echo date ( 'Y-m-d\TH:i' , time()  )
+        $Event->start = strtotime($request->input('start'));
+        $Event->end = strtotime($request->input('end'));
+
+        $Event->url = '';
+        $Event->editable = '1';
+        $Event->color = $request->input('color');
+        $Event->Descripcion = $request->input('descripcion');
+
+        $Event->save();
+
+          session()->flash('flash_msg',"Se creó una nueva entrada en la agenda");
+          session()->flash('flash_type','warning');
+
+
+return Redirect('/bienvenida');
+
+
     }
 
     /**

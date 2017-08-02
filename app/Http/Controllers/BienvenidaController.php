@@ -18,7 +18,8 @@ use Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Mail;
-
+use MaddHatter\LaravelFullcalendar\Facades\Calendar;
+use App\Models\EventModel;
 
 
 class BienvenidaController extends Controller
@@ -108,8 +109,56 @@ class BienvenidaController extends Controller
         $empresa = $empresas->where('id_creador',$usuarios->id)->get();
       }
 
+      $events = [];
+      $options = [];
 
-      return View('bienvenida', compact('objetivo', 'quejas','proceso','empresa', 'noticiasw'));
+$allevents = EventModel::all();
+//return(dd($allevents));
+
+    foreach ($allevents as $event) {
+        $events[] = \Calendar::event(
+            $event->title,
+            $event->all_day,
+            new \DateTime($event->start),
+            new \DateTime($event->end),
+            $event->id,
+            $options= [//'url'=>$event->url,
+                       'editable'=>$event->editable,
+                       'color'=>$event->color]
+         );
+
+         }
+
+// Para el calendario
+  $calendar = \Calendar::addEvents($events) //add an array with addEvents
+   ->setOptions(
+     [//set fullcalendar options
+     'firstDay' => 1]
+     );
+
+$calendar = \Calendar::setCallbacks([
+    'eventClick' => 'function(calEvent, jsEvent, view) {
+     alert("Click en evento: "+ calEvent.id );
+ }',
+
+ 'dayClick' => 'function(date, jsEvent, view) {
+    alert("Hello world");
+ }',
+
+ 'eventMouseover' => 'function(calevent, jsEvent, view) {
+  $(this).css("color", "black");
+  $(this).css("font-weight", "bolder");
+}',
+
+'eventMouseout' => 'function(calevent, jsEvent, view) {
+ $(this).css("color", "white");
+ $(this).css("font-weight", "normal");
+}',
+
+     ]);
+// termina Para el calendario
+
+      return View('bienvenida', compact('objetivo', 'quejas','proceso','empresa', 'noticiasw','calendar'));
     }
 
     /**

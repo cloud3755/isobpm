@@ -5,30 +5,6 @@
 <br><br><br>
 <center>
 
-
-
-<!-- script que pone calendario-->
-<div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-<style>
-
-#calendar {
-width: inherit;
-margin: 0 auto;
-}
-
-</style>
-
-      {!! $calendar->calendar() !!}
-      {!! $calendar->script() !!}
-
-</div>
-<!-- script que pone calendario-->
-
-
     <div>
         <table>
             <tr>
@@ -218,51 +194,56 @@ margin: 0 auto;
 <!-- modal para el el calendario-->
 
 
-<div class="modal fade" id="modalcalendario" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modalcalendario" role="application" style="background-color:gray">
+<div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <center><h2 class="modal-title">Agenda de pendientes</h2></center>
+
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h2 class="modal-title">Agenda de pendientes</h2></center></br>
+                <center><button type="button"  data-toggle="modal" data-dismiss="modal" data-target="#modalAgregarEvento" onclick="#modalAgregarEvento">Agregar Evento</button></center>
             </div>
                 <div class="modal-body">
-                    <div class="container">
+
                       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
                       <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
                       <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
                       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-                      <style>
-                          /* ... */
-                      </style>
+
 
                             {!! $calendar->calendar() !!}
                             {!! $calendar->script() !!}
-                    </div>
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
         </div>
-    </div>
+</div>
 </div>
 <!-- modal para el el calendario-->
 
 <!-- modal para agregar evento al calendario-->
 
 <div class="modal fade" id="modalAgregarEvento" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title">Agregar Evento</h2>
             </div>
                 <div class="modal-body">
                     <div class="container">
-                        <form class="" action="/administrados/noticiastore" method="post">
+                        <form class="" action="/calendario/store" method="post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group form-group-lg">
                             <h2>
                                 <label for="Noticia" class="control-label col-md-12" >
-                                Noticia
+                                Titulo del evento:
                                 </label>
                             </h2>
                             <div class="col-md-6">
-                                <textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                                <text class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
                             </div>
                         </div>
                 </div>
