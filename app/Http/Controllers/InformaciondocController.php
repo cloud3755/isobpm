@@ -370,7 +370,6 @@ class InformaciondocController extends Controller
       $documentos->id_tipo = $document->id_tipo;
       $documentos->nombre = $document->nombre;
       $documentos->descripcion = $document->descripcion;
-      $documentos->id_user = $document->id_user;
       $documentos->id_compania = $document->id_compania;
       $documentos->status = 1;
 
@@ -419,7 +418,6 @@ class InformaciondocController extends Controller
         $documentos->id_tipo = $document->id_tipo;
         $documentos->nombre = $document->nombre;
         $documentos->descripcion = $document->descripcion;
-        $documentos->id_user = $document->id_user;
         $documentos->id_compania = $document->id_compania;
         $documentos->status = 1;
 

@@ -255,8 +255,24 @@ class AccionescorrectivasControllerVisual extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
+      $accion = Accioncorrectiva1::find($id);
+      $accion->estatus_id = $request->input('eestatus');
+      $accion->fechacierre = $request->input('efechacierre');
+
+      $accion->save();
+
+      return response()->json([
+        'mensaje' => "listo"
+      ]);
+    }
+
+    public function editM($id){
+      $accion = Accioncorrectiva1::find($id);
+        return response()->json(
+          $accion->toArray()
+        );
     }
 
     /**

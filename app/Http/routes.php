@@ -141,6 +141,9 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/accioncorrectiva','AccionescorrectivasControllerVisual@index');
     Route::post('/accioncorrectiva/store','AccionescorrectivasControllerVisual@store');
     Route::get('/subirevidencia','AccionescorrectivasControllerVisual@subirevidencia');
+    Route::get('/accioncorrectiva/{id}/edit','AccionescorrectivasControllerVisual@editM');
+    Route::post('/accioncorrectiva/edit/{id}','AccionescorrectivasControllerVisual@edit');
+
     Route::get('/subirevidencia/evidencia/{id}','AccionescorrectivasControllerVisual@show');
     Route::post('/guardar/evidencia','AccionescorrectivasControllerVisual@guardarevidiencia');
     Route::get('/accioncorrectiva/descarga','AccionescorrectivasControllerVisual@descargar');
