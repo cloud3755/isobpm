@@ -218,11 +218,24 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/calendarioagenda', 'calendariopersonal@index');
     Route::post('/calendarioagenda/store', 'calendariopersonal@store');
 
+    // Rutas modulo proveedores
+    Route::get('/proveedores', 'proveedorescontroller@index');
+    Route::get('/insumos', 'insumoscontroller@index');
+    Route::post('/insumos/store', 'insumoscontroller@store');
+    Route::get('/insumos/show/{id}', 'insumoscontroller@show');
+    Route::post('/insumos/edit/{id}', 'insumoscontroller@edit');
+    Route::post('/insumos/delete/{id}', 'insumoscontroller@destroy');
+    Route::get('/proveedores/mostrar', 'proveedorescontroller@mostrar');
+    Route::post('/proveedor/store', 'proveedorescontroller@store');
+    Route::post('/proveedor/delete/{id}', 'proveedorescontroller@destroy');
+
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Ruta crear noticia
     Route::post('/administrados/noticiastore', 'AdministradosController@noticiastore');
     Route::get('/administrados/noticiastore', function(){
+
+
 
       return redirect('/Bienvenida');
     });

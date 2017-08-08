@@ -184,6 +184,36 @@
       </div>
     </div>
 
+    <div class="col-lg-3 col-md-6" >
+      <div class="panel panel-mej" id="divCompaniesPending">
+          <div class="panel-heading">
+              <div class="row">
+                  <div class="col-xs-3">
+                      <i class="fa fa-line-chart  fa-5x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                      <div class="huge" id="divCompaniesNumber"></div>
+                      <div>Proveedores</div>
+                  </div>
+              </div>
+          </div>
+          <a href="/proveedores" class="pf">
+            <!--  <div class="panel-footer">
+                  <span class="pull-left" id="spCompaniesPending">Quejas: </span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+              </div> -->
+              <div class="panel-footer">
+                <span class="pull-left" id="spCompaniesPending">Proveedores: 0</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+                <div class="panel-footer">
+          </a>
+      </div>
+    </div>
+</div>
+
     </div>
 @if(Auth::user()->perfil == 1 or Auth::user()->perfil == 2)
   <div class="Row">

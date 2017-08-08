@@ -343,7 +343,7 @@
 
               </div>
                     <div class="modal-footer">
-                    <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
+                    <!--a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>-->
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                     </div>
                 </div>
