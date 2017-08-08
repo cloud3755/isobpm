@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Archivosproveedores' => $baseDir . '/database/migrations/2017_08_08_150603_archivosproveedores.php',
     'CreateAbcriesgosTable' => $baseDir . '/database/migrations/2017_03_10_033635_create_abcriesgos_table.php',
     'CreateAccesosindicadoresTable' => $baseDir . '/database/migrations/2017_02_26_220929_create_accesosindicadores_table.php',
     'CreateAccioncorrectiva1sTable' => $baseDir . '/database/migrations/2017_03_31_180435_create_accioncorrectiva1s_table.php',
@@ -119,7 +120,7 @@ return array(
     'Hamcrest\\Util' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
     'Hamcrest\\Xml\\HasXPath' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
-    'Insumoproveedor' => $baseDir . '/database/migrations/2017_08_08_052714_insumoproveedor.php',
+    'Insumoproveedor' => $baseDir . '/database/migrations/2017_08_08_185251_Insumoproveedor.php',
     'Insumos' => $baseDir . '/database/migrations/2017_08_05_150816_insumos.php',
     'ListaAccesos' => $baseDir . '/database/migrations/2017_04_08_160104_lista_accesos.php',
     'ListaEnvio' => $baseDir . '/database/migrations/2017_03_28_055749_lista_envio.php',
@@ -527,6 +528,7 @@ return array(
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
+    'Provedorinsumo' => $baseDir . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
     'Proveedores' => $baseDir . '/database/migrations/2017_08_07_214700_proveedores.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',

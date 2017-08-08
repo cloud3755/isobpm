@@ -231,7 +231,7 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/proveedores/mostrar', 'proveedorescontroller@mostrar');
     Route::post('/proveedor/store', 'proveedorescontroller@store');
     Route::post('/proveedor/delete/{id}', 'proveedorescontroller@destroy');
-
+    Route::get('/proveedor/show/{id}', 'proveedorescontroller@show');
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Ruta crear noticia

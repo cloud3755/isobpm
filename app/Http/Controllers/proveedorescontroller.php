@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\insumos;
 use App\Models\proveedores;
-use App\Models\insumpoproveedor;
+use App\Models\provedorinsumo;
 
 class proveedorescontroller extends Controller
 {
@@ -60,9 +60,11 @@ class proveedorescontroller extends Controller
 
       $proveedores = new proveedores;
       $provedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
-      $cuentaproveedor = $provedor->count();
-      
-    return view('\Principales\proveedoreslist',compact('insumo','provedor'));
+
+      $relinsumoproveedor = new provedorinsumo;
+      $insumoprovedor = $relinsumoproveedor->where('id_compania',$compañiaid)->orderBy('id')->get();
+
+    return view('\Principales\proveedoreslist',compact('insumo','provedor','relinsumoproveedor'));
     }
 
     /**
@@ -100,7 +102,11 @@ class proveedorescontroller extends Controller
      */
     public function show($id)
     {
-        //
+      $usuario = Auth::user();
+      $compañiaid = $usuario->id_compania;
+      $provedor = proveedores::findorfail($id)->first();
+        return response()->json($provedor->toArray());
+
     }
 
     /**

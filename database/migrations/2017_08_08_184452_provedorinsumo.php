@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Insumoproveedor extends Migration
+class Provedorinsumo extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,16 @@ class Insumoproveedor extends Migration
      */
     public function up()
     {
-      Schema::create('insumpoproveedor', function (Blueprint $table) {
+      Schema::create('provedorinsumos', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('idproveedor');
-      $table->integer('idcompañia');
+      $table->integer('id_compania');
       $table->timestamps();  //
-    });
+        });
     }
+
+
+
 
     /**
      * Reverse the migrations.
@@ -27,6 +30,6 @@ class Insumoproveedor extends Migration
      */
     public function down()
     {
-        Schema::drop('insumpoproveedor');
+        Schema::drop('provedorinsumos');
     }
 }

@@ -319,6 +319,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
     );
 
     public static $classMap = array (
+        'Archivosproveedores' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_150603_archivosproveedores.php',
         'CreateAbcriesgosTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_10_033635_create_abcriesgos_table.php',
         'CreateAccesosindicadoresTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220929_create_accesosindicadores_table.php',
         'CreateAccioncorrectiva1sTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_31_180435_create_accioncorrectiva1s_table.php',
@@ -432,7 +433,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
-        'Insumoproveedor' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_052714_insumoproveedor.php',
+        'Insumoproveedor' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_185251_Insumoproveedor.php',
         'Insumos' => __DIR__ . '/../..' . '/database/migrations/2017_08_05_150816_insumos.php',
         'ListaAccesos' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_160104_lista_accesos.php',
         'ListaEnvio' => __DIR__ . '/../..' . '/database/migrations/2017_03_28_055749_lista_envio.php',
@@ -840,6 +841,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'PHP_Token_XOR_EQUAL' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'Provedorinsumo' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
         'Proveedores' => __DIR__ . '/../..' . '/database/migrations/2017_08_07_214700_proveedores.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',

@@ -49,8 +49,8 @@
                       <td>
 
                       <form class="" action="/proveedor/delete/<?=$proveedors['id']?>" method="post">
-                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" data-toggle="modal" data-target="#modalmuestra" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver </button>
-                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar </button>
+                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver </button>
+                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=2 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar / Alta de archivos </button>
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <button type="submit" class="btnobjetivo" id="btndelete_<?=$proveedors['id']?>" style="font-family: Arial;" dataid="<?=$proveedors['id']?>" onclick="
 return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor']?>?')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
@@ -77,7 +77,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 <!-- modal para carga de nuevo registro -->
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -147,9 +147,9 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                            <p>
                                            </p><table WIDTH="100%">
                                                    <tbody><tr>
-                                                       <td>Insumos no elegidos</td>
+                                                       <td><h3>Insumos no elegidos</h3></td>
                                                        <td></td>
-                                                       <td>Insumos elegidos</td>
+                                                       <td><h3>Insumos elegidos</h3></td>
                                                    </tr>
                                                    <tr>
                                                        <td>
@@ -171,72 +171,6 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                            <tr>
                                                                <td>
                                                                    <script type="text/javascript">
-                                                                       function agregaSeleccion(origen, destino) {
-                                                                           obj = document.getElementById(origen);
-                                                                           if (obj.selectedIndex == -1)
-                                                                               return;
-
-                                                                           for (i = 0; opt = obj.options[i]; i++)
-                                                                               if (opt.selected) {
-                                                                                   valor = opt.value; // almacenar value
-                                                                                   txt = obj.options[i].text; // almacenar el texto
-                                                                                   obj.options[i] = null; // borrar el item si está seleccionado
-                                                                                   obj2 = document.getElementById(destino);
-
-                                                                                   opc = new Option(txt, valor,"defaultSelected");
-                                                                                   eval(obj2.options[obj2.options.length] = opc);
-                                                                               }
-
-                                                                               var select = document.getElementById('indicadores');
-
-                                                                               for ( var i = 0, l = select.options.length, o; i < l; i++ )
-                                                                               {
-                                                                                 o = select.options[i];
-                                                                                   o.selected = true;
-                                                                               }
-
-                                                                               var select = document.getElementById('listaSeleccionada');
-
-                                                                               for ( var i = 0, l = select.options.length, o; i < l; i++ )
-                                                                               {
-                                                                                 o = select.options[i];
-                                                                                   o.selected = true;
-                                                                               }
-
-
-                                                                           }
-
-                                                                           function agregaTodo(origen, destino) {
-                                                                               obj = document.getElementById(origen);
-                                                                               obj2 = document.getElementById(destino);
-                                                                               aux = obj.options.length;
-                                                                               for (i = 0; i < aux; i++) {
-                                                                                   aux2 = 0;
-                                                                                   opt = obj.options[aux2];
-                                                                               valor = opt.value; // almacenar value
-                                                                               txt = obj.options[aux2].text; // almacenar el texto
-                                                                               obj.options[aux2] = null; // borrar el item si está seleccionado
-
-                                                                               opc = new Option(txt, valor,"defaultSelected");
-                                                                               eval(obj2.options[obj2.options.length] = opc);
-                                                                           }
-
-                                                                           var select = document.getElementById('indicadores');
-
-                                                                           for ( var i = 0, l = select.options.length, o; i < l; i++ )
-                                                                           {
-                                                                             o = select.options[i];
-                                                                               o.selected = true;
-                                                                           }
-
-                                                                           var select = document.getElementById('listaSeleccionada');
-
-                                                                           for ( var i = 0, l = select.options.length, o; i < l; i++ )
-                                                                           {
-                                                                             o = select.options[i];
-                                                                               o.selected = true;
-                                                                           }
-                                                                       }
 
                                                                    </script>
                                                                </td>
@@ -267,8 +201,6 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                    </div>
 
 
-
-
 <!-- lista de insumos -->
 
               </div>
@@ -282,54 +214,156 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
         </div>
 </div>
 
+<!-- modal para carga nuevo registro -->
+
 <!-- modal para actualizacion de nuevo registro -->
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                <h3 class="modal-title">ACTUALIZAR INSUMO</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">VER / ACTUALIZAR PROVEEDOR</h3>
             </div>
             <div class="modal-body">
-              <form id="fileinfo" method="post" action="insumos/edit/6" accept-charset="UTF-8" enctype="multipart/form-data">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-              <input type="hidden" name="eid"  id="eid" >
-
-
-              <div class="container">
+              <form class=""  method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <div class="container" id="containeredit">
                 <div class="form-group form-group-lg">
-                    <h2><label for="producto" class="control-label col-md-12">(*) Producto o servicio:</label></h2>
+                    <h2><label for="proveedor" class="control-label col-md-12">(*) Proveedor:</label></h2>
                     <div class="col-md-6 col-sm-9">
-                        <input class="form-control input-lg" id="eproducto" type="Text" placeholder="Nombre" name="eproducto" required>
+                        <input class="form-control input-lg" id="eproveedor" type="Text" placeholder="Nombre" name="eproveedor" required>
                     </div>
                 </div>
 
                 <div class="form-group form-group-lg">
-                  <h2><label for="descripcion" class="control-label col-md-12" >(*) Descripcion:</label></h2>
+                  <h2><label for="email" class="control-label col-md-12" >(*) Email:</label></h2>
                   <div class="col-md-6 col-sm-9">
-                    <input class="form-control input-lg" id="edescripcion" type="Text" placeholder="Agrega una descripcion del producto o servicio" name="edescripcion" required>
+                    <input class="form-control input-lg" id="eemail" type="Text" placeholder="Agrega un correo electronico" name="eemail" required>
                   </div>
                 </div>
 
+                <div class="form-group form-group-lg">
+                    <h2><label for="telefono" class="control-label col-md-12">(*) Telefono:</label></h2>
+                    <div class="col-md-6 col-sm-9">
+                        <input class="form-control input-lg" id="etelefono" type="Text" placeholder="Agrega un telefono" name="etelefono" required>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-lg">
+                  <h2>  <label for="activo" class="control-label col-md-12">Activo:
+                    </label>
+                     </h2>
+                    <div class="col-md-6">
+                        <select class="form-control input-lg" name="eactivo" id="eactivo">
+                          <option value="Activo" selected="selected"> Activo </option>
+                          <option value="Inactivo"> Inactivo </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-lg">
+                    <h2><label for="direccion" class="control-label col-md-12">Direccion:</label></h2>
+                    <div class="col-md-6 col-sm-9">
+                    <textarea class="form-control input-lg" id = "edireccion" rows="3" name="edireccion" maxlength="255"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-lg">
+                    <h2><label for="observaciones" class="control-label col-md-12">Observaciones:</label></h2>
+                    <div class="col-md-6 col-sm-9">
+                    <textarea class="form-control input-lg" id = "eobservaciones" rows="3" name="eobservaciones" maxlength="255"></textarea>
+                    </div>
+                </div>
 
 
-                  <div class="form-group form-group-lg">
-                      <h2><label for="producto" class="control-label col-md-12">(*) Tipo:</label></h2>
-                      <div class="col-md-6 col-sm-9">
-                          <input class="form-control input-lg" id="etipo" type="Text" placeholder="Agrega el tipo de producto" name="etipo" required>
-                      </div>
-                  </div>
+<!-- lista de insumos select -->
 
 
+
+                <div id="selectinsumos" class="form-group form-group-lg">
+                  <h2><label for="Usuario" class="control-label col-md-12">Lista de insumos:</label></h2>
+                  <div class="col-md-6">
+
+                         <div>
+                                           <p>
+                                           </p><table WIDTH="100%">
+                                                   <tbody><tr>
+                                                     <td><h3>Insumos no elegidos</h3></td>
+                                                     <td></td>
+                                                     <td><h3>Insumos elegidos</h3></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>
+                                                           <select multiple name="elistaDisponibles[]"  id="elistaDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('elistaDisponibles', 'listaSeleccionada');">
+                                                             <?php foreach ($insumo as $insumos): ?>
+                                                               <option value="<?=$insumos->id?>"> <?=$insumos->Producto_o_Servicio ?> </option>
+                                                             <?php endforeach ?>
+
+                                                           </select>
+
+                                                   </td>
+                                                   <td>
+                                                       <table>
+                                                           <tbody><tr>
+                                                               <td>
+                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('elistaDisponibles', 'listaSeleccionada');">
+                                                               </td>
+                                                           </tr>
+                                                           <tr>
+                                                               <td>
+                                                                   <script type="text/javascript">
+
+                                                                   </script>
+                                                               </td>
+                                                           </tr>
+                                                           <tr>
+                                                               <td>
+                                                               </td>
+                                                           </tr>
+                                                           <tr>
+                                                               <td>
+                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaSeleccionada', 'elistaDisponibles');">
+                                                               </td>
+                                                           </tr>
+                                                       </tbody></table>
+
+                                                   </td>
+
+                                                   <td>
+                                                       <select multiple name="listaSeleccionada[]" id="listaSeleccionada"  size="7" style="width: 100%;" onclick="agregaSeleccion('listaSeleccionada', 'elistaDisponibles');">
+                                                       </select>
+                                                   </td>
+                                               </tr>
+                                           </tbody></table>
+                                       <p></p>
+                                   </div>
+
+                       </div>
+                   </div>
+
+
+<!-- lista de insumos select-->
+
+<div id="listtinsumos" class="form-group form-group-sm">
+  <h2><label for="listinsumos" class="control-label col-md-12">Lista de insumos asociados al proveedor:</label></h2>
+<div class="col-md-6">
+  <ul class="list-group">
+    <?php foreach ($insumo as $insumos): ?>
+      <li class="list-group-item" ><center><h5><?=$insumos->Producto_o_Servicio ?> </h5></center></li>
+    <?php endforeach ?>
+
+  </ul>
+</div>
+</div>
               </div>
-                    <div class="modal-footer">
-              <!--      <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">guardar cambio insumo</button>-->
-                        <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
+                    <div class="modal-footer" id="footer">
+                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
+                    <button name="guardacambios" type="submit" class="btnobjetivo" id="guardacambios" style="font-family: Arial;">Guardar cambios</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                     </div>
-                </div>
               </form>
+                </div>
             </div>
         </div>
 </div>
@@ -340,24 +374,50 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 
 
 
+
+
+
+
+
+
+
 <?php
   $dato = json_encode($provedor);
  ?>
 
 <script type="text/javascript">
 
-//Funcion para el edit
+//Funcion para llenar el modal de edicion
 //
 
+
 function Editar(btn){
-  var route = "/insumos/show/"+btn.value;
+  var route = "/proveedor/show/"+btn.value;
 
 
   $.get(route, function(res){
-    $("#eproducto").val(res.Producto_o_Servicio);
+    $("#eproveedor").val(res.proveedor);
+    $("#eemail").val(res.email);
+    $("#etelefono").val(res.telefono);
+    $("#eactivo").val(res.activo);
+    $("#edireccion").val(res.direccion);
+    $("#eobservaciones").val(res.observaciones);
     $("#eid").val(res.id);
-    $("#edescripcion").val(res.Descripcion);
-    $("#etipo").val(res.Tipo);
+
+    if(btn.name==1)
+    {    $('#containeredit').find('input, textarea, button, select').attr('disabled',true);
+         $('#guardacambios').hide();
+         $('#documentosalta').hide();
+         $('#selectinsumos').hide();
+         $('#listtinsumos').show();
+
+    }
+    else {$('#containeredit').find('input, textarea, button, select').attr('disabled',false);
+          $('#guardacambios').show();
+          $('#documentosalta').show();
+          $('#listtinsumos').hide();
+          $('#selectinsumos').show();
+    }
   });
 
 
@@ -468,6 +528,9 @@ $.fn.pageMe = function(opts){
     }
 };
 
+
+//Funcion para guardar el modal de edicion
+
 $(document).ready(function(){
 
   $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
@@ -539,6 +602,78 @@ function doSearch()
 }
 
 
+
+
+// para select multiple
+
+function agregaSeleccion(origen, destino) {
+    obj = document.getElementById(origen);
+    if (obj.selectedIndex == -1)
+        return;
+
+    for (i = 0; opt = obj.options[i]; i++)
+        if (opt.selected) {
+            valor = opt.value; // almacenar value
+            txt = obj.options[i].text; // almacenar el texto
+            obj.options[i] = null; // borrar el item si está seleccionado
+            obj2 = document.getElementById(destino);
+
+            opc = new Option(txt, valor,"defaultSelected");
+            eval(obj2.options[obj2.options.length] = opc);
+        }
+
+        var select = document.getElementById('indicadores');
+
+        for ( var i = 0, l = select.options.length, o; i < l; i++ )
+        {
+          o = select.options[i];
+            o.selected = true;
+        }
+
+        var select = document.getElementById('listaSeleccionada');
+
+        for ( var i = 0, l = select.options.length, o; i < l; i++ )
+        {
+          o = select.options[i];
+            o.selected = true;
+        }
+
+
+    }
+
+    function agregaTodo(origen, destino) {
+        obj = document.getElementById(origen);
+        obj2 = document.getElementById(destino);
+        aux = obj.options.length;
+        for (i = 0; i < aux; i++) {
+            aux2 = 0;
+            opt = obj.options[aux2];
+        valor = opt.value; // almacenar value
+        txt = obj.options[aux2].text; // almacenar el texto
+        obj.options[aux2] = null; // borrar el item si está seleccionado
+
+        opc = new Option(txt, valor,"defaultSelected");
+        eval(obj2.options[obj2.options.length] = opc);
+    }
+
+    var select = document.getElementById('indicadores');
+
+    for ( var i = 0, l = select.options.length, o; i < l; i++ )
+    {
+      o = select.options[i];
+        o.selected = true;
+    }
+
+    var select = document.getElementById('listaSeleccionada');
+
+    for ( var i = 0, l = select.options.length, o; i < l; i++ )
+    {
+      o = select.options[i];
+        o.selected = true;
+    }
+}
+
+// termina para select multiple
 
 </script>
 
