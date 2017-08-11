@@ -66,7 +66,7 @@ class BienvenidaController extends Controller
       $empresa = new Empresas;
 
 
-      if($usuarios->perfil == 1){
+      if($usuarios->perfil <= 2){
 
         $user = User::findorfail($usuarios->id);
         $empresas = $empresa->where('id',$request->input('empresa'))->first();
