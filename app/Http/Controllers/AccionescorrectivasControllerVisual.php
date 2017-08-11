@@ -258,8 +258,62 @@ class AccionescorrectivasControllerVisual extends Controller
     public function edit($id,Request $request)
     {
       $accion = Accioncorrectiva1::find($id);
-      $accion->estatus_id = $request->input('eestatus');
-      $accion->fechacierre = $request->input('efechacierre');
+
+      //para el primer archivo
+      $file1                            = $request->file('archivoa');
+      if($file1 != null)
+      {
+
+        $extension1                       = strtolower($file1->getclientoriginalextension());
+        $nombreunicoarchivo1              = uniqid().'.'.$extension1;
+
+        \Storage::disk('accioncorrectiva')->put($nombreunicoarchivo1,  \File::get($file1));
+
+        if (\Storage::disk('accioncorrectiva')->exists($nombreunicoarchivo1)) {
+          if (\Storage::disk('accioncorrectiva')->exists($accion->uniquedocumento)) {
+            \Storage::disk('accioncorrectiva')->delete($accion->uniquedocumento);
+          }
+          $accion->porque2              = $file1->getClientOriginalName();
+          $accion->uniquedocumento          = $nombreunicoarchivo1;
+
+        }
+      }
+
+      $file2                            = $request->file('archivoe');
+      if($file2 != null)
+      {
+
+        $extension2                 = strtolower($file2->getclientoriginalextension());
+        $nombreunicoarchivo2        = uniqid().'.'.$extension2;
+
+        \Storage::disk('accioncorrectiva')->put($nombreunicoarchivo2,  \File::get($file2));
+
+        if (\Storage::disk('accioncorrectiva')->exists($nombreunicoarchivo2)) {
+          if (\Storage::disk('accioncorrectiva')->exists($accion->uniqueevidencia)) {
+            \Storage::disk('accioncorrectiva')->delete($accion->uniqueevidencia);
+          }
+          $accion->evidencia          = $file2->getClientOriginalName();
+          $accion->uniqueevidencia    = $nombreunicoarchivo2;
+
+        }
+      }
+
+      $accion->fechaalta        =   $request->input('efechaalta');
+      $accion->indicador_id     =   $request->input('eindicador_id');
+      $accion->id_proceso       =   $request->input('eproceso_id');
+      $accion->producto_id      =   $request->input('eproducto_id');
+      $accion->area             =   $request->input('eid_area');
+      $accion->monto            =   $request->input('emonto');
+      $accion->documento        =   $request->input('edocumento');
+      $accion->descripcion      =   $request->input('edescripcion');
+      $accion->responsable_id   =   $request->input('eresponsable_id');
+      $accion->porque1          =   $request->input('eanalisis');
+      $accion->accioncorrectiva =   $request->input('eaccioncorrectiva');
+      $accion->fechaaccion      =   $request->input('efechaaccion');
+      $accion->respuestaaccion  =   $request->input('eevidenciaaccion');
+
+      $accion->estatus_id       =   $request->input('eestatus');
+      $accion->fechacierre      =   $request->input('efechacierre');
 
       $accion->save();
 

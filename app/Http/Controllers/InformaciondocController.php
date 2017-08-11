@@ -42,6 +42,7 @@ class InformaciondocController extends Controller
 
         $documento = \DB::table('documentos')
         ->where('id_user',$usuarios->id)
+        ->where('id_tipo',$id)
         ->union($arreglo1)
         ->get();
 

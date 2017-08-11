@@ -71,7 +71,7 @@
                           <td>
                             @if($accioncorrectivas->porque2 != '')
                             <?=$accioncorrectivas->porque2?>
-                            <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniquedocumento?>" downloadFile="<?=$accioncorrectivas->uniquedocumento?>" style='color:#FFF'>
+                            <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniquedocumento?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniquedocumento?>" style='color:#FFF'>
                               <button type="button" class="btn btn-default btn-xs">
                                    <span class="glyphicon glyphicon-download-alt"></span>
                               </button>
@@ -87,7 +87,7 @@
                           <td>
                             @if($accioncorrectivas->porque2 != '')
                             <?=$accioncorrectivas->evidencia?>
-                            <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniqueevidencia?>" downloadFile="<?=$accioncorrectivas->uniqueevidencia?>" style='color:#FFF'>
+                            <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniqueevidencia?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniqueevidencia?>" style='color:#FFF'>
                               <button type="button" class="btn btn-default btn-xs">
                                    <span class="glyphicon glyphicon-download-alt"></span>
                               </button>
@@ -105,7 +105,9 @@
                             </form>
                           </td>
                           <td>
-                            <button type="button" class="btnobjetivo" value = "<?=$accioncorrectivas->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                            @if(Auth::user()->perfil != 4)
+                              <button type="button" class="btnobjetivo" value = "<?=$accioncorrectivas->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                            @endif
                           </td>
 
                         </tr>
@@ -286,8 +288,10 @@
             </div>
     </div>
 
+
+    <!--Modulo de Editar -->
     <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -298,12 +302,123 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
                     <input type="hidden" id="id">
                     <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                          <h2><label for="Usuario" class="control-label col-md-12">Fecha Cierre:</label></h2>
-                              <input class="form-control input-lg" id="efechacierre" type="date" name="efechacierre" required>
-                      </div>
+                      <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label for="Usuario" class="control-label">Fecha Alta:</label></h2>
+                                <input class="form-control input-lg" id="efechaalta" type="date" name="efechaalta" required>
+                        </div>
 
-                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label>Indicador:</label></h2>
+                                <select class="form-control input-lg" name="eindicador_id" id="eindicador_id" required="">
+                                  <option value=""></option>
+                                  <?php foreach ($indicador as $indicadores): ?>
+                                    <option value="<?=$indicadores->id?>"><?=$indicadores->nombre?></option>
+                                  <?php endforeach ?>
+                                </select>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label>Proceso:</label></h2>
+                                <select class="form-control input-lg" name="eproceso_id" id="eproceso_id" required="">
+                                  <option value=""></option>
+                                  <?php foreach ($proceso as $procesos): ?>
+                                    <option value="<?=$procesos['id']?>"><?=$procesos['proceso']?></option>
+                                  <?php endforeach ?>
+                                </select>
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label>Producto:</label></h2>
+                                <select class="form-control input-lg" name="eproducto_id" id="eproducto_id" required="">
+                                  <option value=""></option>
+                                  <?php foreach ($producto as $productos): ?>
+                                    <option value="<?=$productos['id']?>"><?=$productos['nombre']?></option>
+                                  <?php endforeach ?>
+                                </select>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label>Area:</label></h2>
+                                <select class="form-control input-lg" name="eid_area" id="eid_area" required="">
+                                  <option value=""></option>
+                                  <?php foreach ($area as $areas): ?>
+                                    <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
+                                  <?php endforeach ?>
+                                </select>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label>Monto:</label></h2>
+                            <input class="form-control input-lg" type="text" placeholder="Monto" name="emonto" id="emonto">
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label>Documento:</label></h2>
+                                <input class="form-control input-lg" id="edocumento" type="Text" placeholder="S/N" name="edocumento" >
+                        </div>
+
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h3><label>Archivo de Accion correctiva:</label></h3>
+                                <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoa" id="earchivoa" >
+                                <input class="file" type="file" placeholder="Archivo" name="archivoa" id="archivoa">
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h2><label> Decripcion:</label></h2>
+                                <textarea class="form-control" id = "edescripcion" rows="3" placeholder="Descripcion de la accion correctiva" name="edescripcion" required=""></textarea>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <h2><label>Responsable:</label></h2>
+                                <select class="form-control input-lg" name="eresponsable_id" id="eresponsable_id" required="">
+                                  <?php foreach ($User as $Users): ?>
+                                    <option value="<?=$Users['id']?>"><?=$Users['nombre']?></option>
+                                  <?php endforeach ?>
+                                </select>
+                        </div>
+
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h2><label for="Usuario" class="control-label col-md-12">
+                            Analisis de causa
+                          </label></h2>
+                                <textarea class="form-control" id = "eanalisis" rows="3" placeholder="Acciones tomadas" name="eanalisis"></textarea>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h2><label>
+                            Accion correctiva
+                          </label></h2>
+                                <textarea class="form-control" id = "eaccioncorrectiva" rows="3" placeholder="Acciones tomadas" name="eaccioncorrectiva"></textarea>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                          <h2><label>Fecha Accion:</label></h2>
+                              <input class="form-control input-lg" id="efechaaccion" type="date" placeholder="Fecha" name="efechaaccion">
+                        </div>
+
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h2>
+                            <label>
+                              Evidencia de accion correctiva:
+                            </label>
+                          </h2>
+                                <textarea class="form-control" id = "eevidenciaaccion" rows="3" placeholder="Acciones tomadas" name="eevidenciaaccion"></textarea>
+                        </div>
+
+                        <div class="col-lg-7 col-md-7 col-sm-7">
+                            <h2><label>Archivo de evidencia:</label></h2>
+                                <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoe" id="earchivoe" >
+                                <input class="file" type="file" placeholder="Archivo" name="archivoe" id="archivoe">
+                        </div>
+
+
+                        <div class="col-lg-5 col-md-5 col-sm-5">
+                          <h2><label for="Usuario" class="control-label">Fecha Cierre:</label></h2>
+                              <input class="form-control input-lg" id="efechacierre" type="date" name="efechacierre" required>
+                        </div>
+
+                      <div class="col-lg-12 col-md-12 col-sm-12">
                           <h2><label>Status:</label></h2>
                               <select class="form-control input-lg" name="eestatus" id="eestatus" required="">
                                 <?php foreach ($estatus as $estatuses): ?>
@@ -331,6 +446,22 @@
     function Editar(btn){
       var route = "/accioncorrectiva/"+btn.value+"/edit";
       $.get(route, function(res){
+        $("#efechaalta").val(res.fechaalta);
+        $('#eindicador_id option[value="' + res.indicador_id + '"]').attr("selected", "selected");
+        $('#eproceso_id option[value="' + res.id_proceso + '"]').attr("selected", "selected");
+        $('#eproducto_id option[value="' + res.producto_id + '"]').attr("selected", "selected");
+        $('#eid_area option[value="' + res.area + '"]').attr("selected", "selected");
+        $("#emonto").val(res.monto);
+        $("#edocumento").val(res.documento);
+        $("#earchivoa").val(res.porque2);
+        $("#edescripcion").val(res.descripcion);
+        $('#eresponsable_id option[value="' + res.responsable_id + '"]').attr("selected", "selected");
+        $("#eanalisis").val(res.porque1);
+        $("#eaccioncorrectiva").val(res.accioncorrectiva);
+        $("#efechaaccion").val(res.fechaaccion);
+        $("#eevidenciaaccion").val(res.respuestaaccion);
+
+        $("#earchivoe").val(res.evidencia);
         $("#efechacierre").val(res.fechacierre);
         $("#id").val(res.id);
         $('#eestatus option[value="' + res.estatus_id + '"]').attr("selected", "selected");
