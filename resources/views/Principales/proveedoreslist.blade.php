@@ -50,7 +50,7 @@
 
                       <form class="" action="/proveedor/delete/<?=$proveedors['id']?>" method="post">
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver </button>
-                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=2 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar / Alta de archivos </button>
+                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=2 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar / Alta de documentos </button>
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                         <button type="submit" class="btnobjetivo" id="btndelete_<?=$proveedors['id']?>" style="font-family: Arial;" dataid="<?=$proveedors['id']?>" onclick="
 return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor']?>?')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
@@ -77,7 +77,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 <!-- modal para carga de nuevo registro -->
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -153,7 +153,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                    </tr>
                                                    <tr>
                                                        <td>
-                                                           <select multiple name="elistaDisponibles[]"  id="elistaDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('elistaDisponibles', 'listaSeleccionada');">
+                                                           <select multiple name="listaDisponibles[]"  id="listaDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('listaDisponibles', 'listaSeleccionada');">
                                                              <?php foreach ($insumo as $insumos): ?>
                                                                <option value="<?=$insumos->id?>"> <?=$insumos->Producto_o_Servicio ?> </option>
                                                              <?php endforeach ?>
@@ -165,7 +165,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                        <table>
                                                            <tbody><tr>
                                                                <td>
-                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('elistaDisponibles', 'listaSeleccionada');">
+                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaDisponibles', 'listaSeleccionada');">
                                                                </td>
                                                            </tr>
                                                            <tr>
@@ -181,7 +181,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                            </tr>
                                                            <tr>
                                                                <td>
-                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaSeleccionada', 'elistaDisponibles');">
+                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaSeleccionada', 'listaDisponibles');">
                                                                </td>
                                                            </tr>
                                                        </tbody></table>
@@ -189,7 +189,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                    </td>
 
                                                    <td>
-                                                       <select multiple name="listaSeleccionada[]" id="listaSeleccionada"  size="7" style="width: 100%;" onclick="agregaSeleccion('listaSeleccionada', 'elistaDisponibles');">
+                                                       <select multiple name="listaSeleccionada[]" id="listaSeleccionada"  size="7" style="width: 100%;" onclick="agregaSeleccion('listaSeleccionada', 'listaDisponibles');">
                                                        </select>
                                                    </td>
                                                </tr>
@@ -219,15 +219,16 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 <!-- modal para actualizacion de nuevo registro -->
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3 class="modal-title">VER / ACTUALIZAR PROVEEDOR</h3>
             </div>
             <div class="modal-body">
-              <form class=""  method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <form id="fileinfo" class=""  method="post" accept-charset="UTF-8" enctype="multipart/form-data" >
+              <input type="hidden" name="_token" value="{{csrf_token()}}">
+              <input type="hidden" name="eid" id="eid">
               <div class="container" id="containeredit">
                 <div class="form-group form-group-lg">
                     <h2><label for="proveedor" class="control-label col-md-12">(*) Proveedor:</label></h2>
@@ -276,10 +277,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                     </div>
                 </div>
 
-
 <!-- lista de insumos select -->
-
-
 
                 <div id="selectinsumos" class="form-group form-group-lg">
                   <h2><label for="Usuario" class="control-label col-md-12">Lista de insumos:</label></h2>
@@ -295,11 +293,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                    </tr>
                                                    <tr>
                                                        <td>
-                                                           <select multiple name="elistaDisponibles[]"  id="elistaDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('elistaDisponibles', 'listaSeleccionada');">
-                                                             <?php foreach ($insumo as $insumos): ?>
-                                                               <option value="<?=$insumos->id?>"> <?=$insumos->Producto_o_Servicio ?> </option>
-                                                             <?php endforeach ?>
-
+                                                           <select multiple name="elistaDisponibles[]"  id="elistaDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('elistaDisponibles', 'elistaSeleccionada');">
                                                            </select>
 
                                                    </td>
@@ -307,7 +301,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                        <table>
                                                            <tbody><tr>
                                                                <td>
-                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('elistaDisponibles', 'listaSeleccionada');">
+                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('elistaDisponibles', 'elistaSeleccionada');">
                                                                </td>
                                                            </tr>
                                                            <tr>
@@ -323,7 +317,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                            </tr>
                                                            <tr>
                                                                <td>
-                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaSeleccionada', 'elistaDisponibles');">
+                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('elistaSeleccionada', 'elistaDisponibles');">
                                                                </td>
                                                            </tr>
                                                        </tbody></table>
@@ -331,7 +325,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                    </td>
 
                                                    <td>
-                                                       <select multiple name="listaSeleccionada[]" id="listaSeleccionada"  size="7" style="width: 100%;" onclick="agregaSeleccion('listaSeleccionada', 'elistaDisponibles');">
+                                                       <select multiple name="elistaSeleccionada[]" id="elistaSeleccionada"  size="7" style="width: 100%;" onclick="agregaSeleccion('elistaSeleccionada', 'elistaDisponibles');">
                                                        </select>
                                                    </td>
                                                </tr>
@@ -342,25 +336,23 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                        </div>
                    </div>
 
-
 <!-- lista de insumos select-->
 
 <div id="listtinsumos" class="form-group form-group-sm">
   <h2><label for="listinsumos" class="control-label col-md-12">Lista de insumos asociados al proveedor:</label></h2>
 <div class="col-md-6">
-  <ul class="list-group">
-    <?php foreach ($insumo as $insumos): ?>
-      <li class="list-group-item" ><center><h5><?=$insumos->Producto_o_Servicio ?> </h5></center></li>
-    <?php endforeach ?>
+  <ul class="list-group" id="elist">
+<li class="list-group-item" id="elistitem"><center><h5>0</h5></center></li>
 
   </ul>
 </div>
 </div>
               </div>
                     <div class="modal-footer" id="footer">
-                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
-                    <button name="guardacambios" type="submit" class="btnobjetivo" id="guardacambios" style="font-family: Arial;">Guardar cambios</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-dismiss="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
+                    <!--     <button type="submit" class="act" id="act" style="font-family: Arial;">Guardar cambio insumo</button> -->
+                     <button name="guardacambios" type="button" class="btnobjetivo" id="guardacambios" style="font-family: Arial;">Guardar cambios</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                     </div>
               </form>
                 </div>
@@ -372,12 +364,128 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 <!-- modal para actualizacion de nuevo registro -->
 
 
+<!-- modal alta archivos -->
+
+
+<div class="modal fade" id="modalarchivos" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Alta archivos proveedor</h3>
+            </div>
+            <div class="modal-body">
+
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="eid" id="eid">
+              <progress id="progress" value="0" visible="false"></progress>
+
+                  <link href="{{ asset('/css/dropzone.css') }}" rel="stylesheet">
+
+
+                  <div class="row"    >
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Dropzone
+                            </div>
+                            <div class="panel-body">
+
+                                {!! Form::open(['url' => route('upload-post'), 'method' => 'POST', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone' , 'enctype' => 'multipart/form-data']) !!}
+                                {!! Form::hidden('csrf-token', csrf_token(), ['id' => 'csrf-token']) !!}
+                                <div class="dz-message" style="height:200px;">
+                                    Drop your files here
+                                </div>
+                                <div class="dropzone-previews"></div>
+                                <button type="submit" class="btn btn-success" id="subearchivo">Save</button>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                  {!! Html::script('/js/jquery-1.11.0.min.js'); !!}
+                  {!! Html::script('/js/dropzone.js'); !!}
+                  <script>
+
+
+
+                      var photo_counter = 0;
+                      Dropzone.options.realDropzone = {
+
+                          uploadMultiple: true,
+                          parallelUploads: 100,
+                          maxFilesize: 100,
+                          previewsContainer: '#dropzonePreview',
+                          previewTemplate: document.querySelector('#preview-template').innerHTML,
+                          addRemoveLinks: true,
+                          dictRemoveFile: 'Remove',
+                          dictFileTooBig: 'Image is bigger than 100MB',
+
+                          // The setting up of the dropzone
+                          init:function() {
+
+                              this.on("removedfile", function(file) {
+
+                                  $.ajax({
+                                      type: 'POST',
+                                      url: 'upload/delete',
+                                      data: {id: file.name, _token: $('#csrf-token').val()},
+                                      dataType: 'html',
+                                      success: function(data){
+                                          var rep = JSON.parse(data);
+                                          if(rep.code == 200)
+                                          {
+                                              photo_counter--;
+                                              $("#photoCounter").text( "(" + photo_counter + ")");
+                                          }
+
+                                      }
+                                  });
+
+                              } );
+                          },
+                          error: function(file, response) {
+                              if($.type(response) === "string")
+                                  var message = response; //dropzone sends it's own error messages in string
+                              else
+                                  var message = response.message;
+                              file.previewElement.classList.add("dz-error");
+                              _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                              _results = [];
+                              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                                  node = _ref[_i];
+                                  _results.push(node.textContent = message);
+                              }
+                              return _results;
+                          },
+                          success: function(file,done) {
+                              photo_counter++;
+                              $("#photoCounter").text( "(" + photo_counter + ")");
+                          }
+                      }
+
+
+                  </script>
 
 
 
 
 
 
+                    <div class="modal-footer" id="footer">
+                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
+                    <!--<button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">guardar cambio insumo</button>-->
+                    <button name="guardacambios" type="button" class="btnobjetivo" id="guardacambios" style="font-family: Arial;">Guardar cambios</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+<!-- modal alta archivos -->
 
 
 
@@ -393,7 +501,8 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 
 function Editar(btn){
   var route = "/proveedor/show/"+btn.value;
-
+  var route2 = "/proveedor/show2/"+btn.value;
+  var route3 = "/proveedor/show3/"+btn.value;
 
   $.get(route, function(res){
     $("#eproveedor").val(res.proveedor);
@@ -403,23 +512,60 @@ function Editar(btn){
     $("#edireccion").val(res.direccion);
     $("#eobservaciones").val(res.observaciones);
     $("#eid").val(res.id);
+  });
 
     if(btn.name==1)
     {    $('#containeredit').find('input, textarea, button, select').attr('disabled',true);
+         $("#elistaSeleccionada").empty();
          $('#guardacambios').hide();
          $('#documentosalta').hide();
          $('#selectinsumos').hide();
          $('#listtinsumos').show();
+         $("#elist").empty();
+
+
+         $.get(route2, function(res){
+             for (var i = 0; i < res.length; i++) {
+               $("#elist").append('<li class="list-group-item" id="'+res[i].idinsumo+'"><center><h5>'+res[i].Producto_o_Servicio+'</h5></center></li>');
+
+             }
+           });
 
     }
     else {$('#containeredit').find('input, textarea, button, select').attr('disabled',false);
           $('#guardacambios').show();
           $('#documentosalta').show();
+          $("#elist").empty();
           $('#listtinsumos').hide();
           $('#selectinsumos').show();
-    }
-  });
+          $("#elistaSeleccionada").empty();
+          $("#elistaDisponibles").empty();
 
+          $.get(route2, function(res){
+            for (var i = 0; i < res.length; i++) {
+              $("#elistaSeleccionada").append('<option value="'+res[i].idinsumo+'">'+res[i].Producto_o_Servicio+'</option>');
+            }
+
+            var select = document.getElementById('elistaSeleccionada');
+
+            for ( var i = 0, l = select.options.length, o; i < l; i++ )
+            {
+              o = select.options[i];
+                o.selected = true;
+            }
+
+          });
+
+          $.get(route3, function(res){
+            for (var i = 0; i < res.length; i++) {
+              $("#elistaDisponibles").append('<option value="'+res[i].id+'">'+res[i].Producto_o_Servicio+'</option>');
+            }
+
+            var select = document.getElementById('elistaDisponibles');
+
+          });
+
+    }
 
 }
 
@@ -535,9 +681,10 @@ $(document).ready(function(){
 
   $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
 
-  $("#actualizar").click(function(){
+
+  $("#guardacambios").click(function(){
     var value = $("#eid").val();
-    var route = "/insumos/edit/"+value+"";
+    var route = "/proveedor/edit/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
     var progressBar = document.getElementById("progress");
@@ -622,7 +769,7 @@ function agregaSeleccion(origen, destino) {
             eval(obj2.options[obj2.options.length] = opc);
         }
 
-        var select = document.getElementById('indicadores');
+        var select = document.getElementById('listaSeleccionada');
 
         for ( var i = 0, l = select.options.length, o; i < l; i++ )
         {
@@ -630,7 +777,7 @@ function agregaSeleccion(origen, destino) {
             o.selected = true;
         }
 
-        var select = document.getElementById('listaSeleccionada');
+        var select = document.getElementById('elistaSeleccionada');
 
         for ( var i = 0, l = select.options.length, o; i < l; i++ )
         {
@@ -656,14 +803,6 @@ function agregaSeleccion(origen, destino) {
         eval(obj2.options[obj2.options.length] = opc);
     }
 
-    var select = document.getElementById('indicadores');
-
-    for ( var i = 0, l = select.options.length, o; i < l; i++ )
-    {
-      o = select.options[i];
-        o.selected = true;
-    }
-
     var select = document.getElementById('listaSeleccionada');
 
     for ( var i = 0, l = select.options.length, o; i < l; i++ )
@@ -671,6 +810,15 @@ function agregaSeleccion(origen, destino) {
       o = select.options[i];
         o.selected = true;
     }
+
+    var select = document.getElementById('elistaSeleccionada');
+
+    for ( var i = 0, l = select.options.length, o; i < l; i++ )
+    {
+      o = select.options[i];
+        o.selected = true;
+    }
+
 }
 
 // termina para select multiple

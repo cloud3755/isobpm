@@ -141,8 +141,6 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
                   </div>
                 </div>
 
-
-
                   <div class="form-group form-group-lg">
                       <h2><label for="producto" class="control-label col-md-12">(*) Tipo:</label></h2>
                       <div class="col-md-6 col-sm-9">

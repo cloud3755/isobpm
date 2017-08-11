@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Session;
 use App\Models\insumos;
 use App\Models\proveedores;
 use App\Models\provedorinsumo;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class proveedorescontroller extends Controller
 {
@@ -64,7 +68,19 @@ class proveedorescontroller extends Controller
       $relinsumoproveedor = new provedorinsumo;
       $insumoprovedor = $relinsumoproveedor->where('id_compania',$compañiaid)->orderBy('id')->get();
 
-    return view('\Principales\proveedoreslist',compact('insumo','provedor','relinsumoproveedor'));
+
+/*
+      $listainsumo = \DB::table('provedorinsumos')
+                               ->leftjoin('insumos','provedorinsumos.idinsumo','=','insumos.id')
+                               ->select('provedorinsumos.id as id','insumos.Producto_o_Servicio as Producto_o_Servicio','insumos.id as idinsumo')
+                               ->where('provedorinsumos.idproveedor','=',$id)
+                               ->get();
+
+
+return(dd($listainsumo));
+*/
+
+    return view('\Principales\proveedoreslist',compact('insumo','provedor','insumoprovedor'));
     }
 
     /**
@@ -79,15 +95,32 @@ class proveedorescontroller extends Controller
       $usuario = Auth::user();
       $compañiaid = $usuario->id_compania;
 
-      $provedor = new proveedores;
-      $provedor->id_compania = $compañiaid;
-      $provedor->proveedor = $request->input('proveedor');
-      $provedor->email = $request->input('email');
-      $provedor->telefono = $request->input('telefono');
-      $provedor->activo = $request->input('activo');
-      $provedor->direccion = $request->input('direccion');
-      $provedor->observaciones = $request->input('observaciones');
-      $provedor->save();
+
+
+      $idd = DB::table('proveedores')->insertGetId(
+          ['id_compania' => $compañiaid,
+           'proveedor' => $request->input('proveedor'),
+           'email' => $request->input('email'),
+           'telefono' =>  $request->input('telefono'),
+           'activo' => $request->input('activo'),
+           'direccion' => $request->input('direccion'),
+           'observaciones' => $request->input('observaciones')
+           ]);
+
+
+     $ins=$request->input('listaSeleccionada');
+
+
+     for ($i=0;$i<count($ins);$i++)
+     {
+       $insprov = new provedorinsumo;
+       $insprov->idinsumo = $ins[$i];
+       $insprov->idproveedor = $idd;
+       $insprov->id_compania = $compañiaid;
+       $insprov->save();
+     }
+
+
 
       return redirect('/proveedores/mostrar');
 
@@ -104,10 +137,56 @@ class proveedorescontroller extends Controller
     {
       $usuario = Auth::user();
       $compañiaid = $usuario->id_compania;
-      $provedor = proveedores::findorfail($id)->first();
-        return response()->json($provedor->toArray());
+      $provedor = proveedores::findorfail($id);
+
+      return response()->json($provedor->toArray());
 
     }
+
+
+    public function show2($id)
+    {
+      $usuario = Auth::user();
+      $compañiaid = $usuario->id_compania;
+
+      $listainsumo = DB::table('provedorinsumos')
+                               ->join('insumos','provedorinsumos.idinsumo','=','insumos.id')
+                               ->select('provedorinsumos.id as id','insumos.Producto_o_Servicio as Producto_o_Servicio','insumos.id as idinsumo')
+                               ->where('provedorinsumos.idproveedor','=',$id)
+                               ->get();
+
+                               return response()->json(
+                                 $listainsumo
+                               );
+
+    }
+
+    public function show3($id)
+    {
+      $usuario = Auth::user();
+      $compañiaid = $usuario->id_compania;
+
+
+
+      $listadisp=DB::table('insumos')
+                     ->wherenotIn('id',function ($query) use ($id) {
+                                                           $query->select('insumos.id')->from('insumos')
+                                                                 ->Join('provedorinsumos','insumos.id','=','provedorinsumos.idinsumo')
+                                                                 ->where('idproveedor','=',$id);
+                                                                   })
+                      ->where('idcompañia','=',$compañiaid )
+                      ->select('insumos.id','insumos.Producto_o_Servicio')
+                                                   ->get();
+
+
+                               return response()->json(
+                                   $listadisp
+                               );
+
+    }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -115,9 +194,42 @@ class proveedorescontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+      $usuarios = Auth::user();
+      $compañiaid = $usuarios->id_compania;
+
+      $provedor = proveedores::findorfail($id);
+      $provedor->proveedor = $request->input('eproveedor');
+      $provedor->email = $request->input('eemail');
+      $provedor->telefono = $request->input('etelefono');
+      $provedor->activo = $request->input('eactivo');
+      $provedor->direccion = $request->input('edireccion');
+      $provedor->observaciones = $request->input('eobservaciones');
+      $provedor->id_compania = $compañiaid;
+      $provedor->save();
+
+      $ins=$request->input('elistaSeleccionada');
+
+
+      //Se borran
+      $insprovborra = provedorinsumo::where('idproveedor', $id)->delete();
+
+      for ($i=0;$i<count($ins);$i++)
+      {
+        $insprov = new provedorinsumo;
+        $insprov->idinsumo = $ins[$i];
+        $insprov->idproveedor = $id;
+        $insprov->id_compania = $compañiaid;
+        $insprov->save();
+      }
+return(dd($ins));
+
+      return response()->json([
+        'mensaje' => "listo"
+      ]);
+
+
     }
 
     /**

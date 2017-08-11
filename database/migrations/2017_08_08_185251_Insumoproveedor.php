@@ -14,6 +14,7 @@ class Insumoproveedor extends Migration
   {
     Schema::create('insumoprovedor', function (Blueprint $table) {
     $table->increments('id');
+    $table->integer('idinsumo');
     $table->integer('idproveedor');
     $table->integer('id_compania');
     $table->timestamps();  //
