@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection as Collection;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
+use App\Models\archivosproveedores;
 
 class FileController extends Controller
 {
@@ -35,23 +42,34 @@ class FileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-      $path = public_path().'/storage/uploadproveedores/'; // carpeta donde se va a guardar el archivo
-        $uploadSuccess = Util::uploadFile($dir,'file',null); // funcion para subir el archivo
-/*
-        if ($uploadSuccess['status']) {
-          return Response::json('success', 200);//subio correctamente
-        } else {
-          return Response::json('error', 400);//error subiendo
-        }
-*/
-      $files = $request->file('file');
-      foreach($files as $file){
-                               $fileName = $file->getClientOriginalName();
-                               $file->move($path, $fileName);
-}
+
+      $usuarios = Auth::user();
+      $compañiaid = $usuarios->id_compania;
+
+      $file1                            = $request->file('archivo');
+      $extension1                       = strtolower($file1->getclientoriginalextension());
+      $nombreunicoarchivo1              = uniqid().'.'.$extension1;
+      $bytes                            = \File::size($file1);
+
+      $datosarchivo = new archivosproveedores;
+
+      $datosarchivo->nombre = $request->input('snombrearchivo');
+      $datosarchivo->archivo = $file1->getClientOriginalName();
+      $datosarchivo->nombreunico = $nombreunicoarchivo1;
+      $datosarchivo->size = $bytes;
+      $datosarchivo->id_proveedor = $id;
+      $datosarchivo->id_user = $usuarios->id;
+      $datosarchivo->id_compania = $compañiaid;
+      $datosarchivo->save();
+
+      \Storage::disk('provedor')->put($nombreunicoarchivo1,  \File::get($file1));
+
+      return ('Ok');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -61,7 +79,14 @@ class FileController extends Controller
      */
     public function show($id)
     {
-        //
+      $usuarios = Auth::user();
+      $compañiaid = $usuarios->id_compania;
+
+      $datosarchivo = new archivosproveedores;
+      $datafile = $datosarchivo->where('id_proveedor',$id)->get();
+
+      return response()->json($datafile->toArray());
+
     }
 
     /**
@@ -95,6 +120,45 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+      $provedor = archivosproveedores::findorfail($id);
+
+      // borramos el archivo zip
+      $archivoborrar = $provedor->nombreunico;
+      if(!empty($archivoborrar)){
+        \Storage::disk('provedor')->delete($archivoborrar);
+             }
+
+      $provedor-> delete();
+      return redirect('/proveedores/mostrar');
+
     }
+
+    public function ver($id){
+
+      $documento = archivosproveedores::find($id);
+      $cadena = $documento->nombreunico;
+      if (\Storage::disk('provedor')->exists($cadena)) {
+        $response = Response::make(File::get("storage/uploadproveedores/".$documento->nombreunico));
+
+        if(ends_with($cadena,'docx')){
+          $response->header('Content-Type', "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        }elseif (ends_with($cadena,'txt')) {
+          $response->header('Content-Type', 'text/plain');
+        }else{
+          $content_types = File::mimeType("storage/uploadproveedores/".$documento->nombreunico);
+          $response->header('Content-Type', $content_types);
+        }
+      }else {
+          $response = "Archivo no encontrado";
+      }
+
+      // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
+
+      return $response;
+    }
+
+
+
+
 }

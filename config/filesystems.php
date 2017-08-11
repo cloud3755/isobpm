@@ -72,6 +72,10 @@ return [
             'driver' => 'local',
             'root'   => public_path().'/storage/documentos',
         ],
+        'provedor' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/uploadproveedores',
+        ],
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'ftp.example.com',

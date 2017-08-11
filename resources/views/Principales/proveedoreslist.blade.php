@@ -349,7 +349,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 </div>
               </div>
                     <div class="modal-footer" id="footer">
-                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-dismiss="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
+                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-dismiss="modal" data-target="#modalarchivos" onclick="Archivo(this);"><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
                     <!--     <button type="submit" class="act" id="act" style="font-family: Arial;">Guardar cambio insumo</button> -->
                      <button name="guardacambios" type="button" class="btnobjetivo" id="guardacambios" style="font-family: Arial;">Guardar cambios</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
@@ -375,105 +375,76 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                 <h3 class="modal-title">Alta archivos proveedor</h3>
             </div>
             <div class="modal-body">
+<form  id="fileup" method="post" accept-charset="UTF-8" enctype="multipart/form-data" class="form-inline">
 
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="eid" id="eid">
-              <progress id="progress" value="0" visible="false"></progress>
+              <input type="hidden" name="fid" id="fid">
 
-                  <link href="{{ asset('/css/dropzone.css') }}" rel="stylesheet">
-
-
-                  <div class="row"    >
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Dropzone
-                            </div>
-                            <div class="panel-body">
-
-                                {!! Form::open(['url' => route('upload-post'), 'method' => 'POST', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone' , 'enctype' => 'multipart/form-data']) !!}
-                                {!! Form::hidden('csrf-token', csrf_token(), ['id' => 'csrf-token']) !!}
-                                <div class="dz-message" style="height:200px;">
-                                    Drop your files here
-                                </div>
-                                <div class="dropzone-previews"></div>
-                                <button type="submit" class="btn btn-success" id="subearchivo">Save</button>
-                                {!! Form::close() !!}
-                            </div>
-                        </div>
-                    </div>
-                  {!! Html::script('/js/jquery-1.11.0.min.js'); !!}
-                  {!! Html::script('/js/dropzone.js'); !!}
-                  <script>
+              <div class="form-group form-group-lg">
+                  <h2><label for="nombrearchivo" class="control-label">(*) Nombre del archivo:</label></h2>
+                  <div class="col-md-10">
+                      <input class="form-control input-lg " width="100%" id="snombrearchivo" type="Text" placeholder="Agrega el nombre del archivo" name="snombrearchivo" required>
+                  </div>
+              </div>
+              <div class="form-group form-group-lg">
+                  <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
+                  <div class="col-md-10">
+                      <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo" required>
+                  </div>
+              </div>
+<!--<progress id="progress" value="0" visible="false"></progress> -->
+<div class="form-group form-group-lg">
+<h2><label for="boton" class="control-label"></label></h2>
+  <div class="col-md-12">
+<button name="guardadoc" type="button" class="btnobjetivo" id="guardadoc" style="font-family: Arial;"><i class="glyphicon glyphicon-upload"></i> Cargar Archivo </button>
+<!--  <button name="documentosalta" type="submit" class="btnobjetivo btn-lg" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-upload"></i> Cargar Archivo </button>-->
+</div>
+</div>
+</form>
 
 
+<div class="modal-body">
+  <div clas="etiquetamodal">
+  <center><h2><label for="boton" class="control-label">Lista de archivos</label></h2></center>
+  </div>
+   <div id="contieneTablaArchivo" name="contieneTablaArchivo" class="modal-body">
 
-                      var photo_counter = 0;
-                      Dropzone.options.realDropzone = {
+<div class="panel-body">
+  <div class="row">
+    <div class="table-responsive">
+      <br>
+      <br>
+        <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
+          <thead style='background-color: #868889; color:#FFF'>
+            <tr>
+              <th>  <div class="th-inner sortable both">    Nombre  </div></th>
+              <th>  <div class="th-inner sortable both">    Archivo  </div></th>
+              <th>  <div class="th-inner sortable both">    Tamaño  </div></th>
+              <th>  <div class="th-inner sortable both">    Acciones  </div></th>
 
-                          uploadMultiple: true,
-                          parallelUploads: 100,
-                          maxFilesize: 100,
-                          previewsContainer: '#dropzonePreview',
-                          previewTemplate: document.querySelector('#preview-template').innerHTML,
-                          addRemoveLinks: true,
-                          dictRemoveFile: 'Remove',
-                          dictFileTooBig: 'Image is bigger than 100MB',
-
-                          // The setting up of the dropzone
-                          init:function() {
-
-                              this.on("removedfile", function(file) {
-
-                                  $.ajax({
-                                      type: 'POST',
-                                      url: 'upload/delete',
-                                      data: {id: file.name, _token: $('#csrf-token').val()},
-                                      dataType: 'html',
-                                      success: function(data){
-                                          var rep = JSON.parse(data);
-                                          if(rep.code == 200)
-                                          {
-                                              photo_counter--;
-                                              $("#photoCounter").text( "(" + photo_counter + ")");
-                                          }
-
-                                      }
-                                  });
-
-                              } );
-                          },
-                          error: function(file, response) {
-                              if($.type(response) === "string")
-                                  var message = response; //dropzone sends it's own error messages in string
-                              else
-                                  var message = response.message;
-                              file.previewElement.classList.add("dz-error");
-                              _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-                              _results = [];
-                              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                                  node = _ref[_i];
-                                  _results.push(node.textContent = message);
-                              }
-                              return _results;
-                          },
-                          success: function(file,done) {
-                              photo_counter++;
-                              $("#photoCounter").text( "(" + photo_counter + ")");
-                          }
-                      }
-
-
-                  </script>
+            </tr>
+          </thead>
+          <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
+          <tbody id = "FmyTable">
 
 
 
+          </tbody>
+        </table>
+    </div>
+    <div class="col-md-12 text-center">
+      <ul class="pagination pagination-lg pager" id="FmyPager"></ul>
+    </div>
+  </div>
+</div>
 
 
 
+   </div>
+</div>
                     <div class="modal-footer" id="footer">
-                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
-                    <!--<button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">guardar cambio insumo</button>-->
-                    <button name="guardacambios" type="button" class="btnobjetivo" id="guardacambios" style="font-family: Arial;">Guardar cambios</button>
+
+
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                     </div>
 
@@ -512,7 +483,12 @@ function Editar(btn){
     $("#edireccion").val(res.direccion);
     $("#eobservaciones").val(res.observaciones);
     $("#eid").val(res.id);
+    $("#documentosalta").val(res.id);
+    $("#fid").val(res.id);
+
   });
+
+
 
     if(btn.name==1)
     {    $('#containeredit').find('input, textarea, button, select').attr('disabled',true);
@@ -568,6 +544,30 @@ function Editar(btn){
     }
 
 }
+
+
+//Funcion para llenar el modal de archivo
+
+
+function Archivo(btn){
+  var route = "/proveedor/file/show/"+btn.value;
+
+  $.get(route,function(res){
+    $("#snombrearchivo").val("");
+    $("#snombrearchivo").empty();
+    $("#archivo").val("");
+    $("#archivo").empty();
+    $("#FmyTable").empty();
+    for (var i = 0; i < res.length; i++) {
+      $("#FmyTable").append('<tr><td>'+res[i].nombre+'</td><td>'+res[i].archivo+'</td><td>'+res[i].tamaño+'</td><td> <a href="/proveedor/file/ver/'+res[i].id+'" target="_blank" style=\'color:#FFF\'><button type="button" class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>  <form class="" action="/proveedor/file/delete/'+res[i].id+'" method="post"> <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btnobjetivo" id="btndelete_'+res[i].id+'" style="font-family: Arial;" dataid="'+res[i].id+'" onclick="return confirm(\'Estas seguro de eliminar el archivo: ' +
+       res[i].nombre +'?\')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button></form></td></tr>');
+    }
+
+
+
+
+  });
+  }
 
 
 
@@ -675,19 +675,53 @@ $.fn.pageMe = function(opts){
 };
 
 
-//Funcion para guardar el modal de edicion
+
 
 $(document).ready(function(){
 
   $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
 
+  //Funcion para guardar el modal de edicion
 
   $("#guardacambios").click(function(){
     var value = $("#eid").val();
     var route = "/proveedor/edit/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
-    var progressBar = document.getElementById("progress");
+    var progressBar = 0;
+
+    $.ajax({
+      url: route,
+      headers: {'X-CSRF_TOKEN': token},
+      type: 'post',
+      data: fd,
+      processData: false,  // tell jQuery not to process the data
+      contentType: false,
+      xhr: function() {
+        var xhr = $.ajaxSettings.xhr();
+        xhr.upload.onprogress = function(e) {
+          progressBar.max = e.total;
+          progressBar.value = e.loaded;
+            console.log(Math.floor(e.loaded / e.total *100) + '%');
+        };
+        return xhr;
+      },
+      success: function(){
+        alert("Cambios guardados correctamente");
+        //location.reload();
+        Archivo(value);
+      }
+    });
+  });
+
+
+//Funcion para guardar el modal de archivo
+  $("#guardadoc").click(function(){
+    var value = $("#fid").val();
+    var route = "/proveedor/file/"+value+"";
+    var token = $("#token").val();
+    var fd = new FormData(document.getElementById("fileup"));
+    var progressBar = 0;
 
     $.ajax({
       url: route,
@@ -713,6 +747,16 @@ $(document).ready(function(){
   });
 
 });
+
+
+
+
+
+
+
+
+
+
 
 function doSearch()
 {

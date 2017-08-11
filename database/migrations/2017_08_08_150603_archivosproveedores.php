@@ -15,17 +15,13 @@ class Archivosproveedores extends Migration
       Schema::create('archivosproveedores', function (Blueprint $table) {
 
           $table->increments('id');
-          $table->integer('id_tipo')->unsigned();
           $table->string('nombre');
           $table->string('archivo');
           $table->string('nombreunico');
           $table->integer('size');
-          $table->string('descripcion');
+          $table->integer('id_proveedor')->unsigned();
           $table->integer('id_user')->unsigned();
           $table->integer('id_compania')->unsigned();
-          $table->integer('review');
-          $table->integer('status')->unsigned();
-          $table->string('acceso');
           $table->timestamps();
       });
     }

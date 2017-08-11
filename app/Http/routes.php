@@ -235,8 +235,10 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/proveedor/show2/{id}', 'proveedorescontroller@show2');
     Route::get('/proveedor/show3/{id}', 'proveedorescontroller@show3');
     Route::post('/proveedor/edit/{id}', 'proveedorescontroller@edit');
-    Route::resource('file', 'FileController');
-
+    Route::post('/proveedor/file/{id}', 'FileController@store');
+    Route::get('/proveedor/file/show/{id}', 'FileController@show');
+    Route::post('/proveedor/file/delete/{id}', 'FileController@destroy');
+    Route::get('/proveedor/file/ver/{id}', 'FileController@ver');
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Ruta crear noticia
