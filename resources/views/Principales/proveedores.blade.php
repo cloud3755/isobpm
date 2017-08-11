@@ -80,14 +80,14 @@
               </div>
           </div>
       </div>
-      <a href="/proveedores" class="pf">
+      <a href="/provedores/califica" class="pf">
         <!--  <div class="panel-footer">
               <span class="pull-left" id="spCompaniesPending">Quejas: </span>
               <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
               <div class="clearfix"></div>
           </div> -->
           <div class="panel-footer">
-            <span class="pull-left" id="spCompaniesPending">Proveedores: 0</span>
+            <span class="pull-left" id="spCompaniesPending">Calificar proveedores</span>
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>
@@ -111,7 +111,7 @@
               </div>
           </div>
       </div>
-      <a href="/proveedores" class="pf">
+      <a href="/provedores/calificaresultado/" class="pf">
         <!--  <div class="panel-footer">
               <span class="pull-left" id="spCompaniesPending">Quejas: </span>
               <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

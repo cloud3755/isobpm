@@ -6,29 +6,41 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\insumos;
+use App\Models\proveedores;
+use App\Models\provedorinsumo;
+use App\Models\User;
 
-class provedorfilecontroller extends Controller
+class provedorcalifica extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-
-     * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function index()
     {
 
       $usuarios = Auth::user();
       $compañiaid = $usuarios->id_compania;
 
-      $path = public_path().'/uploads/';
-$files = $request->file('file');
-foreach($files as $file){
-    $fileName = $file->getClientOriginalName();
-    $file->move($path, $fileName);
-}
+      $proveedores = new proveedores;
+      $proveedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
+
+      return view('\Secundarias\provedorcalifica');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -37,19 +49,9 @@ foreach($files as $file){
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postDropzone()
+    public function store(Request $request)
     {
-      $usuarios = Auth::user();
-      $compañiaid = $usuarios->id_compania;
-
-       $file = input::file('file');
-       $securname=Hash::make($file->getClientOriginalName());
-
-       $dir = public_path().'/storage/uploadproveedores/';
-
-       $subir=$file->move($dir,$secureName.'.'.$file->guessExtension());
-
-
+        //
     }
 
     /**
