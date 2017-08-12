@@ -198,6 +198,7 @@ class QuejasController extends Controller
       $queja->fecha_cierre = $request->input('fecha_cierre');
       $queja->estatus_id = $request->input('status_id');
       $queja->producto   = $request->input('producto_id');
+      $queja->monto     = $request->input('monto');
       $queja->area      = $request->input('area');
       $queja->proceso    = $request->input('proceso_id');
 

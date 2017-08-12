@@ -198,7 +198,7 @@
 	$(document).ready(function(){
 
 	  $("#actualizar").click(function(){
-	    var route = "https://www.isobpm.com/lean/storelean";
+	    var route = "/lean/storelean";
 	    var token = $("#token").val();
 	    var fd = new FormData(document.getElementById("fileinfo"));
 

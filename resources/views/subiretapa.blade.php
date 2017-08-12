@@ -640,7 +640,7 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
 
     $("#actualizar").click(function(){
       var value = $("#id").val();
-      var route = "https://www.isobpm.com/modificar/lean/"+value+"";
+      var route = "/modificar/lean/"+value+"";
       var token = $("#token").val();
       var fd = new FormData(document.getElementById("fileinfo"));
 
