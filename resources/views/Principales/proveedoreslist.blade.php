@@ -559,7 +559,7 @@ function Archivo(btn){
     $("#archivo").empty();
     $("#FmyTable").empty();
     for (var i = 0; i < res.length; i++) {
-      $("#FmyTable").append('<tr><td>'+res[i].nombre+'</td><td>'+res[i].archivo+'</td><td>'+res[i].tamaño+'</td><td> <a href="/proveedor/file/ver/'+res[i].id+'" target="_blank" style=\'color:#FFF\'><button type="button" class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>  <form class="" action="/proveedor/file/delete/'+res[i].id+'" method="post"> <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btnobjetivo" id="btndelete_'+res[i].id+'" style="font-family: Arial;" dataid="'+res[i].id+'" onclick="return confirm(\'Estas seguro de eliminar el archivo: ' +
+      $("#FmyTable").append('<tr><td>'+res[i].nombre+'</td><td>'+res[i].archivo+'</td><td>'+res[i].size+'</td><td> <a href="/proveedor/file/ver/'+res[i].id+'" target="_blank" style=\'color:#FFF\'><button type="button" class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>  <form class="" action="/proveedor/file/delete/'+res[i].id+'" method="post"> <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btnobjetivo" id="btndelete_'+res[i].id+'" style="font-family: Arial;" dataid="'+res[i].id+'" onclick="return confirm(\'Estas seguro de eliminar el archivo: ' +
        res[i].nombre +'?\')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button></form></td></tr>');
     }
 
