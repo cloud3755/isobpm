@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Session;
 use Mail;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 use App\Models\EventModel;
-
+use App\Models\proveedores;
 
 class BienvenidaController extends Controller
 {
@@ -101,6 +101,12 @@ class BienvenidaController extends Controller
 
       $procesos = new Proceso;
       $proceso = $procesos->where('idcompañia',$usuarios->id_compania)->get();
+
+      $proveedores = new proveedores;
+      $proveedor = $proveedores->where('id_compania',$usuarios->id_compania)->orderBy('id')->get();
+      $cuentaproveedor = $proveedor->count();
+
+
       if($usuarios->perfil == 1){
         $empresas = new Empresas;
         $empresa = $empresas->get();
@@ -158,7 +164,7 @@ $calendar = \Calendar::setCallbacks([
      ]);
 // termina Para el calendario
 
-      return View('bienvenida', compact('objetivo', 'quejas','proceso','empresa', 'noticiasw','calendar'));
+      return View('bienvenida', compact('objetivo', 'quejas','proceso','cuentaproveedor','empresa', 'noticiasw','calendar'));
     }
 
     /**

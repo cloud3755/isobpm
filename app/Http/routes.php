@@ -239,7 +239,9 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/proveedor/file/show/{id}', 'FileController@show');
     Route::post('/proveedor/file/delete/{id}', 'FileController@destroy');
     Route::get('/proveedor/file/ver/{id}', 'FileController@ver');
-    Route::get('/provedores/califica/', 'provedorcalifica@index');
+    Route::get('/provedores/califica', 'provedorcalifica@index');
+    Route::get('/provedores/califica/insumo/{id}', 'provedorcalifica@indexinsumo');
+    Route::post('/provedores/califica/store', 'provedorcalifica@store');
 
 
     Route::get('/provedores/calificaresultado/', 'provedorcalificaresultado@index');

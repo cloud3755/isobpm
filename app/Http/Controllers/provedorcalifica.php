@@ -13,6 +13,7 @@ use App\Models\insumos;
 use App\Models\proveedores;
 use App\Models\provedorinsumo;
 use App\Models\User;
+use App\Models\Proveedorcalifica;
 
 class provedorcalifica extends Controller
 {
@@ -30,7 +31,8 @@ class provedorcalifica extends Controller
       $proveedores = new proveedores;
       $proveedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
 
-      return view('\Secundarias\provedorcalifica');
+
+      return view('\Secundarias\provedorcalifica',compact('proveedor'));
     }
 
     /**
@@ -38,9 +40,17 @@ class provedorcalifica extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function indexinsumo($id)
     {
-        //
+      $usuarios = Auth::user();
+      $listainsumo = DB::table('provedorinsumos')
+                               ->join('insumos','provedorinsumos.idinsumo','=','insumos.id')
+                               ->select('provedorinsumos.id as id','insumos.Producto_o_Servicio as Producto_o_Servicio','insumos.id as idinsumo')
+                               ->where('provedorinsumos.idproveedor','=',$id)
+                               ->get();
+
+      return response()->json($listainsumo);
+
     }
 
     /**
@@ -51,7 +61,21 @@ class provedorcalifica extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $usuarios = Auth::user();
+
+      $idd = DB::table('Proveedorcalifica')->insertGetId(
+          [
+           'idproveedor' => $request->input('proveedorid'),
+           'idinsumo' => $request->input('insumoid'),
+           'pedido' =>  $request->input('pedido'),
+           'tiempo' => $request->input('Tiempo'),
+           'calidad' => $request->input('calidad'),
+           'servicio' => $request->input('servicio'),
+           'costo' => $request->input('costo')
+           ]);
+
+
+        return redirect('/proveedores');
     }
 
     /**

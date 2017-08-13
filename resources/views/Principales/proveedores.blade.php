@@ -2,8 +2,19 @@
 
 @section('content')
 
-</br></br></br></br></br>
+</br>
 
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Lista de proveedores</h1>
+    </div>
+</div>
+
+
+<center><button type="button" class="btnobjetivo" onclick=location="/bienvenida" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
+
+
+</br></br></br></br></br>
 
 <div class="row">
 <div class="col-lg-3 col-md-6" >
@@ -30,11 +41,10 @@
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>
-            <div class="panel-footer">
       </a>
   </div>
 </div>
-</div>
+
 
 <div class="col-lg-3 col-md-6" >
   <div class="panel panel-mej" id="divCompaniesPending">
@@ -60,11 +70,10 @@
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>
-            <div class="panel-footer">
       </a>
   </div>
 </div>
-</div>
+
 
 
 <div class="col-lg-3 col-md-6" >
@@ -91,11 +100,11 @@
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>
-            <div class="panel-footer">
+
       </a>
   </div>
 </div>
-</div>
+
 
 
 <div class="col-lg-3 col-md-6" >
@@ -122,7 +131,6 @@
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>
-            <div class="panel-footer">
       </a>
   </div>
 </div>
@@ -130,6 +138,5 @@
 
 
 
-</div>
 
 @stop

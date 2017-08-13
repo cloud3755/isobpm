@@ -223,12 +223,8 @@ return(dd($listainsumo));
         $insprov->id_compania = $compañiaid;
         $insprov->save();
       }
-return(dd($ins));
 
-      return response()->json([
-        'mensaje' => "listo"
-      ]);
-
+return redirect('/proveedores/mostrar');
 
     }
 
@@ -252,8 +248,24 @@ return(dd($ins));
      */
     public function destroy($id)
     {
+      $usuarios = Auth::user();
       $provedor = proveedores::findorfail($id);
       $provedor-> delete();
+      $insprovborra = provedorinsumo::where('idproveedor', $id)->delete();
+
+// bprrar archvos del proveedor
+    //  $provedor = archivosproveedores::findorfail($id);
+
+      // borramos el archivo zip
+  //    $archivoborrar = $provedor->nombreunico;
+  //    if(!empty($archivoborrar)){
+  //      \Storage::disk('provedor')->delete($archivoborrar);
+  //           }
+
+  //    $provedor-> delete();
+
+
+
       return redirect('/proveedores/mostrar');
     }
 }

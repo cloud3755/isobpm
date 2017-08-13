@@ -120,7 +120,7 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-
+      $usuarios = Auth::user();
       $provedor = archivosproveedores::findorfail($id);
 
       // borramos el archivo zip
@@ -135,7 +135,7 @@ class FileController extends Controller
     }
 
     public function ver($id){
-
+      $usuarios = Auth::user();
       $documento = archivosproveedores::find($id);
       $cadena = $documento->nombreunico;
       if (\Storage::disk('provedor')->exists($cadena)) {

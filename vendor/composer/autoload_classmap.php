@@ -529,6 +529,7 @@ return array(
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'Provedorinsumo' => $baseDir . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
+    'Proveedorcalifica' => $baseDir . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
     'Proveedores' => $baseDir . '/database/migrations/2017_08_07_214700_proveedores.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',

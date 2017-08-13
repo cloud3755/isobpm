@@ -842,6 +842,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'Provedorinsumo' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
+        'Proveedorcalifica' => __DIR__ . '/../..' . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
         'Proveedores' => __DIR__ . '/../..' . '/database/migrations/2017_08_07_214700_proveedores.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',

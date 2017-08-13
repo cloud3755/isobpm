@@ -76,7 +76,8 @@ class insumoscontroller extends Controller
      */
 
       public function show($id){
-        $insumo = insumos::findorfail($id)->first();
+        $Users = Auth::user();
+        $insumo = insumos::findorfail($id);
           return response()->json($insumo->toArray());
         }
 

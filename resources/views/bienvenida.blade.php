@@ -193,7 +193,7 @@
                   </div>
                   <div class="col-xs-9 text-right">
                       <div class="huge" id="divCompaniesNumber"></div>
-                      <div>Proveedores</div>
+                      <div>SEP</div>
                   </div>
               </div>
           </div>
@@ -204,11 +204,10 @@
                   <div class="clearfix"></div>
               </div> -->
               <div class="panel-footer">
-                <span class="pull-left" id="spCompaniesPending">Proveedores: 0</span>
+                <span class="pull-left" id="spCompaniesPending">Proveedores: <?=$cuentaproveedor ?></span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                 <div class="clearfix"></div>
             </div>
-                <div class="panel-footer">
           </a>
       </div>
     </div>
