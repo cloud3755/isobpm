@@ -32,7 +32,7 @@ class provedorcalifica extends Controller
       $proveedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
 
 
-      return view('\Secundarias\provedorcalifica',compact('proveedor'));
+      return view('/Secundarias/provedorcalifica',compact('proveedor'));
     }
 
     /**
