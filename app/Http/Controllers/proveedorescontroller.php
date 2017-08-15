@@ -44,7 +44,7 @@ class proveedorescontroller extends Controller
         $cuentaproveedor = $proveedor->count();
 
 
-      return view('Principales\proveedores',compact('cuentainsumo','cuentaproveedor'));
+      return view('Principales/proveedores',compact('cuentainsumo','cuentaproveedor'));
 
     }
 
@@ -80,7 +80,7 @@ class proveedorescontroller extends Controller
 return(dd($listainsumo));
 */
 
-    return view('\Principales\proveedoreslist',compact('insumo','provedor','insumoprovedor'));
+    return view('Principales/proveedoreslist',compact('insumo','provedor','insumoprovedor'));
     }
 
     /**

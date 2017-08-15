@@ -31,7 +31,7 @@ class insumoscontroller extends Controller
         $insumos = new insumos;
         $insumo = $insumos->where('idcompañia',$compañiaid)->orderBy('id')->get();
 
-        return view('Secundarias\insumos',compact('usuario','insumo'));
+        return view('Secundarias/insumos',compact('usuario','insumo'));
     }
 
     /**
