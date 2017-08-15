@@ -84,9 +84,44 @@ class provedorcalifica extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+     public function resultadoindex()
+     {
+       $usuarios = Auth::user();
+       $compañiaid = $usuarios->id_compania;
+
+       $proveedores = new proveedores;
+       $proveedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
+
+       return view('\Secundarias\provedorcalificaresultado',compact('proveedor'));
+     }
+
+
+
+
+    public function showresult($provedorid,$insumoid,Request $request)
     {
         //
+        $usuarios = Auth::user();
+
+
+        $calificacion = DB::table('proveedorcalifica')
+                                 ->select(DB::raw('proveedorcalifica.pedido as Pedido'),DB::raw('proveedorcalifica.tiempo as Tiempo'),DB::raw('proveedorcalifica.calidad as Calidad'),DB::raw('proveedorcalifica.servicio as Servicio'),DB::raw('proveedorcalifica.costo as Costo'))
+                                 ->where('proveedorcalifica.idproveedor','=',$provedorid)
+                                 ->where('proveedorcalifica.idinsumo','=',$insumoid)
+                                 ->orderby('proveedorcalifica.id')
+                                 ->get();
+
+
+
+
+         $result[] = ['   Pedido','   Tiempo','   Calidad','   Servicio','   Costo'];
+         foreach ($calificacion as $key => $value) {
+             $result[++$key] = [$value->Pedido, (int)$value->Tiempo, (int)$value->Calidad, (int)$value->Servicio, (int)$value->Costo];
+         }
+                                 return response()->json($result);
+
+
     }
 
     /**

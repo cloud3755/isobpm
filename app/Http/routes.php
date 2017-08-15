@@ -243,8 +243,8 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/provedores/califica/insumo/{id}', 'provedorcalifica@indexinsumo');
     Route::post('/provedores/califica/store', 'provedorcalifica@store');
 
-
-    Route::get('/provedores/calificaresultado/', 'provedorcalificaresultado@index');
+    Route::get('/provedores/calificaresultado/', 'provedorcalifica@resultadoindex');
+    Route::get('/provedores/resultado/{provedorid}/{insumoid}', 'provedorcalifica@showresult');
 
 
 
