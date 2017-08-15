@@ -320,6 +320,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
 
     public static $classMap = array (
         'Archivosproveedores' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_150603_archivosproveedores.php',
+        'CreateAbcoportunidadesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_10_065748_create_abcoportunidades_table.php',
         'CreateAbcriesgosTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_10_033635_create_abcriesgos_table.php',
         'CreateAccesosindicadoresTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220929_create_accesosindicadores_table.php',
         'CreateAccioncorrectiva1sTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_31_180435_create_accioncorrectiva1s_table.php',
@@ -343,6 +344,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateNoconformidadesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_15_030644_create_noconformidades_table.php',
         'CreateNoticiasTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_19_215124_create_noticias_table.php',
         'CreateObjetivosTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220712_create_objetivos_table.php',
+        'CreateOportunidadesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_10_065031_create_oportunidades_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePlansTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_022426_create_plans_table.php',
         'CreateProcesosTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_08_050021_create_procesos_table.php',
@@ -352,6 +354,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateStatusesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_023704_create_statuses_table.php',
         'CreateTipoObjetivosTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_27_000622_create_tipo_objetivos_table.php',
         'CreateTipoProcesos' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_183519_create_tipo_procesos.php',
+        'CreateTipooportunidadesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_10_065840_create_tipooportunidades_table.php',
         'CreateTiporiesgosTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_10_033645_create_tiporiesgos_table.php',
         'CreateTypedocumentsTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_14_202239_create_typedocuments_table.php',
         'CreateUnidadesTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_27_001252_create_unidades_table.php',

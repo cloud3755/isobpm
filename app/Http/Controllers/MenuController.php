@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Objetivo;
 use App\Models\Indicadores;
 use App\Models\Analisisriesgos;
+use App\Models\Oportunidades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -47,6 +48,15 @@ class MenuController extends Controller
       $Analisisriesgo = $Analisisriesgos->all();
 
       return View('submenu/riesgos', compact('indicador'));
+    }
+
+    public function oportunidades()
+    {
+  //    $Oportunidades = new Oportunidades;
+    //  $Oportunidad = $Oportunidades->all();
+
+// compact('Oportunidad')
+      return View('submenu/oportunidades');
     }
 
     public function mejoras()

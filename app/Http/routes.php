@@ -61,6 +61,13 @@ Route::group( ['middleware' => 'auth'],
 			Route::delete('abcriesgos/destroy/{id}', 'AbcriesgosController@destroy');
       Route::post('abcriesgos/edit/{id}', 'AbcriesgosController@edit');
 
+			//ruta para abcoportunidades
+			Route::get('abcoportunidades/create', 'OportunidadesController@create');
+			Route::post('abcoportunidades/store', 'OportunidadesController@store');
+			Route::delete('abcoportunidades/destroy/{id}', 'OportunidadesController@destroy');
+      Route::post('abcoportunidades/edit/{id}', 'OportunidadesController@edit');
+      Route::get('abcoportunidades/{id}/edit', 'OportunidadesController@editM');
+
 
 			//ruta para quejas
 			Route::get('quejas/create', 'QuejasController@create');
@@ -101,6 +108,7 @@ Route::group( ['middleware' => 'auth'],
     //Rutas del menu
     Route::get('/objetivosindicadores', 'MenuController@objetivos');
     Route::get('/riesgos', 'MenuController@riesgos');
+    Route::get('/oportunidades', 'MenuController@oportunidades');
     Route::get('/mejoras', 'MenuController@mejoras');
     Route::get('/admin', 'MenuController@admin');
     Route::get('/infdocumentada', 'MenuController@infdocumentada');
@@ -136,6 +144,19 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/analisisrisk/store','AnalisisriesgosController@store');
     Route::delete('/analisisrisk/destroy/{id}','AnalisisriesgosController@destroy');
     Route::post('/analisisrisk/edit/{id}','AnalisisriesgosController@edit');
+
+
+    //Rutas para analisis de oportunidades
+    //ruta para mapa de calor
+    Route::get('/mapadecaloropor','OportunidadesController@mapaindex');
+    Route::post('/mapadecaloropor','OportunidadesController@mapaindexfiltros');
+
+    Route::get('/oportunidades/create', 'OportunidadesController@createproceso');
+    Route::get('/analisisopor/registro/{id}','OportunidadesController@show');
+    Route::post('/analisisopor/store','OportunidadesController@anastore');
+    Route::delete('/analisisopor/destroy/{id}','OportunidadesController@anadestroy');
+    Route::post('/analisisopor/edit/{id}','OportunidadesController@anaedit');
+    Route::get('/analisisopor/{id}/edit','OportunidadesController@anaeditM');
 
     //rutas para acciones correctivas
     Route::get('/accioncorrectiva','AccionescorrectivasControllerVisual@index');
