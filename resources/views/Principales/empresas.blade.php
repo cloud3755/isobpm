@@ -45,7 +45,7 @@
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                               <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-return confirm('Estas seguro de eliminar la empresa <?=$empresas->['razonSocial']?>?')">Eliminar</button>
+return confirm('Estas seguro de eliminar la empresa <?=$empresas->razonSocial?>?')">Eliminar</button>
                               <button type="button" class="btnobjetivo" data-toggle="modal" data-target="#modaledit<?=$empresas['id']?>"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
                             </form>
                           </td>
