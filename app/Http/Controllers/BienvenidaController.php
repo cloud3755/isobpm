@@ -43,7 +43,7 @@ class BienvenidaController extends Controller
     {
       Mail::send('emails.contact',$request->all(), function($msj){
         $msj->subject('Correo de contacto');
-        $msj->to('jgomezg@japsoft.com.mx');
+        $msj->to('password.recovery@isolutionbusiness.com');
       });
       Session::flash('message','Eviado correctamente');
       return Redirect::to('/');
