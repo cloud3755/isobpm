@@ -123,7 +123,7 @@ class AnalisisriesgosController extends Controller
 
       $Analisisriesgo->save();
 
-      return redirect('/riesgos/create');
+      return redirect()->action('AnalisisriesgosController@show', [$Analisisriesgo->procesos_id]);
     }
 
     /**
@@ -195,28 +195,36 @@ class AnalisisriesgosController extends Controller
       $Users = Auth::user();
       //return(dd($request));
        $Analisisriesgo = Analisisriesgos::findorfail($id);
-       $Analisisriesgo->procesos_id = $request->input('procesos_id');
-       $Analisisriesgo->actividad = $request->input('actividad');
-       $Analisisriesgo->riesgo_id = $request->input('riesgo_id');
 
-       $Analisisriesgo->descripcion_modo_falla = $request->input('descripcion_modo_falla');
-       $Analisisriesgo->Severidad = $request->input('Severidad');
-       $Analisisriesgo->probabilidad = $request->input('probabilidad');
+       $Analisisriesgo->actividad = $request->input('eactividad');
+       $Analisisriesgo->riesgo_id = $request->input('eriesgo_id');
 
-       $Analisisriesgo->riesgo_inherente = $request->input('Severidad') * $request->input('probabilidad');
+       $Analisisriesgo->descripcion_modo_falla = $request->input('edescripcion_modo_falla');
+       $Analisisriesgo->Severidad = $request->input('eSeveridad');
+       $Analisisriesgo->probabilidad = $request->input('eprobabilidad');
 
-       $Analisisriesgo->controles = $request->input('controles');
-       $Analisisriesgo->Severidad2 = $request->input('Severidad2');
-       $Analisisriesgo->probabilidad2 = $request->input('probabilidad2');
+       $Analisisriesgo->riesgo_inherente = $request->input('eSeveridad') * $request->input('eprobabilidad');
 
-       $Analisisriesgo->riesgo_residual = $request->input('Severidad2') * $request->input('probabilidad2');
+       $Analisisriesgo->controles = $request->input('econtroles');
+       $Analisisriesgo->Severidad2 = $request->input('eSeveridad2');
+       $Analisisriesgo->probabilidad2 = $request->input('eprobabilidad2');
+
+       $Analisisriesgo->riesgo_residual = $request->input('eSeveridad2') * $request->input('eprobabilidad2');
 
        $Analisisriesgo->idcompañia = $Users->id_compania;
-       $Analisisriesgo->id_area = $request->input('id_area');
+       $Analisisriesgo->id_area = $request->input('eid_area');
 
        $Analisisriesgo->save();
 
        return redirect('/riesgos/create');
+    }
+
+    public function editM($id)
+    {
+      $Analisisriesgo = Analisisriesgos::find($id);
+        return response()->json(
+          $Analisisriesgo->toArray()
+        );
     }
 
     /**
@@ -240,7 +248,8 @@ class AnalisisriesgosController extends Controller
     public function destroy($id)
     {
       $Analisisriesgos = Analisisriesgos::findorfail($id);
+      $proceso = $Analisisriesgos->procesos_id;
       $Analisisriesgos-> delete();
-      return Redirect('/riesgos/create');
+      return redirect()->action('AnalisisriesgosController@show', [$proceso]);
     }
 }

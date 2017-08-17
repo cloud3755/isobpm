@@ -57,7 +57,9 @@ class mapadecalorController extends Controller
 
       if ($usuarios->perfil == 4) {
         $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-        ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+        ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+        ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+        ->join('areas','areas.id','=','analisisriesgos.id_area')
         ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
         ->leftjoin('lista_envios', function($join) use ($user)
           {
@@ -94,8 +96,12 @@ class mapadecalorController extends Controller
         $riskmap2_32 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('Severidad2', '3')->where('probabilidad2','2')->count();
         $riskmap2_33 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('Severidad2', '3')->where('probabilidad2','3')->count();
       }else {
-        $Analisisriesgos = new Analisisriesgos;
-        $Analisisriesgo = $Analisisriesgos->where('idcompañia',$usuarios->id_compania)->get();
+        $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+        ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+        ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+        ->join('areas','areas.id','=','analisisriesgos.id_area')
+        ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+        ->where('analisisriesgos.idcompañia',$usuarios->id_compania)->get());
 
         $riskmap_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',1)->count();
         $riskmap_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',2)->count();
@@ -133,7 +139,9 @@ class mapadecalorController extends Controller
 
           $user = $usuarios->id;
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -175,7 +183,9 @@ class mapadecalorController extends Controller
           $user = $usuarios->id;
           $area1 = $request->input('areas');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -223,7 +233,9 @@ class mapadecalorController extends Controller
           $user = $usuarios->id;
           $procesos1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -273,7 +285,9 @@ class mapadecalorController extends Controller
           $user = $usuarios->id;
           $tipo1 = $request->input('tipos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -324,7 +338,9 @@ class mapadecalorController extends Controller
           $area1 = $request->input('areas');
           $proceso1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -377,7 +393,9 @@ class mapadecalorController extends Controller
           $tipo1 = $request->input('tipos');
           $proceso1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -433,7 +451,9 @@ class mapadecalorController extends Controller
           $area1 = $request->input('areas');
           $tipo1 = $request->input('tipos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -486,7 +506,9 @@ class mapadecalorController extends Controller
           $tipo1 = $request->input('tipos');
           $proceso1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
-          ->select('analisisriesgos.*','procesos.lista_de_distribucion')
+          ->select('analisisriesgos.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
           ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -537,8 +559,13 @@ class mapadecalorController extends Controller
       }else {
         if ($request->input('areas') == 0 and $request->input('procesos') == 0 and $request->input('tipos') == 0){
 
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('idcompañia',$usuarios->id_compania)->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('analisisriesgos.idcompañia',$usuarios->id_compania)->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',1)->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',2)->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('idcompañia',$usuarios->id_compania)->where('severidad', 1)->where('probabilidad',3)->count();
@@ -563,8 +590,13 @@ class mapadecalorController extends Controller
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') == 0 and $request->input('tipos') == 0){
 
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('id_area',$request->input('areas'))->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',1)->where('id_area',$request->input('areas'))->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',2)->where('id_area',$request->input('areas'))->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',3)->where('id_area',$request->input('areas'))->count();
@@ -588,8 +620,13 @@ class mapadecalorController extends Controller
         }
         elseif($request->input('areas') == 0 and $request->input('procesos') != 0 and $request->input('tipos') == 0){
 
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('procesos_id',$request->input('procesos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('procesos_id',$request->input('procesos'))->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',1)->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',2)->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',3)->where('procesos_id',$request->input('procesos'))->count();
@@ -613,8 +650,13 @@ class mapadecalorController extends Controller
         }
         elseif($request->input('areas') == 0 and $request->input('procesos') == 0 and $request->input('tipos') != 0){
 
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('riesgo_id',$request->input('tipos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('riesgo_id',$request->input('tipos'))->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',1)->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',2)->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',3)->where('riesgo_id',$request->input('tipos'))->count();
@@ -638,9 +680,14 @@ class mapadecalorController extends Controller
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') != 0 and $request->input('tipos') == 0){
 
-                  //return dd($request);
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->get();
+          //return dd($request);
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',1)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',2)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',3)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
@@ -662,9 +709,14 @@ class mapadecalorController extends Controller
           $riskmap2_33 = DB::table('analisisriesgos')->where('severidad2', 3)->where('probabilidad2',3)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') != 0 and $request->input('tipos') != 0){
-                //return dd($request);
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->get();
+
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',1)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',2)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',3)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->count();
@@ -689,8 +741,13 @@ class mapadecalorController extends Controller
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') == 0 and $request->input('tipos') != 0){
           //return dd($request);
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->where('riesgo_id',$request->input('tipos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('id_area',$request->input('areas'))->where('riesgo_id',$request->input('tipos'))->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',1)->where('id_area',$request->input('areas'))->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',2)->where('id_area',$request->input('areas'))->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',3)->where('id_area',$request->input('areas'))->where('riesgo_id',$request->input('tipos'))->count();
@@ -714,9 +771,13 @@ class mapadecalorController extends Controller
         }
         elseif($request->input('areas') == 0 and $request->input('procesos') != 0 and $request->input('tipos') != 0){
 
-          //return dd($request);
-          $Analisisriesgos = new Analisisriesgos;
-          $Analisisriesgo = $Analisisriesgos->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('analisisriesgos')
+          ->select('analisisriesgos.*','procesos.proceso as nombreproceso','abcriesgos.nombre as abcriesgo','areas.nombre as nomarea')
+          ->join('abcriesgos','abcriesgos.id','=','analisisriesgos.riesgo_id')
+          ->join('areas','areas.id','=','analisisriesgos.id_area')
+          ->join('procesos','procesos.id','=','analisisriesgos.procesos_id')
+          ->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->get());
+
           $riskmap_11 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',1)->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',2)->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('analisisriesgos')->where('severidad', 1)->where('probabilidad',3)->where('procesos_id',$request->input('procesos'))->where('riesgo_id',$request->input('tipos'))->count();

@@ -144,6 +144,7 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/analisisrisk/store','AnalisisriesgosController@store');
     Route::delete('/analisisrisk/destroy/{id}','AnalisisriesgosController@destroy');
     Route::post('/analisisrisk/edit/{id}','AnalisisriesgosController@edit');
+    Route::get('/analisisrisk/{id}/edit','AnalisisriesgosController@editM');
 
 
     //Rutas para analisis de oportunidades
