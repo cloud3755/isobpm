@@ -247,6 +247,10 @@
                                   <option value="<?=$Procesos['id']?>" selected><?=$Procesos['proceso']?></option>
                                 @else
                                   <option value="<?=$Procesos['id']?>"><?=$Procesos['proceso']?></option>
+                                @if($Procesos->id==$Noconformidad->proceso_id)
+                                <option selected value="<?=$Procesos['id']?>"><?=$Procesos['proceso']?></option>
+                                @else
+                                <option value="<?=$Procesos['id']?>"><?=$Procesos['proceso']?></option>
                                 @endif
                               <?php endforeach ?>
                             </select>

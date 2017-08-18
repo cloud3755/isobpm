@@ -149,5 +149,57 @@
                 </div>
         </div>
     </div>
+    <div class="col-lg-3 col-md-4 col-sm-6" >
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div>
+                        <span id='val'>
+                            @if(Auth::user()->nombreimagen!=null)
+                               {{ Auth::user()->nombreimagen}}
+                            @else
+                                No se ha subido imagen
+                            @endif
+                        </span>
+                        <form method="POST" action="{{ action('AdministradosController@imageUserStore') }}" enctype="multipart/form-data">
+                        
+                        <input style="display:none;" id="imagen" type="file" name="imagen">
+                        <button  id="btnSeleccionarImagen" class="btn btn-default" type="button" value="Seleccione" >Seleccione</button>
+                        <button id="btnSubirImagen" class="btn btn-default" type="submit" value="" ><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+                        {{ csrf_field() }}
+                        </form>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel-footer" style="font-size:12px; font-weight: bold">
+                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
+                    <span class="pull-left" >Imagen</span>
+                    <span class="pull-right" >
+                        @if(Auth::user()->nombreimagen!=null)
+                        <img style="width: 50px;height: 50px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" /> 
+
+                        @else
+                        <img style="width: 50px;height: 50px;"  src="/img/tableCredential images/user.jpg" /> 
+                        @endif
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+        </div>
+    </div>
 </div>
+
+<script>
+
+$('#btnSeleccionarImagen').click(function () {
+    $("#imagen").click();
+});
+
+$("#imagen").change(function () {
+    $('#val').text(document.getElementById("imagen").files[0].name);
+});
+
+</script>
 @stop

@@ -16,9 +16,11 @@ use App\Models\Status;
 use App\Models\Plans;
 use App\Models\Documentos;
 use App\Models\Noticias;
+use App\Models\Pendientes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades;
+use Intervention\Image\Facades\Image;
 
 class AdministradosController extends Controller
 {
@@ -376,7 +378,7 @@ class AdministradosController extends Controller
        $noticia = new Noticias;
        $date = date("Y-m-d");
        $empresa = new Empresas;
-        if($user->perfil == 1){
+        if($user->perfil != 4){
           $noticia->id_empresa = $user->id_compania;
           $noticia->id_UsuarioCreo = $user->id;
           $noticia->fecha_creacion=$date;
@@ -386,6 +388,44 @@ class AdministradosController extends Controller
         }else{
           return Redirect('/');
         }
+      }
+
+      public function pendienteStore(Request $request)
+      {
+       $user = Auth::user();
+       $pendiente = new Pendientes;
+       $date = date("Y-m-d");
+
+        if($user->perfil != 4){
+          $pendiente->id_UsuarioCreo = $user->id;
+          $pendiente->id_UsuarioAsignado = $request->input('id_UsuarioAsignado');
+          $pendiente->terminado = false;
+          $pendiente->pendiente = $request->input('Pendiente');
+          $pendiente->fecha_creacion=$date;
+          $pendiente->fecha_limite=$request->input('fechalimite');
+          $pendiente->save();
+          return Redirect('/bienvenida');
+        }else{
+          return Redirect('/bienvenida');
+        }
+      }
+
+      //funcion guardar imagen de user
+
+      public function imageUserStore(Request $request)
+      {
+        $user = Auth::user();
+        $file1                            = $request->file('imagen');
+        $extension1                       = strtolower($file1->getclientoriginalextension());
+        $nombreunicoarchivo1              = uniqid().'.'.$extension1;
+        $user->nombreimagen               = $file1->getClientOriginalName();
+        $user->nombreunicoimagen          = $nombreunicoarchivo1;
+        $user->save();
+        //Cambiar tamanio de la imagen para ahorrar espacio
+        $imagen = Image::make($file1->getRealPath())->resize(80,80)->save($nombreunicoarchivo1);
+        //Guardad imagen
+       \Storage::disk('imagenesusuarios')->put($nombreunicoarchivo1,  $imagen);
+       return Redirect('/perfil');
       }
 
 
