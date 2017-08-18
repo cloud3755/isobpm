@@ -34,7 +34,7 @@
 
       <?php foreach ($proceso->where('tipo',$tipoproc['nombreproceso']) as $process): ?>
 
-      <button type="button" class="btnproceso" onclick=location="/procesos/registro/<?=$process->id ?>" id="<?=$process->proceso ?>"><?=$process->proceso ?></button>
+      <button type="button" class="btnproceso" onclick="Abrir(this);" value="<?=$process->id ?>"><?=$process->proceso ?></button>
 
       <?php endforeach ?>
 
@@ -56,24 +56,24 @@
    <input type="hidden" name="_token" value="{{ csrf_token() }}">
    <input type="hidden" name="tipo" id="tipo">
         <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-            <div class="modal-dialog" role="form">
+            <div class="modal-dialog modal-lg" role="form">
                 <div class="modal-content">
                     <div class="modal-header">
-
-                        <h2 class="modal-title">Alta de proceso</h2>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                        <h3 class="modal-title">Alta de proceso</h3>
                     </div>
                     <div class="modal-body">
             <div class="container">
                 <div class="form-group form-group-lg">
                   <h2><label for="Usuario" class="control-label col-md-12" >Tipo de proceso:</label></h2>
-                    <div class="col-md-6">
+                    <div class="col-sm-9">
                       <input readonly class="form-control input-lg" id="tipoprocess" type="Text" name="tipoprocess" maxlength="50">
                     </div>
                 </div>
 
                 <div class="form-group form-group-lg">
                     <h2><label for="Usuario" class="control-label col-md-12">Nombre Proceso:</label></h2>
-                    <div class="col-md-6">
+                    <div class="col-sm-9">
                         <input class="form-control input-lg" id="probproces" type="Text" placeholder="Nombre del proceso" name="proceso" maxlength="50">
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     Decripcion:
                     </label>
                     </h2>
-                    <div class="col-md-6">
+                    <div class="col-sm-9">
                         <textarea class="form-control input-lg" id = "prodescripcionproces" rows="3" placeholder="Descripcion del proceso" name="descripcion" maxlength="255"></textarea>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                         Responsable:
                     </label>
                     </h2>
-                    <div class="col-md-6">
+                    <div class="col-sm-9">
                          <select class="form-control input-lg" name="usuario_responsable_id" id="proresponsableob">
                           <?php foreach ($User as $Users): ?>
                             <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
@@ -106,10 +106,8 @@
                 </div>
 
                 <div class="form-group form-group-lg">
-                    <h2>    <label for="Tipo" class="control-label col-md-12" >
-                        Revision:
-                    </label>    </h2>
-                    <div class="col-md-6">
+                  <h2><label for="Usuario" class="control-label col-md-12">Numero de Revision:</label></h2>
+                    <div class="col-sm-9">
                       <input class="form-control input-lg" id="protipoOb" type="Text" placeholder="Numero de revision" name="rev" maxlength="50">
                     </div>
                 </div>
@@ -120,14 +118,14 @@
                     Detalle de Revision:
                     </label>
                     </h2>
-                    <div class="col-md-6">
+                    <div class="col-sm-9">
                         <textarea class="form-control" id = "prodescripcionproce" rows="3" placeholder="Detalle de rev" name="detalle_de_rev" maxlength="255"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group form-group-lg">
                     <h2><label for="Usuario" class="control-label col-md-12">Archivo HTML:</label></h2>
-                    <div class="col-md-6">
+                    <div class="col-sm-9">
                         <input class="form-control input-lg" id="probproces" type="file" accept=".zip" placeholder="file" name="file">
                         <progress id="progress" value="0"></progress>
                     </div>
@@ -141,7 +139,7 @@
                         Indicadores:
                     </label>
                     </h2>
-                    <div class="col-md-6">
+                    <div class="col-sm-9">
                       <div>
                                         <p>
                                             </p><table>
@@ -338,6 +336,11 @@
 
 
 <script type="text/javascript">
+
+function Abrir(btn){
+  location.href = "/procesos/registro/"+btn.value;
+}
+
 function tipoproceso(btn){
   $("#tipoprocess").val(btn.id);
   $("#tipo").val(btn.id);
@@ -346,7 +349,7 @@ function tipoproceso(btn){
 $(document).ready(function(){
 
   $("#actualizar").click(function(){
-    var route = "https://www.isobpm.com/procesos/store";
+    var route = "/procesos/store";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
     var progressBar = document.getElementById("progress");
