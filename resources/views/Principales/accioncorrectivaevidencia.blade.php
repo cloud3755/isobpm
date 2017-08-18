@@ -21,7 +21,7 @@
 		<?php endforeach ?></div>
 	<div class="col-md-3" id="creador">Creado por</div>
 	<div class="col-md-3">
-			<?=$accionrelacion->nombreresponsable?>
+			<?=$accionrelacion->creador?>
 	</div>
 	</div>
 </div>
