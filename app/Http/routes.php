@@ -188,7 +188,7 @@ Route::group( ['middleware' => 'auth'],
       return redirect('/bienvenida');
     }
     );
-    
+
     //Clientes
     Route::get('/clientes','AdministradosController@clientes');
     Route::post('clientes/store', 'AdministradosController@clientestore');
@@ -249,7 +249,7 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/aprobacion/{id}', 'InformaciondocController@aprobar');
     Route::post('/denegar/{id}', 'InformaciondocController@denegar');
     Route::post('/aprobartodo', 'InformaciondocController@aprobartodo');
-  
+
 
     // prueba calendario
     Route::get('/calendarioagenda', 'calendariopersonal@index');
@@ -290,9 +290,6 @@ Route::group( ['middleware' => 'auth'],
     //Ruta crear noticia
     Route::post('/administrados/noticiastore', 'AdministradosController@noticiastore');
     Route::get('/administrados/noticiastore', function(){
-
-
-
       return redirect('/Bienvenida');
     });
     }
