@@ -149,7 +149,7 @@
                         </div>
                     </div>
                         <div class="modal-footer">
-                        <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Subir Cliente</button>
+                        <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Subir Usuario</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                         </div>
                       </form>

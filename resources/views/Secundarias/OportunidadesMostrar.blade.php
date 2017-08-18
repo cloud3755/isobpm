@@ -48,7 +48,7 @@
 
                </div>
               <br><br>
-                 <button type="button" class="btnobjetivo" onclick=location="/procesos/visual" data-dismiss="modal" id="btnCloseUpload">Regresar</button>
+                 <button type="button" class="btnobjetivo" onclick=location="/oportunidades/create" data-dismiss="modal" id="btnCloseUpload">Regresar</button>
             </div>
   </form>
 
@@ -62,11 +62,12 @@
     <div class="col-lg-12">
         <div class="panel panel-red">
             <div class="panel-heading">
-                Riesgos
+                Oportunidades
                 <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
             </div>
             <div class="panel-body">
-                <div class="dataTable_wrapper">
+              <div class="row">
+                <div class="table-responsive">
                   <form>
                       Buscar <input id="searchTerm" type="text" onkeyup="doSearch()" />
                   </form>
@@ -75,47 +76,43 @@
                         <thead style='background-color: #868889; color:#FFF'>
                             <tr>
                                 <th><div class="th-inner sortable both">Actividad</div></th>
-                                <th><div class="th-inner sortable both">Riesgo</div></th>
+                                <th><div class="th-inner sortable both">Oportunidad</div></th>
                                 <th><div class="th-inner sortable both">Modo de Falla</div></th>
-                                <th><div class="th-inner sortable both">Severidad inherente</div></th>
-                                <th><div class="th-inner sortable both">Probabilidad inherente</div></th>
+                                <th><div class="th-inner sortable both">Esfuerzo Potencial</div></th>
+                                <th><div class="th-inner sortable both">Impacto Potencial</div></th>
                                 <th><div class="th-inner sortable both">Controles</div></th>
-                                <th><div class="th-inner sortable both">Severidad Residual</div></th>
-                                <th><div class="th-inner sortable both">probabilidad Residual</div></th>
+                                <th><div class="th-inner sortable both">Esfuerzo Real</div></th>
+                                <th><div class="th-inner sortable both">Impacto Real</div></th>
                                 <th>
                                   <div class="th-inner sortable both">
                                       Modificar
-                                  </div>
-                                </th>
-                                <th>
-                                  <div class="th-inner sortable both">
-                                      Eliminar
                                   </div>
                                 </th>
                             </tr>
                         </thead>
                         <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
                         <tbody id = "myTable">
-                            <?php foreach ($analisisriesgo2 as $Analisisriesgos2): ?>
+                            <?php foreach ($Oportunidad2 as $Oportunidades2): ?>
                                 <tr>
-                                    <td><?=$Analisisriesgos2->actividad?></td>
-                                    <td><?=$Analisisriesgos2->riesgo_nombre?></td>
-                                    <td><?=$Analisisriesgos2->descripcion_modo_falla?></td>
-                                    <td><?=$Analisisriesgos2->Severidad?></td>
-                                    <td><?=$Analisisriesgos2->probabilidad?></td>
-                                    <td><?=$Analisisriesgos2->controles?></td>
-                                    <td><?=$Analisisriesgos2->Severidad2?></td>
-                                    <td><?=$Analisisriesgos2->probabilidad2?></td>
+                                    <td><?=$Oportunidades2->actividad?></td>
+                                    <td><?=$Oportunidades2->oportunidad_nombre?></td>
+                                    <td><?=$Oportunidades2->descripcion_modo_falla?></td>
+                                    <td><?=$Oportunidades2->esfuerzo?></td>
+                                    <td><?=$Oportunidades2->impacto?></td>
+                                    <td><?=$Oportunidades2->controles?></td>
+                                    <td><?=$Oportunidades2->esfuerzo2?></td>
+                                    <td><?=$Oportunidades2->impacto2?></td>
                                     <td>
-                                      <button type="button" class="btnobjetivo" value = "<?=$Analisisriesgos2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
-                                    </td>
-                                    <td>
-                                       <form class="" action="/analisisrisk/destroy/{{ $Analisisriesgos2->id }}" method="post">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                        <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;" onclick="
-                                        return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}?')">Eliminar</button>
-                                      </form>
+
+                                    <form class="" action="/analisisopor/destroy/{{ $Oportunidades2->id }}" method="post">
+                                                  {{ csrf_field() }}
+                                                  {{ method_field('DELETE') }}
+                                      <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;" onclick="
+return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}?')">Eliminar</button>
+                                      <button type="button" class="btnobjetivo" value = "<?=$Oportunidades2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                                    </form>
+
+
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -125,6 +122,7 @@
                 <div class="col-md-12 text-center">
                   <ul class="pagination pagination-lg pager" id="myPager"></ul>
                 </div>
+              </div>
             </div>
         </div>
     </div>
@@ -136,10 +134,10 @@
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                <h3 class="modal-title">Alta de Analisis de riesgo</h3>
+                <h3 class="modal-title">ALTA DE ANALISIS DE OPORTUNIDAD</h3>
             </div>
             <div class="modal-body">
-              <form  action="/analisisrisk/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+              <form  action="/analisisopor/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                   <input type="hidden" name="_token" value="{{ csrf_token()}}">
                   <input type="hidden" name="procesos_id" value="<?=$proceso['id']?>">
                 <div class="row">
@@ -155,10 +153,10 @@
                 </div>
 
                 <div class="col-lg-5 col-md-5 col-sm-5">
-                  <h3><label for="tipo" class="control-label" >Riesgo:</label></h3>
-                  <select class="form-control input-lg" name="riesgo_id" id="riesgo_id">
-                      <?php foreach ($Abcriesgo as $Abcriesgos): ?>
-                          <option value="<?=$Abcriesgos['id']?>"><?=$Abcriesgos['nombre']?></option>
+                  <h3><label for="tipo" class="control-label" >Oportunidad:</label></h3>
+                  <select class="form-control input-lg" name="oportunidad_id" id="oportunidad_id">
+                      <?php foreach ($Abcoportunidad as $Abcoportunidades): ?>
+                          <option value="<?=$Abcoportunidades['id']?>"><?=$Abcoportunidades['nombre']?></option>
                       <?php endforeach ?>
                   </select>
                 </div>
@@ -169,8 +167,8 @@
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="Usuario" class="control-label" >Severidad inherente:</label></h3>
-                  <select class="form-control input-lg" name="Severidad" id="Severidad">
+                  <h3><label for="Usuario" class="control-label" >Esfuerzo Potencial:</label></h3>
+                  <select class="form-control input-lg" name="esfuerzo" id="esfuerzo">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -178,8 +176,8 @@
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="Usuario" class="control-label" >Probabilidad inherente:</label></h3>
-                  <select class="form-control input-lg" name="probabilidad" id="probabilidad">
+                  <h3><label for="Usuario" class="control-label" >Impacto Potencial:</label></h3>
+                  <select class="form-control input-lg" name="impacto" id="impacto">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -192,8 +190,8 @@
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                  <h3><label for="Usuario" class="control-label" >Severidad residual:</label></h3>
-                  <select class="form-control input-lg" name="Severidad2" id="Severidad2">
+                  <h3><label for="Usuario" class="control-label" >Esfuerzo Real:</label></h3>
+                  <select class="form-control input-lg" name="esfuerzo2" id="esfuerzo2">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -201,8 +199,8 @@
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                  <h3><label for="Usuario" class="control-label" >Probabilidad residual:</label></h3>
-                  <select class="form-control input-lg" name="probabilidad2" id="probabilidad2">
+                  <h3><label for="Usuario" class="control-label" >Impacto Real:</label></h3>
+                  <select class="form-control input-lg" name="impacto2" id="impacto2">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -221,7 +219,7 @@
 
                 </div>
               <div class="modal-footer">
-                  <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Analisis Riesgo</button>
+                  <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Queja</button>
                   <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
               </div>
               </form>
@@ -230,15 +228,13 @@
       </div>
 </div>
 
-
 <!-- Modal para editar -->
-
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
     <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                <h3 class="modal-title">ACTUALIZAR RIESGO</h3>
+                <h3 class="modal-title">ACTUALIZAR DOCUMENTO</h3>
             </div>
             <div class="modal-body">
               <form id="fileinfo" method="post">
@@ -248,92 +244,93 @@
 
                 <div class="row">
 
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="tipo" class="control-label" >Proceso:</label></h3>
-                  <input class="form-control input-lg"  disabled="true" id="eproceso" value="<?=$proceso['proceso']?>" type="Text" placeholder="Nombre del proceso" name="eproceso" maxlength="50">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="tipo" class="control-label" >Proceso:</label></h3>
+                      <input class="form-control input-lg"  disabled="true" id="eproceso" value="<?=$proceso['proceso']?>" type="Text" placeholder="Nombre del proceso" name="eproceso" maxlength="50">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="tipo" class="control-label" >Actividad:</label></h3>
+                      <input class="form-control input-lg" id="eactividad" type="Text" placeholder="Que actividad se realiza" name="eactividad">
+                    </div>
+
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                      <h3><label for="tipo" class="control-label" >Oportunidad:</label></h3>
+                      <select class="form-control input-lg" name="eoportunidad_id" id="eoportunidad_id">
+                          <?php foreach ($Abcoportunidad as $Abcoportunidades): ?>
+                              <option value="<?=$Abcoportunidades['id']?>"><?=$Abcoportunidades['nombre']?></option>
+                          <?php endforeach ?>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                      <h3><label for="Usuario" class="control-label" >Modo de falla:</label></h3>
+                      <input class="form-control input-lg" id="edescripcion_modo_falla" type="Text" placeholder="Descripcion de la falla" name="edescripcion_modo_falla">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="Usuario" class="control-label" >Esfuerzo Potencial:</label></h3>
+                      <select class="form-control input-lg" name="eesfuerzo" id="eesfuerzo">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="Usuario" class="control-label" >Impacto Potencial:</label></h3>
+                      <select class="form-control input-lg" name="eimpacto" id="eimpacto">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <h3><label for="Usuario" class="control-label" >Controles:</label></h3>
+                      <input class="form-control input-lg" id="econtroles" type="Text" placeholder="Controles" name="econtroles">
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <h3><label for="Usuario" class="control-label" >Esfuerzo Real:</label></h3>
+                      <select class="form-control input-lg" name="eesfuerzo2" id="eesfuerzo2">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <h3><label for="Usuario" class="control-label" >Impacto Real:</label></h3>
+                      <select class="form-control input-lg" name="eimpacto2" id="eimpacto2">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="tipo" class="control-label" >Area:</label></h3>
+                      <select class="form-control input-lg" name="eid_area" id="eid_area" required>
+                        <?php foreach ($area as $areas): ?>
+                            <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="tipo" class="control-label" >Actividad:</label></h3>
-                  <input class="form-control input-lg" id="eactividad" type="Text" placeholder="Que actividad se realiza" name="eactividad">
+                <div class="modal-footer">
+                <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                 </div>
-
-                <div class="col-lg-5 col-md-5 col-sm-5">
-                  <h3><label for="tipo" class="control-label" >Riesgo:</label></h3>
-                  <select class="form-control input-lg" name="eriesgo_id" id="eriesgo_id">
-                      <?php foreach ($Abcriesgo as $Abcriesgos): ?>
-                          <option value="<?=$Abcriesgos['id']?>"><?=$Abcriesgos['nombre']?></option>
-                      <?php endforeach ?>
-                  </select>
-                </div>
-
-                <div class="col-lg-7 col-md-7 col-sm-7">
-                  <h3><label for="Usuario" class="control-label" >Modo de falla:</label></h3>
-                  <input class="form-control input-lg" id="edescripcion_modo_falla" type="Text" placeholder="Descripcion de la falla" name="edescripcion_modo_falla">
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="Usuario" class="control-label" >Severidad inherente:</label></h3>
-                  <select class="form-control input-lg" name="eSeveridad" id="eSeveridad">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="Usuario" class="control-label" >Probabilidad inherente:</label></h3>
-                  <select class="form-control input-lg" name="eprobabilidad" id="eprobabilidad">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                  <h3><label for="Usuario" class="control-label" >Controles:</label></h3>
-                  <input class="form-control input-lg" id="econtroles" type="Text" placeholder="Controles" name="econtroles">
-                </div>
-
-                <div class="col-lg-3 col-md-3 col-sm-3">
-                  <h3><label for="Usuario" class="control-label" >Severidad residual:</label></h3>
-                  <select class="form-control input-lg" name="eSeveridad2" id="eSeveridad2">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-
-                <div class="col-lg-3 col-md-3 col-sm-3">
-                  <h3><label for="Usuario" class="control-label" >Probabilidad residual:</label></h3>
-                  <select class="form-control input-lg" name="eprobabilidad2" id="eprobabilidad2">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="tipo" class="control-label" >Area:</label></h3>
-                  <select class="form-control input-lg" name="eid_area" id="eid_area" required>
-                    <?php foreach ($area as $areas): ?>
-                        <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
-
-
-              </div>
-
-              <div class="modal-footer">
-              <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                  <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
-              </div>
-            </form>
+              </form>
+          </div>
         </div>
-      </div>
-  </div>
+    </div>
 </div>
+
+<!-- Modal editar Final -->
 
 
 <script type="text/javascript">
@@ -341,18 +338,18 @@
 //Funcion para el edit
 
 function Editar(btn){
-  var route = "/analisisrisk/"+btn.value+"/edit";
+  var route = "/analisisopor/"+btn.value+"/edit";
 
   $.get(route, function(res){
     $("#id").val(res.id);
     $("#eactividad").val(res.actividad);
-    $('#eriesgo_id option[value="' + res.riesgo_id + '"]').attr("selected", "selected");
+    $('#eoportunidad_id option[value="' + res.oportunidad_id + '"]').attr("selected", "selected");
     $("#edescripcion_modo_falla").val(res.descripcion_modo_falla);
-    $('#eSeveridad option[value="' + res.Severidad + '"]').attr("selected", "selected");
-    $('#eprobabilidad option[value="' + res.probabilidad + '"]').attr("selected", "selected");
+    $('#eesfuerzo option[value="' + res.esfuerzo + '"]').attr("selected", "selected");
+    $('#eimpacto option[value="' + res.impacto + '"]').attr("selected", "selected");
     $("#econtroles").val(res.controles);
-    $('#eSeveridad2 option[value="' + res.Severidad2 + '"]').attr("selected", "selected");
-    $('#eprobabilidad2 option[value="' + res.probabilidad2 + '"]').attr("selected", "selected");
+    $('#eesfuerzo2 option[value="' + res.esfuerzo2 + '"]').attr("selected", "selected");
+    $('#eimpacto2 option[value="' + res.impacto2 + '"]').attr("selected", "selected");
     $('#eid_area option[value="' + res.id_area + '"]').attr("selected", "selected");
 
 
@@ -471,7 +468,7 @@ $(document).ready(function(){
 
   $("#actualizar").click(function(){
     var value = $("#id").val();
-    var route = "/analisisrisk/edit/"+value+"";
+    var route = "/analisisopor/edit/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
 
@@ -528,6 +525,5 @@ function doSearch()
 
 
 </script>
-
 
 @Stop

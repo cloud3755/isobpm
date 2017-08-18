@@ -89,7 +89,8 @@ return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">E
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">ALTA DE ABC RIESGO</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h3 class="modal-title">ALTA DE ABC RIESGO</h3>
                 </div>
                 <div class="modal-body">
         <div class="container">
@@ -97,11 +98,11 @@ return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">E
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group form-group-lg">
                         <h2>
-                        <label for="tipo" class="control-label col-md-12" >
+                        <label for="tipo" class="col-md-12 control-label" >
                             Tipo Riesgo:
                         </label>
                         </h2>
-                        <div class="col-md-6">
+                        <div class="col-sm-9 col-md-6">
                             <select class="form-control input-lg" name="tipo_id_riesgo" id="objetivoindica">
                               <?php foreach ($Tiporiesgos as $Tiporiesgo): ?>
                                 <option value="<?=$Tiporiesgo['id']?>"><?=$Tiporiesgo['nombre']?></option>
@@ -110,18 +111,21 @@ return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">E
                         </div>
                     </div>
                     <div class="form-group form-group-lg">
-                        <h2><label for="Usuario" class="control-label col-md-12">RIESGO:</label></h2>
-                        <div class="col-md-6">
+                      <div class="visible-sm">
+                        <h2><label type="hidden" class="col-md-12 control_label"></label></h2>
+                      </div>
+                        <h2><label for="Usuario" class="col-md-12 control_label">Riesgo:</label></h2>
+                        <div class="col-sm-9 col-md-6">
                             <input class="form-control input-lg" id="indicador" type="Text" placeholder="Cual es el riesgo" name="riesgo">
                         </div>
                     </div>
                     <div class="form-group form-group-lg">
                         <h2>
-                        <label for="Usuario" class="control-label col-md-12">
+                        <label for="Usuario" class="col-md-12 control_label">
                         Decripcion:
                         </label>
                         </h2>
-                        <div class="col-md-6">
+                        <div class="col-sm-9 col-md-6">
                             <textarea class="form-control" id = "prodescripcionind" rows="3" placeholder="Describe el riesgo" name="descripcion"></textarea>
                         </div>
                     </div>
@@ -144,7 +148,8 @@ return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">E
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">EDITAR ABC DE RIESGO</h2>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                    <h3 class="modal-title">EDITAR ABC DE RIESGO</h3>
                 </div>
                 <div class="modal-body">
         <div class="container">
@@ -156,7 +161,7 @@ return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">E
                             Tipo Riesgo:
                         </label>
                         </h2>
-                        <div class="col-md-6">
+                        <div class="col-sm-9 col-md-6">
                             <select class="form-control input-lg" name="tipo_id_riesgo" id="objetivoindica">
                               <option value="<?=$riesgorel->tipo_id?>" selected="true"><?=$riesgorel->tipo_nombre?></option>
                               <?php foreach ($Tiporiesgos as $Tiporiesgo): ?>
@@ -166,8 +171,11 @@ return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">E
                         </div>
                     </div>
                     <div class="form-group form-group-lg">
-                        <h2><label for="Usuario" class="control-label col-md-12">RIESGO:</label></h2>
-                        <div class="col-md-6">
+                      <div class="visible-sm">
+                        <h2><label type="hidden" class="col-md-12 control_label"></label></h2>
+                      </div>
+                        <h2><label for="Usuario" class="col-md-12 control_label">Riesgo:</label></h2>
+                        <div class="col-sm-9 col-md-6">
                             <input class="form-control input-lg" id="indicador" type="Text" placeholder="Cual es el riesgo" name="riesgo" value="<?=$riesgorel->nombre?>">
                         </div>
                     </div>
@@ -177,7 +185,7 @@ return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">E
                         Decripcion:
                         </label>
                         </h2>
-                        <div class="col-md-6">
+                        <div class="col-sm-9 col-md-6">
                             <textarea class="form-control" id = "prodescripcionind" rows="3" placeholder="Describe el riesgo" name="descripcion"><?=$riesgorel->descripcion?></textarea>
                         </div>
                     </div>

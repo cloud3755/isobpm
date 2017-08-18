@@ -2,6 +2,9 @@
 
 @section('content')
   {!! Form::open(['route' => 'admin.auth.login', 'method' => 'POST' ])  !!}
+    @if(Session::has('mensaje_error'))
+      <p style="color:#FF0000";><strong> {{ Session::get('mensaje_error') }}</strong></p>
+    @endif
     <div class="form-group">
       {!! Form::email('email', null, ['class' => 'form-control','placeholder' => "Ejemplo@mail.com" ]) !!}
     </div>
