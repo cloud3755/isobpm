@@ -32,6 +32,7 @@ class proveedorescontroller extends Controller
         //
         //
         $usuario = Auth::user();
+        $iduser = $usuario->id;
         //
         $compañiaid = $usuario->id_compania;
 
@@ -40,10 +41,29 @@ class proveedorescontroller extends Controller
         $insumo = $insumos->where('idcompañia',$compañiaid)->orderBy('id')->get();
         $cuentainsumo = $insumo->count();
 
-        $proveedores = new proveedores;
-        $proveedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
-        $cuentaproveedor = $proveedor->count();
 
+
+        if($usuario->perfil == 4)
+          {
+            $arreglo1 = \DB::table('proveedores')
+            ->select('proveedores.*')
+            ->where('proveedores.activo','Activo / aprobado')
+            ->where('id_compania',$compañiaid);
+
+            $provedor = \DB::table('proveedores')
+            ->where('id_compania',$compañiaid)
+            ->where('idautor',$iduser)
+            ->union($arreglo1)
+            ->get();
+          }
+          else {
+
+            $provedor = \DB::table('proveedores')
+            ->where('id_compania',$compañiaid)
+            ->get();
+          }
+
+      $cuentaproveedor = count($provedor);
 
       return view('Principales/proveedores',compact('usuario','cuentainsumo','cuentaproveedor'));
 
@@ -58,13 +78,39 @@ class proveedorescontroller extends Controller
     {
       $usuario = Auth::user();
       //
+      $iduser = $usuario->id;
       $compañiaid = $usuario->id_compania;
 
       $insumos = new insumos;
       $insumo = $insumos->where('idcompañia',$compañiaid)->orderBy('id')->get();
 
+
       $proveedores = new proveedores;
       $provedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
+
+
+      if($usuario->perfil == 4)
+        {
+          $arreglo1 = \DB::table('proveedores')
+          ->select('proveedores.*')
+          ->where('proveedores.activo','Activo / aprobado')
+          ->where('id_compania',$compañiaid);
+
+          $provedor = \DB::table('proveedores')
+          ->where('id_compania',$compañiaid)
+          ->where('idautor',$iduser)
+          ->union($arreglo1)
+          ->get();
+        }
+        else {
+
+          $provedor = \DB::table('proveedores')
+          ->where('id_compania',$compañiaid)
+          ->get();
+
+        }
+
+
 
       $relinsumoproveedor = new provedorinsumo;
       $insumoprovedor = $relinsumoproveedor->where('id_compania',$compañiaid)->orderBy('id')->get();
@@ -94,7 +140,10 @@ return(dd($listainsumo));
     {
 
       $usuario = Auth::user();
+      $iduser = $usuario->id;
       $compañiaid = $usuario->id_compania;
+
+
 
     //  return(dd($request));
 
@@ -106,7 +155,8 @@ return(dd($listainsumo));
            'telefono' =>  $request->input('telefono'),
            'activo' => $request->input('activo'),
            'direccion' => $request->input('direccion'),
-           'observaciones' => $request->input('observaciones')
+           'observaciones' => $request->input('observaciones'),
+           'idautor' => $iduser
            ]);
 
 
@@ -345,13 +395,47 @@ return redirect('/proveedores/mostrar');
     public function adminshow()
     {
       // cambiar para mostrar proveedores pendientes de habilitadr
-            $usuarios = Auth::user();
+      $usuario = Auth::user();
+      //
+      $iduser = $usuario->id;
+      $compañiaid = $usuario->id_compania;
 
-            $documentos = new Documentos;
-            $documento = $documentos->where('id_compania',$usuarios->id_compania)->where('status','!=',1)->get();
+      $insumos = new insumos;
+      $insumo = $insumos->where('idcompañia',$compañiaid)->orderBy('id')->get();
 
 
-            return('hola mundo admin proveedores');
+      $proveedores = new proveedores;
+      $provedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
+
+
+
+      if($usuario->perfil != 4)
+        {
+        $provedor = \DB::table('proveedores')
+        ->select('proveedores.*')
+        ->where('id_compania',$compañiaid)
+        ->where('proveedores.activo','!=','Activo / aprobado')
+        ->get();
+         }
+       else {
+         $arreglo1 = \DB::table('proveedores')
+         ->select('proveedores.*')
+         ->where('proveedores.activo','Activo / aprobado')
+         ->where('id_compania',$compañiaid);
+
+         $provedor = \DB::table('proveedores')
+         ->where('id_compania',$compañiaid)
+         ->where('idautor',$iduser)
+         ->union($arreglo1)
+         ->get();
+       }
+
+    
+
+      $relinsumoproveedor = new provedorinsumo;
+      $insumoprovedor = $relinsumoproveedor->where('id_compania',$compañiaid)->orderBy('id')->get();
+
+    return view('Principales/proveedoreslistadmin',compact('usuario','insumo','provedor','insumoprovedor'));
     }
 
 

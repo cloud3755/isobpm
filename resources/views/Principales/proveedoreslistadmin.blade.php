@@ -5,19 +5,18 @@
     <script src="/js/proveedoreslist.js" charset="utf-8"></script>
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Lista de proveedores</h1>
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Lista de proveedores no activos</h1>
     </div>
 </div>
 
-<center><button type="button" class="btnobjetivo" onclick=location="/proveedores" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
+<center><button type="button" class="btnobjetivo" onclick=location="/admin" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
 
 <br><br><br><br><br>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-red">
             <div class="panel-heading">
-                Agregar proveedores
-                <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+
             </div>
         <div class="panel-body">
           <div class="row">

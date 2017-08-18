@@ -23,16 +23,18 @@ function Editar(btn){
 
     $("#eactivo").empty();
     $("#eactivo").append('<option selected="selected" value="'+res.activo+'">'+res.activo+'</option>');
-    $("#eactivo").append('<option value="En espera de aprobacion"> En espera de aprobacion </option>'+
-                         '<option value="Activo / aprobado" > Activo / aprobado </option>'+
-                         '<option value="Inactivo"> Inactivo </option>');
 
+
+  var profile = $("#euprofile").val();
+
+     if(profile!=4)
+     {
+      $("#eactivo").append('<option value="En espera de aprobacion"> En espera de aprobacion </option>'+
+                           '<option value="Activo / aprobado" > Activo / aprobado </option>'+
+                           '<option value="Inactivo"> Inactivo </option>');
+     }
   });
 
-
-
-
-eactivo
 
 
     if(btn.name==1)
