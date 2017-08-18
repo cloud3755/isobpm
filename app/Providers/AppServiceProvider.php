@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-  /*      $noticia = new Noticias;
+        /*$noticia = new Noticias;
         $today = date("Y-m-d");
         $noticias = \DB::table('Noticias')->where('fecha_creacion',$today)->get();
         //$noticias->where('fecha_creacion','=',$today)->get();

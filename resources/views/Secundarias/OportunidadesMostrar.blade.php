@@ -219,7 +219,7 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
 
                 </div>
               <div class="modal-footer">
-                  <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Queja</button>
+                  <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Oportunidad</button>
                   <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
               </div>
               </form>
@@ -234,7 +234,7 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                <h3 class="modal-title">ACTUALIZAR DOCUMENTO</h3>
+                <h3 class="modal-title">ACTUALIZAR OPORTUNIDAD</h3>
             </div>
             <div class="modal-body">
               <form id="fileinfo" method="post">

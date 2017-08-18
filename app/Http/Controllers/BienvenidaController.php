@@ -13,6 +13,8 @@ use App\Models\Proceso;
 use App\Models\Empresas;
 use App\Models\Noticias;
 use App\Models\User;
+use App\Models\Documentos;
+use App\Models\Pendientes;
 use Carbon\Carbon;
 use Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -89,15 +91,28 @@ class BienvenidaController extends Controller
     public function show()
     {
       $usuarios = Auth::user();
+
       $noticias = new Noticias;
       $noticiasw = $noticias->where('id_empresa',$usuarios->id_compania)
       ->where('fecha_creacion',date("Y-m-d"))->get();
+
+      $documentos = new Documentos;
+      $documento = $documentos ->where('id_user',$usuarios->id)->get();
+
+      $pendientes = new Pendientes;
+      $pendiente = $pendientes->where('id_UsuarioAsignado',$usuarios->id)->get();
+
+      $indicadores=new Indicadores;
+      $indicador = $indicadores->where('usuario_responsable_id',$usuarios->id)->get();
 
       $objetivos = new Objetivo;
       $objetivo = $objetivos->where('id_compania',$usuarios->id_compania)->get();
 
       $queja = new Quejas;
       $quejas = $queja->where('idcompañia',$usuarios->id_compania)->get();
+
+      $Users = new User;
+      $User = $Users->where('id_compania',$usuarios->id_compania)->get();
 
       $procesos = new Proceso;
       $proceso = $procesos->where('idcompañia',$usuarios->id_compania)->get();
@@ -139,17 +154,20 @@ $allevents = EventModel::all();
   $calendar = \Calendar::addEvents($events) //add an array with addEvents
    ->setOptions(
      [//set fullcalendar options
-     'firstDay' => 1]
-     );
+     'firstDay' => 1,
+     'locale' => 'mx',
+     'header' => array('left' => 'prev,next,today', 'center' => 'title', 'right' => 'month week day')
+     ]);
 
+            
 $calendar = \Calendar::setCallbacks([
     'eventClick' => 'function(calEvent, jsEvent, view) {
-     alert("Click en evento: "+ calEvent.id );
+     alert("Click en evento: "+ calEvent.title );
  }',
-
+ /*
  'dayClick' => 'function(date, jsEvent, view) {
     alert("Hello world");
- }',
+ }',*/
 
  'eventMouseover' => 'function(calevent, jsEvent, view) {
   $(this).css("color", "black");
@@ -164,7 +182,8 @@ $calendar = \Calendar::setCallbacks([
      ]);
 // termina Para el calendario
 
-      return View('bienvenida', compact('objetivo', 'quejas','proceso','cuentaproveedor','empresa', 'noticiasw','calendar'));
+      return View('bienvenida', compact('objetivo', 'quejas','proceso','cuentaproveedor','empresa', 'noticiasw','calendar','documento','indicador','User', 'pendiente'));
+
     }
 
     /**
@@ -200,4 +219,35 @@ $calendar = \Calendar::setCallbacks([
     {
         //
     }
+
+    public function retornardocumento(Request $request)
+    {
+        if ($request->isMethod('post')){   
+
+          $documentos = new Documentos;
+          $documento = $documentos ->where('nombreunico',$request->nombreunico)->first();
+          return response()->json(
+          [
+            'Documento' => $documento->nombre ,
+            'Descripcion' => $documento->descripcion,
+            'link' => $documento->id
+          ]); 
+        }
+    }
+
+    public function retornarproceso(Request $request)
+    {
+        if ($request->isMethod('post')){   
+
+          $procesos = new Procesos;
+          $documento = $documentos ->where('nombreunico',$request->nombreunico)->first();
+          return response()->json(
+          [
+            'Documento' => $documento->nombre ,
+            'Descripcion' => $documento->descripcion,
+            'link' => $documento->id
+          ]); 
+        }
+    }
+
 }

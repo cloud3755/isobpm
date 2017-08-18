@@ -9,11 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="_token" content="{!! csrf_token() !!}"/>
-
     <title>Isobpm</title>
 
     {{-- neón theme --}}
-
+  
     <link rel="stylesheet" href="/css/skins/black.css">
     <link rel="stylesheet" href="/css/styleizr.css">
     <link rel="stylesheet" href="/css/jquery-ui/no-theme/jquery-ui-1.10.3.custom.min.css">
@@ -49,7 +48,9 @@
     <script src="/js/daterangepicker/moment.min.js" charset="utf-8"></script>
     <script src="/js/icheck/icheck.min.js" charset="utf-8"></script>
     <script src="/js/bootstrap-select.min.js" charset="utf-8"></script>
+    
     {{-- neón theme --}}
+
     <link rel="stylesheet" href="/sweet/sweetalert.css" type="text/css">
     <!-- Bootstrap Core CSS -->
     <!--<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
@@ -76,11 +77,12 @@
     <!--Office style bar-->
     <!--<link rel="stylesheet" href="/css/Dropdown Office Menu.css">-->
     <link rel="stylesheet" href="/css/Office2.css">
+    <link rel="stylesheet" href="/css/colors.css">
     <style>
     /*@font-face{font-family: 'noto_sansbold'; src:url('/css/fonts/notosans-bold-webfont.eot') format("opentype")}
     body{font-family: 'noto_sansregular' !important;}*/
-
     </style>
+
 
 
     <script src="/sweet/sweetalert.min.js"></script>
@@ -108,86 +110,6 @@
     <script src="/componentes/bootstrap-table/locale/bootstrap-table-es-MX.js"></script>
 
     <script src="/js/index.js" ></script>
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-    <script type="text/javascript">
-      $(function () {
-        $("#formeliminar").submit(function(event){
-            event.preventDefault();
-            $(this).closest('tr').remove();
-
-              $.ajax({
-                    type:'POST',
-                    url: $(this).attr("action"),
-                    data: $(this).serialize(),
-                    dataType: "json",
-
-                    success : function(data){
-                      $("#msg").html(data.msg);
-                    }
-
-              });
-
-        });
-
-        function hideSubMenus(){}
-        $("#presionarBotonModalNoticia").click(
-            function()
-            {
-                $("#mostrarModalNoticia").click();
-            }
-        );
-        function discolorSubMenus(sublevelClass)
-        {
-            $('.Menu').each(
-                    function()
-                    {
-                            $('this').removeClass('clicked');
-                    }
-
-            );
-        }
-        $('.Menu').click(
-                function () {
-                    
-                   var sublevelclass =$('#sublevel' + $(this).attr("id")).attr("class").split(' ')[0];
-                    var Menu =  $(this).closest('ul');
-                    Menu.find('div').each(function(){
-                        $(this).removeClass('clicked');
-                    });
-                    Menu.find('a').each(function(){
-                        $(this).removeClass('clicked');
-                    });
-                    $(this).addClass('clicked');
-                    var sublevelhide= sublevelclass.substring(8);
-                    for(var i = sublevelhide; i<4; i++)
-                        $('.sublevel'+i).hide();
-
-                    var childs = $('#sublevel' + $(this).attr("id") + ' ul li').length;
-                    var porc = ((100/childs-1));
-                    $('#sublevel' + $(this).attr("id") + ' ul li div').css('width', (porc+'%'));
-                    $('#sublevel' + $(this).attr("id") + ' ul li').css('width', (porc+'%')-2);
-                    $('#sublevel' + $(this).attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
-                    $('#sublevel' + $(this).attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
-                    $('#sublevel' + $(this).attr("id") + ' ul li div center .smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
-                    $('#sublevel' + $(this).attr("id") + ' ul li div center .verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
-                    $('#sublevel' + $(this).attr("id")).show(500);
-                },
-
-            );
-      });
-
-      // $(function(){
-      //     $(document).on('click','#cambio', function (event){
-      //       event.preventDefault();
-      //       $("#msg").html("se elimino el registro");
-      //     });
-      // });
-
-    </script>
-
-
-
 </head>
 <body>
     <div id="wrapper">
@@ -220,6 +142,7 @@
                       </li>
                     </ul>
                     <center><label for="" class="opcion_iluminada"><h5>{{Auth::user()->empresa}}</h5 ></label></center>
+                    <!--
                     <div class="social">
                     		<ul>
                           <li><a href="/infdocumentada" class="icon-bar-graph">Inf.Docu</a></li>
@@ -233,7 +156,7 @@
                           @endif
                     		</ul>
                     	</div>
-
+                    -->
             <!-- <div class="navbar-default sidebar" role="navigation" style='background-color:#0074B9; '>
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -248,7 +171,7 @@
 
 
 
-<div class="mainMenu officeColorStyle">
+<div class="sublevel0 mainMenu officeColorStyle">
     <ul class="mainMenu">
         <li><a id="Documentada" class="Menu" href="#">Inf. Documentada</a></li>
         <li><a id="ObjetivosIndicadores" class="Menu" href="#">Objetivos & Indicadores</a></li>
@@ -694,56 +617,56 @@
 <div class="sublevel2 sublevel officeColorStyle" id="sublevelDocumentos">
     <ul class="mainMenu">
         <li >
-            <div style="cursor: pointer;" onclick="window.location='/documentada/1';">
+            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/1';">
                 <center>
-                    <i class="fa fa-copyright fa-2x"></i>
+                    <i class="fa fa-copyright fa-2x clred"></i>
                     <br>
                     <span>Politicas</span>
                 </center>
             </div>
         </li>
         <li>
-            <div style="cursor: pointer;" onclick="window.location='/documentada/2';">
+            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/2';">
                 <center>
-                    <i class="fa fa-book fa-2x"></i>
+                    <i class="fa fa-book fa-2x cllightgreen"></i>
                     <br>
                     <span>Manuales</span>
                 </center>
             </div>
         </li>
         <li>
-            <div>
+            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/3';">
                 <center>
-                    <i class="fa fa-cogs fa-2x imagesOfficeBar"></i>
+                    <i class="fa fa-cogs fa-2x claqua"></i>
                     <br>
-                    <a class="officeColorStyleFont" href="/documentada/3">Procedimientos</a>
+                    <span>Procedimientos</span>
                 </center>
             </div>
         </li>
-        <li>
-            <div class="bigdiv">
+        <li> 
+            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/4';">
                 <center>
-                    <i class="fa fa-level-up fa-2x imagesOfficeBar"></i>
+                    <i class="fa fa-level-up fa-2x clpurple"></i>
                     <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/4">Instrucciones de trabajo</a>
+                    <p class="smallfont">Instrucciones de trabajo</p>
                 </center>
             </div>
         </li>
-        <li>
-            <div>
+        <li>  
+            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/5';">
                 <center>
-                    <i class="fa fa-sticky-note-o fa-2x imagesOfficeBar"></i>
+                    <i class="fa fa-sticky-note-o fa-2x cllightblue"></i>
                     <br>
-                    <a class="officeColorStyleFont" href="/documentada/5">Formatos</a>
+                    <span>Formatos</span>
                 </center>
             </div>
         </li>
-        <li>
-            <div class="bigdiv">
+        <li>  
+            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/6';">
                 <center>
-                    <i class="fa fa-mail-forward fa-2x imagesOfficeBar"></i>
+                    <i class="fa fa-mail-forward fa-2x clmediumgreen"></i>
                     <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/6">Documentos externos</a>
+                    <p class="smallfont">Documentos externos</p>
                 </center>
             </div>
         </li>
@@ -1004,41 +927,106 @@
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
             <div>
-<div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Agregar Noticia</h2>
-            </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <form class="" action="/administrados/noticiastore" method="post">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <div class="form-group form-group-lg">
-                            <h2>
-                                <label for="Noticia" class="control-label col-md-12" >
-                                Noticia
-                                </label>
-                            </h2>
-                            <div class="col-md-6">
-                                <textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
-                            </div>
-                        </div>
-                </div>
-                        <div class="modal-footer">
-                        <button type="submit" class="btnobjetivo" id="btnNoticia" style="font-family: Arial;">Agregar Noticia</button>
-            </form>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
-    </div>
-</div>
-
         </div>
                 @yield('content')
             </div>
         </div>
+<!--scripts para las paginas -->
+    <script type="text/javascript">
+    var DELAY = 200, clicks = 0, timer = null, element;
+      $(function () {
+          
+        $("#formeliminar").submit(function(event){
+            event.preventDefault();
+            $(this).closest('tr').remove();
+
+              $.ajax({
+                    type:'POST',
+                    url: $(this).attr("action"),
+                    data: $(this).serialize(),
+                    dataType: "json",
+
+                    success : function(data){
+                      $("#msg").html(data.msg);
+                    }
+
+              });
+
+        });
+
+        function hideSubMenus(){}
+        $("#presionarBotonModalNoticia").click(
+            function()
+            {
+                $("#mostrarModalNoticia").click();
+            }
+        );
+        function discolorSubMenus(sublevelClass)
+        {
+            $('.Menu').each(
+                    function()
+                    {
+                            $('this').removeClass('clicked');
+                    }
+
+            );
+        }
+        $('.Menu').on( 'click',
+                function () {
+                    clicks++;
+                    element = $(this);
+                    if(clicks === 1) 
+                    {
+                        timer = setTimeout(function() {
+                            
+                            var sublevelclass =$('#sublevel' + element.attr("id")).attr("class").split(' ')[0];
+                            var Menu =  element.closest('ul');
+                            Menu.find('div').each(function(){
+                                $(this).removeClass('clicked');
+                            });
+                            Menu.find('a').each(function(){
+                                $(this).removeClass('clicked');
+                            });
+                            element.addClass('clicked');
+                            var sublevelhide= sublevelclass.substring(8);
+                            for(var i = sublevelhide; i<4; i++)
+                                $('.sublevel'+i).hide();
+
+                            var childs = $('#sublevel' + element.attr("id") + ' ul li').length;
+                            var porc = ((100/childs-1));
+                            $('#sublevel' + element.attr("id") + ' ul li div').css('width', (porc+'%'));
+                            $('#sublevel' + element.attr("id") + ' ul li').css('width', (porc+'%')-2);
+                            $('#sublevel' + element.attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
+                            $('#sublevel' + element.attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
+                            $('#sublevel' + element.attr("id") + ' ul li div center .smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
+                            $('#sublevel' + element.attr("id") + ' ul li div center .verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
+                            $('#sublevel' + element.attr("id")).slideDown(300);  
+                        clicks = 0;             //after action performed, reset counter
+                        }, DELAY);
+                    } 
+                    else 
+                    {
+                        clearTimeout(timer);    //prevent single-click action
+                        clicks = 0;             //after action performed, reset counter
+                    }
+
+                    })
+                    .on("dblclick", function(e){
+                        element = $(this);
+                        var sublevelclass =$('#sublevel' + element.attr("id")).attr("class").split(' ')[0];
+                        var sublevelhide= sublevelclass.substring(8);
+                            for(var i = sublevelhide; i<4; i++)
+                                $('.sublevel'+i).slideUp(150);
+                    });
+                });
+      // $(function(){
+      //     $(document).on('click','#cambio', function (event){
+      //       event.preventDefault();
+      //       $("#msg").html("se elimino el registro");
+      //     });
+      // });
+
+    </script>
 
     </body>
     </html>

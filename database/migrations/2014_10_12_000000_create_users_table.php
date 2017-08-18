@@ -32,6 +32,8 @@ class CreateUsersTable extends Migration
             $table->dateTime('cambio_password');
             $table->integer('id_area');
             $table->string('empresa');
+            $table->string('nombreunicoimagen');
+            $table->string('nombreimagen');
         });
     }
 

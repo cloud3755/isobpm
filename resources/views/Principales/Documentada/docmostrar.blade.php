@@ -84,104 +84,186 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                 <h3 class="modal-title">ALTA DE DOCUMENTO</h3>
             </div>
             <div class="modal-body">
-              <form class="" action="/documentada/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="id_tipo" value="<?=$datos['id'] ?>">
-              <input type="hidden" name="lista[]" id="lista"/>
-              <div class="container">
-                <div class="form-group form-group-lg">
-                    <h2><label for="Usuario" class="control-label col-md-12">(*) Nombre:</label></h2>
-                    <div class="col-md-6 col-sm-9">
-                        <input class="form-control input-lg" id="nombre" type="Text" placeholder="Nombre" name="nombre" required>
-                    </div>
-                </div>
-                <div class="form-group form-group-lg">
-                  <h2><label for="tipo" class="control-label col-md-12" >(*) Descripcion:</label></h2>
-                  <div class="col-md-6 col-sm-9">
-                    <input class="form-control input-lg" id="descripcion" type="Text" placeholder="Agrega una descripcion del archivo" name="descripcion" required>
-                  </div>
-                </div>
-                <div class="form-group form-group-lg">
-                  <h2><label for="Usuario" class="control-label col-md-12">(*) Archivo:</label></h2>
-                  <div class="col-md-6 col-sm-9">
-                    <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo" required>
-                  </div>
-                </div>
+                <form class="" action="/documentada/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id_tipo" value="<?=$datos['id'] ?>">
+                    <input type="hidden" name="lista[]" id="lista" />
+                    <div class="form-container">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p class="modal-label">(*) Nombre:</p>
+                                    </td>
+                                    <td>
+                                        <input class="modal-input" id="nombre" type="Text" placeholder="Nombre" name="nombre" required>
+                                    </td>
+                                    <td>
+                                        <p class="modal-label">(*) Descripcion:</p>
+                                    </td>
+                                    <td>
+                                        <input class="modal-input" id="descripcion" type="Text" placeholder="descripcion del archivo" name="descripcion" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="modal-label">(*) Archivo:</p>
+                                    </td>
+                                    <td colspan="2">
+                                        <input class="modal-input" id="archivo" type="file" placeholder="Elige el archivo" name="archivo" required>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                </table>
+                        </div>
+                                <center>
+                                    <p class="modal-label">Lista de accesos:</p>
+                                
+                                        <div>
+                                            <p>
+                                            </p><table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Usuarios no elegidos</td>
+                                                        <td></td>
+                                                        <td>Usuarios elegidos</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select multiple name="listaUsuariosDisponibles[]" id="listaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('listaUsuariosDisponibles', 'lista_de_accesos');">
+                                                                <?php foreach ($User as $Users): ?>
+                                                                <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
+                                                                <?php endforeach ?>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaUsuariosDisponibles', 'lista_de_accesos');">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('lista_de_accesos', 'listaUsuariosDisponibles');">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td>
+                                                            <select multiple="multiple" name="lista_de_accesos[]" id="lista_de_accesos" size="7" style="width: 100%;" onclick="agregaSeleccion('lista_de_accesos','listaUsuariosDisponibles');"></select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p></p>
+                                        </div>
+                                </center>
+                                
+                            
+                            <!--
+                                  <h2><label for="Usuario" class="control-label col-md-12">(*) Nombre:</label></h2>
+                                  <div class="col-md-6 col-sm-9">
+                                      <input class="form-control input-lg" id="nombre" type="Text" placeholder="Nombre" name="nombre" required>
+                                  </div>
+                              </div>
+                              <div class="form-group form-group-lg">
+                                <h2><label for="tipo" class="control-label col-md-12" >(*) Descripcion:</label></h2>
+                                <div class="col-md-6 col-sm-9">
+                                  <input class="form-control input-lg" id="descripcion" type="Text" placeholder="Agrega una descripcion del archivo" name="descripcion" required>
+                                </div>
+                              </div>
+                              <div class="form-group form-group-lg">
+                                <h2><label for="Usuario" class="control-label col-md-12">(*) Archivo:</label></h2>
+                                <div class="col-md-6 col-sm-9">
+                                  <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo" required>
+                                </div>
+                              </div>
 
-                <div class="form-group form-group-lg">
-                  <h2><label for="Usuario" class="control-label col-md-12">Lista de accesos:</label></h2>
-                  <div class="col-md-12">
+                              <div class="form-group form-group-lg">
+                                <h2><label for="Usuario" class="control-label col-md-12">Lista de accesos:</label></h2>
+                                <div class="col-md-12">
 
 
-                         <div>
-                                           <p>
-                                               </p><table>
-                                                   <tbody><tr>
-                                                       <td>Usuarios no elegidos</td>
-                                                       <td></td>
-                                                       <td>Usuarios elegidos</td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>
-                                                           <select multiple name="listaUsuariosDisponibles[]"  id="listaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('listaUsuariosDisponibles', 'lista_de_accesos');">
-                                                             <?php foreach ($User as $Users): ?>
-                                                               <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
-                                                             <?php endforeach ?>
-                                                           </select>
+                                       <div>
+                                                         <p>
+                                                             </p><table>
+                                                                 <tbody><tr>
+                                                                     <td>Usuarios no elegidos</td>
+                                                                     <td></td>
+                                                                     <td>Usuarios elegidos</td>
+                                                                 </tr>
+                                                                 <tr>
+                                                                     <td>
+                                                                         <select multiple name="listaUsuariosDisponibles[]"  id="listaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('listaUsuariosDisponibles', 'lista_de_accesos');">
+                                                                           <?php foreach ($User as $Users): ?>
+                                                                             <option value="<?=$Users['id']?>"> <?=$Users['nombre']?> </option>
+                                                                           <?php endforeach ?>
+                                                                         </select>
 
-                                                   </td>
-                                                   <td>
-                                                       <table>
-                                                           <tbody><tr>
-                                                               <td>
-                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaUsuariosDisponibles', 'lista_de_accesos');">
-                                                               </td>
-                                                           </tr>
-                                                           <tr>
-                                                               <td>
+                                                                 </td>
+                                                                 <td>
+                                                                     <table>
+                                                                         <tbody><tr>
+                                                                             <td>
+                                                                                 <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaUsuariosDisponibles', 'lista_de_accesos');">
+                                                                             </td>
+                                                                         </tr>
+                                                                         <tr>
+                                                                             <td>
 
-                                                             </td>
-                                                           </tr>
-                                                           <tr>
-                                                               <td>
-                                                               </td>
-                                                           </tr>
-                                                           <tr>
-                                                               <td>
-                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('lista_de_accesos', 'listaUsuariosDisponibles');">
-                                                               </td>
-                                                           </tr>
-                                                       </tbody></table>
+                                                                           </td>
+                                                                         </tr>
+                                                                         <tr>
+                                                                             <td>
+                                                                             </td>
+                                                                         </tr>
+                                                                         <tr>
+                                                                             <td>
+                                                                                 <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('lista_de_accesos', 'listaUsuariosDisponibles');">
+                                                                             </td>
+                                                                         </tr>
+                                                                     </tbody></table>
 
-                                                   </td>
+                                                                 </td>
 
-                                                   <td>
-                                                       <select multiple="multiple" name="lista_de_accesos[]"  id="lista_de_accesos" size="7" style="width: 100%;" onclick="agregaSeleccion('lista_de_accesos','listaUsuariosDisponibles');">
+                                                                 <td>
+                                                                     <select multiple="multiple" name="lista_de_accesos[]"  id="lista_de_accesos" size="7" style="width: 100%;" onclick="agregaSeleccion('lista_de_accesos','listaUsuariosDisponibles');">
 
-                                                       </select>
-                                                   </td>
-                                               </tr>
-                                           </tbody></table>
-                                       <p></p>
-                                   </div>
+                                                                     </select>
+                                                                 </td>
+                                                             </tr>
+                                                         </tbody></table>
+                                                     <p></p>
+                                                 </div>
 
 
-                  </div>
-                </div>
-              </div>
-                    <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Subir Documento</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
-                    </div>
-                  </form>
-                </div>
+                                </div>
+                              </div>
+                            </div>
+                            -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Subir Documento</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                            </div>
+                </form>
             </div>
         </div>
+    </div>
 </div>
+
 
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
@@ -359,6 +441,14 @@
  ?>
 
 <script type="text/javascript">
+
+//funcion para acomodar el modal
+
+    var childs = $('.form-container').length;
+    var porc = ((100/childs-1));
+    $('.form-container ' + 'td *').css('width', (porc+'%'));
+    $('.form-container ' + 'td *').css('font-size', ((porc*.020)+'vw'));
+
 
 //Funcion para el edit
 

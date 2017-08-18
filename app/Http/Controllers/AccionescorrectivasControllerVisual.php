@@ -213,8 +213,9 @@ class AccionescorrectivasControllerVisual extends Controller
 
 
       $accionrelacion = \DB::table('accioncorrectiva1s')
-                               ->select('accioncorrectiva1s.*','users.nombre as nombreresponsable','productos.nombre as nombreproducto','procesos.proceso as nombrep')
-                               ->join('users','accioncorrectiva1s.responsable_id','=','users.id')
+                               ->select('accioncorrectiva1s.*','responsable.nombre as nombreresponsable','productos.nombre as nombreproducto','procesos.proceso as nombrep','creador.nombre as creador')
+                               ->join('users as responsable','accioncorrectiva1s.responsable_id','=','responsable.id')
+                               ->join('users as creador','accioncorrectiva1s.creador_id','=','creador.id')
                                ->join('productos','accioncorrectiva1s.producto_id','=','productos.id')
                                ->join('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
                                ->where('accioncorrectiva1s.id',$id)->first();

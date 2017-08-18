@@ -176,6 +176,18 @@ Route::group( ['middleware' => 'auth'],
     Route::post('productos/store', 'AdministradosController@productostore');
 		Route::delete('productos/destroy/{id}', 'AdministradosController@productosdestroy');
     Route::post('productos/edit/{id}', 'AdministradosController@productosedit');
+    //Guardar imagen perfil
+    Route::post('/guardarimagenperfil', 'AdministradosController@imageUserStore');
+    Route::get('/guardarimagenperfil', function(){
+       return redirect('/perfil');
+    }
+    );
+    //Guardar pendiente
+    Route::post('/guardarpendiente', 'AdministradosController@pendienteStore');
+    Route::get('/guardarpendiente', function(){
+      return redirect('/bienvenida');
+    }
+    );
 
     //Clientes
     Route::get('/clientes','AdministradosController@clientes');
@@ -280,12 +292,13 @@ Route::group( ['middleware' => 'auth'],
 
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
+    //Rutas para pagina inicio
+
+    Route::post('/DocumentoInicio', 'BienvenidaController@retornardocumento');
+
     //Ruta crear noticia
     Route::post('/administrados/noticiastore', 'AdministradosController@noticiastore');
     Route::get('/administrados/noticiastore', function(){
-
-
-
       return redirect('/Bienvenida');
     });
     }

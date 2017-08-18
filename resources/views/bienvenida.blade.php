@@ -2,72 +2,145 @@
 
 @section('content')
 
-<br><br><br>
-<center>
-    <div>
-        <table>
-            <tr>
-                <td>
-                    <table class="table">
-                        <tr>
-                            <td >
-                                <img style="width: 150px;height: 150px;"  src=" /img/tableCredential images/user.jpg" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="border: 1px solid #002858">
-                                    <center>
-                                        Noticias
+<div>
+    @if(Auth::user()->nombreimagen!=null)
+        <img style="width: 80px;height: 80px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" />
+    @else
+        <img style="width: 80px;height: 80px;"  src="/img/tableCredential images/user.jpg" />
+    @endif
+
+</div>
+<div>
+<p>bienvenido: <strong>{{Auth::user()->nombre}}</strong><p>
+</div>
+<div >
+    <div class="col-sm-2">
+        <div class="panel panel-info">
+            <div class="panel-heading panel-heading2">Navegar</div>
+	        <div class="panel-body panel-body2 PrincipalPanel scrollablePanel PersonalScroll">
+                <a data-toggle="collapse" href="#collapseDocumentos">
+                <i class="fa fa-file-text fa-2x"></i>Mis documentos</a>
+                <div id="collapseDocumentos" class="collapse">
+                    <ul>
+                        @if(count($documento)<=0)
+                            <li class="text-danger">Sin documentos</li>
+                        @else
+                            @foreach($documento as $doc)
+                                <li><a data-toggle="modal" data-target="#modalVerDocumentos" data-token="{{ csrf_token() }}" class="documentosclick" id="{{$doc->nombreunico}}" href="#">{{$doc->nombre}}</a></li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+                <br>
+                <a data-toggle="collapse" href="#collapseIndicadores">Mis indicadores</a>
+                <div id="collapseIndicadores" class="collapse">
+                    <ul>
+                        @if(count($indicador)<=0)
+                            <li class="text-danger">Sin indicadores</li>
+                        @else
+                            @foreach($indicador as $indica)
+                                <li>{{$indica->nombre}}</li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+                <br>
+                <a data-toggle="collapse" href="#collapseProcesos">Mis procesos</a>
+                <div id="collapseProcesos" class="collapse">
+                    <ul>
+                        @if(count($proceso)<=0)
+                            <li class="text-danger">Sin procesos</li>
+                        @else
+                            @foreach($proceso as $pro)
+                                <li><a data-toggle="modal" data-target="#modalVerProcesos" data-token="{{ csrf_token() }}">{{$pro->proceso}}</a></li>
+                            @endforeach
+
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span></span>
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading panel-heading2">
+                <div id"btnAgregarPendiente">
+                Pendientes
+                @if(Auth::user()->perfil != 4)
+                    <i data-toggle="modal" data-target="#modalAgregarPendiente" class="fa fa-plus-square-o" aria-hidden="true"></i>
+                @endif
+            </div>
+        </div>
+        <div class="panel-body panel-body2 PrincipalPanel scrollablePanel PersonalScroll">
+            @foreach($pendiente as $pend)
+            <li><a>{{$pend->pendiente}} {{$pend->fecha_limite}} </a></li>
+            @endforeach
+        </div>
+    </div>
+    </div>
+
+<span></span>
+<div class="col-sm-4">
+
+    <div class="panel panel-info panelNoticias">
+        <div class="panel-heading panel-heading2">Noticias
+        @if(Auth::user()->perfil != 4)
+                        <i data-toggle="modal" data-target="#modalAgregarNoticia" class="fa fa-plus-square-o" aria-hidden="true"></i>
+        @endif
+        </div>
+        <div class="panel-body panel-body2">
+            <div class="scrollablePanel PersonalScroll" style="border:1px solid #002858;max-height: 15vh">
+
+                    @foreach ($noticiasw as $noticia)
+                        <li><a href="#" class="icon-bar-graph">{{$noticia->Noticia}}</a></li>
+                    @endforeach
+
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-info panelEventos">
+    <div class="panel-heading panel-heading2">Eventos</div>
+        <div class="panel-body panel-body2">
+            <div class="scrollablePanel PersonalScroll calendar" style="max-height: 33vh">
+            <center><button type="button" class="btn btnobjetivo" data-toggle="modal" data-dismiss="modal" data-target="#modalAgregarEvento">Agregar Evento</button></center>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+                {!! $calendar->calendar() !!}
+                {!! $calendar->script() !!}
+                 <script>
+        //inicializamos el calendario al cargar la pagina
+        $(document).ready(function() {
+
+
+            $('#calendar').fullCalendar({
+
+                header: {
+                    left: 'prev,next today myCustomButton',
+                    center: 'title',
+                    right: 'Mes,y,y'
+                },
+
+            });
+
+        });
+    </script>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--
                                             <?php foreach ($noticiasw as $noticia): ?>
                                             <li><a href="#" class="icon-bar-graph"><?=$noticia->Noticia?></a></li>
                                             <?php endforeach ?>
-                                    </center>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img style="width: 150px;height: 150px;" src=" /img/tableCredential images/calendar.png" data-toggle="modal" data-target="#modalcalendario" onclick="#modalcalendario"/>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                <table class="table">
-                    <tr style="border-bottom: 1px solid #002858">
-                        <td>
-                        <i class="fa fa-file-text fa-5x"></i>
-                        <span>Mis Documentos</span>
-                        </td>
-                    </tr>
 
-                    <tr style="border-bottom: 1px solid #002858">
-                        <td>
-                            <i class="fa fa fa-bar-chart fa-5x"></i>
-                            <span>Mis Indicadores</span>
-                        </td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #002858">
-                        <td>
-                            <i class="fa fa-code-fork fa-5x"></i>
-                            <span>Mis Procesos</span>
-                        </td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #002858">
-                        <td>
-                            <i class="fa fa fa-edit fa-5x"></i>
-                            <span>Mis Pendientes</span>
-                        </td>
-                    </tr>
-                </table>
-                </td>
-            </tr>
-        </table>
+-->
 
-
-    </div>
-</center>
+<!--
     <div class="row">
       <div class="col-lg-3 col-md-6" >
           <div class="panel panel-doc" id="divPartnersPending">
@@ -148,11 +221,33 @@
                   </div>
                   <div class="col-xs-9 text-right">
                       <div class="huge" id="divCompaniesNumber"></div>
-                      <div>RIESGOS & OPORTUNIDADES</div>
+                      <div>RIESGOS</div>
                   </div>
               </div>
           </div>
           <a href="/riesgos" class="pf">
+              <div class="panel-footer">
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+              </div>
+          </a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6" >
+      <div class="panel panel-ris" id="divCompaniesPending">
+          <div class="panel-heading">
+              <div class="row">
+                  <div class="col-xs-3">
+                      <i class="fa fa-exclamation-triangle fa-5x"></i>
+                  </div>
+                  <div class="col-xs-9 text-right">
+                      <div class="huge" id="divCompaniesNumber"></div>
+                      <div>OPORTUNIDADES</div>
+                  </div>
+              </div>
+          </div>
+          <a href="/oportunidades" class="pf">
               <div class="panel-footer">
                   <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                   <div class="clearfix"></div>
@@ -214,6 +309,7 @@
 </div>
 
     </div>
+    -->
 @if(Auth::user()->perfil == 1 or Auth::user()->perfil == 2)
   <div class="Row">
     <div class="form-group form-group-lg">
@@ -361,5 +457,206 @@
 
 <!-- modal para agregar evento al calendario-->
 
+<!-- modal ver documentos -->
 
+<div class="modal fade" id="modalVerDocumentos" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modalVerDocumentos">&times;</button>
+            <h2 class="modal-title"><span id="txtTitulo"></span></h2>
+            </div>
+            <div class="modal-body">
+
+                <table id="tbVerDocumentos">
+                    <tr>
+                        <td>Documento:</td>
+                        <td id="tdDocumento"></td>
+                    <tr>
+                    <tr>
+                        <td>Descripción:</td>
+                        <td id="tdDocumentoDescripcion"></td>
+                    <tr>
+                    <tr>
+                        <td>Ver documento</td>
+                        <td><a id="tdVerDocumento" href="#" target="_blank" style="color:#FFF">
+                          <button type="button" class="btn btn-default">
+                               <span class="glyphicon glyphicon-download-alt"></span>
+                          </button>
+                        </a></td>
+                    <tr>
+
+
+                </table>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal ver documentos -->
+
+<!-- modal ver procesos -->
+
+<div class="modal fade" id="modalVerProcesos" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modalVerDocumentos">&times;</button>
+            <h2 class="modal-title"><span id="txtTitulo"></span></h2>
+            </div>
+            <div class="modal-body">
+
+                <table >
+                    <tr>
+                        <td>Proceso:</td>
+                        <td id="tdProceso"></td>
+                        <td>Tipo de proceso:</td>
+                        <td id="tdProcesoTipo"></td>
+                    </tr>
+                    <tr>
+                        <td>Descripción:</td>
+                        <td colspan="3" id="tdProcesoDescripcion"></td>
+                    </tr>
+                    <tr>
+                        <td>Responsable:</td>
+                        <td id="tdProcesoResponsable"></td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Revisión:</td>
+                        <td id="tdProcesoRevision"></td>
+                        <td>Detalle de revisión:</td>
+                        <td id="tdProcesoDetalleRevision"></td>
+                    </tr>
+                    <tr>
+                        <td>Indicadores:</td>
+                        <td id="tdProcesoArchivoHtml"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Ver HTML</td>
+                        <td><a id="tdVerProcesoDocumento" href="#" target="_blank" style="color:#FFF">
+                          <button type="button" class="btn btn-default">
+                               <span class="glyphicon glyphicon-download-alt"></span>
+                          </button>
+                        </a></td>
+                    <tr>
+
+
+                </table>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if(Auth::user()->perfil != 4)
+<div class="modal fade" id="modalAgregarPendiente" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3 class="modal-title">Alta de pendiente</h3>
+            </div>
+            <div class="modal-body">
+            <form method="POST" action="{{ action('AdministradosController@pendienteStore') }}" enctype="multipart/form-data">
+                 {{ csrf_field() }}
+                <table>
+                    <tr>
+                        <td>Responsable:</td>
+                        <td>
+                        <select class="form-control input-lg" name="id_UsuarioAsignado" id="id_UsuarioAsignado">
+                                @foreach($User as $Users)
+                                <option value="{{$Users->id}}">{{$Users->nombre}}</option>
+                                @endforeach
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pendiente:</td>
+                        <td><textarea class="form-control input-lg" placeholder="Pendiente" name="Pendiente" id="Pendiente" required></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Fecha limite:</td>
+                        <td>
+                            <input class="form-control input-lg" type="date" placeholder="Fecha" name="fechalimite" id="fechalimite" required>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default">Guardar</button>
+
+            </form>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Agregar Noticia</h2>
+            </div>
+                <div class="modal-body">
+
+                    <form action="{{ action('AdministradosController@noticiastore') }}" method="post">
+                    {{ csrf_field() }}
+                    Noticia<textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btnobjetivo" id="btnNoticia">Agregar Noticia</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+    </div>
+</div>
+    @endif
+<!-- modal ver procesos -->
+
+<!--script cargar datos modales-->
+    <script type="text/javascript">
+      $(function () {
+        $('.documentosclick').click(function(ev)
+        {
+            var data = {
+            _token:$(this).data('token'),
+            nombreunico: $(this).attr("id")
+            }
+            ev.preventDefault();
+            $.ajax({
+            type: "POST",
+            url: '/DocumentoInicio',
+            data: data,
+            success: function( msg ) {
+                $('#tdDocumento').text(msg["Documento"]);
+                $('#tdDocumentoDescripcion').text(msg["Descripcion"]);
+                $('#tdVerDocumento').attr('href', 'documento/'+msg["link"]);
+            },
+             error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+        }
+        );
+      });
+    </script>
+<!--script cargar datos modales-->
 @stop

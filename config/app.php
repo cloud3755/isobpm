@@ -146,6 +146,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         'Chumper\Zipper\ZipperServiceProvider',
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        //imagenes providers
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 

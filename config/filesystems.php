@@ -72,6 +72,10 @@ return [
             'driver' => 'local',
             'root'   => public_path().'/storage/documentos',
         ],
+        'imagenesusuarios' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/imagenesusuarios',
+        ],
         'provedor' => [
             'driver' => 'local',
             'root'   => public_path().'/storage/uploadproveedores',

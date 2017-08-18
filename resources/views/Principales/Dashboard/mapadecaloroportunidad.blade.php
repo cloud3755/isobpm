@@ -127,28 +127,34 @@
                     <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
                         <thead style='background-color: #868889; color:#FFF'>
                             <tr>
+                                <th><div class="th-inner sortable both">Proceso</div></th>
                                 <th><div class="th-inner sortable both">Actividad</div></th>
-                                <th><div class="th-inner sortable both">Oportunidad</div></th>
+                                <th><div class="th-inner sortable both">Abc oportunidad</div></th>
+                                <th><div class="th-inner sortable both">Area</div></th>
                                 <th><div class="th-inner sortable both">Modo de Falla</div></th>
                                 <th><div class="th-inner sortable both">Esfuerzo Potencial</div></th>
                                 <th><div class="th-inner sortable both">Impacto Potencial</div></th>
                                 <th><div class="th-inner sortable both">Controles</div></th>
                                 <th><div class="th-inner sortable both">Esfuerzo Real</div></th>
                                 <th><div class="th-inner sortable both">Impacto Real</div></th>
+                                <th><div class="th-inner sortable both">Modificar</div></th>
                             </tr>
                         </thead>
                         <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
                         <tbody id = "myTable">
                             <?php foreach ($Analisisriesgo as $Oportunidades2): ?>
                                 <tr>
+                                    <td><?=$Oportunidades2->nombreproceso?></td>
                                     <td><?=$Oportunidades2->actividad?></td>
-                                    <td><?=$Oportunidades2->oportunidad_id?></td>
+                                    <td><?=$Oportunidades2->abcoportunidad?></td>
+                                    <td><?=$Oportunidades2->nomarea?></td>
                                     <td><?=$Oportunidades2->descripcion_modo_falla?></td>
                                     <td><?=$Oportunidades2->esfuerzo?></td>
                                     <td><?=$Oportunidades2->impacto?></td>
                                     <td><?=$Oportunidades2->controles?></td>
                                     <td><?=$Oportunidades2->esfuerzo2?></td>
                                     <td><?=$Oportunidades2->impacto2?></td>
+                                    <td><button type="button" class="btnobjetivo" value = "<?=$Oportunidades2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -164,6 +170,115 @@
 </div>
 
 
+<!-- Modal para editar -->
+<div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">ACTUALIZAR OPORTUNIDAD</h3>
+            </div>
+            <div class="modal-body">
+              <form id="fileinfo" method="post">
+
+              <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+              <input type="hidden" id="id">
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="tipo" class="control-label" >Proceso:</label></h3>
+                      <select class="form-control input-lg"  disabled="true" id="eproceso"  name="eproceso">
+                        <?php foreach ($proceso as $procesos): ?>
+                          <option value="<?=$procesos->id?>"><?=$procesos->proceso?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="tipo" class="control-label" >Actividad:</label></h3>
+                      <input class="form-control input-lg" id="eactividad" type="Text" placeholder="Que actividad se realiza" name="eactividad">
+                    </div>
+
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                      <h3><label for="tipo" class="control-label" >Oportunidad:</label></h3>
+                      <select class="form-control input-lg" name="eoportunidad_id" id="eoportunidad_id">
+                          <?php foreach ($Abcriesgo as $Abcoportunidades): ?>
+                              <option value="<?=$Abcoportunidades['id']?>"><?=$Abcoportunidades['nombre']?></option>
+                          <?php endforeach ?>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                      <h3><label for="Usuario" class="control-label" >Modo de falla:</label></h3>
+                      <input class="form-control input-lg" id="edescripcion_modo_falla" type="Text" placeholder="Descripcion de la falla" name="edescripcion_modo_falla">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="Usuario" class="control-label" >Esfuerzo Potencial:</label></h3>
+                      <select class="form-control input-lg" name="eesfuerzo" id="eesfuerzo">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="Usuario" class="control-label" >Impacto Potencial:</label></h3>
+                      <select class="form-control input-lg" name="eimpacto" id="eimpacto">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <h3><label for="Usuario" class="control-label" >Controles:</label></h3>
+                      <input class="form-control input-lg" id="econtroles" type="Text" placeholder="Controles" name="econtroles">
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <h3><label for="Usuario" class="control-label" >Esfuerzo Real:</label></h3>
+                      <select class="form-control input-lg" name="eesfuerzo2" id="eesfuerzo2">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <h3><label for="Usuario" class="control-label" >Impacto Real:</label></h3>
+                      <select class="form-control input-lg" name="eimpacto2" id="eimpacto2">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label for="tipo" class="control-label" >Area:</label></h3>
+                      <select class="form-control input-lg" name="eid_area" id="eid_area" required>
+                        <?php foreach ($area as $areas): ?>
+                            <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                </div>
+              </form>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal editar Final -->
+
+
 <script type="text/javascript">
 
 //Funcion para el edit
@@ -173,6 +288,7 @@ function Editar(btn){
 
   $.get(route, function(res){
     $("#id").val(res.id);
+    $('#eproceso option[value="' + res.procesos_id + '"]').attr("selected", "selected");
     $("#eactividad").val(res.actividad);
     $('#eoportunidad_id option[value="' + res.oportunidad_id + '"]').attr("selected", "selected");
     $("#edescripcion_modo_falla").val(res.descripcion_modo_falla);
@@ -356,6 +472,5 @@ function doSearch()
 
 
 </script>
-
 
 @stop
