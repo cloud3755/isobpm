@@ -46,6 +46,13 @@
                               Modificacion
                             </div>
                           </th>
+                          @if(Auth::user()->perfil != 4)
+                          <th>
+                            <div class="th-inner sortable both">
+                              Eliminacion
+                            </div>
+                          </th>
+                          @endif
                         </tr>
                       </thead>
                       <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -63,14 +70,18 @@
                             <?=$riesgorel->descripcion?>
                           </td>
                           <td>
+                            <button type="button" class="btnobjetivo" id="btnpro" style="font-family: Arial;" data-toggle="modal" data-target="#modaledit<?=$riesgorel->id?>" >Editar</button>
+                          </td>
+                          @if(Auth::user()->perfil != 4)
+                          <td>
                             <form class="" action="/abcriesgos/destroy/{{ $riesgorel->id }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                               <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
 return confirm('Estas seguro de eliminar el riesgo <?=$riesgorel->nombre?>?')">Eliminar</button>
-                              <button type="button" class="btnobjetivo" id="btnpro" style="font-family: Arial;" data-toggle="modal" data-target="#modaledit<?=$riesgorel->id?>" >Editar</button>
                             </form>
                           </td>
+                          @endif
                         </tr>
                         <?php endforeach ?>
                       </tbody>

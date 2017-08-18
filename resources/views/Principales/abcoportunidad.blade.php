@@ -49,6 +49,13 @@
                               Modificacion
                             </div>
                           </th>
+                          @if(Auth::user()->perfil != 4)
+                          <th>
+                            <div class="th-inner sortable both">
+                              Eliminacion
+                            </div>
+                          </th>
+                          @endif
                         </tr>
                       </thead>
                       <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -66,14 +73,18 @@
                             <?=$oportunidad1->descripcion?>
                           </td>
                           <td>
+                            <button type="button" class="btnobjetivo" value = "<?=$oportunidad1->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                          </td>
+                          @if(Auth::user()->perfil != 4)
+                          <td>
                             <form class="" action="/abcoportunidades/destroy/{{ $oportunidad1->id }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                               <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
 return confirm('Estas seguro de eliminar la oportunidad <?=$oportunidad1->nombre?>?')">Eliminar</button>
-                              <button type="button" class="btnobjetivo" value = "<?=$oportunidad1->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
                             </form>
                           </td>
+                          @endif
                         </tr>
                         <?php endforeach ?>
                       </tbody>
