@@ -171,13 +171,13 @@
 
 
 
-<div class="mainMenu officeColorStyle">
+<div class="sublevel0 mainMenu officeColorStyle">
     <ul class="mainMenu">
-        <li><a id="Documentada" class="Menu mainMenuRoot" href="#">Inf. Documentada</a></li>
-        <li><a id="ObjetivosIndicadores" class="Menu mainMenuRoot" href="#">Objetivos & Indicadores</a></li>
+        <li><a id="Documentada" class="Menu" href="#">Inf. Documentada</a></li>
+        <li><a id="ObjetivosIndicadores" class="Menu" href="#">Objetivos & Indicadores</a></li>
         <li><a href="/procesos/visual">Procesos</a></li>
-        <li><a id="RiesgosOportunidades" class="Menu mainMenuRoot" href="#">Riesgos & oportunidades</a></li>
-        <li><a id="MejoraPrincipal" class="Menu mainMenuRoot" href="#">Mejora</a></li>
+        <li><a id="RiesgosOportunidades" class="Menu" href="#">Riesgos & oportunidades</a></li>
+        <li><a id="MejoraPrincipal" class="Menu" href="#">Mejora</a></li>
     </ul>
 </div>
 <!--Mejora-->
@@ -933,7 +933,7 @@
         </div>
 <!--scripts para las paginas -->
     <script type="text/javascript">
-    var DELAY = 700, clicks = 0, timer = null;
+    var DELAY = 200, clicks = 0, timer = null, element;
       $(function () {
           
         $("#formeliminar").submit(function(event){
@@ -971,56 +971,54 @@
 
             );
         }
-        $('.mainMenuRoot').dblclick(function(e){
-            for(var i = 1; i<4; i++)
-                $('.sublevel'+i).hide('slow');
-        });
-        $('.Menu').click(
-                function (elements) {
-                    //var elements = $(this);
-                    clicks+=1;  //count clicks
-                  
-                    if(clicks == 1) {
-                        
-                        timer = setTimeout(function(elements){
-                            alert(elements.attr("id"));
-                            var sublevelclass =$('#sublevel' + $(elements).attr("id")).attr("class").split(' ')[0];
-                            var Menu =  $(elements).closest('ul');
+        $('.Menu').on( 'click',
+                function () {
+                    clicks++;
+                    element = $(this);
+                    if(clicks === 1) 
+                    {
+                        timer = setTimeout(function() {
+                            
+                            var sublevelclass =$('#sublevel' + element.attr("id")).attr("class").split(' ')[0];
+                            var Menu =  element.closest('ul');
                             Menu.find('div').each(function(){
                                 $(this).removeClass('clicked');
                             });
                             Menu.find('a').each(function(){
                                 $(this).removeClass('clicked');
                             });
-                            $(this).addClass('clicked');
+                            element.addClass('clicked');
                             var sublevelhide= sublevelclass.substring(8);
                             for(var i = sublevelhide; i<4; i++)
                                 $('.sublevel'+i).hide();
 
-                            var childs = $('#sublevel' + $(this).attr("id") + ' ul li').length;
+                            var childs = $('#sublevel' + element.attr("id") + ' ul li').length;
                             var porc = ((100/childs-1));
-                            $('#sublevel' + $(this).attr("id") + ' ul li div').css('width', (porc+'%'));
-                            $('#sublevel' + $(this).attr("id") + ' ul li').css('width', (porc+'%')-2);
-                            $('#sublevel' + $(this).attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
-                            $('#sublevel' + $(this).attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
-                            $('#sublevel' + $(this).attr("id") + ' ul li div center .smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
-                            $('#sublevel' + $(this).attr("id") + ' ul li div center .verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
-                            $('#sublevel' + $(this).attr("id")).show(500);
-                                       
-                            clicks = 0;
+                            $('#sublevel' + element.attr("id") + ' ul li div').css('width', (porc+'%'));
+                            $('#sublevel' + element.attr("id") + ' ul li').css('width', (porc+'%')-2);
+                            $('#sublevel' + element.attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
+                            $('#sublevel' + element.attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
+                            $('#sublevel' + element.attr("id") + ' ul li div center .smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
+                            $('#sublevel' + element.attr("id") + ' ul li div center .verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
+                            $('#sublevel' + element.attr("id")).slideDown(300);  
+                        clicks = 0;             //after action performed, reset counter
                         }, DELAY);
-
-                    } else {
-
-                        clearTimeout(timer);
-                        clicks = 0;             
+                    } 
+                    else 
+                    {
+                        clearTimeout(timer);    //prevent single-click action
+                        clicks = 0;             //after action performed, reset counter
                     }
 
-                   
-                }
-
-            );
-      });
+                    })
+                    .on("dblclick", function(e){
+                        element = $(this);
+                        var sublevelclass =$('#sublevel' + element.attr("id")).attr("class").split(' ')[0];
+                        var sublevelhide= sublevelclass.substring(8);
+                            for(var i = sublevelhide; i<4; i++)
+                                $('.sublevel'+i).slideUp(150);
+                    });
+                });
       // $(function(){
       //     $(document).on('click','#cambio', function (event){
       //       event.preventDefault();
