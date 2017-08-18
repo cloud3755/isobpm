@@ -28,9 +28,7 @@
 </br>
 
       <?php foreach ($proceso->where('tipo',$tipoproc['nombreproceso']) as $process): ?>
-
-      <button type="button" class="btnproceso" onclick=location="/analisisopor/registro/<?=$process['id'] ?>" id="<?=$process['proceso'] ?>"><?=$process['proceso'] ?></button>
-
+        <button type="button" class="btnproceso" onclick="Abrir(this);" value="<?=$process->id ?>"><?=$process->proceso ?></button> 
       <?php endforeach ?>
 
          </br>
@@ -40,4 +38,9 @@
 <?php endforeach ?>
 </br>
 
+<script type="text/javascript">
+  function Abrir(btn){
+    location.href = "/procesos/registro/"+btn.value;
+  }
+</script>
 @stop

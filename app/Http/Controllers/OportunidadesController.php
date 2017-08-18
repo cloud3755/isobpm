@@ -354,7 +354,9 @@ class OportunidadesController extends Controller
 
       if ($usuarios->perfil == 4) {
         $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-        ->select('oportunidades.*','procesos.lista_de_distribucion')
+        ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+        ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+        ->join('areas','areas.id','=','oportunidades.id_area')
         ->join('procesos','procesos.id','=','oportunidades.procesos_id')
         ->leftjoin('lista_envios', function($join) use ($user)
           {
@@ -391,8 +393,12 @@ class OportunidadesController extends Controller
         $riskmap2_32 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('esfuerzo2', '3')->where('impacto2','2')->count();
         $riskmap2_33 = $Analisisriesgo->where('idcompañia',$usuarios->id_compania)->where('esfuerzo2', '3')->where('impacto2','3')->count();
       }else {
-        $Analisisriesgos = new Oportunidades;
-        $Analisisriesgo = $Analisisriesgos->where('idcompañia',$usuarios->id_compania)->get();
+        $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+        ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+        ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+        ->join('areas','areas.id','=','oportunidades.id_area')
+        ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+        ->where('oportunidades.idcompañia',$usuarios->id_compania)->get());
 
         $riskmap_11 = DB::table('oportunidades')->where('idcompañia',$usuarios->id_compania)->where('esfuerzo', 1)->where('impacto',1)->count();
         $riskmap_12 = DB::table('oportunidades')->where('idcompañia',$usuarios->id_compania)->where('esfuerzo', 1)->where('impacto',2)->count();
@@ -431,7 +437,9 @@ class OportunidadesController extends Controller
 
           $user = $usuarios->id;
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -473,7 +481,9 @@ class OportunidadesController extends Controller
           $user = $usuarios->id;
           $area1 = $request->input('areas');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -521,7 +531,9 @@ class OportunidadesController extends Controller
           $user = $usuarios->id;
           $procesos1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -571,7 +583,9 @@ class OportunidadesController extends Controller
           $user = $usuarios->id;
           $tipo1 = $request->input('tipos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -622,7 +636,9 @@ class OportunidadesController extends Controller
           $area1 = $request->input('areas');
           $proceso1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -675,7 +691,9 @@ class OportunidadesController extends Controller
           $tipo1 = $request->input('tipos');
           $proceso1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -731,7 +749,9 @@ class OportunidadesController extends Controller
           $area1 = $request->input('areas');
           $tipo1 = $request->input('tipos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -784,7 +804,9 @@ class OportunidadesController extends Controller
           $tipo1 = $request->input('tipos');
           $proceso1 = $request->input('procesos');
           $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
-          ->select('oportunidades.*','procesos.lista_de_distribucion')
+          ->select('oportunidades.*','procesos.lista_de_distribucion','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
           ->join('procesos','procesos.id','=','oportunidades.procesos_id')
           ->leftjoin('lista_envios', function($join) use ($user)
             {
@@ -835,8 +857,13 @@ class OportunidadesController extends Controller
       }else {
         if ($request->input('areas') == 0 and $request->input('procesos') == 0 and $request->input('tipos') == 0){
 
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('idcompañia',$usuarios->id_compania)->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('oportunidades.idcompañia',$usuarios->id_compania)->get());
+
           $riskmap_11 = DB::table('oportunidades')->where('idcompañia',$usuarios->id_compania)->where('esfuerzo', 1)->where('impacto',1)->count();
           $riskmap_12 = DB::table('oportunidades')->where('idcompañia',$usuarios->id_compania)->where('esfuerzo', 1)->where('impacto',2)->count();
           $riskmap_13 = DB::table('oportunidades')->where('idcompañia',$usuarios->id_compania)->where('esfuerzo', 1)->where('impacto',3)->count();
@@ -861,8 +888,13 @@ class OportunidadesController extends Controller
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') == 0 and $request->input('tipos') == 0){
 
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('id_area',$request->input('areas'))->get());
+
           $riskmap_11 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',1)->where('id_area',$request->input('areas'))->count();
           $riskmap_12 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',2)->where('id_area',$request->input('areas'))->count();
           $riskmap_13 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',3)->where('id_area',$request->input('areas'))->count();
@@ -886,8 +918,13 @@ class OportunidadesController extends Controller
         }
         elseif($request->input('areas') == 0 and $request->input('procesos') != 0 and $request->input('tipos') == 0){
 
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('procesos_id',$request->input('procesos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('procesos_id',$request->input('procesos'))->get());
+
           $riskmap_11 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',1)->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_12 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',2)->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_13 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',3)->where('procesos_id',$request->input('procesos'))->count();
@@ -911,8 +948,13 @@ class OportunidadesController extends Controller
         }
         elseif($request->input('areas') == 0 and $request->input('procesos') == 0 and $request->input('tipos') != 0){
 
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('oportunidad_id',$request->input('tipos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('oportunidad_id',$request->input('tipos'))->get());
+
           $riskmap_11 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',1)->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',2)->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',3)->where('oportunidad_id',$request->input('tipos'))->count();
@@ -936,9 +978,13 @@ class OportunidadesController extends Controller
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') != 0 and $request->input('tipos') == 0){
 
-                  //return dd($request);
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->get());
+
           $riskmap_11 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',1)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_12 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',2)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
           $riskmap_13 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',3)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
@@ -960,9 +1006,14 @@ class OportunidadesController extends Controller
           $riskmap2_33 = DB::table('oportunidades')->where('esfuerzo2', 3)->where('impacto2',3)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->count();
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') != 0 and $request->input('tipos') != 0){
-                //return dd($request);
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->get();
+
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->get());
+
           $riskmap_11 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',1)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',2)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',3)->where('id_area',$request->input('areas'))->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->count();
@@ -986,9 +1037,14 @@ class OportunidadesController extends Controller
 
         }
         elseif($request->input('areas') != 0 and $request->input('procesos') == 0 and $request->input('tipos') != 0){
-          //return dd($request);
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('id_area',$request->input('areas'))->where('oportunidad_id',$request->input('tipos'))->get();
+
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('id_area',$request->input('areas'))->where('oportunidad_id',$request->input('tipos'))->get());
+
           $riskmap_11 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',1)->where('id_area',$request->input('areas'))->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',2)->where('id_area',$request->input('areas'))->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',3)->where('id_area',$request->input('areas'))->where('oportunidad_id',$request->input('tipos'))->count();
@@ -1012,9 +1068,13 @@ class OportunidadesController extends Controller
         }
         elseif($request->input('areas') == 0 and $request->input('procesos') != 0 and $request->input('tipos') != 0){
 
-          //return dd($request);
-          $Analisisriesgos = new Oportunidades;
-          $Analisisriesgo = $Analisisriesgos->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->get();
+          $Analisisriesgo = \Illuminate\Support\Collection::make(DB::table('oportunidades')
+          ->select('oportunidades.*','procesos.proceso as nombreproceso','abcoportunidades.nombre as abcoportunidad','areas.nombre as nomarea')
+          ->join('abcoportunidades','abcoportunidades.id','=','oportunidades.oportunidad_id')
+          ->join('areas','areas.id','=','oportunidades.id_area')
+          ->join('procesos','procesos.id','=','oportunidades.procesos_id')
+          ->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->get());
+          
           $riskmap_11 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',1)->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_12 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',2)->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->count();
           $riskmap_13 = DB::table('oportunidades')->where('esfuerzo', 1)->where('impacto',3)->where('procesos_id',$request->input('procesos'))->where('oportunidad_id',$request->input('tipos'))->count();
