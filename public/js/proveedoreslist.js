@@ -8,20 +8,31 @@ function Editar(btn){
   var route = "/proveedor/show/"+btn.value;
   var route2 = "/proveedor/show2/"+btn.value;
   var route3 = "/proveedor/show3/"+btn.value;
+  var route4 = "/proveedor/show4/"+btn.value;
 
   $.get(route, function(res){
     $("#eproveedor").val(res.proveedor);
     $("#eemail").val(res.email);
     $("#etelefono").val(res.telefono);
-    $("#eactivo").val(res.activo);
     $("#edireccion").val(res.direccion);
     $("#eobservaciones").val(res.observaciones);
     $("#eid").val(res.id);
     $("#documentosalta").val(res.id);
     $("#fid").val(res.id);
 
+
+    $("#eactivo").empty();
+    $("#eactivo").append('<option selected="selected" value="'+res.activo+'">'+res.activo+'</option>');
+    $("#eactivo").append('<option value="En espera de aprobacion"> En espera de aprobacion </option>'+
+                         '<option value="Activo / aprobado" > Activo / aprobado </option>'+
+                         '<option value="Inactivo"> Inactivo </option>');
+
   });
 
+
+
+
+eactivo
 
 
     if(btn.name==1)
@@ -32,13 +43,25 @@ function Editar(btn){
          $('#selectinsumos').hide();
          $('#listtinsumos').show();
          $("#elist").empty();
+         $('#listfiles').show();
+         $("#elistfile").empty();
 
 
          $.get(route2, function(res){
              for (var i = 0; i < res.length; i++) {
+//               $("#elist").append('<li class="list-group-item" id="'+res[i].idinsumo+'"><center><h5>'+res[i].Producto_o_Servicio+' <a href="/insumo/file/ver/'+res[i].idinsumo+'"> <span class="glyphicon glyphicon-download-alt"></i></a></h5></center></li>');
                $("#elist").append('<li class="list-group-item" id="'+res[i].idinsumo+'"><center><h5>'+res[i].Producto_o_Servicio+'</h5></center></li>');
 
              }
+           });
+
+
+         $.get(route4, function(res){
+             for (var i = 0; i < res.length; i++) {
+               $("#elistfile").append('<li class="list-group-item" id="'+res[i].id+'"><center><h5>'+res[i].archivo+'</h5></center></li>');
+
+             }
+
            });
 
     }
@@ -47,6 +70,8 @@ function Editar(btn){
           $('#documentosalta').show();
           $("#elist").empty();
           $('#listtinsumos').hide();
+          $("#elistfile").empty();
+          $('#listfiles').hide();
           $('#selectinsumos').show();
           $("#elistaSeleccionada").empty();
           $("#elistaDisponibles").empty();

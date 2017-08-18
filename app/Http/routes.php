@@ -211,6 +211,7 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/documentada/{id}/edit23', 'InformaciondocController@edit23');
 
     //Admin documentos
+
     Route::get('/documentada', 'AdministradosController@documentos');
     Route::post('/aprobacion/{id}', 'InformaciondocController@aprobar');
     Route::post('/denegar/{id}', 'InformaciondocController@denegar');
@@ -223,28 +224,36 @@ Route::group( ['middleware' => 'auth'],
 
     // Rutas modulo proveedores
     Route::get('/proveedores', 'proveedorescontroller@index');
-    Route::get('/insumos', 'insumoscontroller@index');
-    Route::post('/insumos/store', 'insumoscontroller@store');
-    Route::get('/insumos/show/{id}', 'insumoscontroller@show');
-    Route::post('/insumos/edit/{id}', 'insumoscontroller@edit');
-    Route::post('/insumos/delete/{id}', 'insumoscontroller@destroy');
     Route::get('/proveedores/mostrar', 'proveedorescontroller@mostrar');
     Route::post('/proveedor/store', 'proveedorescontroller@store');
-    Route::post('/proveedor/delete/{id}', 'proveedorescontroller@destroy');
+    Route::post('/proveedor/disabled/{id}', 'proveedorescontroller@disabled');
     Route::get('/proveedor/show/{id}', 'proveedorescontroller@show');
     Route::get('/proveedor/show2/{id}', 'proveedorescontroller@show2');
     Route::get('/proveedor/show3/{id}', 'proveedorescontroller@show3');
+    Route::get('/proveedor/show4/{id}', 'proveedorescontroller@show4');
     Route::post('/proveedor/edit/{id}', 'proveedorescontroller@edit');
     Route::post('/proveedor/file/{id}', 'FileController@store');
     Route::get('/proveedor/file/show/{id}', 'FileController@show');
     Route::post('/proveedor/file/delete/{id}', 'FileController@destroy');
     Route::get('/proveedor/file/ver/{id}', 'FileController@ver');
+
+    // Rutas modulo proveedores acciones sobre insumos
+    Route::get('/insumos', 'insumoscontroller@index');
+    Route::post('/insumos/store', 'insumoscontroller@store');
+    Route::get('/insumos/show/{id}', 'insumoscontroller@show');
+    Route::post('/insumos/edit/{id}', 'insumoscontroller@edit');
+    Route::post('/insumos/delete/{id}', 'insumoscontroller@destroy');
+    Route::get('/insumo/file/ver/{id}', 'insumoscontroller@ver');
+
+    // Rutas modulo proveedores acciones sobre calificaciones
     Route::get('/provedores/califica', 'provedorcalifica@index');
     Route::get('/provedores/califica/insumo/{id}', 'provedorcalifica@indexinsumo');
     Route::post('/provedores/califica/store', 'provedorcalifica@store');
-
     Route::get('/provedores/calificaresultado/', 'provedorcalifica@resultadoindex');
     Route::get('/provedores/resultado/{provedorid}/{insumoid}', 'provedorcalifica@showresult');
+
+    // rutas para administrador de proveedores
+    Route::get('/proveedoradmin','proveedorescontroller@adminshow');
 
 
 

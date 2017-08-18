@@ -110,6 +110,24 @@ class EtapasserTableSeeder extends Seeder {
                    'email'       =>  'isobpm@isobpm.com'
                  ));
 
+         db::table('Users')->insert(array(
+                  'id_compania' => 1,
+                  'usuario'     => 'jchavezr@isobpm.com',
+                  'password'    =>  Hash::make('jchavezr'),
+                  'nombre'      =>  'jchavezr',
+                  'perfil'      =>  4,
+                  'email'       =>  'jchavezr@isobpm.com'
+                ));
+
+            db::table('Users')->insert(array(
+                     'id_compania' => 1,
+                     'usuario'     => 'otrousuario@isobpm.com',
+                     'password'    =>  Hash::make('otrousuario'),
+                     'nombre'      =>  'otrousuario',
+                     'perfil'      =>  4,
+                     'email'       =>  'otrousuario@isobpm.com'
+                   ));
+
         }
      }
         class EstatusesTableSeeder extends Seeder {

@@ -76,6 +76,11 @@ return [
             'driver' => 'local',
             'root'   => public_path().'/storage/uploadproveedores',
         ],
+        'insumo' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/uploadinsumos',
+        ],
+
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'ftp.example.com',

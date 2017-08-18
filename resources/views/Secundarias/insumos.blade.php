@@ -31,8 +31,9 @@
                       <th>  <div class="th-inner sortable both">    Producto o servicio  </div></th>
                       <th>  <div class="th-inner sortable both">    Descripcion  </div></th>
                       <th>  <div class="th-inner sortable both">    Tipo  </div></th>
+                      <th>  <div class="th-inner sortable both">    Archivo de especificaciones  </div></th>
                       <th>  <div class="th-inner sortable both">    Acciones  </div></th>
-                    </tr>
+                      </tr>
                   </thead>
                   <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
                   <tbody id = "myTable">
@@ -42,11 +43,12 @@
                       <td>  <?=$insumos->Producto_o_Servicio?></td>
                       <td>  <?=$insumos->Descripcion?></td>
                       <td>  <?=$insumos->Tipo?></td>
+                      <td>  <?=$insumos->archivo?></td>
                       <td>
-
                       <form class="" action="/insumos/delete/<?=$insumos->id?>" method="post">
+                         <a href="/insumo/file/ver/<?=$insumos->id?>" target="_blank" style=\'color:#FFF\'><button type="button" <?php if ($insumos->archivo == 'No se cargo archivo') { echo"disabled";} else {echo"";} ?> class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>
                         <button type="button" class="btnobjetivo" value = "<?=$insumos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar </button>
-                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                         <button type="submit" class="btnobjetivo" id="btndelete_<?=$insumos->id?>" style="font-family: Arial;" dataid="<?=$insumos->id?>" onclick="
 return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Servicio?>?')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
                       </form>
@@ -70,7 +72,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 </div>
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -78,29 +80,41 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
             </div>
             <div class="modal-body">
               <form class="" action="/insumos/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <div class="container">
                 <div class="form-group form-group-lg">
                     <h2><label for="producto" class="control-label col-md-12">(*) Producto o servicio:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                    <div class="col-sm-9">
                         <input class="form-control input-lg" id="producto" type="Text" placeholder="Nombre" name="producto" required>
                     </div>
                 </div>
 
                 <div class="form-group form-group-lg">
                   <h2><label for="descripcion" class="control-label col-md-12" >(*) Descripcion:</label></h2>
-                  <div class="col-md-6 col-sm-9">
+                  <div class="col-sm-9">
                     <input class="form-control input-lg" id="descripcion" type="Text" placeholder="Agrega una descripcion del producto o servicio" name="descripcion" required>
                   </div>
                 </div>
 
                 <div class="form-group form-group-lg">
-                    <h2><label for="producto" class="control-label col-md-12">(*) Tipo:</label></h2>
-                    <div class="col-md-6 col-sm-9">
-                        <input class="form-control input-lg" id="tipo" type="Text" placeholder="Tipo de servicio" name="tipo" required>
+                  <h2>  <label for="activo" class="control-label col-md-12">(*) Tipo:
+                    </label>
+                     </h2>
+                    <div class="col-md-9">
+                        <select class="form-control input-lg" name="tipo" id="tipo">
+                          <option value="No critico" selected="selected"> No critico </option>
+                          <option value="Critico"> Critico </option>
+                        </select>
                     </div>
                 </div>
 
+
+                <div class="form-group form-group-lg">
+                    <h2><label for="archivo" class="control-label col-md-12">(*) Archivo de especificaciones:</label></h2>
+                    <div class="col-sm-9">
+                        <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo">
+                    </div>
+                </div>
 
               </div>
                     <div class="modal-footer">
@@ -115,7 +129,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -123,7 +137,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
             </div>
             <div class="modal-body">
               <form id="fileinfo" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <input type="hidden" name="eid"  id="eid" >
 
 
@@ -142,17 +156,31 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
                   </div>
                 </div>
 
+
                   <div class="form-group form-group-lg">
-                      <h2><label for="producto" class="control-label col-md-12">(*) Tipo:</label></h2>
+                    <h2>  <label for="activo" class="control-label col-md-12">(*) Tipo:
+                      </label>
+                       </h2>
+                      <div class="col-md-6">
+                          <select class="form-control input-lg" name="etipo" id="etipo">
+                            <option value="No critico" selected="selected"> No critico </option>
+                            <option value="Critico"> Critico </option>
+                          </select>
+                      </div>
+                  </div>
+
+
+                  <div class="form-group form-group-lg">
+                      <h2><label for="archivo" class="control-label col-md-12">(*) Cambiar archivo de especificaciones:</label></h2>
                       <div class="col-md-6 col-sm-9">
-                          <input class="form-control input-lg" id="etipo" type="Text" placeholder="Agrega el tipo de producto" name="etipo" required>
+                          <input class="form-control input-lg" id="earchivo" type="file" placeholder="Elige el archivo" name="earchivo">
                       </div>
                   </div>
 
 
               </div>
                     <div class="modal-footer">
-              <!--      <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">guardar cambio insumo</button>-->
+            <!--  <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">guardar cambio insumo</button> -->
                         <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                     </div>

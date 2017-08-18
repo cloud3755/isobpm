@@ -49,13 +49,11 @@
                       <td>  <?=$proveedors->activo?></td>
                       <td>
 
-                      <form class="" action="/proveedor/delete/<?=$proveedors['id']?>" method="post">
-                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver </button>
+
+                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=2 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar / Alta de documentos </button>
-                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                        <button type="submit" class="btnobjetivo" id="btndelete_<?=$proveedors['id']?>" style="font-family: Arial;" dataid="<?=$proveedors['id']?>" onclick="
-return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor']?>?')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
-                      </form>
+
+
 
                       </td>
 
@@ -78,7 +76,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 <!-- modal para carga de nuevo registro -->
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -86,51 +84,47 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
             </div>
             <div class="modal-body">
               <form class="" action="/proveedor/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <div class="container">
-                <div class="form-group form-group-lg">
-                    <h2><label for="proveedor" class="control-label col-md-12">(*) Proveedor:</label></h2>
-                    <div class="col-md-6 col-sm-9">
-                        <input class="form-control input-lg" id="proveedor" type="Text" placeholder="Nombre" name="proveedor" required>
-                    </div>
-                </div>
 
-                <div class="form-group form-group-lg">
-                  <h2><label for="email" class="control-label col-md-12" >(*) Email:</label></h2>
-                  <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                  <div class="col-sm-4">
+                    <h2><label for="proveedor" class="control-label">(*) Proveedor:</label></h2>
+                        <input class="form-control input-lg" id="proveedor" type="Text" placeholder="Nombre" name="proveedor" required>
+                  </div>
+                  <div class="col-sm-4">
+                  <h2><label for="email" class="control-label">(*) Email:</label></h2>
                     <input class="form-control input-lg" id="email" type="Text" placeholder="Agrega un correo electronico" name="email" required>
                   </div>
                 </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="telefono" class="control-label col-md-12">(*) Telefono:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                    <div class="col-sm-4">
+                    <h2><label for="telefono" class="control-label">(*) Telefono:</label></h2>
                         <input class="form-control input-lg" id="telefono" type="Text" placeholder="Agrega un telefono" name="telefono" required>
                     </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                  <h2>  <label for="activo" class="control-label col-md-12">Activo:
+                    <div class="col-sm-4">
+                    <h2>  <label for="activo" class="control-label">Estatus: <?php if ($usuario->perfil == 4) { echo"<h5> (Exclusivo administrador) </h5>";} else {echo"";} ?>
                     </label>
                      </h2>
-                    <div class="col-md-6">
-                        <select class="form-control input-lg" name="activo" id="activo">
-                          <option value="Activo" selected="selected"> Activo </option>
-                          <option value="Inactivo"> Inactivo </option>
+                          <select class="form-control input-lg" name="activo" id="activo" <?php if ($usuario->perfil == 4) { echo"disabled";} else {echo"";} ?>>
+                              <option value="En espera de aprobacion" selected="selected" > En espera de aprobacion </option>
+                              <option value="Activo / aprobado" > Activo / aprobado </option>
+                              <option value="Inactivo"> Inactivo </option>
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="direccion" class="control-label col-md-12">Direccion:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                    <h2><label for="direccion" class="control-label">Direccion:</label></h2>
+                    <div class="col-sm-8">
                     <textarea class="form-control input-lg" id = "oireccion" rows="3" name="direccion" maxlength="255"></textarea>
                     </div>
                 </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="observaciones" class="control-label col-md-12">Observaciones:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                    <h2><label for="observaciones" class="control-label">Observaciones:</label></h2>
+                    <div class="col-sm-8">
                     <textarea class="form-control input-lg" id = "observaciones" rows="3" name="observaciones" maxlength="255"></textarea>
                     </div>
                 </div>
@@ -140,13 +134,13 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 
 
 
-                <div class="form-group form-group-lg">
-                  <h2><label for="Usuario" class="control-label col-md-12">Lista de insumos:</label></h2>
-                  <div class="col-md-6">
+                <div class="form-group form-group-md col-sm-12">
+                  <h2><label for="Usuario" class="control-label">Lista de insumos:</label></h2>
+                  <div class="col-sm-8">
 
                          <div>
                                            <p>
-                                           </p><table WIDTH="100%">
+                                           </p><table WIDTH="100%"  >
                                                    <tbody><tr>
                                                        <td><h3>Insumos no elegidos</h3></td>
                                                        <td></td>
@@ -166,7 +160,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                        <table>
                                                            <tbody><tr>
                                                                <td>
-                                                                   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaDisponibles', 'listaSeleccionada');">
+                                                                <center>   <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaDisponibles', 'listaSeleccionada');"> </center>
                                                                </td>
                                                            </tr>
                                                            <tr>
@@ -182,7 +176,7 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
                                                            </tr>
                                                            <tr>
                                                                <td>
-                                                                   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaSeleccionada', 'listaDisponibles');">
+                                                                <center>   <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaSeleccionada', 'listaDisponibles');"> </center>
                                                                </td>
                                                            </tr>
                                                        </tbody></table>
@@ -204,6 +198,12 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 
 <!-- lista de insumos -->
 
+
+                <div class="form-group form-group-md col-sm-8">
+                    <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
+                      <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo">
+                </div>
+
               </div>
                     <div class="modal-footer">
                     <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Alta de proveedor</button>
@@ -217,10 +217,10 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 
 <!-- modal para carga nuevo registro -->
 
-<!-- modal para actualizacion de registro -->
+<!-- modal para actualizacion y visualizacion de registro -->
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -228,61 +228,55 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
             </div>
             <div class="modal-body">
         <form id="fileinfo" class=""  method="post" accept-charset="UTF-8" enctype="multipart/form-data" >
-              <input type="hidden" name="_token" value="{{csrf_token()}}">
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <input type="hidden" name="eid" id="eid">
               <div class="container" id="containeredit">
-                <div class="form-group form-group-lg">
-                    <h2><label for="proveedor" class="control-label col-md-12">(*) Proveedor:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                  <div class="col-sm-4">
+                    <h2><label for="proveedor" class="control-label">(*) Proveedor:</label></h2>
                         <input class="form-control input-lg" id="eproveedor" type="Text" placeholder="Nombre" name="eproveedor" required>
                     </div>
-                </div>
 
-                <div class="form-group form-group-lg">
-                  <h2><label for="email" class="control-label col-md-12" >(*) Email:</label></h2>
-                  <div class="col-md-6 col-sm-9">
+                  <div class="col-sm-4">
+                  <h2><label for="email" class="control-label" >(*) Email:</label></h2>
                     <input class="form-control input-lg" id="eemail" type="Text" placeholder="Agrega un correo electronico" name="eemail" required>
                   </div>
                 </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="telefono" class="control-label col-md-12">(*) Telefono:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                  <div class="col-sm-4">
+                    <h2><label for="telefono" class="control-label">(*) Telefono:</label></h2>
                         <input class="form-control input-lg" id="etelefono" type="Text" placeholder="Agrega un telefono" name="etelefono" required>
                     </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                  <h2>  <label for="activo" class="control-label col-md-12">Activo:
+                 <div class="col-sm-4">
+                  <h2>  <label for="activo" class="control-label">Estatus: <?php if ($usuario->perfil == 4) { echo" <h5> (Exclusivo administrador) </h5>";} else {echo"";} ?>
                     </label>
                      </h2>
-                    <div class="col-md-6">
-                        <select class="form-control input-lg" name="eactivo" id="eactivo">
-                          <option value="Activo" selected="selected"> Activo </option>
-                          <option value="Inactivo"> Inactivo </option>
+                        <select class="form-control input-lg" name="eactivo" id="eactivo" <?php if ($usuario->perfil == 4) { echo"disabled";} else {echo"";} ?>>
+
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="direccion" class="control-label col-md-12">Direccion:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                    <h2><label for="direccion" class="control-label">Direccion:</label></h2>
+                  <div class="col-sm-8">
                     <textarea class="form-control input-lg" id = "edireccion" rows="3" name="edireccion" maxlength="255"></textarea>
                     </div>
                 </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="observaciones" class="control-label col-md-12">Observaciones:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                <div class="form-group form-group-md col-sm-12">
+                    <h2><label for="observaciones" class="control-label">Observaciones:</label></h2>
+                    <div class="col-sm-8">
                     <textarea class="form-control input-lg" id = "eobservaciones" rows="3" name="eobservaciones" maxlength="255"></textarea>
                     </div>
                 </div>
 
 <!-- lista de insumos select -->
 
-                <div id="selectinsumos" class="form-group form-group-lg">
-                  <h2><label for="Usuario" class="control-label col-md-12">Lista de insumos:</label></h2>
-                  <div class="col-md-6">
+                <div id="selectinsumos" class="form-group form-group-md col-sm-12">
+                  <h2><label for="Usuario" class="control-label">Lista de insumos:</label></h2>
+                  <div class="col-sm-8">
 
                          <div>
                                            <p>
@@ -339,15 +333,29 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
 
 <!-- lista de insumos select-->
 
-<div id="listtinsumos" class="form-group form-group-sm">
-  <h2><label for="listinsumos" class="control-label col-md-12">Lista de insumos asociados al proveedor:</label></h2>
-<div class="col-md-6">
+
+
+<div id="listtinsumos" class="form-group form-group-md col-sm-4">
+  <h2><label for="listinsumos" class="control-label">Lista de insumos asociados al proveedor:</label></h2>
+
   <ul class="list-group" id="elist">
-<li class="list-group-item" id="elistitem"><center><h5>0</h5></center></li>
+
 
   </ul>
+
 </div>
+
+
+<div id="listfiles" class="form-group form-group-md col-sm-4">
+  <h2><label for="listfiles" class="control-label">Lista de archivos asociados al proveedor:</label></h2>
+  <ul class="list-group" id="elistfile">
+
+
+  </ul>
+
 </div>
+
+
               </div>
                     <div class="modal-footer" id="footer">
                     <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-dismiss="modal" data-target="#modalarchivos" onclick="Archivo(this);"><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
@@ -360,7 +368,6 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
             </div>
         </div>
 </div>
-
 
 <!-- modal para actualizacion de registro -->
 
@@ -378,20 +385,13 @@ return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors['proveedor
             <div class="modal-body">
 <form  id="fileup" method="post" accept-charset="UTF-8" enctype="multipart/form-data" class="form-inline">
 
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <input type="hidden" name="fid" id="fid">
 
-              <div class="form-group form-group-lg">
-                  <h2><label for="nombrearchivo" class="control-label">(*) Nombre del archivo:</label></h2>
-                  <div class="col-md-10">
-                      <input class="form-control input-lg " width="100%" id="snombrearchivo" type="Text" placeholder="Agrega el nombre del archivo" name="snombrearchivo" required>
-                  </div>
-              </div>
-              <div class="form-group form-group-lg">
+
+              <div class="form-group form-group-md col-sm-8">
                   <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
-                  <div class="col-md-10">
                       <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo" required>
-                  </div>
               </div>
 <!--<progress id="progress" value="0" visible="false"></progress> -->
 <div class="form-group form-group-lg">

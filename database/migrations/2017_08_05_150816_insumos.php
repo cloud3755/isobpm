@@ -18,6 +18,9 @@ class Insumos extends Migration
           $table->string('Descripcion');
           $table->string('Tipo');
           $table->string('idcompañia');
+          $table->string('archivo');
+          $table->string('nombreunico');
+          $table->integer('size');
           $table->timestamps();
       });
     }

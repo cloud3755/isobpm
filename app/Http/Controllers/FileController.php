@@ -55,7 +55,7 @@ class FileController extends Controller
 
       $datosarchivo = new archivosproveedores;
 
-      $datosarchivo->nombre = $request->input('snombrearchivo');
+      $datosarchivo->nombre = $file1->getClientOriginalName();
       $datosarchivo->archivo = $file1->getClientOriginalName();
       $datosarchivo->nombreunico = $nombreunicoarchivo1;
       $datosarchivo->size = $bytes;
