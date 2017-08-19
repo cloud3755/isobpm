@@ -48,10 +48,8 @@
                       <td>  <?=$proveedors->activo?></td>
                       <td>
 
-
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=2 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar / Alta de documentos </button>
-
 
 
                       </td>
@@ -61,6 +59,12 @@
                   </tbody>
                 </table>
             </div>
+            <form class="" action="/proveedoradmin/aprobartodo" method="post">
+              <div ALIGN=right>
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;">Aprobar todo lo que esta en espera</button>
+              </div>
+            </form>
             <div class="col-md-12 text-center">
               <ul class="pagination pagination-lg pager" id="myPager"></ul>
             </div>
@@ -88,22 +92,22 @@
               <div class="container">
 
                 <div class="form-group form-group-md col-sm-12">
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                     <h2><label for="proveedor" class="control-label">(*) Proveedor:</label></h2>
                         <input class="form-control input-lg" id="proveedor" type="Text" placeholder="Nombre" name="proveedor" required>
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                   <h2><label for="email" class="control-label">(*) Email:</label></h2>
                     <input class="form-control input-lg" id="email" type="Text" placeholder="Agrega un correo electronico" name="email" required>
                   </div>
                 </div>
 
                 <div class="form-group form-group-md col-sm-12">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                     <h2><label for="telefono" class="control-label">(*) Telefono:</label></h2>
                         <input class="form-control input-lg" id="telefono" type="Text" placeholder="Agrega un telefono" name="telefono" required>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                     <h2>  <label for="activo" class="control-label">Estatus: <?php if ($usuario->perfil == 4) { echo"<h5> (Exclusivo administrador) </h5>";} else {echo"";} ?>
                     </label>
                      </h2>
@@ -117,14 +121,14 @@
 
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="direccion" class="control-label">Direccion:</label></h2>
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                     <textarea class="form-control input-lg" id = "oireccion" rows="3" name="direccion" maxlength="255"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="observaciones" class="control-label">Observaciones:</label></h2>
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                     <textarea class="form-control input-lg" id = "observaciones" rows="3" name="observaciones" maxlength="255"></textarea>
                     </div>
                 </div>
@@ -199,7 +203,7 @@
 <!-- lista de insumos -->
 
 
-                <div class="form-group form-group-md col-sm-8">
+                <div class="form-group form-group-md col-sm-12">
                     <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
                       <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo">
                 </div>
@@ -233,23 +237,23 @@
               <input type="hidden" name="euprofile" id="euprofile" value="<?= $usuario->perfil ?>">
               <div class="container" id="containeredit">
                 <div class="form-group form-group-md col-sm-12">
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                     <h2><label for="proveedor" class="control-label">(*) Proveedor:</label></h2>
                         <input class="form-control input-lg" id="eproveedor" type="Text" placeholder="Nombre" name="eproveedor" required>
                     </div>
 
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                   <h2><label for="email" class="control-label" >(*) Email:</label></h2>
                     <input class="form-control input-lg" id="eemail" type="Text" placeholder="Agrega un correo electronico" name="eemail" required>
                   </div>
                 </div>
 
                 <div class="form-group form-group-md col-sm-12">
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                     <h2><label for="telefono" class="control-label">(*) Telefono:</label></h2>
                         <input class="form-control input-lg" id="etelefono" type="Text" placeholder="Agrega un telefono" name="etelefono" required>
                     </div>
-                 <div class="col-sm-4">
+                 <div class="col-sm-6">
                   <h2>  <label for="activo" class="control-label">Estatus: <?php if ($usuario->perfil == 4) { echo" <h5> (Exclusivo administrador) </h5>";} else {echo"";} ?>
                     </label>
                      </h2>
@@ -261,14 +265,14 @@
 
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="direccion" class="control-label">Direccion:</label></h2>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12">
                     <textarea class="form-control input-lg" id = "edireccion" rows="3" name="edireccion" maxlength="255"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="observaciones" class="control-label">Observaciones:</label></h2>
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                     <textarea class="form-control input-lg" id = "eobservaciones" rows="3" name="eobservaciones" maxlength="255"></textarea>
                     </div>
                 </div>
@@ -277,7 +281,7 @@
 
                 <div id="selectinsumos" class="form-group form-group-md col-sm-12">
                   <h2><label for="Usuario" class="control-label">Lista de insumos:</label></h2>
-                  <div class="col-sm-8">
+                  <div class="col-sm-12">
 
                          <div>
                                            <p>
@@ -336,7 +340,7 @@
 
 
 
-<div id="listtinsumos" class="form-group form-group-md col-sm-4">
+<div id="listtinsumos" class="form-group form-group-md col-sm-6">
   <h2><label for="listinsumos" class="control-label">Lista de insumos asociados al proveedor:</label></h2>
 
   <ul class="list-group" id="elist">
@@ -347,7 +351,7 @@
 </div>
 
 
-<div id="listfiles" class="form-group form-group-md col-sm-4">
+<div id="listfiles" class="form-group form-group-md col-sm-6">
   <h2><label for="listfiles" class="control-label">Lista de archivos asociados al proveedor:</label></h2>
   <ul class="list-group" id="elistfile">
 
@@ -390,7 +394,7 @@
               <input type="hidden" name="fid" id="fid">
 
 
-              <div class="form-group form-group-md col-sm-8">
+              <div class="form-group form-group-md col-sm-12">
                   <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
                       <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo" required>
               </div>

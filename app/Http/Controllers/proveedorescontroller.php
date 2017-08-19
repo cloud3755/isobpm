@@ -430,7 +430,7 @@ return redirect('/proveedores/mostrar');
          ->get();
        }
 
-    
+
 
       $relinsumoproveedor = new provedorinsumo;
       $insumoprovedor = $relinsumoproveedor->where('id_compania',$compañiaid)->orderBy('id')->get();
@@ -440,6 +440,31 @@ return redirect('/proveedores/mostrar');
 
 
 
+
+
+    /**
+     * Disables the specified resource from table.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function aprobartodo()
+    {
+      // cambiar para mostrar proveedores pendientes de habilitadr
+      $usuario = Auth::user();
+      //
+      $iduser = $usuario->id;
+      $compañiaid = $usuario->id_compania;
+
+      if($usuario->perfil != 4)
+        {
+      proveedores::where('id_compania',$compañiaid)
+      ->where('activo','En espera de aprobacion')
+      ->update(['activo' => 'Activo / aprobado']);
+        }
+
+     return redirect()->action('proveedorescontroller@adminshow');
+    }
 
 
 

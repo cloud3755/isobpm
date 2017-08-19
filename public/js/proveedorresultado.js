@@ -4,26 +4,15 @@
 
     //$('#proveedor').find('option:first').attr('selected', 'selected').parent('select');
 
-    $('#selectinsumos').hide();
-    $('#checkinputs').hide();
     $('#curve_chart').hide();
-    $("#ctiempo").val(1);
-    $("#ccalidad").val(1);
-    $("#cservicio").val(1);
-    $("#ccosto").val(1);
 
 
 // obtiene proveedor y muestra insumos
   $("#proveedor").change(function() {
-    //$('#proveedor').val('0').find('option[value="0"]‌​').remove();
-    $("#proveedor option[value='0']").remove();
-    $("#ctiempo").val(1);
-    $("#ccalidad").val(1);
-    $("#cservicio").val(1);
-    $("#ccosto").val(1);
+
+
     $('#curve_chart').hide();
-    $('#checkinputs').hide();
-    $('#selectinsumos').show();
+
     $("#insumo").empty();
     var id = $('#proveedor').val();
     var route = "/provedores/califica/insumo/"+ $('#proveedor').val();
@@ -41,10 +30,7 @@
 // obtiene proveedor y muestra insumos
     $("#insumo").change(function() {
       $("#insumo option[value='0']").remove();
-      $("#ctiempo").val(1);
-      $("#ccalidad").val(1);
-      $("#cservicio").val(1);
-      $("#ccosto").val(1);
+
 
       var id2 = $('#insumo').val();
       var test2 = $("input[name=insumoid]:hidden").val(id2);
@@ -68,11 +54,6 @@
         function drawChart() {
            $("#proveedor").attr('disabled', true);
            $("#insumo").attr('disabled', true);
-           $("#ctiempo").attr('disabled', true);
-           $("#ccalidad").attr('disabled', true);
-           $("#cservicio").attr('disabled', true);
-           $("#ccosto").attr('disabled', true);
-
 
 
           var data = google.visualization.arrayToDataTable(respuesta);
@@ -97,10 +78,7 @@
           chart.draw(data, options);
           $("#proveedor").attr('disabled', false);
           $("#insumo").attr('disabled', false);
-          $("#ctiempo").attr('disabled', false);
-          $("#ccalidad").attr('disabled', false);
-          $("#cservicio").attr('disabled', false);
-          $("#ccosto").attr('disabled', false);
+
         }
 
 
@@ -169,11 +147,18 @@
         $("#cservicio").attr('disabled', false);
         $("#ccosto").attr('disabled', false);
 
-
     }
-
 
           });
 
 });
-});
+initControls();
+
+            });
+
+
+            function initControls(){
+            window.location.hash="red";
+            window.location.hash="Red" //chrome
+            window.onhashchange=function(){window.location.hash="red";}
+            }

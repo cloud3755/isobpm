@@ -156,7 +156,16 @@ $(document).ready(function(){
     });
   });
 
-});
+  initControls();
+
+              });
+
+
+              function initControls(){
+              window.location.hash="red";
+              window.location.hash="Red" //chrome
+              window.onhashchange=function(){window.location.hash="red";}
+              }
 
 function doSearch()
 {

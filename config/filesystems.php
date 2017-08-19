@@ -85,6 +85,12 @@ return [
             'root'   => public_path().'/storage/uploadinsumos',
         ],
 
+        'calificaproveedor' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/uploadcalificaproveedor',
+        ],
+
+
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'ftp.example.com',

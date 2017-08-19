@@ -12,7 +12,7 @@
     <title>Isobpm</title>
 
     {{-- neón theme --}}
-  
+
     <link rel="stylesheet" href="/css/skins/black.css">
     <link rel="stylesheet" href="/css/styleizr.css">
     <link rel="stylesheet" href="/css/jquery-ui/no-theme/jquery-ui-1.10.3.custom.min.css">
@@ -48,7 +48,7 @@
     <script src="/js/daterangepicker/moment.min.js" charset="utf-8"></script>
     <script src="/js/icheck/icheck.min.js" charset="utf-8"></script>
     <script src="/js/bootstrap-select.min.js" charset="utf-8"></script>
-    
+
     {{-- neón theme --}}
 
     <link rel="stylesheet" href="/sweet/sweetalert.css" type="text/css">
@@ -175,9 +175,10 @@
     <ul class="mainMenu">
         <li><a id="Documentada" class="Menu" href="#">Inf. Documentada</a></li>
         <li><a id="ObjetivosIndicadores" class="Menu" href="#">Objetivos & Indicadores</a></li>
-        <li><a href="/procesos/visual">Procesos</a></li>
+        <li><a href="/procesos/visual" class="Menu">Procesos</a></li>
         <li><a id="RiesgosOportunidades" class="Menu" href="#">Riesgos & oportunidades</a></li>
         <li><a id="MejoraPrincipal" class="Menu" href="#">Mejora</a></li>
+        <li><a id="sep" class="Menu" href="/proveedores">SEP</a></li>
     </ul>
 </div>
 <!--Mejora-->
@@ -643,7 +644,7 @@
                 </center>
             </div>
         </li>
-        <li> 
+        <li>
             <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/4';">
                 <center>
                     <i class="fa fa-level-up fa-2x clpurple"></i>
@@ -652,7 +653,7 @@
                 </center>
             </div>
         </li>
-        <li>  
+        <li>
             <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/5';">
                 <center>
                     <i class="fa fa-sticky-note-o fa-2x cllightblue"></i>
@@ -661,7 +662,7 @@
                 </center>
             </div>
         </li>
-        <li>  
+        <li>
             <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/6';">
                 <center>
                     <i class="fa fa-mail-forward fa-2x clmediumgreen"></i>
@@ -935,7 +936,7 @@
     <script type="text/javascript">
     var DELAY = 200, clicks = 0, timer = null, element;
       $(function () {
-          
+
         $("#formeliminar").submit(function(event){
             event.preventDefault();
             $(this).closest('tr').remove();
@@ -975,10 +976,10 @@
                 function () {
                     clicks++;
                     element = $(this);
-                    if(clicks === 1) 
+                    if(clicks === 1)
                     {
                         timer = setTimeout(function() {
-                            
+
                             var sublevelclass =$('#sublevel' + element.attr("id")).attr("class").split(' ')[0];
                             var Menu =  element.closest('ul');
                             Menu.find('div').each(function(){
@@ -1000,11 +1001,11 @@
                             $('#sublevel' + element.attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
                             $('#sublevel' + element.attr("id") + ' ul li div center .smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
                             $('#sublevel' + element.attr("id") + ' ul li div center .verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
-                            $('#sublevel' + element.attr("id")).slideDown(300);  
+                            $('#sublevel' + element.attr("id")).slideDown(300);
                         clicks = 0;             //after action performed, reset counter
                         }, DELAY);
-                    } 
-                    else 
+                    }
+                    else
                     {
                         clearTimeout(timer);    //prevent single-click action
                         clicks = 0;             //after action performed, reset counter

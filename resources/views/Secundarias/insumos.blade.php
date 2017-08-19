@@ -82,25 +82,25 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
               <form class="" action="/insumos/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <div class="container">
-                <div class="form-group form-group-lg">
+                <div class="form-group form-group-md col-sm-12">
                     <h2><label for="producto" class="control-label col-md-12">(*) Producto o servicio:</label></h2>
-                    <div class="col-sm-9">
+                    <div class="col-sm-12">
                         <input class="form-control input-lg" id="producto" type="Text" placeholder="Nombre" name="producto" required>
                     </div>
                 </div>
 
-                <div class="form-group form-group-lg">
+                <div class="form-group form-group-md col-sm-12">
                   <h2><label for="descripcion" class="control-label col-md-12" >(*) Descripcion:</label></h2>
-                  <div class="col-sm-9">
+                  <div class="col-sm-12">
                     <input class="form-control input-lg" id="descripcion" type="Text" placeholder="Agrega una descripcion del producto o servicio" name="descripcion" required>
                   </div>
                 </div>
 
-                <div class="form-group form-group-lg">
+                <div class="form-group form-group-md col-sm-12">
                   <h2>  <label for="activo" class="control-label col-md-12">(*) Tipo:
                     </label>
                      </h2>
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <select class="form-control input-lg" name="tipo" id="tipo">
                           <option value="No critico" selected="selected"> No critico </option>
                           <option value="Critico"> Critico </option>
@@ -109,9 +109,9 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
                 </div>
 
 
-                <div class="form-group form-group-lg">
+                <div class="form-group form-group-md col-sm-12">
                     <h2><label for="archivo" class="control-label col-md-12">(*) Archivo de especificaciones:</label></h2>
-                    <div class="col-sm-9">
+                    <div class="col-md-12">
                         <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo">
                     </div>
                 </div>
@@ -142,26 +142,26 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 
 
               <div class="container">
-                <div class="form-group form-group-lg">
+                <div class="form-group form-group-md col-sm-12">
                     <h2><label for="producto" class="control-label col-md-12">(*) Producto o servicio:</label></h2>
-                    <div class="col-md-6 col-sm-9">
+                    <div class="col-md-12">
                         <input class="form-control input-lg" id="eproducto" type="Text" placeholder="Nombre" name="eproducto" required>
                     </div>
                 </div>
 
-                <div class="form-group form-group-lg">
+                <div class="form-group form-group-md col-sm-12">
                   <h2><label for="descripcion" class="control-label col-md-12" >(*) Descripcion:</label></h2>
-                  <div class="col-md-6 col-sm-9">
+                  <div class="col-md-12">
                     <input class="form-control input-lg" id="edescripcion" type="Text" placeholder="Agrega una descripcion del producto o servicio" name="edescripcion" required>
                   </div>
                 </div>
 
 
-                  <div class="form-group form-group-lg">
+                  <div class="form-group form-group-md col-sm-12">
                     <h2>  <label for="activo" class="control-label col-md-12">(*) Tipo:
                       </label>
                        </h2>
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                           <select class="form-control input-lg" name="etipo" id="etipo">
                             <option value="No critico" selected="selected"> No critico </option>
                             <option value="Critico"> Critico </option>
@@ -170,9 +170,9 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
                   </div>
 
 
-                  <div class="form-group form-group-lg">
+                  <div class="form-group form-group-md col-sm-12">
                       <h2><label for="archivo" class="control-label col-md-12">(*) Cambiar archivo de especificaciones:</label></h2>
-                      <div class="col-md-6 col-sm-9">
+                      <div class="col-md-12">
                           <input class="form-control input-lg" id="earchivo" type="file" placeholder="Elige el archivo" name="earchivo">
                       </div>
                   </div>

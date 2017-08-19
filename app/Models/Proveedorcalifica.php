@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proveedorcalifica extends Model
 {
-  public $timestamps = false;
-  protected $fillable = ['id','idproveedor','idinsumo','pedido','tiempo','calidad','servicio','costo'];
+
+  protected $fillable = ['id','idproveedor','pedido','tiempo','calidad','servicio','costo','idautor','idarea','idcompañia','archivo','nombreunico','size','fechacalificacion'];
 }

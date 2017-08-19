@@ -15,13 +15,19 @@ class Proveedorcalifica extends Migration
       Schema::create('Proveedorcalifica', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('idproveedor');
-      $table->integer('idinsumo');
       $table->string('pedido');
       $table->integer('tiempo');
       $table->integer('calidad');
       $table->integer('servicio');
       $table->integer('costo');
-      $table->timestamps();  //
+      $table->integer('idautor');
+      $table->integer('idarea');
+      $table->integer('idcompania');
+      $table->string('archivo');
+      $table->string('nombreunico');
+      $table->integer('size');
+      $table->date('fechacalificacion');
+      $table->timestamps();
     });
     }
 

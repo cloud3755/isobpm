@@ -31,6 +31,11 @@ class provedorcalificaresultado extends Controller
       $proveedores = new proveedores;
       $proveedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
 
+      $carbon = new Carbon();
+
+      return(dd($carbon));
+
+
       return view('/Secundarias/provedorcalificaresultado');
     }
 
