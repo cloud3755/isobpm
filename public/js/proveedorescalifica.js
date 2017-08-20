@@ -2,6 +2,10 @@
 
   $(document).ready(function() {
 
+
+        $('#pedido').keypress(function(tecla) {
+            if( (tecla.charCode < 48 || tecla.charCode > 57) && (tecla.charCode < 97 || tecla.charCode > 122) && (tecla.charCode < 65 || tecla.charCode > 90) && (tecla.charCode != 45)  ) return false;
+        });
     //$('#proveedor').find('option:first').attr('selected', 'selected').parent('select');
     $('#radios').hide();
     $('#selectinsumos').hide();

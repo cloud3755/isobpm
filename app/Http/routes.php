@@ -281,12 +281,13 @@ Route::group( ['middleware' => 'auth'],
 
     // Rutas modulo proveedores acciones sobre calificaciones
     Route::get('/provedores/califica', 'provedorcalifica@index');
-    Route::get('/provedores/califica/insumo/{id}', 'provedorcalifica@indexinsumo');
     Route::get('/provedores/califica/area', 'provedorcalifica@indexarea');
     Route::post('/provedores/califica/store', 'provedorcalifica@store');
     Route::get('/provedores/calificaresultado/', 'provedorcalifica@resultadoindex');
-    Route::get('/provedores/resultado/{provedorid}/{insumoid}', 'provedorcalifica@showresult');
-
+    Route::get('/provedores/califica/insumo/{id}', 'provedorcalifica@llenainsumos');
+    Route::get('/provedores/califica/areas/{id}', 'provedorcalifica@llenaareas');
+    Route::get('/provedores/resultadogeneral', 'provedorcalifica@showresultgeneral');
+    Route::post('/provedores/resultado/filtro', 'provedorcalifica@showresult');
     // rutas para administrador de proveedores
     Route::get('/proveedoradmin','proveedorescontroller@adminshow');
     Route::post('/proveedoradmin/aprobartodo','proveedorescontroller@aprobartodo');
