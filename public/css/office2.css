@@ -11,7 +11,14 @@
 {
 background: #2b579a !important;
 color: #bbd1df;
+/*position: relative;*/
 }
+.officeColorStyle2
+{
+    background: #e6e9ff !important;
+    color: #000000;
+}
+
 .officeColorStyleFont
 {
 background: inherit !important;
@@ -29,7 +36,7 @@ ul.mainMenu
 .sublevel {
     display:none;
 }
-ul.mainMenu li div , ul.mainMenu li a
+ul.mainMenu li div
 {
     display: inline-block;
     border-style: solid;
@@ -37,22 +44,41 @@ ul.mainMenu li div , ul.mainMenu li a
     border-radius: 3%;
     border-color: #040226;
     padding: .3%;
+    padding-left: .3%;
     border:  .2%;
     margin: .3% .2% .3% .2%;
 }
 
+ul.noBorder li div 
+{
+    border-style: none;
+}
+/*
+ul.mainMenu li a, ul.mainMenu li a:visited, ul.mainMenu li a:hover, ul.mainMenu li a:active, ul.mainMenu li a:focus
+{
+        text-decoration: none;
+}
 ul.mainMenu li a:hover
 {
-    text-decoration: none;
     cursor: pointer;
     color: currentColor;
 }
-
+*/
 .imagesOfficeBar {
     color: #2b579a  !important;
 }
 
-li div:hover , .clicked
+li div span:hover /*, ul.mainMenu li a:hover*/
+{
+    /*color: #000c59 !important;*/
+    background-color: #2f60a8!important;
+}
+.clicked
+{
+    color: #000c59 !important;
+    background-color: #d6d2ee !important;
+}
+.clicked:hover
 {
     color: #000c59 !important;
     background-color: #d6d2ee !important;
