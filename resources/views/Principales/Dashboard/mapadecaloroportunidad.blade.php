@@ -47,16 +47,15 @@
           <table align="center" style="overflow-x:auto;" class="table table-striped table-hover" id="tablacalor">
             <thead style='color:#FFF'>
               <tr>
-                <th>  <div class="th-inner sortable both"><font size=6 color="#000"> </font></div></th>
-                <th>  <div class="th-inner sortable both"><font size=4 color="#000">  Potencial  </font></div></th>
-                <th>  <div class="th-inner sortable both"><font size=6 color="#000"> </font></div></th>
-                <th>  <div class="th-inner sortable both"><font size=4 color="#000">  Real  </font></div></th>
+                <th>  <div class="th-inner sortable both"><font size=5 color="#000"> </font></div></th>
+                <th colspan="2">  <div class="th-inner sortable both"><font size=5 color="#000">  Oportunidades  </font></div></th>
+                <th>  <div class="th-inner sortable both"><font size=5 color="#000">  Acciones  </font></div></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                   <td align="right" WIDTH="10" HEIGHT="10">
-                    <label style=" transform:translate(25px, 150px) rotate(270deg);"for="">esfuerzo</label>
+                    <label style=" transform:translate(25px, 150px) rotate(270deg);"for="">Dificultad</label>
                   </td>
                   <td><table  align="center" border=1 id="tabladecalor">
                   <tr>
@@ -75,9 +74,9 @@
                     <td id="amarillo"><center><?=$riskmap_13?></center></td>
                   </tr>
 
-                </table><label for="">impacto</label></td>
+                </table><label for="">Beneficios</label></td>
                 <td align="right" WIDTH="10" HEIGHT="10" >
-                  <label style=" transform:translate(25px, 150px) rotate(270deg);"for="">esfuerzo</label>
+                  <label style=" transform:translate(25px, 150px) rotate(270deg);"for="">Dificultad</label>
                 </td>
               <td>
                 <table  align="center" border=1 id="tabladecalor2">
@@ -97,7 +96,7 @@
                     <td id="amarillo"><center><?=$riskmap2_13?></center></td>
                   </tr>
                 </table>
-                <label for="">impacto</label>
+                <label for="">Beneficios</label>
               </td>
               </tr>
             </tbody>

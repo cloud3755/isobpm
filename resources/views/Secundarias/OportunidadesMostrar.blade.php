@@ -162,12 +162,12 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                 </div>
 
                 <div class="col-lg-7 col-md-7 col-sm-7">
-                  <h3><label for="Usuario" class="control-label" >Modo de falla:</label></h3>
+                  <h3><label for="Usuario" class="control-label" >Descripcion de la Oportunidad:</label></h3>
                   <input class="form-control input-lg" id="descripcion_modo_falla" type="Text" placeholder="Descripcion de la falla" name="descripcion_modo_falla">
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="Usuario" class="control-label" >Esfuerzo Potencial:</label></h3>
+                  <h3><label for="Usuario" class="control-label" >Dificultad:</label></h3>
                   <select class="form-control input-lg" name="esfuerzo" id="esfuerzo">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -176,7 +176,7 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                  <h3><label for="Usuario" class="control-label" >Impacto Potencial:</label></h3>
+                  <h3><label for="Usuario" class="control-label" >Beneficios:</label></h3>
                   <select class="form-control input-lg" name="impacto" id="impacto">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -185,12 +185,12 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <h3><label for="Usuario" class="control-label" >Controles:</label></h3>
+                  <h3><label for="Usuario" class="control-label" >Acciones:</label></h3>
                   <input class="form-control input-lg" id="controles" type="Text" placeholder="Controles" name="controles">
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                  <h3><label for="Usuario" class="control-label" >Esfuerzo Real:</label></h3>
+                  <h3><label for="Usuario" class="control-label" >Esfuerzo:</label></h3>
                   <select class="form-control input-lg" name="esfuerzo2" id="esfuerzo2">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -199,7 +199,7 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                  <h3><label for="Usuario" class="control-label" >Impacto Real:</label></h3>
+                  <h3><label for="Usuario" class="control-label" >Impacto:</label></h3>
                   <select class="form-control input-lg" name="impacto2" id="impacto2">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -264,12 +264,12 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                     </div>
 
                     <div class="col-lg-7 col-md-7 col-sm-7">
-                      <h3><label for="Usuario" class="control-label" >Modo de falla:</label></h3>
+                      <h3><label for="Usuario" class="control-label" >Descripcion de la Oportunidad:</label></h3>
                       <input class="form-control input-lg" id="edescripcion_modo_falla" type="Text" placeholder="Descripcion de la falla" name="edescripcion_modo_falla">
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                      <h3><label for="Usuario" class="control-label" >Esfuerzo Potencial:</label></h3>
+                      <h3><label for="Usuario" class="control-label" >Dificultad:</label></h3>
                       <select class="form-control input-lg" name="eesfuerzo" id="eesfuerzo">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -278,7 +278,7 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                      <h3><label for="Usuario" class="control-label" >Impacto Potencial:</label></h3>
+                      <h3><label for="Usuario" class="control-label" >Beneficios:</label></h3>
                       <select class="form-control input-lg" name="eimpacto" id="eimpacto">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -287,12 +287,12 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                     </div>
 
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                      <h3><label for="Usuario" class="control-label" >Controles:</label></h3>
+                      <h3><label for="Usuario" class="control-label" >Acciones:</label></h3>
                       <input class="form-control input-lg" id="econtroles" type="Text" placeholder="Controles" name="econtroles">
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-3">
-                      <h3><label for="Usuario" class="control-label" >Esfuerzo Real:</label></h3>
+                      <h3><label for="Usuario" class="control-label" >Esfuerzo:</label></h3>
                       <select class="form-control input-lg" name="eesfuerzo2" id="eesfuerzo2">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -301,7 +301,7 @@ return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-3">
-                      <h3><label for="Usuario" class="control-label" >Impacto Real:</label></h3>
+                      <h3><label for="Usuario" class="control-label" >Impacto:</label></h3>
                       <select class="form-control input-lg" name="eimpacto2" id="eimpacto2">
                         <option value="1">1</option>
                         <option value="2">2</option>

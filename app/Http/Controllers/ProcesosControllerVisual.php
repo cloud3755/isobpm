@@ -41,6 +41,7 @@ class ProcesosControllerVisual extends Controller
       if ($usuario->perfil == 4) {
         $iduser = $usuario->id;
         $collection_one = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->select('procesos.*')
         ->join('lista_envios', function($join) use ($iduser)
           {
               $join->on('procesos.lista_de_distribucion', '=', 'lista_envios.id_proceso');
@@ -53,6 +54,7 @@ class ProcesosControllerVisual extends Controller
         ->get());
 
         $collection_two = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->select('procesos.*')
         ->leftjoin('lista_envios', function($join) use ($iduser)
           {
               $join->on('procesos.lista_de_distribucion', '=', 'lista_envios.id_proceso');

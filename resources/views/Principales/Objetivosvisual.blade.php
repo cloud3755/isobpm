@@ -1,7 +1,14 @@
 @extends('layouts.principal2')
 
 @section('content')
-<br><br><br><br><br><br><br><br><br>
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Balanced ScoreCard</h1>
+    </div>
+</div>
+
+<br><br><br><br>
 <center><button type="button" class="btnobjetivo" onclick=location="/objetivosindicadores" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
 <br>
 <div class="row">
@@ -41,7 +48,8 @@
     <div class="modal-dialog" role="form">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Alta de objetivo</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">Alta de objetivo</h3>
             </div>
             <div class="modal-body">
                 <div class="container">
