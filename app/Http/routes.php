@@ -107,6 +107,7 @@ Route::group( ['middleware' => 'auth'],
 
     //Rutas del menu
     Route::get('/objetivosindicadores', 'MenuController@objetivos');
+    Route::get('/oportunidadesriesgos', 'MenuController@oportunidadesriesgos');
     Route::get('/riesgos', 'MenuController@riesgos');
     Route::get('/oportunidades', 'MenuController@oportunidades');
     Route::get('/mejoras', 'MenuController@mejoras');

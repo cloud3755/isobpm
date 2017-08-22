@@ -59,6 +59,11 @@ class MenuController extends Controller
       return View('submenu/oportunidades');
     }
 
+    public function oportunidadesriesgos()
+    {
+      return View('submenu/oportunidadesriesgos');
+    }
+
     public function mejoras()
     {
 
