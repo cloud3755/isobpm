@@ -4,7 +4,7 @@
 <form action="/mapadecaloropor" method="post" role="form">
   <input type="hidden" name="_token" value="{{ csrf_token() }}">
   <div class="col-lg-12">
-    <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Mapa de calor</h1>
+    <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Mapa de calor Oportunidades</h1>
   </div>
   <div class="row">
     <div class="col-md-4">

@@ -1,21 +1,15 @@
 @extends('layouts.principal2')
 
 @section('content')
-<div class="row" style="padding: 5px">
-    <div class="col-lg-12 text-right">
-        <button type="button" class="btn btn-primary" id="btnHelp">?</button>
+
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">RIESGOS</h1>
     </div>
-    <div class="col-lg-12" id="divHelp" style="display:none">
-        <div class="col-lg-3 col-md-4 col-sm-4 hidden-xs text-center">
-            <img src="/img/help/doc_ext.jpg" class="img-responsive img-thumbnail" />
-        </div>
-        <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-            <p>
-                En este apartado se depositan y visualizan los distintos riesgos.
-            </p>
-        </div>
-    </div>
-</div><br><br><br><br><br>
+</div>
+
+<br><br>
 <div class="row">
     <div class="col-lg-12">
         <h2 class="page-header" style="margin-bottom: 0px; margin: 0px; border-bottom: none">

@@ -2,7 +2,15 @@
 
 @section('content')
 
-<br><br><br><br><br><br><br><br><br>
+
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">RIESGOS</h1>
+    </div>
+</div>
+
+<br><br><br><br>
 
       <div class="col-lg-3 col-md-6" >
           <div class="panel panel-ris" id="divPartnersPending">
