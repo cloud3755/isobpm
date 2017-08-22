@@ -298,6 +298,7 @@
                   <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                   <div class="clearfix"></div>
               </div> -->
+            <a href="/proveedores">
               <div class="panel-footer">
                 <span class="pull-left" id="spCompaniesPending">Proveedores: <?=$cuentaproveedor ?></span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
