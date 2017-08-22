@@ -76,7 +76,7 @@
 <!-- modal para carga de nuevo registro -->
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -221,7 +221,7 @@
 <!-- modal para actualizacion y visualizacion de registro -->
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

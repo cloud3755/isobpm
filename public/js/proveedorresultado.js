@@ -231,7 +231,7 @@ if (respuesta.length == 0)
   }
 else {
             for (var i = 0; i < respuesta.length; i++) {
-              $("#FmyTable").append('<tr><td>'+respuesta[i].proveedor+'</td><td>'+respuesta[i].pedido+'</td><td>'+respuesta[i].fecha+'</td><td>'+respuesta[i].tiempo+'</td><td>'+respuesta[i].calidad+'</td><td>'+respuesta[i].servicio+'</td><td>'+respuesta[i].costo+'</td><td>'+respuesta[i].archivo+
+              $("#FmyTable").append('<tr><td>'+respuesta[i].proveedor+'</td><td>'+respuesta[i].pedido+'</td><td>'+respuesta[i].fechacalificacion+'</td><td>'+respuesta[i].tiempo+'</td><td>'+respuesta[i].calidad+'</td><td>'+respuesta[i].servicio+'</td><td>'+respuesta[i].costo+'</td><td>'+respuesta[i].archivo+
               '</td><td><form class="form-inline" action="/proveedor/resultado/delete/'+respuesta[i].id+'" method="post"> <a href="/proveedor/file/califica/ver/'+respuesta[i].id+'" target="_blank" style=\'color:#FFF\'><button type="button" class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>  <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button hidden="hidden" type="submit" class="btnobjetivo" id="btndelete_'+respuesta[i].id+'" style="font-family: Arial;" dataid="'+respuesta[i].id+'" onclick="return confirm(\'Estas seguro de eliminar el archivo: ' +
                respuesta[i].nombre +'?\')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button></form></td></tr>');
                           }
