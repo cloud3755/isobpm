@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Proveedorcalifica extends Migration
+class proveedorcalifica extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class Proveedorcalifica extends Migration
      */
     public function up()
     {
-      Schema::create('Proveedorcalifica', function (Blueprint $table) {
+      Schema::create('proveedorcalificas', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('idproveedor');
       $table->string('pedido');
@@ -38,6 +38,6 @@ class Proveedorcalifica extends Migration
      */
     public function down()
     {
-        Schema::drop('Proveedorcalifica');
+        Schema::drop('Proveedorcalificas');
     }
 }

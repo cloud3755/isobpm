@@ -19,7 +19,7 @@
 
     $.get(route, function(res){
       for (var i = 0; i < res.length; i++) {
-        $("#elistaSeleccionada").append('<option value="'+res[i].idinsumo+'" selected="selected">'+res[i].Producto_o_Servicio+'</option>');
+        $("#elistaSeleccionada").append('<option value="'+res[i].idinsumo+'" selected="selected" >'+res[i].Producto_o_Servicio+'</option>');
       }
       });
 
@@ -40,9 +40,40 @@ initControls();
 
 $("#botonfiltro").click(function(){
 
+// validamos y cortamos script si hay error
+
+$('#pruebasjquery').hide();
+var select = document.getElementById('elistaSeleccionada');
+
+l = select.options.length
+
+if (l == 0)
+{
+  $('#pruebasjquery').show();
+  $('#pruebasjquery').html('Debes elegir al menos un insumo');
+  $('#FmyTable').empty();
+  $('#curve_chart').hide();
+  $('#tablediv').hide();
+  return
+}
+
+
+if (fecha2 < fech)
+{
+  $('#pruebasjquery').show();
+  $('#pruebasjquery').html('La fecha fin debe ser mayor o igual que la fecha inicio');
+  $('#FmyTable').empty();
+  $('#curve_chart').hide();
+  $('#tablediv').hide();
+  return
+}
+
 grafica();
-tabla();
+//tabla();
   });
+
+
+
 
 
             });
@@ -59,6 +90,7 @@ tabla();
      $('#botonfiltro').hide();
      $('#curve_chart').hide();
      $('#tablediv').hide();
+     $('#pruebasjquery').hide();
    }
 
    function enseñatodo(){
@@ -93,38 +125,8 @@ tabla();
                   var token = $("#token").val();
                   var fd = new FormData(document.getElementById("formulariofiltro"));
                   var progressBar = 0;
-/*
-                  $.ajax({
-                    url: route,
-                    headers: {'X-CSRF_TOKEN': token},
-                    type: 'post',
-                    data: fd,
-                    dataType:"json",
-                    cache:false,
-                    timeout:20000,
-                    processData: false,  // tell jQuery not to process the data
-                    contentType: false,
-                    xhr: function() {
-                      var xhr = $.ajaxSettings.xhr();
-                      xhr.upload.onprogress = function(e) {
-                        progressBar.max = e.total;
-                        progressBar.value = e.loaded;
-                          console.log(Math.floor(e.loaded / e.total *100) + '%');
-                      };
-                      return xhr;
-                    },
-                    success: function(){
-                      alert("Cambios guardados correctamente");
-                      location.reload();
-                    }
-                  });
-  */
 
 
-
-//               $.get(route, {fd},
-//                 function(respuesta){
-                //asi se valida lo que recibe haciendo que lo escriba en un div
                 $.ajax({
                   url: route,
                   headers: {'X-CSRF_TOKEN': token},
@@ -164,68 +166,83 @@ tabla();
                                               easing: 'inAndOut'},
                                   aggregationTarget: 'category',
                                   focusTarget: 'category',
+                                  height: 600,
                                 };
 
                                 var chart = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+
+                                google.visualization.events.addListener(chart, 'error', function (googleError) {
+                                google.visualization.errors.removeError(googleError.id);
+                                document.getElementById("error_msg").innerHTML = "Message removed = '" + googleError.message + "'";
+
+});
+
                                 chart.draw(data, options);
 
-                                //google.visualization.events.addListener(chart, 'click', showDetails(getSelection()));
+
 
                                          }
+                tabla(respuesta);
                 }
               });
+
               }
 
 //                  $("#pruebasjquery").html(respuesta);});
 
-/*                google.charts.load('current', {'packages':['corechart']});
-                google.charts.setOnLoadCallback(drawChart);
-
-                function drawChart() {
-                   $("#proveedor").attr('disabled', true);
-                   $("#insumo").attr('disabled', true);
-
-
-                  var data = google.visualization.arrayToDataTable(respuesta);
-
-                  var options = {
-                    title: 'Calificacion de proveedor',
-          //          curveType: 'function',
-                    hAxis: {title: 'Identificador de pedido',
-                            titleTextStyle: { bold: 1,color: 'black', fontName: 'global-font-name', fontSize: 'global-font-size'},
-                          },
-                    legend: { position: 'bottom' },
-                    seriesType: 'bars',
-                    series: {4: {type: 'line',pointShape: 'circle',pointsVisible: 'true',curveType: 'function',}},
-              //      pointShape: 'circle',
-              //      pointsVisible: 'true',
-                    vAxis: {title: 'Calificacion',
-                            maxValue: 10},
-                    animation: {duration: 500,
-                                startup: 1,
-                                easing: 'inAndOut'},
-                    aggregationTarget: 'category',
-                    focusTarget: 'category',
-                  };
-
-                  var chart = new google.visualization.ComboChart(document.getElementById('curve_chart'));
-                  chart.draw(data, options);
-
-                  google.visualization.events.addListener(chart, 'click', showDetails(getSelection()));
-
-                  $("#proveedor").attr('disabled', false);
-                  $("#insumo").attr('disabled', false);
-
-                }
-});
-*/
 
 
 
 function tabla (){
+$('#FmyTable').empty();
 $('#tablediv').show();
-              }
 
+
+                  var route = "/provedores/resultado/filtro/tabla"
+                  var proveedor = $('#proveedor').val();
+                  var area = $('#area').val();
+                  var fech = $('#fech').val();
+                  var fecha2 = $('#fecha2').val();
+                  var elistaSeleccionada = $('#elistaSeleccionada').val();
+                  var token = $("#token").val();
+                  var fd = new FormData(document.getElementById("formulariofiltro"));
+                  var progressBar = 0;
+
+                $.ajax({
+                  url: route,
+                  headers: {'X-CSRF_TOKEN': token},
+                  type: 'post',
+                  data: fd,
+                  dataType:"json",
+                  cache:false,
+                  timeout:20000,
+                  processData: false,  // tell jQuery not to process the data
+                  contentType: false,
+                  error: function(){},
+                  success: function(respuesta){
+
+if (respuesta.length == 0)
+{
+  $('#FmyTable').empty();
+  $('#tablediv').hide();
+  $('#curve_chart').hide();
+  $('#pruebasjquery').show();
+  $("#pruebasjquery").html('No se encontraron resultados con los valores asignados a los campos');
+  }
+else {
+            for (var i = 0; i < respuesta.length; i++) {
+              $("#FmyTable").append('<tr><td>'+respuesta[i].proveedor+'</td><td>'+respuesta[i].pedido+'</td><td>'+respuesta[i].fecha+'</td><td>'+respuesta[i].tiempo+'</td><td>'+respuesta[i].calidad+'</td><td>'+respuesta[i].servicio+'</td><td>'+respuesta[i].costo+'</td><td>'+respuesta[i].archivo+
+              '</td><td><form class="form-inline" action="/proveedor/resultado/delete/'+respuesta[i].id+'" method="post"> <a href="/proveedor/file/califica/ver/'+respuesta[i].id+'" target="_blank" style=\'color:#FFF\'><button type="button" class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>  <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button hidden="hidden" type="submit" class="btnobjetivo" id="btndelete_'+respuesta[i].id+'" style="font-family: Arial;" dataid="'+respuesta[i].id+'" onclick="return confirm(\'Estas seguro de eliminar el archivo: ' +
+               respuesta[i].nombre +'?\')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button></form></td></tr>');
+                          }
+
+                        }
+
+}
+});
+
+
+}
 
             // para select multiple
 

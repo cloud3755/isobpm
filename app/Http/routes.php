@@ -270,6 +270,10 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/proveedor/file/show/{id}', 'FileController@show');
     Route::post('/proveedor/file/delete/{id}', 'FileController@destroy');
     Route::get('/proveedor/file/ver/{id}', 'FileController@ver');
+    Route::post('/proveedor/resultado/delete/{id}','provedorcalifica@delete');
+    Route::get('/proveedor/file/califica/ver/{id}', 'provedorcalifica@ver');
+    Route::post('/provedores/resultado/filtro/tabla','provedorcalifica@tabla');
+
 
     // Rutas modulo proveedores acciones sobre insumos
     Route::get('/insumos', 'insumoscontroller@index');

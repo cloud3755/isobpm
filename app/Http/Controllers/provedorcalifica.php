@@ -13,9 +13,11 @@ use App\Models\insumos;
 use App\Models\proveedores;
 use App\Models\provedorinsumo;
 use App\Models\User;
-use App\Models\Proveedorcalifica;
+use App\Models\proveedorcalifica;
 use App\Models\Areas;
 use App\Models\insumoscalificados;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
 
 
 class provedorcalifica extends Controller
@@ -217,7 +219,8 @@ $array = array(substr($prueba,1,strlen($prueba)));
         $calificacion = DB::table('proveedorcalifica')
                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
                                  ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
-                                 ->select('proveedorcalifica.*','insumoscalificados.idinsumo')
+                                 ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                 ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
                                  ->where('proveedorcalifica.idcompania','=',$compañiaid)
                                  ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
                                  ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
@@ -226,6 +229,7 @@ $array = array(substr($prueba,1,strlen($prueba)));
                                  ->orderby('fechacalificacion')
                                  ->get();
 
+//return(dd($calificacion));
 
   $result[] = ['Fecha : pedido','Tiempo','Calidad','Servicio','Costo','Promedio'];
   foreach ($calificacion as $key => $value) {
@@ -241,6 +245,45 @@ $array = array(substr($prueba,1,strlen($prueba)));
 
     }
 
+
+    public function tabla(Request $request)
+    {
+        //
+        $usuarios = Auth::user();
+        $compañiaid = $usuarios->id_compania;
+
+        $insumos = $request->elistaSeleccionada;
+        $prueba='';
+//return(dd($insumos));
+foreach($insumos as $x => $x_value) {
+$prueba = $prueba.','.$x_value;
+
+}
+//substr($prueba,1,strlen($prueba))))
+
+$array = array(substr($prueba,1,strlen($prueba)));
+
+//return(dd($arr));
+
+        $calificacion = DB::table('proveedorcalifica')
+                                 ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
+                                 ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
+                                 ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                 ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
+                                 ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                 ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
+                                 ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
+                                 ->where('proveedorcalifica.idarea','=',$request->area)
+                                 ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
+                                 ->orderby('fechacalificacion')
+                                 ->get();
+
+//return(dd($calificacion));
+
+                                 return response()->json($calificacion);
+
+
+    }
 
 
     public function showresultgeneral(Request $request)
@@ -354,6 +397,44 @@ $array = array(substr($prueba,1,strlen($prueba)));
         //
     }
 
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function ver($id)
+    {
+
+      $usuarios = Auth::user();
+      $documento = proveedorcalifica::find($id);
+      $cadena = $documento->nombreunico;
+
+      if (\Storage::disk('calificaproveedor')->exists($cadena)) {
+        $response = Response::make(File::get("storage/uploadcalificaproveedor/".$documento->nombreunico));
+
+        if(ends_with($cadena,'docx')){
+          $response->header('Content-Type', "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        }elseif (ends_with($cadena,'txt')) {
+          $response->header('Content-Type', 'text/plain');
+        }else{
+          $content_types = File::mimeType("storage/uploadcalificaproveedor/".$documento->nombreunico);
+          $response->header('Content-Type', $content_types);
+        }
+      }else {
+          $response = "Archivo no encontrado";
+      }
+
+      // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
+
+      return $response;
+
+      return redirect('/proveedores');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -362,6 +443,6 @@ $array = array(substr($prueba,1,strlen($prueba)));
      */
     public function destroy($id)
     {
-        //
+      return redirect('/proveedores');
     }
 }

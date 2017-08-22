@@ -27,7 +27,7 @@
 </br></br></br></br></br>
 
 <div class="modal-header">
-  <div id="pruebasjquery"></div>
+  <center><div id="pruebasjquery" color="red"></div></center>
 <!--            <ul class="nav nav-tabs">
     <li class="active"><a href="#">Calificar</a></li>
     <li><a href="#">Historial</a></li>
@@ -139,17 +139,42 @@
 <!-- lista de insumos select-->
 <center><div id="buttonchart" class="form-group form-group-md col-sm-12" >
 <!--  <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">pruebacontrolador</button> -->
-<button type="button" class="btnobjetivo"  data-dismiss="" id="botonfiltro">Filtrar</button> 
+<button type="button" class="btnobjetivo"  data-dismiss="" id="botonfiltro">Filtrar</button>
 </div></center>
 
 </form>
 
 
 </div>
-<center><div id="curve_chart" class="row" ></div></center>
+<center><div id="curve_chart"></div></center>
 </div>
 
-<center><div id="tablediv" class="row"></div></center>
+<center><div id="tablediv">
+
+  <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="fdatos">
+    <thead style='background-color: #868889; color:#FFF'>
+      <tr>
+        <th>  <div class="th-inner sortable both">    Proveedor  </div></th>
+        <th>  <div class="th-inner sortable both">    Pedido  </div></th>
+        <th>  <div class="th-inner sortable both">    Fecha  </div></th>
+        <th>  <div class="th-inner sortable both">    Tiempo  </div></th>
+        <th>  <div class="th-inner sortable both">    Calidad  </div></th>
+        <th>  <div class="th-inner sortable both">    Servicio  </div></th>
+        <th>  <div class="th-inner sortable both">    Costo  </div></th>
+        <th>  <div class="th-inner sortable both">    Archivo   </div></th>
+        <th>  <div class="th-inner sortable both">    Acciones  </div></th>
+
+      </tr>
+    </thead>
+    <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
+    <tbody id = "FmyTable">
+
+
+
+    </tbody>
+  </table>
+
+</div></center>
 
 
                     <div class="modal-footer">
