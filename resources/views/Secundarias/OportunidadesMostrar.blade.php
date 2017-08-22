@@ -83,11 +83,8 @@
                                 <th><div class="th-inner sortable both">Controles</div></th>
                                 <th><div class="th-inner sortable both">Esfuerzo Real</div></th>
                                 <th><div class="th-inner sortable both">Impacto Real</div></th>
-                                <th>
-                                  <div class="th-inner sortable both">
-                                      Modificar
-                                  </div>
-                                </th>
+                                <th><div class="th-inner sortable both">Modificar</div></th>
+                                <th><div class="th-inner sortable both">Eliminar</div></th>
                             </tr>
                         </thead>
                         <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -103,16 +100,15 @@
                                     <td><?=$Oportunidades2->esfuerzo2?></td>
                                     <td><?=$Oportunidades2->impacto2?></td>
                                     <td>
-
+                                      <button type="button" class="btnobjetivo" value = "<?=$Oportunidades2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                                    </td>
+                                    <td>
                                     <form class="" action="/analisisopor/destroy/{{ $Oportunidades2->id }}" method="post">
                                                   {{ csrf_field() }}
                                                   {{ method_field('DELETE') }}
                                       <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;" onclick="
-return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}?')">Eliminar</button>
-                                      <button type="button" class="btnobjetivo" value = "<?=$Oportunidades2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                                      return confirm('seguro de eliminar la oportunidad {{$Oportunidades2->actividad}}?')">Eliminar</button>
                                     </form>
-
-
                                     </td>
                                 </tr>
                             <?php endforeach ?>
