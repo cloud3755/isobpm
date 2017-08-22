@@ -72,7 +72,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 </div>
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -129,7 +129,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>

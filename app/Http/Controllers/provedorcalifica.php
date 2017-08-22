@@ -409,8 +409,15 @@ $array = array(substr($prueba,1,strlen($prueba)));
     {
 
       $usuarios = Auth::user();
-      $documento = proveedorcalifica::find($id);
+
+
+      $documento = DB::table('proveedorcalifica')
+                               ->select('proveedorcalifica.*')
+                               ->where('proveedorcalifica.id','=',$id)
+                               ->first();
+
       $cadena = $documento->nombreunico;
+      //return(dd($cadena));
 
       if (\Storage::disk('calificaproveedor')->exists($cadena)) {
         $response = Response::make(File::get("storage/uploadcalificaproveedor/".$documento->nombreunico));
