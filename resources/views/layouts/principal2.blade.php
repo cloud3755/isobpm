@@ -211,392 +211,111 @@
     </ul>
 </div>
 <div class="sublevel1 sublevel officeColorStyle2" id="sublevelDocumentada">
-  <ul class="mainMenu">
-      <li>
-          <div>
-          <span style="cursor: pointer;" onclick="window.location='/documentada/1';">
-                  <i class="fa fa-copyright fa-2x clred smallfont"></i>
-                  <span class="smallfont">Politicas</span>
-          </span>
-          <span style="cursor: pointer;" onclick="window.location='/documentada/2';">
-                  <i class="fa fa-book fa-2x cllightgreen smallfont"></i>
-                  <span class="smallfont">Manuales</span>
-          </span>
-          <br>
-          <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/3';">
-                  <i class="fa fa-cogs fa-2x claqua smallfont"></i>
-                  <span class="smallfont">Procedimientos</span>
-          </span>
-          <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/4';">
-                  <i class="fa fa-sticky-note-o fa-2x cllightblue smallfont"></i>
-                  <span class="smallfont">Instrucciones de trabajo</span>
-          </span>
-          <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/5';">
-                  <i class="fa fa-level-up fa-2x clpurple smallfont"></i>
-                  <span class="smallfont">Formatos</span>
-          </span>
-          <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/6';">
-                  <i class="fa fa-mail-forward fa-2x clmediumgreen smallfont"></i>
-                  <span class="smallfont">Documentos externos</span>
-          </span>
-          <hr>
-              <center>Documentos</center>
-          </div>
-      </li>
-      <li>
-          <div>
-              <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/11';">
-                  <i class="fa fa-arrows-alt fa-2x claqua smallfont"></i>
-                  <span class="verysmallfont">PLANIFICACION ESTRATEGICA</span>
-              </span>
-              <hr>
-              <center>Estrategia</center>
-          </div>
-      </li>
-      <li>
-          <div>
-              <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/21';">
-                  <i class="fa fa-pencil fa-2x claqua verysmallfont"></i>
-                  <span class="verysmallfont">ARQUITECTURA DE PROCESOS</span>
-              </span>
-              <hr>
-              <center>Procesos</center>
-          </div>
-      </li>
-      <li>
-          <div>
-              <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/31';">
-                  <i class="fa fa-exclamation-circle fa-2x clred smallfont"></i>
-                  <span class="smallfont">CALIDAD</span>
-              </span>
-              <hr>
-              <center>Riesgos</center>
-          </div>
-      </li>
-      <li>
-          <div>
-              <span class="bigdiv" style="cursor: pointer;">
-                  <center>
-                  <span class="smallfont">Recursos</span>  <br>
-                  <i class="fa fa-caret-square-o-down fa-2x"></i>
-                  </center>
-              </span>
-          </div>
-      </li>
-      <li>
-          <div>
-              <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/56';">
-                  <i class="fa fa-pencil-square-o fa-2x clred verysmallfont"></i>
-                  <span class="verysmallfont">DISEÑO Y DESARROLLO</span>
-              </span>
-              <hr>
-              <center>Operación</center>
-          </div>
-      </li>
-      <li>
-          <div>
-              <span class="bigdiv" style="cursor: pointer;">
-              <center>
-              <span class="smallfont">Evaluacion</span>  <br>
-              <i class="fa fa-caret-square-o-down fa-2x"></i>
-              </center>
-              </span>
-          </div>
-      </li>
-      <li>
-          <div>
-              <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/81';">
-                  <i class="fa fa-eraser fa-2x clred smallfont"></i>
-                  <span class="verysmallfont">ACCIONES CORRECTIVAS</span>
-              </span>
-              <hr>
-              <center>Mejora</center>
-          </div>
-      </li>
-  </ul>
-</div>
-<div class="sublevel2 sublevel officeColorStyle" id="sublevelEvaluacion">
-    <ul class="mainMenu">
-        <li >
-            <div class="bigdiv">
-                <center>
-                    <br>
-                    <a id="PlanesControl" class="Menu officeColorStyleFont smallfont" href="#">PLANES DE CONTROL</a>
-                </center>
+        <ul class="mainMenu">
+        <li>
+            <div>
+            <span style="cursor: pointer;" onclick="window.location='/documentada/1';"> 
+                    <i class="fa fa-copyright fa-2x clred smallfont"></i>
+                    <span class="smallfont">Politicas</span> 
+            </span>
+            <span style="cursor: pointer;" onclick="window.location='/documentada/2';">
+                    <i class="fa fa-book fa-2x cllightgreen smallfont"></i>
+                    <span class="smallfont">Manuales</span>
+            </span>
+            <br>
+            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/3';">
+                    <i class="fa fa-cogs fa-2x claqua smallfont"></i>
+                    <span class="smallfont">Procedimientos</span>  
+            </span>
+            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/4';">
+                    <i class="fa fa-sticky-note-o fa-2x cllightblue smallfont"></i>
+                    <span class="smallfont">Instrucciones de trabajo</span>  
+            </span>
+            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/5';">
+                    <i class="fa fa-level-up fa-2x clpurple smallfont"></i>
+                    <span class="smallfont">Formatos</span>  
+            </span>
+            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/6';">
+                    <i class="fa fa-mail-forward fa-2x clmediumgreen smallfont"></i>
+                    <span class="smallfont">Documentos externos</span>  
+            </span>
+            <hr>
+                <center><b>Documentos</b></center>
             </div>
         </li>
         <li>
-            <div class="bigdiv">
-                <center>
+            <div>
+                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/11';">
+                    <i class="fa fa-arrows-alt fa-2x claqua smallfont"></i>
+                    <span class="verysmallfont">PLANIFICACION ESTRATEGICA</span>  
+                </span>
+                <hr>
+                <center><b>Estrategia</b></center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/21';">
+                    <i class="fa fa-pencil fa-2x claqua verysmallfont"></i>
+                    <span class="verysmallfont">ARQUITECTURA DE PROCESOS</span>  
+                </span>
+                <hr>
+                <center><b>Procesos</b></center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/31';">
+                    <i class="fa fa-exclamation-circle fa-2x clred smallfont"></i>
+                    <span class="smallfont">CALIDAD</span>  
+                </span>
+                <hr>
+                <center><b>Riesgos</b></center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <span class="bigdiv" style="cursor: pointer;">
+                    <center>
+                    <span class="smallfont">Recursos</span>  <br>
+                    <i class="fa fa-caret-square-o-down fa-2x"></i>
+                    </center>
+                </span>
+            </div>
+        </li>
+        <li>
+            <div>
+                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/56';">
+                    <i class="fa fa-pencil-square-o fa-2x clred verysmallfont"></i>
+                    <span class="verysmallfont">DISEÑO Y DESARROLLO</span>  
+                </span>
+                <hr>
+                <center><b>Operación</b></center>
+            </div>
+        </li>
+        <li>
+            <div>
+                <span class="bigdiv" style="cursor: pointer;">
+                <center>                    
+                <span class="smallfont">Evaluacion</span>  <br>
+                <i class="fa fa-caret-square-o-down fa-2x"></i>
+                </center>
+                </span>
+            </div>
+        </li>
+        <li>
+            <div>
+                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/81';">
+                    <i class="fa fa-eraser fa-2x clred smallfont"></i>
+                    <span class="verysmallfont">ACCIONES CORRECTIVAS</span>  
+                </span>
+                <hr>
+                <center><b>Mejora</b></center>
+            </div>
+        </li>
+    </ul>
+</div>
 
-                    <br>
-                    <a id="PNC" class="Menu officeColorStyleFont smallfont" href="#">INCIDENTES O PNC</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <br>
-                    <a id="AuditoriasInternas" class="Menu officeColorStyleFont smallfont" href="#">AUDITORIAS INTERNAS</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-user-times fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/71">QUEJAS</a>
-                </center>
-            </div>
-        </li>
-
-        <li></li>
-    </ul>
-</div>
-<div class="sublevel2 sublevel officeColorStyle" id="sublevelOperacion">
-    <ul class="mainMenu">
-        <li >
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-pencil-square-o  fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont verysmallfont" href="/documentada/56">DISEÑO Y DESARROLLO</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-usd fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/57">COMPRAS</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <br>
-                    <a id="Operacion2" class="Menu officeColorStyleFont smallfont" href="#">OPERACIÓN</a>
-                </center>
-            </div>
-        </li>
-        <li></li>
-    </ul>
-</div>
-<div class="sublevel2 sublevel officeColorStyle" id="sublevelRecursos">
-    <ul class="mainMenu">
-        <li >
-            <div class="bigdiv">
-                <center>
-                    <a id="Personal" class="Menu officeColorStyleFont smallfont" href="#">PERSONAL</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <a id="Infraestructura" class="Menu officeColorStyleFont smallfont" href="#">INFRAESTRUCTURA</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <a id="EquipoMedicion" class="Menu officeColorStyleFont smallfont" href="#">EQUIPO DE MEDICIÓN</a>
-                </center>
-            </div>
-        </li>
-        <li></li>
-        <li></li>
-        <li></li>
-
-    </ul>
-</div>
-<div class="sublevel2 sublevel officeColorStyle" id="sublevelRiesgos">
-    <ul class="mainMenu">
-        <li >
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-exclamation-circle fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/31">CALIDAD</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-tree fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/32">AMBIENTALES</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-plus-square fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/33">SEGURIDAD LABORAL</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-battery-quarter fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/34">SUMINISTROS</a>
-                </center>
-            </div>
-        </li>
-        <li></li>
-
-    </ul>
-</div>
-<div class="sublevel2 sublevel officeColorStyle" id="sublevelProcesos">
-    <ul class="mainMenu">
-        <li >
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-pencil fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/21">ARQUITECTURA DE PROCESOS</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-cubes fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/22">PROCESOS DE GESTION</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-circle-o-notch fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/23">PROCESOS CORE</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-desktop fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/24">PROCESOS DE SOPORTE</a>
-                </center>
-            </div>
-        </li>
-        <li></li>
-    </ul>
-</div>
-<div class="sublevel2 sublevel officeColorStyle" id="sublevelEstrategia">
-    <ul class="mainMenu">
-        <li >
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-arrows-alt fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont verysmallfont" href="/documentada/11">PLANIFICACION ESTRATEGICA (FODA)</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-comments fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/12">PARTES INTERESADAS</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-line-chart fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/13">OBJETIVOS E INDICADORES</a>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv">
-                <center>
-                    <i class="fa fa-user-o fa-2x imagesOfficeBar"></i>
-                    <br>
-                    <a class="officeColorStyleFont smallfont" href="/documentada/14">REVISIONES DIRECTIVAS</a>
-                </center>
-            </div>
-        </li>
-        <li></li>
-    </ul>
-</div>
-<div class="sublevel2 sublevel officeColorStyle" id="sublevelDocumentos">
-    <ul class="mainMenu">
-        <li >
-            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/1';">
-                <center>
-                    <i class="fa fa-copyright fa-2x clred"></i>
-                    <br>
-                    <span>Politicas</span>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/2';">
-                <center>
-                    <i class="fa fa-book fa-2x cllightgreen"></i>
-                    <br>
-                    <span>Manuales</span>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/3';">
-                <center>
-                    <i class="fa fa-cogs fa-2x claqua"></i>
-                    <br>
-                    <span>Procedimientos</span>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/4';">
-                <center>
-                    <i class="fa fa-level-up fa-2x clpurple"></i>
-                    <br>
-                    <p class="smallfont">Instrucciones de trabajo</p>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/5';">
-                <center>
-                    <i class="fa fa-sticky-note-o fa-2x cllightblue"></i>
-                    <br>
-                    <span>Formatos</span>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/6';">
-                <center>
-                    <i class="fa fa-mail-forward fa-2x clmediumgreen"></i>
-                    <br>
-                    <p class="smallfont">Documentos externos</p>
-                </center>
-            </div>
-        </li>
-    </ul>
-</div>
 <div class="sublevel3 sublevel officeColorStyle" id="sublevelAuditoriasInternas">
 
 </div>
@@ -675,9 +394,9 @@
                             $('#sublevel' + element.attr("id") + ' ul li').css('width', (porc+'%')-2);
                             $('#sublevel' + element.attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
                             $('#sublevel' + element.attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
-                            $('.smallfont').css('font-size', (((porc/1.7)*.1)+'vw'));
+                            $('.smallfont').css('font-size', (((porc/1.3)*.1)+'vw'));
                             $('.verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
-                            $('#sublevel' + element.attr("id")).slideDown(300);
+                            $('#sublevel' + element.attr("id")).slideDown(300);  
                         clicks = 0;             //after action performed, reset counter
                         }, DELAY);
                     }

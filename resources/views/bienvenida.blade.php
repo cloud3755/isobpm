@@ -73,6 +73,48 @@
             </div>
         </div>
         <div class="panel-body panel-body2 PrincipalPanel scrollablePanel PersonalScroll">
+            <a data-toggle="collapse" href="#collapseQuejas">
+            <i class="fa fa-user-times fa-2x"></i>Quejas</a>
+            <div id="collapseQuejas" class="collapse">
+                <ul>
+                    @if(count($quejas)<=0)
+                        <li class="text-danger">Sin quejas</li>
+                    @else
+                        @foreach($quejas as $queja)
+                            <li><a>{{$queja->descripcion}}</a></li>
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
+            <br>
+            <a data-toggle="collapse" href="#collapseAcciones">
+            <i class="fa fa-user-times fa-2x"></i>Acciones correctivas</a>
+            <div id="collapseAcciones" class="collapse">
+                <ul>
+                    @if(count($accionesCorrectivas)<=0)
+                        <li class="text-danger">Sin Acciones</li>
+                    @else
+                        @foreach($accionesCorrectivas as $accion)
+                            <li><a>{{$accion->descripcion}}</a></li>
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
+            <br>
+            <a data-toggle="collapse" href="#collapseNoConformidades">
+            <i class="fa fa-thumbs-o-down fa-2x"></i>No conformidades</a>
+            <div id="collapseNoConformidades" class="collapse">
+                <ul>
+                    @if(count($Noconformidades)<=0)
+                        <li class="text-danger">Sin items</li>
+                    @else
+                        @foreach($Noconformidades as $Noconformidad)
+                            <li><a>{{$Noconformidad->descripcion}}</a></li>
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
+            <br>
             @foreach($pendiente as $pend)
             <li><a>{{$pend->pendiente}} {{$pend->fecha_limite}} </a></li>
             @endforeach
@@ -100,6 +142,20 @@
         </div>
     </div>
 
+    <div class="panel panel-info panelNoticias">
+        <div class="panel-heading panel-heading2">Links de interes
+        @if(Auth::user()->perfil != 4)
+            <i data-toggle="modal" data-target="#modalAgregarLink" class="fa fa-plus-square-o" aria-hidden="true"></i>
+        @endif
+        </div>
+        <div class="panel-body panel-body2">
+            <div class="scrollablePanel PersonalScroll" style="border:1px solid #002858;max-height: 15vh">
+                <li><a href="http://moodleisobpm.com/" class="icon-bar-graph">ISOBPM moodle</a></li>
+
+            </div>
+        </div>
+    </div>
+
 <div class="panel panel-info panelEventos">
     <div class="panel-heading panel-heading2">Eventos</div>
         <div class="panel-body panel-body2">
@@ -111,23 +167,6 @@
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
                 {!! $calendar->calendar() !!}
                 {!! $calendar->script() !!}
-                 <script>
-        //inicializamos el calendario al cargar la pagina
-        $(document).ready(function() {
-
-
-            $('#calendar').fullCalendar({
-
-                header: {
-                    left: 'prev,next today myCustomButton',
-                    center: 'title',
-                    right: 'Mes,y,y'
-                },
-
-            });
-
-        });
-    </script>
             </div>
         </div>
     </div>
@@ -615,6 +654,27 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title">Agregar Noticia</h2>
+            </div>
+                <div class="modal-body">
+
+                    <form action="{{ action('AdministradosController@noticiastore') }}" method="post">
+                    {{ csrf_field() }}
+                    Noticia<textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btnobjetivo" id="btnNoticia">Agregar Noticia</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Agregar Link de interes</h2>
             </div>
                 <div class="modal-body">
 

@@ -15,6 +15,9 @@ use App\Models\Noticias;
 use App\Models\User;
 use App\Models\Documentos;
 use App\Models\Pendientes;
+use App\Models\Accioncorrectiva1;
+use App\Models\Noconformidades;
+use App\Models\LinksInteres;
 use Carbon\Carbon;
 use Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -111,6 +114,12 @@ class BienvenidaController extends Controller
       $queja = new Quejas;
       $quejas = $queja->where('idcompañia',$usuarios->id_compania)->get();
 
+      $accionCorrectiva = new Accioncorrectiva1;
+      $accionesCorrectivas = $accionCorrectiva->where('idcompañia',$usuarios->id_compania)->get();
+
+      $Noconformidad = new Noconformidades;
+      $Noconformidades = $Noconformidad->where('idcompañia',$usuarios->id_compania)->get();;
+
       $Users = new User;
       $User = $Users->where('id_compania',$usuarios->id_compania)->get();
 
@@ -182,7 +191,22 @@ $calendar = \Calendar::setCallbacks([
      ]);
 // termina Para el calendario
 
-      return View('bienvenida', compact('objetivo', 'quejas','proceso','cuentaproveedor','empresa', 'noticiasw','calendar','documento','indicador','User', 'pendiente'));
+      return View('bienvenida', 
+      compact(
+        'objetivo', 
+        'quejas',
+        'proceso',
+        'cuentaproveedor',
+        'empresa', 
+        'noticiasw',
+        'calendar',
+        'documento',
+        'indicador',
+        'User', 
+        'pendiente',
+        'accionesCorrectivas',
+        'Noconformidades')
+      );
 
     }
 

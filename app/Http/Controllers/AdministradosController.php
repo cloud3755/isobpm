@@ -409,6 +409,25 @@ class AdministradosController extends Controller
           return Redirect('/bienvenida');
         }
       }
+      public function LinkStore(Request $request)
+      {
+       $user = Auth::user();
+       $pendiente = new Pendientes;
+       $date = date("Y-m-d");
+
+        if($user->perfil != 4){
+          $pendiente->id_UsuarioCreo = $user->id;
+          $pendiente->id_UsuarioAsignado = $request->input('id_UsuarioAsignado');
+          $pendiente->terminado = false;
+          $pendiente->pendiente = $request->input('Pendiente');
+          $pendiente->fecha_creacion=$date;
+          $pendiente->fecha_limite=$request->input('fechalimite');
+          $pendiente->save();
+          return Redirect('/bienvenida');
+        }else{
+          return Redirect('/bienvenida');
+        }
+      }
 
       //funcion guardar imagen de user
 
