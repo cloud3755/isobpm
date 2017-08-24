@@ -214,15 +214,15 @@ class AccionescorrectivasControllerVisual extends Controller
 
       $accionrelacion = \DB::table('accioncorrectiva1s')
                                ->select('accioncorrectiva1s.*','responsable.nombre as nombreresponsable','productos.nombre as nombreproducto','procesos.proceso as nombrep','creador.nombre as creador')
-                               ->join('users as responsable','accioncorrectiva1s.responsable_id','=','responsable.id')
-                               ->join('users as creador','accioncorrectiva1s.creador_id','=','creador.id')
-                               ->join('productos','accioncorrectiva1s.producto_id','=','productos.id')
-                               ->join('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
+                               ->leftjoin('users as responsable','accioncorrectiva1s.responsable_id','=','responsable.id')
+                               ->leftjoin('users as creador','accioncorrectiva1s.creador_id','=','creador.id')
+                               ->leftjoin('productos','accioncorrectiva1s.producto_id','=','productos.id')
+                               ->leftjoin('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
                                ->where('accioncorrectiva1s.id',$id)->first();
 
       $accionrelacion2 = \DB::table('accioncorrectiva1s')
                               ->select('accioncorrectiva1s.*','users.nombre as nombrecreador')
-                              ->join('users','accioncorrectiva1s.creador_id','=','users.id')
+                              ->leftjoin('users','accioncorrectiva1s.creador_id','=','users.id')
                               ->where('accioncorrectiva1s.id',$id)->first();
 
       $evidencias = new Evidencia;
