@@ -76,7 +76,7 @@
 
                 </table><label for="">Beneficios</label></td>
                 <td align="right" WIDTH="10" HEIGHT="10" >
-                  <label style=" transform:translate(25px, 150px) rotate(270deg);"for="">Dificultad</label>
+                  <label style=" transform:translate(25px, 150px) rotate(270deg);"for="">Esfuerzo</label>
                 </td>
               <td>
                 <table  align="center" border=1 id="tabladecalor2">
@@ -96,7 +96,7 @@
                     <td id="amarillo"><center><?=$riskmap2_13?></center></td>
                   </tr>
                 </table>
-                <label for="">Beneficios</label>
+                <label for="">Impacto</label>
               </td>
               </tr>
             </tbody>
