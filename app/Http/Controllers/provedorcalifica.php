@@ -112,7 +112,7 @@ class provedorcalifica extends Controller
       $fecha = $request->input('fechacalificacion');
 
 
-      $idd = DB::table('Proveedorcalifica')->insertGetId(
+      $idd = DB::table('proveedorcalifica')->insertGetId(
           [
            'idproveedor' => $request->input('proveedorid'),
            'pedido' =>  $request->input('pedido'),
@@ -180,10 +180,6 @@ class provedorcalifica extends Controller
                                 ->get();
 
 //      return(dd($proveedor));
-
-
-
-
 
 
        $yesterday = Carbon::yesterday();
@@ -360,16 +356,16 @@ $array = array(substr($prueba,1,strlen($prueba)));
       $usuarios = Auth::user();
       $compañiaid = $usuarios->id_compania;
 
-      $insumo = DB::table('proveedorcalifica')
-                               ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
-                               ->join('insumos','insumos.id','=','insumoscalificados.idinsumo')
-                               ->select('insumoscalificados.idinsumo','insumos.Producto_o_Servicio')
+      $insumo = DB::table('proveedores')
+                               ->join('provedorinsumos','provedorinsumos.idproveedor','=','proveedores.id')
+                               ->join('insumos','insumos.id','=','provedorinsumos.idinsumo')
+                               ->select('provedorinsumos.idinsumo','insumos.Producto_o_Servicio')
                                ->distinct()
-                               ->where('proveedorcalifica.idcompania','=',$compañiaid)
-                               ->where('proveedorcalifica.idproveedor','=',$id)
+                               ->where('proveedores.id_compania','=',$compañiaid)
+                               ->where('proveedores.id','=',$id)
                                ->get();
 
-//     return(dd($insumo));
+     //return(dd($insumo));
                                return response()->json($insumo);
 
     }
