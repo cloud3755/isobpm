@@ -80,7 +80,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 </div>
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -89,7 +89,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
             <div class="modal-body">
               <form class="" action="/insumos/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-              <div class="container">
+              <div class="row">
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="producto" class="control-label col-md-12">(*) Producto o servicio:</label></h2>
                     <div class="col-sm-12">
@@ -137,7 +137,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -149,7 +149,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
               <input type="hidden" name="eid"  id="eid" >
 
 
-              <div class="container">
+              <div class="row">
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="producto" class="control-label col-md-12">(*) Producto o servicio:</label></h2>
                     <div class="col-md-12">
@@ -187,7 +187,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 
 
               </div>
-                    <div class="modal-footer">  
+                    <div class="modal-footer">
             <!--  <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">guardar cambio insumo</button> -->
                         <a class="btn btn-primary" id="actualizar" style="font-family: Arial;" onclick="
 return confirm('Estas seguro de querer guardar los cambios')">Guardar Cambios</a>

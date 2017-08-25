@@ -83,7 +83,7 @@ alert ('{{Session::get('flash_message')}}')
 <!-- modal para carga de nuevo registro -->
 
 <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -93,7 +93,7 @@ alert ('{{Session::get('flash_message')}}')
               <form class="" action="/proveedor/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <input type="hidden" name="uprofile" id="uprofile" value="<?= $usuario->perfil ?>">
-              <div class="container">
+              <div class="row">
 
                 <div class="form-group form-group-md col-sm-12">
                   <div class="col-sm-6">
@@ -227,7 +227,7 @@ alert ('{{Session::get('flash_message')}}')
 <!-- modal para actualizacion y visualizacion de registro -->
 
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -238,7 +238,7 @@ alert ('{{Session::get('flash_message')}}')
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <input type="hidden" name="eid" id="eid">
               <input type="hidden" name="euprofile" id="euprofile" value="<?= $usuario->perfil ?>">
-              <div class="container" id="containeredit">
+              <div class="row" id="containeredit">
                 <div class="form-group form-group-md col-sm-12">
                   <div class="col-sm-6">
                     <h2><label for="proveedor" class="control-label">(*) Proveedor:</label></h2>
@@ -396,7 +396,7 @@ alert ('{{Session::get('flash_message')}}')
             </div>
             <div class="modal-body">
 <form  id="fileup" method="post" accept-charset="UTF-8" enctype="multipart/form-data" class="form-inline">
-
+<div class="row" id="containeredit">
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
               <input type="hidden" name="fid" id="fid">
 
@@ -458,6 +458,7 @@ alert ('{{Session::get('flash_message')}}')
 
 
    </div>
+</div>
 </div>
                     <div class="modal-footer" id="footer">
 
