@@ -2,12 +2,17 @@
 
 @section('content')
 
+@if(Session::has('flash_message'))
+<script>
+alert ('{{Session::get('flash_message')}}')
+</script>
+@endif
 </br>
 <script src="/js/proveedorescalifica.js" charset="utf-8"></script>
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Califica proveedores</h1>
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Evaluar proveedores</h1>
     </div>
 </div>
 
@@ -36,7 +41,7 @@
                 <div class="col-sm-6">
                   <h2><label for="proveedor" class="control-label" >(*) Proveedor:</label></h2>
                   <select class="form-control" id="proveedor">
-                    <option value="0"> Selecciona un proveedor a calificar</option>
+                    <option value="0"> Selecciona un proveedor a evaluar</option>
                     <?php foreach ($proveedor as $proveedores): ?>
                       <option value="<?=$proveedores->id?>"> <?=$proveedores->proveedor ?> </option>
                     <?php endforeach ?>
@@ -44,7 +49,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                  <h2><label for="fecha" class="control-label" >(*) Fecha de calificacion:</label></h2>
+                  <h2><label for="fecha" class="control-label" >(*) Fecha de evaluacion:</label></h2>
                     <input class="form-control" id="fechacalificacion" type="date" placeholder="Agrega la fecha de calificacion" name="fechacalificacion" value="<?php echo date("Y-m-d");?>" required>
                 </div>
               </div>
@@ -52,16 +57,15 @@
 <!-- lista de insumos select -->
 
                 <div id="selectinsumos" class="form-group form-group-md col-sm-12">
-                  <h2><label for="Usuario" class="control-label">Lista de insumos:</label></h2>
                   <div class="col-sm-12">
 
                          <div>
                                            <p>
                                            </p><table WIDTH="100%">
                                                    <tbody><tr>
-                                                     <td><h3>Insumos no elegidos</h3></td>
+                                                     <td><h3>Lista de insumos</h3></td>
                                                      <td></td>
-                                                     <td><h3>Insumos elegidos</h3></td>
+                                                     <td><h3>Insumos a evaluar</h3></td>
                                                    </tr>
                                                    <tr>
                                                        <td>
@@ -114,10 +118,9 @@
 
   <div class="col-sm-4">
     <div id="areas">
-    <h2><label for="area" class="control-label" >(*) Area que califica:</label></h2>
+    <h2><label for="area" class="control-label" >(*) Area que evalua:</label></h2>
     <select class="form-control" id="area" name="area" required>
-      <option value="0"> Selecciona el area que califica</option>
-
+      <option value="0"> Selecciona el area que evalua</option>
       <?php foreach ($area as $areas): ?>
         <option value="<?=$areas->id?>"> <?=$areas->nombre ?> </option>
       <?php endforeach ?>
@@ -136,16 +139,23 @@
   <div class="col-sm-4">
     <div id="archivos">
       <div class="form-group form-group-md col-sm-12">
-          <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
+          <h2><label for="archivo" class="control-label">(*) Archivo/evidencia:</label></h2>
               <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo">
       </div>
     </div>
   </div>
 </div>
 
+
+<div id="comnt" class="form-group form-group-md col-sm-12">
+
+  <h2><label for="pedidos" class="control-label" >(*) comentario:</label></h2>
+  <textarea class="form-control input-lg" id = "evalcomnt" name="evalcomnt" rows="3" name="direccion" maxlength="255" required></textarea>
+
+</div>
             <div  id="radios">
               <div class="">
-                  <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Que calificacion le otorgas al proveedor en los siguientes rubros:</h1>
+                  <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Que evaluacion le otorgas al proveedor en los siguientes rubros:</h1>
               </div>
   <div class="row">
     <div class="col-lg-6">
@@ -153,7 +163,7 @@
     <div class="form-group">
       <h3>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="Tiempo" id="Tiempo" value="1"></br></br> 1
+                <input class="form-control" type="radio" name="Tiempo" id="Tiempo" value="1" checked="checked"></br></br> 1
               </label>
               <label class="radio-inline">
                 <input class="form-control" type="radio" name="Tiempo" id="Tiempo" value="2"></br></br>2
@@ -180,7 +190,7 @@
                 <input class="form-control" type="radio" name="Tiempo" id="Tiempo" value="9"></br></br>9
               </label>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="Tiempo" id="Tiempo" value="10" checked="checked"></br></br>10
+                <input class="form-control" type="radio" name="Tiempo" id="Tiempo" value="10"></br></br>10
               </label>
             </h3>
     </div>
@@ -190,7 +200,7 @@
     <div class="form-group">
       <h3>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="calidad" id="calidad" value="1"></br></br> 1
+                <input class="form-control" type="radio" name="calidad" id="calidad" value="1" checked="checked"></br></br> 1
               </label>
               <label class="radio-inline">
                 <input class="form-control" type="radio" name="calidad" id="calidad" value="2"></br></br>2
@@ -217,7 +227,7 @@
                 <input class="form-control" type="radio" name="calidad" id="calidad" value="9"></br></br>9
               </label>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="calidad" id="calidad" value="10" checked="checked"></br></br>10
+                <input class="form-control" type="radio" name="calidad" id="calidad" value="10"></br></br>10
               </label>
             </h3>
     </div>
@@ -229,7 +239,7 @@
     <div class="form-group">
       <h3>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="servicio" id="servicio" value="1"></br></br> 1
+                <input class="form-control" type="radio" name="servicio" id="servicio" value="1" checked="checked"></br></br> 1
               </label>
               <label class="radio-inline">
                 <input class="form-control" type="radio" name="servicio" id="servicio" value="2"></br></br>2
@@ -256,7 +266,7 @@
                 <input class="form-control" type="radio" name="servicio" id="servicio" value="9"></br></br>9
               </label>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="servicio" id="servicio" value="10" checked="checked"></br></br>10
+                <input class="form-control" type="radio" name="servicio" id="servicio" value="10"></br></br>10
               </label>
             </h3>
     </div>
@@ -266,7 +276,7 @@
     <div class="form-group">
       <h3>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="costo" id="costo" value="1"></br></br> 1
+                <input class="form-control" type="radio" name="costo" id="costo" value="1" checked="checked"></br></br> 1
               </label>
               <label class="radio-inline">
                 <input class="form-control" type="radio" name="costo" id="costo" value="2"></br></br>2
@@ -293,7 +303,7 @@
                 <input class="form-control" type="radio" name="costo" id="costo" value="9"></br></br>9
               </label>
               <label class="radio-inline">
-                <input class="form-control" type="radio" name="costo" id="costo" value="10" checked="checked"></br></br>10
+                <input class="form-control" type="radio" name="costo" id="costo" value="10"></br></br>10
               </label>
             </h3>
     </div>
@@ -302,7 +312,7 @@
               </div>
               </div>
                     <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnsubmit" style="font-family: Arial;">Guardar calificacion</button>
+                    <button type="submit" class="btnobjetivo" id="btnsubmit" style="font-family: Arial;">Guardar evaluacion</button>
                   </div>
               </form>
               </div>

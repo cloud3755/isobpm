@@ -2,6 +2,15 @@
 
 @section('content')
 <br>
+<center>
+
+@if(Session::has('flash_message'))
+<script>
+alert ('{{Session::get('flash_message')}}')
+</script>
+@endif
+
+</center>
     <script src="/js/proveedoreslist.js" charset="utf-8"></script>
 <div class="row">
     <div class="col-lg-12">
@@ -51,9 +60,7 @@
 
 
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
-                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=2 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar / Alta de documentos </button>
-
-
+                        <?php if ($proveedors->idautor == $usuario->id) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
 
                       </td>
 
@@ -136,7 +143,6 @@
 
 
                 <div class="form-group form-group-md col-sm-12">
-                  <h2><label for="Usuario" class="control-label">Lista de insumos:</label></h2>
                   <div class="col-sm-12">
 
                          <div>
@@ -185,7 +191,7 @@
                                                    </td>
 
                                                    <td>
-                                                       <select multiple name="listaSeleccionada[]" id="listaSeleccionada"  size="7" style="width: 100%;" onclick="agregaSeleccion('listaSeleccionada', 'listaDisponibles');">
+                                                       <select multiple name="listaSeleccionada[]" id="listaSeleccionada"  size="7" style="width: 100%;" onclick="agregaSeleccion('listaSeleccionada', 'listaDisponibles');" required>
                                                        </select>
                                                    </td>
                                                </tr>
@@ -207,7 +213,7 @@
 
               </div>
                     <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Alta de proveedor</button>
+                    <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Guardar/enviar a aprobacion</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                     </div>
               </form>
@@ -274,19 +280,20 @@
                     </div>
                 </div>
 
+
+
 <!-- lista de insumos select -->
 
                 <div id="selectinsumos" class="form-group form-group-md col-sm-12">
-                  <h2><label for="Usuario" class="control-label">Lista de insumos:</label></h2>
                   <div class="col-sm-12">
 
                          <div>
                                            <p>
                                            </p><table WIDTH="100%">
                                                    <tbody><tr>
-                                                     <td><h3>Insumos no elegidos</h3></td>
+                                                     <td><h3>Lista de insumos</h3></td>
                                                      <td></td>
-                                                     <td><h3>Insumos elegidos</h3></td>
+                                                     <td><h3>Insumos asignados</h3></td>
                                                    </tr>
                                                    <tr>
                                                        <td>
@@ -335,7 +342,10 @@
 
 <!-- lista de insumos select-->
 
-
+<div id = "ecomentariorechazocont" class="form-group form-group-md col-sm-12" >
+    <h2><label for="observaciones" class="control-label">Comentario de rechazo:</label></h2>
+    <textarea class="form-control input-lg" id = "ecomentariorechazo" rows="3" name="ecomentariorechazo" maxlength="255"></textarea>
+</div>
 
 <div id="listtinsumos" class="form-group form-group-md col-sm-6">
   <h2><label for="listinsumos" class="control-label">Lista de insumos asociados al proveedor:</label></h2>

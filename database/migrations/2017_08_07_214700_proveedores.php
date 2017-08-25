@@ -22,6 +22,7 @@ class Proveedores extends Migration
       $table->string('direccion');
       $table->string('observaciones');
       $table->integer('idautor');
+      $table->integer('comentariorechazo');
       $table->timestamps();  //
     });
   }

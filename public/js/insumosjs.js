@@ -167,6 +167,9 @@ $(document).ready(function(){
               window.onhashchange=function(){window.location.hash="red";}
               }
 
+
+
+
 function doSearch()
 {
   var tableReg = document.getElementById('datos');

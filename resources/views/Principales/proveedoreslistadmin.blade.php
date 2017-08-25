@@ -2,6 +2,11 @@
 
 @section('content')
 <br>
+@if(Session::has('flash_message'))
+<script>
+alert ('{{Session::get('flash_message')}}')
+</script>
+@endif
     <script src="/js/proveedoreslist.js" charset="utf-8"></script>
 <div class="row">
     <div class="col-lg-12">
@@ -48,10 +53,14 @@
                       <td>  <?=$proveedors->activo?></td>
                       <td>
 
+<form class="form-inline" action="/proveedoradmin/aprobar" method="post">
+  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+  <input type="hidden" name="aprueboid" value="<?=$proveedors->id?>">
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
-                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=2 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar / Alta de documentos </button>
-
-
+                        <button type="submit" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal"><i class="glyphicon glyphicon-ok-circle"></i> Aprobar </button>
+                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modalrechazo" onclick="rechazo(this);"><i class="glyphicon glyphicon-remove-circle"></i> Rechazar </button>
+                        <?php if ($proveedors->idautor == $usuario->id) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
+</form>
                       </td>
 
                     </tr>
@@ -62,7 +71,7 @@
             <form class="" action="/proveedoradmin/aprobartodo" method="post">
               <div ALIGN=right>
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;">Aprobar todo lo que esta en espera</button>
+                <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;"><i class="glyphicon glyphicon-ok-circle"></i>Aprobar todo lo que esta en espera</button>
               </div>
             </form>
             <div class="col-md-12 text-center">
@@ -338,8 +347,6 @@
 
 <!-- lista de insumos select-->
 
-
-
 <div id="listtinsumos" class="form-group form-group-md col-sm-6">
   <h2><label for="listinsumos" class="control-label">Lista de insumos asociados al proveedor:</label></h2>
 
@@ -365,7 +372,8 @@
                     <div class="modal-footer" id="footer">
                     <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-dismiss="modal" data-target="#modalarchivos" onclick="Archivo(this);"><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
                     <!--     <button type="submit" class="act" id="act" style="font-family: Arial;">Guardar cambio insumo</button> -->
-                    <button name="guardacambios" type="button" class="btnobjetivo" id="guardacambios" style="font-family: Arial;"><i class="glyphicon glyphicon-pencil"></i>Guardar cambios</button>
+                    <button name="guardacambios" type="button" class="btnobjetivo" id="guardacambios" style="font-family: Arial;"><i class="glyphicon glyphicon-pencil" onclick="
+return confirm('Estas seguro de los cambios hechos al proveedor?')"></i>Guardar cambios</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                     </div>
               </form>
@@ -462,6 +470,61 @@
             </div>
         </div>
 </div>
+
+
+
+
+
+<!-- modal de cambio de estatus-->
+
+<div class="modal fade" id="modalrechazo" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Rechazar proveedor</h3>
+            </div>
+            <div class="modal-body">
+        <form id="rechazo" action="/proveedoradmin/rechazo" class=""  method="post" accept-charset="UTF-8" enctype="multipart/form-data" >
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+              <input type="hidden" name="rid" id="rid">
+              <input type="hidden" name="auprofile" id="auprofile" value="<?= $usuario->perfil ?>">
+              <div class="container" id="containeredit">
+
+                <div class="col-sm-12">
+                 <h2>  <label for="activo" class="control-label">Estatus: <?php if ($usuario->perfil == 4) { echo" <h5> (Exclusivo administrador) </h5>";} else {echo"";} ?>
+                   </label>
+                    </h2>
+                       <select class="form-control input-lg" name="arechazo" id="arechazo">
+                         <option value="Rechazado"> Rechazado </option>
+                       </select>
+                   </div>
+                   .
+                   <div class="form-group form-group-md col-sm-12">
+                       <h2><label for="observaciones" class="control-label">Comentario de rechazo:</label></h2>
+
+                       <textarea class="form-control input-lg" id = "rcomt" rows="3" name="rcomt" maxlength="255" required></textarea>
+
+                   </div>
+
+              </div>
+                    <div class="modal-footer" id="footer">
+                    <button type="submit" class="btn btn-default" id="rechazobtn" style="font-family: Arial;"  onclick="
+return confirm('Estas seguro de rechar al proveedor?')">Guardar rechazo</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                    </div>
+              </form>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
+
+
+
 
 
 
