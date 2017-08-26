@@ -27,7 +27,7 @@ class proveedorcalifica extends Migration
       $table->string('nombreunico');
       $table->integer('size');
       $table->date('fechacalificacion');
-      $table->date('comentarioevaluacion');
+      $table->string('comentarioevaluacion');
       $table->timestamps();
     });
     }
