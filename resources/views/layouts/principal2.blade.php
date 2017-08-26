@@ -174,7 +174,7 @@
 <div class="sublevel0 mainMenu officeColorStyle">
     <ul class="mainMenu noBorder">
         <li>
-            <div id="Inicio" class="officeColorStyleFont Menu">
+            <div id="Inicio" class="officeColorStyleFont Menu" onclick="window.location='/bienvenida';">
                 <center >
                     <span>Inicio</span>
                 </center>
@@ -246,7 +246,7 @@
                 <center> 
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Documento.jpg"/>
                     <br>
-                    <a  href="/documentada/56">Documentos</a> 
+                    <a  href="/infdocumentos">Documentos</a> 
                 </center> 
           
             </div>
@@ -326,7 +326,7 @@
                 <center> 
                     <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/objetivos.jpg"/>
                     <br> 
-                    <a class="" href="objetivos/create">Objetivos</a> 
+                    <a class="" href="/objetivos/visual">Objetivos</a> 
                 </center> 
           
             </div>
@@ -338,7 +338,7 @@
                 <center> 
                     <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/indicadores.png"/>
                     <br> 
-                    <a class="" href="indicadores/create">Indicadores</a> 
+                    <a class="" href="/indicadores/create">Indicadores</a> 
                 </center> 
           
             </div>
@@ -350,7 +350,7 @@
                 <center> 
                     <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
                     <br> 
-                    <a class="" href="Dashboard">Dashboard</a> 
+                    <a class="" href="/Dashboard">Dashboard</a> 
                 </center> 
           
             </div>
@@ -384,15 +384,183 @@
                 <center> 
                     <img class="imagesOfficeBar" src="/img/navBar office style images/materiales.png"/>
                     <br>
-                    <a  href="/procesos/visual">Materiales</a> 
+                    <a  href="/insumos">Materiales</a> 
                 </center> 
           
             </div>
 
         </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/proveedores.png"/>
+                    <br>
+                    <a  href="/proveedores">Proveedores</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/EvaluacionProveedores.png"/>
+                    <br>
+                    <a  href="/provedores/califica">Evaluación a Proveedores</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
+                    <br>
+                    <a  href="/proveedoradmin">Dashboard</a> 
+                </center>
+            </div>
+        </li>
     </ul>
 </div>
 
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelRiesgos">
+        <ul class="mainMenu left">
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/Riesgos.jpg"/>
+                    <br>
+                    <a  href="/abcriesgos/create">Riesgos</a> 
+                </center> 
+          
+            </div>
+
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/analisisRiesgo.png"/>
+                    <br>
+                    <a  href="/riesgos/create">Análisis de Riesgos</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/mapacalor.jpg"/>
+                    <br>
+                    <a  href="/mapadecalor">Mapa de Calor</a> 
+                </center>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelOportunidades">
+        <ul class="mainMenu left">
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/oportunidades.png"/>
+                    <br>
+                    <a  href="/abcoportunidades/create">Oportunidades</a> 
+                </center> 
+            </div>
+
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/analisisoportunidades.jpg"/>
+                    <br>
+                    <a  href="/oportunidades/create">Análisis de Oportunidades</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/mapacalor.jpg"/>
+                    <br>
+                    <a  href="/mapadecaloropor">Mapa de Calor</a> 
+                </center>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelMejora">
+        <ul class="mainMenu left">
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/quejas.png"/>
+                    <br>
+                    <a  href="/quejas/create">Quejas</a> 
+                </center> 
+            </div>
+
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/noconformidades.jpg"/>
+                    <br>
+                    <a  href="/noconformidad/create">No Conformidades</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/accionescorrectivas.jpg"/>
+                    <br>
+                    <a  href="/accioncorrectiva">Acciones Correctivas</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/Lean-Six-Sigma.jpg"/>
+                    <br>
+                    <a  href="/Promejoras">Proyectos de Mejora</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/auditorias.png"/>
+                    <br>
+                    <a  href="/evainternas">Auditorias</a> 
+                </center>
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
+                    <br>
+                    <a  href="/DashboardMejora/">Dashboard</a> 
+                </center>
+            </div>
+        </li>
+    </ul>
+</div>
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
             <div>
