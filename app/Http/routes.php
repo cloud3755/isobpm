@@ -273,7 +273,7 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/proveedor/file/ver/{id}', 'FileController@ver');
     Route::post('/proveedor/resultado/delete/{id}','provedorcalifica@delete');
     Route::get('/proveedor/file/califica/ver/{id}', 'provedorcalifica@ver');
-    Route::post('/provedores/resultado/filtro/tabla','provedorcalifica@tabla');
+
 
 
     // Rutas modulo proveedores acciones sobre insumos
@@ -293,9 +293,12 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/provedores/califica/areas/{id}', 'provedorcalifica@llenaareas');
     Route::get('/provedores/resultadogeneral', 'provedorcalifica@showresultgeneral');
     Route::post('/provedores/resultado/filtro', 'provedorcalifica@showresult');
+    Route::post('/provedores/resultado/filtro/tabla','provedorcalifica@tabla');
     // rutas para administrador de proveedores
     Route::get('/proveedoradmin','proveedorescontroller@adminshow');
     Route::post('/proveedoradmin/aprobartodo','proveedorescontroller@aprobartodo');
+    Route::post('/proveedoradmin/aprobar','proveedorescontroller@aprobar');
+    Route::post('/proveedoradmin/rechazo','proveedorescontroller@rechazo');
 
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');

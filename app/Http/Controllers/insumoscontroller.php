@@ -96,6 +96,7 @@ if (!\Input::file('archivo'))
       \Storage::disk('insumo')->put($nombreunicoarchivo1,  \File::get($file1));
     }
 
+        Session::flash('flash_message', 'Se guardo correctamente el insumo: '.$request->input('producto'));
         return Redirect('/insumos');
     }
 
@@ -215,12 +216,17 @@ if (!\Input::file('archivo'))
     {
       $insumo = insumos::findorfail($id);
 
+      $msj=$insumo->Producto_o_Servicio;
+
       $archivoborrar = $insumo->nombreunico;
       if($archivoborrar!='No se cargo archivo'){
         \Storage::disk('insumo')->delete($archivoborrar);
              }
 
       $insumo-> delete();
+
+      Session::flash('flash_message', 'Se elimino el insumo: '.$msj);
+
       return Redirect('/insumos');
     }
 }

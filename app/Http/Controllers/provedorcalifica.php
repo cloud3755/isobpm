@@ -18,6 +18,7 @@ use App\Models\Areas;
 use App\Models\insumoscalificados;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 
 class provedorcalifica extends Controller
@@ -112,7 +113,7 @@ class provedorcalifica extends Controller
       $fecha = $request->input('fechacalificacion');
 
 
-      $idd = DB::table('Proveedorcalifica')->insertGetId(
+      $idd = DB::table('proveedorcalifica')->insertGetId(
           [
            'idproveedor' => $request->input('proveedorid'),
            'pedido' =>  $request->input('pedido'),
@@ -126,7 +127,8 @@ class provedorcalifica extends Controller
            'archivo' => $archivo,
            'nombreunico' => $nombreunicoarchivo1 ,
            'size' => $bytes ,
-           'fechacalificacion' => $fecha
+           'fechacalificacion' => $fecha,
+           'comentarioevaluacion' => $request->input('evalcomnt'),
            ]);
 
 
@@ -156,6 +158,8 @@ class provedorcalifica extends Controller
                  \Storage::disk('calificaproveedor')->put($nombreunicoarchivo1,  \File::get($file1));
                }
 
+        Session::flash('flash_message', 'Se guardo la evaluacion');
+
         return redirect('/proveedores');
     }
 
@@ -180,10 +184,6 @@ class provedorcalifica extends Controller
                                 ->get();
 
 //      return(dd($proveedor));
-
-
-
-
 
 
        $yesterday = Carbon::yesterday();
@@ -216,6 +216,10 @@ $array = array(substr($prueba,1,strlen($prueba)));
 
 //return(dd($arr));
 
+$t = "t";
+//return(dd($request->area));
+if ($request->area == $t)
+{
         $calificacion = DB::table('proveedorcalifica')
                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
                                  ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
@@ -224,10 +228,28 @@ $array = array(substr($prueba,1,strlen($prueba)));
                                  ->where('proveedorcalifica.idcompania','=',$compañiaid)
                                  ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
                                  ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
-                                 ->where('proveedorcalifica.idarea','=',$request->area)
                                  ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
                                  ->orderby('fechacalificacion')
                                  ->get();
+
+}
+else
+{
+
+         $calificacion = DB::table('proveedorcalifica')
+                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
+                                  ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
+                                  ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                  ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
+                                  ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                  ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
+                                  ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
+                                  ->where('proveedorcalifica.idarea','=',$request->area)
+                                  ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
+                                  ->orderby('fechacalificacion')
+                                  ->get();
+
+}
 
 //return(dd($calificacion));
 
@@ -265,6 +287,10 @@ $array = array(substr($prueba,1,strlen($prueba)));
 
 //return(dd($arr));
 
+
+
+if ($request->area == 't')
+{
         $calificacion = DB::table('proveedorcalifica')
                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
                                  ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
@@ -273,10 +299,27 @@ $array = array(substr($prueba,1,strlen($prueba)));
                                  ->where('proveedorcalifica.idcompania','=',$compañiaid)
                                  ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
                                  ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
-                                 ->where('proveedorcalifica.idarea','=',$request->area)
                                  ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
                                  ->orderby('fechacalificacion')
                                  ->get();
+}
+else
+{
+
+         $calificacion = DB::table('proveedorcalifica')
+                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
+                                  ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
+                                  ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                  ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
+                                  ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                  ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
+                                  ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
+                                  ->where('proveedorcalifica.idarea','=',$request->area)
+                                  ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
+                                  ->orderby('fechacalificacion')
+                                  ->get();
+}
+
 
 //return(dd($calificacion));
 
@@ -360,16 +403,16 @@ $array = array(substr($prueba,1,strlen($prueba)));
       $usuarios = Auth::user();
       $compañiaid = $usuarios->id_compania;
 
-      $insumo = DB::table('proveedorcalifica')
-                               ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
-                               ->join('insumos','insumos.id','=','insumoscalificados.idinsumo')
-                               ->select('insumoscalificados.idinsumo','insumos.Producto_o_Servicio')
+      $insumo = DB::table('proveedores')
+                               ->join('provedorinsumos','provedorinsumos.idproveedor','=','proveedores.id')
+                               ->join('insumos','insumos.id','=','provedorinsumos.idinsumo')
+                               ->select('provedorinsumos.idinsumo','insumos.Producto_o_Servicio')
                                ->distinct()
-                               ->where('proveedorcalifica.idcompania','=',$compañiaid)
-                               ->where('proveedorcalifica.idproveedor','=',$id)
+                               ->where('proveedores.id_compania','=',$compañiaid)
+                               ->where('proveedores.id','=',$id)
                                ->get();
 
-//     return(dd($insumo));
+     //return(dd($insumo));
                                return response()->json($insumo);
 
     }

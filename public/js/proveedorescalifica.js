@@ -13,6 +13,7 @@
     $('#btnsubmit').hide();
     $('#archivos').hide();
     $('#areas').hide();
+    $('#comnt').hide();
 
 
 
@@ -26,7 +27,7 @@
     var id = $('#proveedor').val();
     var route = "/provedores/califica/insumo/"+ $('#proveedor').val();
 
-
+    $('#comnt').show();
     $('#pedidos').show();
     $('#areas').show();
     $('#radios').show();

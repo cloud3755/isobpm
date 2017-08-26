@@ -43,8 +43,8 @@ class proveedorescontroller extends Controller
 
 
 
-        if($usuario->perfil == 4)
-          {
+  //      if($usuario->perfil == 4)
+  //        {
             $arreglo1 = \DB::table('proveedores')
             ->select('proveedores.*')
             ->where('proveedores.activo','Activo / aprobado')
@@ -55,15 +55,16 @@ class proveedorescontroller extends Controller
             ->where('idautor',$iduser)
             ->union($arreglo1)
             ->get();
-          }
+  /*        }
           else {
 
             $provedor = \DB::table('proveedores')
             ->where('id_compania',$compañiaid)
             ->get();
           }
-
+*/
       $cuentaproveedor = count($provedor);
+
 
       return view('Principales/proveedores',compact('usuario','cuentainsumo','cuentaproveedor'));
 
@@ -89,26 +90,26 @@ class proveedorescontroller extends Controller
       $provedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
 
 
-      if($usuario->perfil == 4)
-        {
-          $arreglo1 = \DB::table('proveedores')
-          ->select('proveedores.*')
-          ->where('proveedores.activo','Activo / aprobado')
-          ->where('id_compania',$compañiaid);
+      //      if($usuario->perfil == 4)
+      //        {
+                $arreglo1 = \DB::table('proveedores')
+                ->select('proveedores.*')
+                ->where('proveedores.activo','Activo / aprobado')
+                ->where('id_compania',$compañiaid);
 
-          $provedor = \DB::table('proveedores')
-          ->where('id_compania',$compañiaid)
-          ->where('idautor',$iduser)
-          ->union($arreglo1)
-          ->get();
-        }
-        else {
+                $provedor = \DB::table('proveedores')
+                ->where('id_compania',$compañiaid)
+                ->where('idautor',$iduser)
+                ->union($arreglo1)
+                ->get();
+      /*        }
+              else {
 
-          $provedor = \DB::table('proveedores')
-          ->where('id_compania',$compañiaid)
-          ->get();
-
-        }
+                $provedor = \DB::table('proveedores')
+                ->where('id_compania',$compañiaid)
+                ->get();
+              }
+    */
 
 
 
@@ -126,6 +127,11 @@ class proveedorescontroller extends Controller
 
 return(dd($listainsumo));
 */
+
+      if(Session::has('flash_message'))
+      {
+      Session::flash('flash_message', Session::get('flash_message'));
+      }
 
     return view('Principales/proveedoreslist',compact('usuario','insumo','provedor','insumoprovedor'));
     }
@@ -156,7 +162,8 @@ return(dd($listainsumo));
            'activo' => $request->input('activo'),
            'direccion' => $request->input('direccion'),
            'observaciones' => $request->input('observaciones'),
-           'idautor' => $iduser
+           'idautor' => $iduser,
+           'comentariorechazo' => ''
            ]);
 
 
@@ -177,6 +184,7 @@ return(dd($listainsumo));
 
     if (!\Input::file('archivo'))
            {
+             Session::flash('flash_message', 'Se guardo el proveedor: '.$request->input('proveedor'));
              return redirect('/proveedores/mostrar');
 
            }
@@ -202,8 +210,9 @@ return(dd($listainsumo));
                    \Storage::disk('provedor')->put($nombreunicoarchivo1,  \File::get($file1));
            }
 
-
-
+      Session::flash('flash_message', 'Se guardo el proveedor: '.$request->input('proveedor'));
+    //  return(dd($Session));
+//return(dd(Session::get('flash_message')));
       return redirect('/proveedores/mostrar');
 
 
@@ -303,10 +312,10 @@ return(dd($listainsumo));
       $provedor->direccion = $request->input('edireccion');
       $provedor->observaciones = $request->input('eobservaciones');
       $provedor->id_compania = $compañiaid;
+      $provedor->comentariorechazo = '';
       $provedor->save();
 
       $ins=$request->input('elistaSeleccionada');
-
 
       //Se borran
       $insprovborra = provedorinsumo::where('idproveedor', $id)->delete();
@@ -319,6 +328,8 @@ return(dd($listainsumo));
         $insprov->id_compania = $compañiaid;
         $insprov->save();
       }
+
+Session::flash('flash_message', 'Se modifico el proveedor');
 
 return redirect('/proveedores/mostrar');
 
@@ -360,7 +371,7 @@ return redirect('/proveedores/mostrar');
 
   //    $provedor-> delete();
 
-
+Session::flash('flash_message', 'Se elimino el proveedor');
 
       return redirect('/proveedores/mostrar');
     }
@@ -380,7 +391,9 @@ return redirect('/proveedores/mostrar');
       $provedor->activo = 'Inactivo';
       $provedor->save();
 
-      return redirect('/proveedores/mostrar');
+      Session::flash('flash_message', 'Se deshabilito el proveedor');
+
+      return redirect()->action('proveedorescontroller@adminshow');
     }
 
 
@@ -430,10 +443,14 @@ return redirect('/proveedores/mostrar');
          ->get();
        }
 
-
-
       $relinsumoproveedor = new provedorinsumo;
       $insumoprovedor = $relinsumoproveedor->where('id_compania',$compañiaid)->orderBy('id')->get();
+
+      if(Session::has('flash_message'))
+      {
+      Session::flash('flash_message', Session::get('flash_message'));
+      }
+
 
     return view('Principales/proveedoreslistadmin',compact('usuario','insumo','provedor','insumoprovedor'));
     }
@@ -463,10 +480,52 @@ return redirect('/proveedores/mostrar');
       ->update(['activo' => 'Activo / aprobado']);
         }
 
+      Session::flash('flash_message', 'Se aprobaron los proveedores');
+     return redirect()->action('proveedorescontroller@adminshow');
+    }
+
+    public function aprobar(Request $request)
+    {
+
+      // cambiar para mostrar proveedores pendientes de habilitadr
+      $usuario = Auth::user();
+      //
+      $iduser = $usuario->id;
+      $compañiaid = $usuario->id_compania;
+
+      if($usuario->perfil != 4)
+        {
+      proveedores::where('id_compania',$compañiaid)
+      ->where('id',$request->input('aprueboid'))
+      ->update(['activo' => 'Activo / aprobado']);
+        }
+
+     Session::flash('flash_message', 'Se aprobo el proveedor');
      return redirect()->action('proveedorescontroller@adminshow');
     }
 
 
+    public function rechazo(Request $request)
+    {
+
+      // cambiar para mostrar proveedores pendientes de habilitadr
+      $usuario = Auth::user();
+      //
+      $iduser = $usuario->id;
+      $compañiaid = $usuario->id_compania;
+
+      if($usuario->perfil != 4)
+        {
+      proveedores::where('id_compania',$compañiaid)
+      ->where('id',$request->input('rid'))
+      ->update(['activo' => 'Rechazado',
+                'comentariorechazo' => $request->input('rcomt')]);
+        }
+
+      Session::flash('flash_message', 'Se envio el mensaje de rechazo al proveedor');
+
+     return redirect()->action('proveedorescontroller@adminshow');
+    }
 
 
 }

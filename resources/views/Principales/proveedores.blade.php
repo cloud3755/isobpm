@@ -4,6 +4,12 @@
 
 </br>
 
+@if(Session::has('flash_message'))
+<script>
+alert ('{{Session::get('flash_message')}}')
+</script>
+@endif
+
 <script>
   initControls();
 
@@ -17,7 +23,7 @@ window.onhashchange=function(){window.location.hash="red";}
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">SEP</h1>
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Evaluacion de proveedores</h1>
     </div>
 </div>
 
@@ -96,7 +102,7 @@ window.onhashchange=function(){window.location.hash="red";}
               </div>
               <div class="col-xs-9 text-right">
                   <div class="huge" id="divCompaniesNumber"></div>
-                  <div>Calificar proveedores</div>
+                  <div>Evaluar proveedores</div>
               </div>
           </div>
       </div>
@@ -107,7 +113,7 @@ window.onhashchange=function(){window.location.hash="red";}
               <div class="clearfix"></div>
           </div> -->
           <div class="panel-footer">
-            <span class="pull-left" id="spCompaniesPending">Calificar proveedores</span>
+            <span class="pull-left" id="spCompaniesPending">Evaluar proveedores</span>
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>
@@ -127,7 +133,7 @@ window.onhashchange=function(){window.location.hash="red";}
               </div>
               <div class="col-xs-9 text-right">
                   <div class="huge" id="divCompaniesNumber"></div>
-                  <div>Ver calificaciones de proveedor</div>
+                  <div>Ver evaluaciones de proveedores</div>
               </div>
           </div>
       </div>
@@ -138,7 +144,7 @@ window.onhashchange=function(){window.location.hash="red";}
               <div class="clearfix"></div>
           </div> -->
           <div class="panel-footer">
-            <span class="pull-left" id="spCompaniesPending">Ver calificaciones de proveedor</span>
+            <span class="pull-left" id="spCompaniesPending">Ver evaluaciones de proveedores</span>
             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
             <div class="clearfix"></div>
         </div>
