@@ -59,7 +59,7 @@ alert ('{{Session::get('flash_message')}}')
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
                         <button type="submit" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal"><i class="glyphicon glyphicon-ok-circle"></i> Aprobar </button>
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modalrechazo" onclick="rechazo(this);"><i class="glyphicon glyphicon-remove-circle"></i> Rechazar </button>
-                        <?php if ($proveedors->idautor == $usuario->id) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
+                        <?php if ($proveedors->idautor == $usuario->id || $usuario->perfil == 1) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
 </form>
                       </td>
 

@@ -60,7 +60,7 @@ alert ('{{Session::get('flash_message')}}')
 
 
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
-                        <?php if ($proveedors->idautor == $usuario->id) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
+                        <?php if ($proveedors->idautor == $usuario->id || $usuario->perfil == 1 ) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
 
                       </td>
 
