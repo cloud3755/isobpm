@@ -1,7 +1,7 @@
 @extends('layouts.principal2')
 
 @section('content')
-
+<script src="js/proveedorescalifica.js"></script>
 <div>
     @if(Auth::user()->nombreimagen!=null)
         <img style="width: 80px;height: 80px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" />
@@ -67,9 +67,6 @@
             <div class="panel-heading panel-heading2">
                 <div id"btnAgregarPendiente">
                 Pendientes
-                @if(Auth::user()->perfil != 4)
-                    <i data-toggle="modal" data-target="#modalAgregarPendiente" class="fa fa-plus-square-o" aria-hidden="true"></i>
-                @endif
             </div>
         </div>
         <div class="panel-body panel-body2 PrincipalPanel scrollablePanel PersonalScroll">
@@ -115,9 +112,13 @@
                 </ul>
             </div>
             <br>
-            @foreach($pendiente as $pend)
-            <li><a>{{$pend->pendiente}} {{$pend->fecha_limite}} </a></li>
-            @endforeach
+            <a data-toggle="collapse" href="#collapseProyectos">
+            <i class="fa fa-tasks fa-2x"></i>Proyectos</a>
+            <div id="#collapseProyectos" class="collapse">
+                <ul>
+                   
+                </ul>
+            </div>
         </div>
     </div>
     </div>
@@ -165,6 +166,7 @@
                 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
                 <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+                <button type="hidden" id="mostrarevento" data-toggle="modal" data-target="#modaleventoclick"/>
                 {!! $calendar->calendar() !!}
                 {!! $calendar->script() !!}
             </div>
@@ -498,7 +500,22 @@
 <!-- modal para agregar evento al calendario-->
 
 <!-- modal ver documentos -->
-
+<div  class="modal fade" id="modaleventoclick" tabindex="-1" role="dialog" style="background-color:gray ; width:100%;">
+    <div   class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Evento</h2>
+            </div>
+            <div class="modal-body">
+                <p id="infomensaje"></p> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="modalVerDocumentos" tabindex="-1" role="dialog" style="background-color:gray">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -657,9 +674,53 @@
             </div>
                 <div class="modal-body">
 
-                    <form action="{{ action('AdministradosController@noticiastore') }}" method="post">
+                <form action="{{ action('AdministradosController@noticiastore') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    Noticia<textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                    Noticia
+                <textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Areas no elegidas</td>
+                            <td></td>
+                            <td>Areas elegidas</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select multiple name="listaAreas[]" id="listaAreas" size="7" style="width: 100%;"onclick="agregaSeleccion('listaAreas', 'listaAreasSeleccionadas');">
+                                    @foreach ($Areas as $Area): ?>
+                                    <option value="{{$Area->id}}"> {{$Area->nombre}} </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaAreas', 'listaAreasSeleccionadas');">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaAreasSeleccionadas', 'listaAreas');">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <select multiple="multiple" name="listaAreasSeleccionadas[]" id="listaAreasSeleccionadas" size="7" style="width: 100%;" onclick="agregaSeleccion('listaAreasSeleccionadas','listaAreas');"></select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btnobjetivo" id="btnNoticia">Agregar Noticia</button>
@@ -669,27 +730,9 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">Agregar Link de interes</h2>
-            </div>
-                <div class="modal-body">
 
-                    <form action="{{ action('AdministradosController@noticiastore') }}" method="post">
-                    {{ csrf_field() }}
-                    Noticia<textarea class="form-control" id = "descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnNoticia">Agregar Noticia</button>
-                    </form>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-    </div>
-</div>
-    @endif
+@endif
+
 <!-- modal ver procesos -->
 
 <!--script cargar datos modales-->

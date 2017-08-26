@@ -25,6 +25,8 @@ return array(
     'CreateIndicadoresTable' => $baseDir . '/database/migrations/2017_02_26_220728_create_indicadores_table.php',
     'CreateInformacionAccesosTable' => $baseDir . '/database/migrations/2017_04_16_051539_create_informacion_accesos_table.php',
     'CreateLinksInteresTable' => $baseDir . '/database/migrations/2017_08_21_004727_create_links_interes_table.php',
+    'CreateListaEventosTable' => $baseDir . '/database/migrations/2017_08_25_020825_create_lista_eventos_table.php',
+    'CreateListaNoticiasTable' => $baseDir . '/database/migrations/2017_08_25_020735_create_lista_noticias_table.php',
     'CreateLogicasTable' => $baseDir . '/database/migrations/2017_02_27_001308_create_logicas_table.php',
     'CreateMejoraetapasTable' => $baseDir . '/database/migrations/2017_04_09_005828_create_mejoraetapas_table.php',
     'CreateMejorasTable' => $baseDir . '/database/migrations/2017_04_09_000915_create_mejoras_table.php',
@@ -535,7 +537,6 @@ return array(
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'Provedorinsumo' => $baseDir . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
-    'Proveedorcalifica' => $baseDir . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
     'Proveedores' => $baseDir . '/database/migrations/2017_08_07_214700_proveedores.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
@@ -583,4 +584,5 @@ return array(
     'UnidadesTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'UserTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'objetivosTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'proveedorcalifica' => $baseDir . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
 );

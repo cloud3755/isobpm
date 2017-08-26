@@ -3,3 +3,4 @@ app/Http/Controllers/DashboardController\.php
 
 app/Http/Controllers/QuejasController\.php
 /nbproject/private/
+public/js/corners/

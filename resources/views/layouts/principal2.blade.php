@@ -174,35 +174,62 @@
 <div class="sublevel0 mainMenu officeColorStyle">
     <ul class="mainMenu noBorder">
         <li>
-            <div id="Documentada" class="officeColorStyleFont Menu">
+            <div id="Inicio" class="officeColorStyleFont Menu">
                 <center >
-                    <span>Información Documentada</span>
+                    <span>Inicio</span>
                 </center>
             </div>
         </li>
         <li>
-            <div id="ObjetivosIndicadores" class="officeColorStyleFont Menu">
+            <div id="Documentos" class="officeColorStyleFont Menu">
                 <center >
-                    <span>Objetivos & Indicadores</span>
+                    <span>Documentos</span>
                 </center>
             </div>
         </li>
         <li>
-            <div id="ObjetivosIndicadores" class="officeColorStyleFont Menu" onclick="window.location='/procesos/visual';">
+            <div id="Recursos" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Recursos</span>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div id="Estrategia" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Estrategia</span>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div id="Procesos" class="officeColorStyleFont Menu">
                 <center >
                     <span>Procesos</span>
                 </center>
             </div>
         </li>
         <li>
-            <div id="RiesgosOportunidades" class="officeColorStyleFont Menu">
+            <div id="Proveedores" class="officeColorStyleFont Menu">
                 <center >
-                    <span>Riesgos & oportunidades</span>
+                    <span>Proveedores</span>
                 </center>
             </div>
         </li>
         <li>
-            <div id="MejoraPrincipal" class="officeColorStyleFont Menu">
+            <div id="Riesgos" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Riesgos</span>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div id="Oportunidades" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Oportunidades</span>
+                </center>
+            </div>
+        </li><li>
+            <div id="Mejora" class="officeColorStyleFont Menu">
                 <center >
                     <span>Mejora</span>
                 </center>
@@ -210,116 +237,162 @@
         </li>
     </ul>
 </div>
-<div class="sublevel1 sublevel officeColorStyle2" id="sublevelDocumentada">
-        <ul class="mainMenu">
+
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelDocumentos">
+        <ul class="mainMenu left">
         <li>
-            <div>
-            <span style="cursor: pointer;" onclick="window.location='/documentada/1';"> 
-                    <i class="fa fa-copyright fa-2x clred smallfont"></i>
-                    <span class="smallfont">Politicas</span> 
-            </span>
-            <span style="cursor: pointer;" onclick="window.location='/documentada/2';">
-                    <i class="fa fa-book fa-2x cllightgreen smallfont"></i>
-                    <span class="smallfont">Manuales</span>
-            </span>
-            <br>
-            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/3';">
-                    <i class="fa fa-cogs fa-2x claqua smallfont"></i>
-                    <span class="smallfont">Procedimientos</span>  
-            </span>
-            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/4';">
-                    <i class="fa fa-sticky-note-o fa-2x cllightblue smallfont"></i>
-                    <span class="smallfont">Instrucciones de trabajo</span>  
-            </span>
-            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/5';">
-                    <i class="fa fa-level-up fa-2x clpurple smallfont"></i>
-                    <span class="smallfont">Formatos</span>  
-            </span>
-            <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/6';">
-                    <i class="fa fa-mail-forward fa-2x clmediumgreen smallfont"></i>
-                    <span class="smallfont">Documentos externos</span>  
-            </span>
-            <hr>
-                <center><b>Documentos</b></center>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/Documento.jpg"/>
+                    <br>
+                    <a  href="/documentada/56">Documentos</a> 
+                </center> 
+          
             </div>
+
         </li>
         <li>
-            <div>
-                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/11';">
-                    <i class="fa fa-arrows-alt fa-2x claqua smallfont"></i>
-                    <span class="verysmallfont">PLANIFICACION ESTRATEGICA</span>  
-                </span>
-                <hr>
-                <center><b>Estrategia</b></center>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/Carpeta.png"/>
+                    <br> 
+                    <a class="" href="/documentada/56">Registros</a> 
+                </center> 
+          
             </div>
-        </li>
-        <li>
-            <div>
-                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/21';">
-                    <i class="fa fa-pencil fa-2x claqua verysmallfont"></i>
-                    <span class="verysmallfont">ARQUITECTURA DE PROCESOS</span>  
-                </span>
-                <hr>
-                <center><b>Procesos</b></center>
-            </div>
-        </li>
-        <li>
-            <div>
-                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/31';">
-                    <i class="fa fa-exclamation-circle fa-2x clred smallfont"></i>
-                    <span class="smallfont">CALIDAD</span>  
-                </span>
-                <hr>
-                <center><b>Riesgos</b></center>
-            </div>
-        </li>
-        <li>
-            <div>
-                <span class="bigdiv" style="cursor: pointer;">
-                    <center>
-                    <span class="smallfont">Recursos</span>  <br>
-                    <i class="fa fa-caret-square-o-down fa-2x"></i>
-                    </center>
-                </span>
-            </div>
-        </li>
-        <li>
-            <div>
-                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/56';">
-                    <i class="fa fa-pencil-square-o fa-2x clred verysmallfont"></i>
-                    <span class="verysmallfont">DISEÑO Y DESARROLLO</span>  
-                </span>
-                <hr>
-                <center><b>Operación</b></center>
-            </div>
-        </li>
-        <li>
-            <div>
-                <span class="bigdiv" style="cursor: pointer;">
-                <center>                    
-                <span class="smallfont">Evaluacion</span>  <br>
-                <i class="fa fa-caret-square-o-down fa-2x"></i>
-                </center>
-                </span>
-            </div>
-        </li>
-        <li>
-            <div>
-                <span class="bigdiv" style="cursor: pointer;" onclick="window.location='/documentada/81';">
-                    <i class="fa fa-eraser fa-2x clred smallfont"></i>
-                    <span class="verysmallfont">ACCIONES CORRECTIVAS</span>  
-                </span>
-                <hr>
-                <center><b>Mejora</b></center>
-            </div>
+
         </li>
     </ul>
 </div>
 
-<div class="sublevel3 sublevel officeColorStyle" id="sublevelAuditoriasInternas">
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelRecursos">
+        <ul class="mainMenu left">
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/personal.png"/>
+                    <br>
+                    <a  href="/recpersonal">Personal</a> 
+                </center> 
+          
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/infraestructura.jpg"/>
+                    <br> 
+                    <a class="" href="/recinfraestructura">Infraestructura</a> 
+                </center> 
+          
+            </div>
 
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/EquipoMedicion.png"/>
+                    <br> 
+                    <a class="" href="/recmedicion">Equipo de medición</a> 
+                </center> 
+          
+            </div>
+
+        </li>
+    </ul>
 </div>
-<!--Info Documentada-->
+
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelEstrategia">
+        <ul class="mainMenu left">
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/Estrategia.jpg"/>
+                    <br>
+                    <a  href="/infestrategia">Estrategia</a> 
+                </center> 
+          
+            </div>
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/objetivos.jpg"/>
+                    <br> 
+                    <a class="" href="objetivos/create">Objetivos</a> 
+                </center> 
+          
+            </div>
+
+        </li>
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/indicadores.png"/>
+                    <br> 
+                    <a class="" href="indicadores/create">Indicadores</a> 
+                </center> 
+          
+            </div>
+
+        </li>
+         <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
+                    <br> 
+                    <a class="" href="Dashboard">Dashboard</a> 
+                </center> 
+          
+            </div>
+
+        </li>
+    </ul>
+</div>
+
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelProcesos">
+        <ul class="mainMenu left">
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/procesos.jpg"/>
+                    <br>
+                    <a  href="/procesos/visual">Procesos</a> 
+                </center> 
+          
+            </div>
+
+        </li>
+    </ul>
+</div>
+
+<div class="sublevel1 sublevel officeColorStyle2" id="sublevelProveedores">
+        <ul class="mainMenu left">
+        <li>
+            <div class="bigdiv">
+            
+                <center> 
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/materiales.png"/>
+                    <br>
+                    <a  href="/procesos/visual">Materiales</a> 
+                </center> 
+          
+            </div>
+
+        </li>
+    </ul>
+</div>
+
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
             <div class="main-content">
             <div>
@@ -331,7 +404,6 @@
     <script type="text/javascript">
     var DELAY = 200, clicks = 0, timer = null, element;
       $(function () {
-
         $("#formeliminar").submit(function(event){
             event.preventDefault();
             $(this).closest('tr').remove();
@@ -390,10 +462,10 @@
 
                             var childs = $('#sublevel' + element.attr("id") + ' ul li').length;
                             var porc = ((100/childs-1));
-                            $('#sublevel' + element.attr("id") + ' ul li div').css('width', (porc+'%'));
-                            $('#sublevel' + element.attr("id") + ' ul li').css('width', (porc+'%')-2);
-                            $('#sublevel' + element.attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
-                            $('#sublevel' + element.attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
+                            //$('#sublevel' + element.attr("id") + ' ul li div').css('width', (porc+'%'));
+                            //$('#sublevel' + element.attr("id") + ' ul li').css('width', (porc+'%')-2);
+                            //$('#sublevel' + element.attr("id") + ' ul li div center *').css('font-size', ((porc*.1)+'vw'));
+                           // $('#sublevel' + element.attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
                             $('.smallfont').css('font-size', (((porc/1.3)*.1)+'vw'));
                             $('.verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
                             $('#sublevel' + element.attr("id")).slideDown(300);  

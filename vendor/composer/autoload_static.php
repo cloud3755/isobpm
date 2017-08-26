@@ -343,6 +343,8 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateIndicadoresTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220728_create_indicadores_table.php',
         'CreateInformacionAccesosTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_16_051539_create_informacion_accesos_table.php',
         'CreateLinksInteresTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_21_004727_create_links_interes_table.php',
+        'CreateListaEventosTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_020825_create_lista_eventos_table.php',
+        'CreateListaNoticiasTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_020735_create_lista_noticias_table.php',
         'CreateLogicasTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_27_001308_create_logicas_table.php',
         'CreateMejoraetapasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_09_005828_create_mejoraetapas_table.php',
         'CreateMejorasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_09_000915_create_mejoras_table.php',
@@ -853,7 +855,6 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'Provedorinsumo' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
-        'Proveedorcalifica' => __DIR__ . '/../..' . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
         'Proveedores' => __DIR__ . '/../..' . '/database/migrations/2017_08_07_214700_proveedores.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
@@ -901,6 +902,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'UnidadesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'UserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'objetivosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'proveedorcalifica' => __DIR__ . '/../..' . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
