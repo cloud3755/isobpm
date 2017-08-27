@@ -49,7 +49,7 @@ Route::group( ['middleware' => 'auth'],
 			//Route::get('/', 'IndicadoressController@index');
 			Route::get('indicadores/create', 'IndicadoressController@create');
 			Route::post('/indicadores/store', 'IndicadoressController@store');
-			Route::post('indicadores/destroy/{id}', 'IndicadoressController@destroy');
+			Route::delete('/indicadores/destroy/{id}', 'IndicadoressController@destroy');
       Route::post('/indicadores/edit/{id}','IndicadoressController@edit');
       Route::get('/indicadores/{id}/edit','IndicadoressController@editM');
       Route::get('/indicadores/{id}/edit2','IndicadoressController@editM2');
