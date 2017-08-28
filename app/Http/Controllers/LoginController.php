@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -16,6 +18,12 @@ class LoginController extends Controller
      */
     public function index()
     {
+      if(Auth::check())
+      {
+          // De ser datos válidos nos mandara a la bienvenida
+          return Redirect::to('/bienvenida');
+      }
+
         return view('admin/auth/login');
     }
 
