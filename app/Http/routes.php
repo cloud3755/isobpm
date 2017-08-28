@@ -269,7 +269,7 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/proveedor/edit/{id}', 'proveedorescontroller@edit');
     Route::post('/proveedor/file/{id}', 'FileController@store');
     Route::get('/proveedor/file/show/{id}', 'FileController@show');
-    Route::post('/proveedor/file/delete/{id}', 'FileController@destroy');
+    Route::get('/proveedor/file/delete/{id}', 'FileController@destroy');
     Route::get('/proveedor/file/ver/{id}', 'FileController@ver');
     Route::post('/proveedor/resultado/delete/{id}','provedorcalifica@delete');
     Route::get('/proveedor/file/califica/ver/{id}', 'provedorcalifica@ver');
