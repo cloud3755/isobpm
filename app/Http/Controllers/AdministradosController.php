@@ -376,7 +376,7 @@ class AdministradosController extends Controller
       //functiones para las noticias
       public function noticiastore(Request $request)
       {
-      dd($request->input('listaUsuariosDisponibles'));
+      dd($request->input('listaAreasSeleccionadas'));
        $user = Auth::user();
        $noticia = new Noticias;
        $date = date("Y-m-d");
@@ -386,10 +386,10 @@ class AdministradosController extends Controller
           $noticia->id_UsuarioCreo = $user->id;
           $noticia->fecha_creacion=$date;
           $noticia->Noticia = $request->input('descripcionNoticia');
-          $acces=$request->input('listaAreas'); 
+          $acces=$request->input('listaAreas');
           dd($request->input('listaAreas'));
           $noticia->save();
-          
+
           for ($i=0;$i<count($acces);$i++)
           {
           $acce = new lista_noticias;

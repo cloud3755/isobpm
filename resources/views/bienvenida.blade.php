@@ -1,7 +1,6 @@
 @extends('layouts.principal2')
 
 @section('content')
-<script src="js/proveedorescalifica.js"></script>
 <div>
     @if(Auth::user()->nombreimagen!=null)
         <img style="width: 80px;height: 80px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" />
@@ -116,7 +115,7 @@
             <i class="fa fa-tasks fa-2x"></i>Proyectos</a>
             <div id="#collapseProyectos" class="collapse">
                 <ul>
-                   
+
                 </ul>
             </div>
         </div>
@@ -508,7 +507,7 @@
                 <h2 class="modal-title">Evento</h2>
             </div>
             <div class="modal-body">
-                <p id="infomensaje"></p> 
+                <p id="infomensaje"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -737,6 +736,64 @@
 
 <!--script cargar datos modales-->
     <script type="text/javascript">
+
+
+function agregaSeleccion(origen, destino) {
+    obj = document.getElementById(origen);
+    if (obj.selectedIndex == -1)
+        return;
+
+    for (i = 0; opt = obj.options[i]; i++)
+        if (opt.selected) {
+            valor = opt.value; // almacenar value
+            txt = obj.options[i].text; // almacenar el texto
+            obj.options[i] = null; // borrar el item si está seleccionado
+            obj2 = document.getElementById(destino);
+
+            opc = new Option(txt, valor,"defaultSelected");
+            eval(obj2.options[obj2.options.length] = opc);
+        }
+
+
+
+        var select = document.getElementById('listaAreasSeleccionadas');
+
+        for ( var i = 0, l = select.options.length, o; i < l; i++ )
+        {
+          o = select.options[i];
+            o.selected = true;
+        }
+
+
+    }
+
+    function agregaTodo(origen, destino) {
+        obj = document.getElementById(origen);
+        obj2 = document.getElementById(destino);
+        aux = obj.options.length;
+        for (i = 0; i < aux; i++) {
+            aux2 = 0;
+            opt = obj.options[aux2];
+        valor = opt.value; // almacenar value
+        txt = obj.options[aux2].text; // almacenar el texto
+        obj.options[aux2] = null; // borrar el item si está seleccionado
+
+        opc = new Option(txt, valor,"defaultSelected");
+        eval(obj2.options[obj2.options.length] = opc);
+    }
+
+
+
+    var select = document.getElementById('elistaSeleccionada');
+
+    for ( var i = 0, l = select.options.length, o; i < l; i++ )
+    {
+      o = select.options[i];
+        o.selected = true;
+    }
+
+}
+
       $(function () {
         $('.documentosclick').click(function(ev)
         {
