@@ -191,7 +191,7 @@ class provedorcalifica extends Controller
        $tomorrow = Carbon::tomorrow('Europe/London');
 
 
-       return view('\Secundarias\provedorcalificaresultado',compact('proveedor','tomorrow','yesterday'));
+       return view('/Secundarias/provedorcalificaresultado',compact('proveedor','tomorrow','yesterday'));
      }
 
 
