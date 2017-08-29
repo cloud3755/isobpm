@@ -363,7 +363,7 @@ $(document).ready(function(){
 
     $.ajax({
       url: route,
-      headers: {'X-CSRF_TOKEN': token},
+      headers: {'X-CSRF_TOKEN': $('input[name="_token"]').val()},
       type: 'post',
       data: fd,
       processData: false,  // tell jQuery not to process the data

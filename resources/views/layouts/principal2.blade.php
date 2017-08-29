@@ -242,25 +242,25 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Documento.jpg"/>
                     <br>
-                    <a  href="/infdocumentos">Documentos</a> 
-                </center> 
-          
+                    <a  href="/infdocumentos">Documentos</a>
+                </center>
+
             </div>
 
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Carpeta.png"/>
-                    <br> 
-                    <a class="" href="/documentada/56">Registros</a> 
-                </center> 
-          
+                    <br>
+                    <a class="" href="/documentada/56">Registros</a>
+                </center>
+
             </div>
 
         </li>
@@ -271,36 +271,36 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/personal.png"/>
                     <br>
-                    <a  href="/recpersonal">Personal</a> 
-                </center> 
-          
+                    <a  href="/recpersonal">Personal</a>
+                </center>
+
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/infraestructura.jpg"/>
-                    <br> 
-                    <a class="" href="/recinfraestructura">Infraestructura</a> 
-                </center> 
-          
+                    <br>
+                    <a class="" href="/recinfraestructura">Infraestructura</a>
+                </center>
+
             </div>
 
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/EquipoMedicion.png"/>
-                    <br> 
-                    <a class="" href="/recmedicion">Equipo de medición</a> 
-                </center> 
-          
+                    <br>
+                    <a class="" href="/recmedicion">Equipo de medición</a>
+                </center>
+
             </div>
 
         </li>
@@ -311,48 +311,48 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Estrategia.jpg"/>
                     <br>
-                    <a  href="/infestrategia">Estrategia</a> 
-                </center> 
-          
+                    <a  href="/infestrategia">Estrategia</a>
+                </center>
+
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/objetivos.jpg"/>
-                    <br> 
-                    <a class="" href="/objetivos/visual">Objetivos</a> 
-                </center> 
-          
+                    <br>
+                    <a class="" href="/objetivos/visual">Objetivos</a>
+                </center>
+
             </div>
 
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/indicadores.png"/>
-                    <br> 
-                    <a class="" href="/indicadores/create">Indicadores</a> 
-                </center> 
-          
+                    <br>
+                    <a class="" href="/indicadores/create">Indicadores</a>
+                </center>
+
             </div>
 
         </li>
          <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
-                    <br> 
-                    <a class="" href="/Dashboard">Dashboard</a> 
-                </center> 
-          
+                    <br>
+                    <a class="" href="/Dashboard">Dashboard</a>
+                </center>
+
             </div>
 
         </li>
@@ -363,13 +363,13 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/procesos.jpg"/>
                     <br>
-                    <a  href="/procesos/visual">Procesos</a> 
-                </center> 
-          
+                    <a  href="/procesos/visual">Procesos</a>
+                </center>
+
             </div>
 
         </li>
@@ -380,43 +380,43 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/materiales.png"/>
                     <br>
-                    <a  href="/insumos">Materiales</a> 
-                </center> 
-          
+                    <a  href="/insumos">Materiales</a>
+                </center>
+
             </div>
 
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
-                    <img class="imagesOfficeBar" src="/img/navBar office style images/proveedores.png"/>
+
+                <center>
+                    <img class="imagesOfficeBar" src="/img/navBar office style images/proveedores.jpg"/>
                     <br>
-                    <a  href="/proveedores">Proveedores</a> 
+                    <a  href="/proveedores">Proveedores</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/EvaluacionProveedores.png"/>
                     <br>
-                    <a  href="/provedores/califica">Evaluación a Proveedores</a> 
+                    <a  href="/provedores/califica">Evaluación a Proveedores</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
                     <br>
-                    <a  href="/proveedoradmin">Dashboard</a> 
+                    <a  href="/proveedoradmin">Dashboard</a>
                 </center>
             </div>
         </li>
@@ -427,33 +427,33 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Riesgos.jpg"/>
                     <br>
-                    <a  href="/abcriesgos/create">Riesgos</a> 
-                </center> 
-          
+                    <a  href="/abcriesgos/create">Riesgos</a>
+                </center>
+
             </div>
 
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/analisisRiesgo.png"/>
                     <br>
-                    <a  href="/riesgos/create">Análisis de Riesgos</a> 
+                    <a  href="/riesgos/create">Análisis de Riesgos</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/mapacalor.jpg"/>
                     <br>
-                    <a  href="/mapadecalor">Mapa de Calor</a> 
+                    <a  href="/mapadecalor">Mapa de Calor</a>
                 </center>
             </div>
         </li>
@@ -464,32 +464,32 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/oportunidades.png"/>
                     <br>
-                    <a  href="/abcoportunidades/create">Oportunidades</a> 
-                </center> 
+                    <a  href="/abcoportunidades/create">Oportunidades</a>
+                </center>
             </div>
 
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/analisisoportunidades.jpg"/>
                     <br>
-                    <a  href="/oportunidades/create">Análisis de Oportunidades</a> 
+                    <a  href="/oportunidades/create">Análisis de Oportunidades</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/mapacalor.jpg"/>
                     <br>
-                    <a  href="/mapadecaloropor">Mapa de Calor</a> 
+                    <a  href="/mapadecaloropor">Mapa de Calor</a>
                 </center>
             </div>
         </li>
@@ -500,62 +500,62 @@
         <ul class="mainMenu left">
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/quejas.png"/>
                     <br>
-                    <a  href="/quejas/create">Quejas</a> 
-                </center> 
+                    <a  href="/quejas/create">Quejas</a>
+                </center>
             </div>
 
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/noconformidades.jpg"/>
                     <br>
-                    <a  href="/noconformidad/create">No Conformidades</a> 
+                    <a  href="/noconformidad/create">No Conformidades</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/accionescorrectivas.jpg"/>
                     <br>
-                    <a  href="/accioncorrectiva">Acciones Correctivas</a> 
+                    <a  href="/accioncorrectiva">Acciones Correctivas</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Lean-Six-Sigma.jpg"/>
                     <br>
-                    <a  href="/Promejoras">Proyectos de Mejora</a> 
+                    <a  href="/Promejoras">Proyectos de Mejora</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/auditorias.png"/>
                     <br>
-                    <a  href="/evainternas">Auditorias</a> 
+                    <a  href="/evainternas">Auditorias</a>
                 </center>
             </div>
         </li>
         <li>
             <div class="bigdiv">
-            
-                <center> 
+
+                <center>
                     <img class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
                     <br>
-                    <a  href="/DashboardMejora/">Dashboard</a> 
+                    <a  href="/DashboardMejora/">Dashboard</a>
                 </center>
             </div>
         </li>
@@ -636,7 +636,7 @@
                            // $('#sublevel' + element.attr("id") + ' ul li div .bigdiv').css('width', ((porc*1.4)+'%'));
                             $('.smallfont').css('font-size', (((porc/1.3)*.1)+'vw'));
                             $('.verysmallfont').css('font-size', (((porc/2)*.1)+'vw'));
-                            $('#sublevel' + element.attr("id")).slideDown(300);  
+                            $('#sublevel' + element.attr("id")).slideDown(300);
                         clicks = 0;             //after action performed, reset counter
                         }, DELAY);
                     }
