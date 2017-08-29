@@ -125,7 +125,7 @@ class FileController extends Controller
 
       // borramos el archivo zip
       $archivoborrar = $provedor->nombreunico;
-      if(!empty($archivoborrar)){
+      if(\Storage::disk('provedor')->exists($archivoborrar)){
         \Storage::disk('provedor')->delete($archivoborrar);
              }
 
