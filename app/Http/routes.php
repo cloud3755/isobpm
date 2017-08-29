@@ -49,7 +49,7 @@ Route::group( ['middleware' => 'auth'],
 			//Route::get('/', 'IndicadoressController@index');
 			Route::get('indicadores/create', 'IndicadoressController@create');
 			Route::post('/indicadores/store', 'IndicadoressController@store');
-			Route::post('indicadores/destroy/{id}', 'IndicadoressController@destroy');
+			Route::delete('/indicadores/destroy/{id}', 'IndicadoressController@destroy');
       Route::post('/indicadores/edit/{id}','IndicadoressController@edit');
       Route::get('/indicadores/{id}/edit','IndicadoressController@editM');
       Route::get('/indicadores/{id}/edit2','IndicadoressController@editM2');
@@ -269,7 +269,7 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/proveedor/edit/{id}', 'proveedorescontroller@edit');
     Route::post('/proveedor/file/{id}', 'FileController@store');
     Route::get('/proveedor/file/show/{id}', 'FileController@show');
-    Route::post('/proveedor/file/delete/{id}', 'FileController@destroy');
+    Route::get('/proveedor/file/delete/{id}', 'FileController@destroy');
     Route::get('/proveedor/file/ver/{id}', 'FileController@ver');
     Route::post('/proveedor/resultado/delete/{id}','provedorcalifica@delete');
     Route::get('/proveedor/file/califica/ver/{id}', 'provedorcalifica@ver');

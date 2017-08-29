@@ -225,6 +225,8 @@ class IndicadoressController extends Controller
           App::abort(404);
       }
 
+      $objetivo = $indicadores->objetivo_id;
+
       $paralista = $indicadores->acceso;
 
       DB::table('lista_accesos')->where('id_indicador',$paralista)->delete();
@@ -232,7 +234,6 @@ class IndicadoressController extends Controller
       $indicadores->delete();
 
 
-
-      return redirect('/objetivos/visual');
+      return redirect()->action('ObjetivosControllerVisual@show', [$objetivo]);
     }
 }

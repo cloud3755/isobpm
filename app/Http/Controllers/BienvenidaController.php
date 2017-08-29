@@ -15,6 +15,10 @@ use App\Models\Noticias;
 use App\Models\User;
 use App\Models\Documentos;
 use App\Models\Pendientes;
+use App\Models\Accioncorrectiva1;
+use App\Models\Noconformidades;
+use App\Models\LinksInteres;
+use App\Models\Areas;
 use Carbon\Carbon;
 use Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -92,9 +96,12 @@ class BienvenidaController extends Controller
     {
       $usuarios = Auth::user();
 
-      $noticias = new Noticias;
-      $noticiasw = $noticias->where('id_empresa',$usuarios->id_compania)
-      ->where('fecha_creacion',date("Y-m-d"))->get();
+      $noticiasw = \DB::table('noticias')
+      ->join('lista_noticias', 'noticias.id', '=', 'lista_noticias.id_noticia')
+      ->select('noticias.*')
+      ->where('id_empresa',$usuarios->id_compania)
+      ->whereMonth('fecha_creacion', '=', date('m'))
+      ->get();
 
       $documentos = new Documentos;
       $documento = $documentos ->where('id_user',$usuarios->id)->get();
@@ -110,6 +117,15 @@ class BienvenidaController extends Controller
 
       $queja = new Quejas;
       $quejas = $queja->where('idcompañia',$usuarios->id_compania)->get();
+
+      $accionCorrectiva = new Accioncorrectiva1;
+      $accionesCorrectivas = $accionCorrectiva->where('idcompañia',$usuarios->id_compania)->get();
+
+      $Noconformidad = new Noconformidades;
+      $Noconformidades = $Noconformidad->where('idcompañia',$usuarios->id_compania)->get();
+
+      $Area = new Areas;
+      $Areas = $Area->where('id_compania',$usuarios->id_compania)->get();
 
       $Users = new User;
       $User = $Users->where('id_compania',$usuarios->id_compania)->get();
@@ -162,7 +178,8 @@ $allevents = EventModel::all();
             
 $calendar = \Calendar::setCallbacks([
     'eventClick' => 'function(calEvent, jsEvent, view) {
-     alert("Click en evento: "+ calEvent.title );
+     $("#infomensaje").text(calEvent.title);
+     $("#mostrarevento").dbclick();
  }',
  /*
  'dayClick' => 'function(date, jsEvent, view) {
@@ -182,7 +199,23 @@ $calendar = \Calendar::setCallbacks([
      ]);
 // termina Para el calendario
 
-      return View('bienvenida', compact('objetivo', 'quejas','proceso','cuentaproveedor','empresa', 'noticiasw','calendar','documento','indicador','User', 'pendiente'));
+      return View('bienvenida', 
+      compact(
+        'objetivo', 
+        'quejas',
+        'proceso',
+        'cuentaproveedor',
+        'empresa', 
+        'noticiasw',
+        'calendar',
+        'documento',
+        'indicador',
+        'User', 
+        'pendiente',
+        'accionesCorrectivas',
+        'Noconformidades',
+        'Areas')
+      );
 
     }
 

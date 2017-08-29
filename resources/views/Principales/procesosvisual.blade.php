@@ -60,7 +60,7 @@
 
 
 <form id="fileinfo" method="post">
-   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
    <input type="hidden" name="tipo" id="tipo">
         <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
             <div class="modal-dialog modal-lg" role="form">

@@ -3,26 +3,23 @@
     overflow: hidden;
     white-space: nowrap;
 }
-.mainMenu li:last-child
-{
-     border-right: none;
-}
 .officeColorStyle
 {
 background: #2b579a !important;
 color: #bbd1df;
-/*position: relative;*/
 }
 .officeColorStyle2
 {
-    background: #e6e9ff !important;
+    background: #ffffff !important;
     color: #000000;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #2b579a
 }
 
 .officeColorStyleFont
 {
-background: inherit !important;
-color: white;
+color: black;
 }
 ul.mainMenu li{
     display:inline;
@@ -31,62 +28,54 @@ ul.mainMenu li{
 ul.mainMenu
 {
     padding: 0;
-    margin-bottom: 0;
+    margin: 0;
 }
 .sublevel {
     display:none;
 }
-ul.mainMenu li div
+.noBorder
+{
+    background-color: white;
+}
+ul.noBorder li div
 {
     display: inline-block;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 3%;
-    border-color: #040226;
-    padding: .3%;
-    padding-left: .3%;
-    border:  .2%;
-    margin: .3% .2% .3% .2%;
-}
-
-ul.noBorder li div 
-{
-    border-style: none;
-}
-/*
-ul.mainMenu li a, ul.mainMenu li a:visited, ul.mainMenu li a:hover, ul.mainMenu li a:active, ul.mainMenu li a:focus
-{
-        text-decoration: none;
-}
-ul.mainMenu li a:hover
-{
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: .7em;
+    padding-bottom: .7em;
     cursor: pointer;
-    color: currentColor;
-}
-*/
-.imagesOfficeBar {
-    color: #2b579a  !important;
+    background: #a9c7ff ;
+    background: -webkit-linear-gradient(#e0ebff,#a9c7ff); 
+    background: -o-linear-gradient(#e0ebff,#a9c7ff); 
+    background: -moz-linear-gradient(#e0ebff,#a9c7ff); 
+    background: linear-gradient(#e0ebff,#a9c7ff);
+    color: black;
+    width: 10.8%;
+    font-size: 1vw;
+    -webkit-clip-path: polygon(9% 0, 93% 0, 100% 21%, 100% 100%, 70% 100%, 30% 100%, 0 100%, 0 23%);
+    clip-path: polygon(9% 0, 93% 0, 100% 21%, 100% 100%, 70% 100%, 30% 100%, 0 100%, 0 23%);
 }
 
-li div span:hover /*, ul.mainMenu li a:hover*/
-{
-    /*color: #000c59 !important;*/
-    background-color: #2f60a8!important;
+.imagesOfficeBar {
+    width: 80px; height: 80px;
 }
-.clicked
+
+li div:hover
 {
-    color: #000c59 !important;
-    background-color: #d6d2ee !important;
-}
-.clicked:hover
-{
-    color: #000c59 !important;
-    background-color: #d6d2ee !important;
+    color: #fff !important;
+    background: #3a73b9!important;
 }
 li div
 {
--webkit-transition: background-color .5s;
-transition: background-color .5s;
+-webkit-transition: background-color .3s;
+-moz-transition: background-color .3s;
+transition: background-color .3s;
+}
+.clicked
+{
+    color: #fff !important;
+    background: #3a73b9!important;
 }
 .Menu
 {
@@ -95,6 +84,15 @@ font-family: Arial, Helvetica, sans-serif;
 
 }
 
+.left
+{
+    display: inline-flex;
+}
+
+.left li
+{
+    width: 200px;
+}
 .PrincipalPanel
 {
     height: 60vh;

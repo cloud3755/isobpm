@@ -65,7 +65,7 @@ class AuthController extends Controller
             return Redirect::to('/bienvenida');
         }
         // En caso de que la autenticación haya fallado manda un mensaje al formulario de login y también regresamos los valores enviados con withInput().
-        return Redirect::to('/')
+        return Redirect::to('/admin/auth/login')
                     ->with('mensaje_error', 'El usuario y/o password que ingresaste son incorrectos, favor de verificarlo')
                     ->withInput();
     }

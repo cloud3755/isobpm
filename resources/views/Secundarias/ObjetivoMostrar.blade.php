@@ -108,7 +108,8 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
                                     <th><div class="th-inner sortable both">unidad</div></th>
                                     <th><div class="th-inner sortable both">logica</div></th>
                                     <th><div class="th-inner sortable both">meta</div></th>
-                                    <th><div class="th-inner sortable both">Modificacion</div></th>
+                                    <th><div class="th-inner sortable both">Modificar</div></th>
+                                    <th><div class="th-inner sortable both">Eliminar</div></th>
                                   </tr>
                                 </thead>
                                 <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -122,13 +123,15 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
                                   <td><?=$indicadorrel->simboloindicador?></td>
                                   <td><?=$indicadorrel->logicaindicador?></td>
                                   <td><?=$indicadorrel->indicadormeta?></td>
+                                  <td>
+                                    <button type="button" class="btnobjetivo" value = "<?=$indicadorrel->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                                  </td>
                                   <td><form class="" action="/indicadores/destroy/{{ $indicadorrel->id }}" method="post">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
 
                                       <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
         return confirm('Estas seguro de eliminar el indicador <?=$indicadorrel->nombreindicador?>?')">Eliminar</button>
-        <button type="button" class="btnobjetivo" value = "<?=$indicadorrel->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
 
                                     </form>
                                     </td>
@@ -546,7 +549,7 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
 function Editar(btn){
   $("#id").val(btn.value);
 
-  var route = "https://www.isobpm.com/indicadores/"+btn.value+"/edit";
+  var route = "/indicadores/"+btn.value+"/edit";
 
   $.get(route, function(res){
     $("#enombre").val(res.nombre);
@@ -592,7 +595,7 @@ $(document).ready(function(){
 
   $("#actualizar").click(function(){
     var value = $("#id").val();
-    var route = "https://www.isobpm.com/indicadores/edit/"+value+"";
+    var route = "/indicadores/edit/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
 

@@ -99,7 +99,7 @@ class ObjetivosControllerVisual extends Controller
       $unidades = $unidad->all();
 
       $Users = new User;
-      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil',4)->get();
+      $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>=',3)->get();
 
       $logicas = new logica;
       $logica = $logicas->all();
