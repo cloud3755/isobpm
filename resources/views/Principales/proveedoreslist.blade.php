@@ -208,7 +208,7 @@ alert ('{{Session::get('flash_message')}}')
 
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
-                      <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo">
+                      <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo[]" multiple="multiple">
                 </div>
 
               </div>

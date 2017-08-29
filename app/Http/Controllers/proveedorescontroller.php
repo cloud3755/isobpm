@@ -150,7 +150,6 @@ return(dd($listainsumo));
       $compañiaid = $usuario->id_compania;
 
 
-
     //  return(dd($request));
 
 
@@ -191,7 +190,10 @@ return(dd($listainsumo));
            else {
              // alta de archivos
 
-                   $file1                            = $request->file('archivo');
+                  foreach($request->file('archivo') as $file1)
+                  {
+
+                //   $file1                            = $request->file('archivo');
                    $extension1                       = strtolower($file1->getclientoriginalextension());
                    $nombreunicoarchivo1              = uniqid().'.'.$extension1;
                    $bytes                            = \File::size($file1);
@@ -208,6 +210,7 @@ return(dd($listainsumo));
                    $datosarchivo->save();
 
                    \Storage::disk('provedor')->put($nombreunicoarchivo1,  \File::get($file1));
+                   }
            }
 
       Session::flash('flash_message', 'Se guardo el proveedor: '.$request->input('proveedor'));
