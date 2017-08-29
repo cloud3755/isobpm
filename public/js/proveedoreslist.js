@@ -310,7 +310,7 @@ $(document).ready(function(){
     var route = "/proveedor/file/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileup"));
-    var progressBar = 0;
+    var progressBar = $("#progress").val();
 
     $.ajax({
       url: route,
