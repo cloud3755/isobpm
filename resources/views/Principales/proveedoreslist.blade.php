@@ -405,7 +405,7 @@ alert ('{{Session::get('flash_message')}}')
                   <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
                     <input class="form-control input-lg" id="uarchivo" type="file" placeholder="Elige el archivo" name="uarchivo[]" multiple="multiple" required>
               </div>
-<progress id="progress" value="0"></progress>
+<progress id="progress" value=0></progress>
 <div class="form-group form-group-lg">
 <h2><label for="boton" class="control-label"></label></h2>
   <div class="col-md-12">
