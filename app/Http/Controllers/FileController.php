@@ -48,7 +48,9 @@ class FileController extends Controller
       $usuarios = Auth::user();
       $compañiaid = $usuarios->id_compania;
 
-      $file1                            = $request->file('archivo');
+      foreach($request->file('uarchivo') as $file1)
+      {
+      //$file1                            = $request->file('uarchivo');
       $extension1                       = strtolower($file1->getclientoriginalextension());
       $nombreunicoarchivo1              = uniqid().'.'.$extension1;
       $bytes                            = \File::size($file1);
@@ -65,7 +67,7 @@ class FileController extends Controller
       $datosarchivo->save();
 
       \Storage::disk('provedor')->put($nombreunicoarchivo1,  \File::get($file1));
-
+      }
       return ('Ok');
 
     }
@@ -125,7 +127,7 @@ class FileController extends Controller
 
       // borramos el archivo zip
       $archivoborrar = $provedor->nombreunico;
-      if(!empty($archivoborrar)){
+      if(\Storage::disk('provedor')->exists($archivoborrar)){
         \Storage::disk('provedor')->delete($archivoborrar);
              }
 

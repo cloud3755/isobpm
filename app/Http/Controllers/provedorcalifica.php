@@ -35,7 +35,7 @@ class provedorcalifica extends Controller
       $compañiaid = $usuarios->id_compania;
 
       $proveedores = new proveedores;
-      $proveedor = $proveedores->where('id_compania',$compañiaid)->orderBy('id')->get();
+      $proveedor = $proveedores->where('id_compania',$compañiaid)->where('proveedores.activo','Activo / aprobado')->orderBy('id')->get();
 
       $areas = new Areas;
       $area = $areas->where('id_compania',$compañiaid)->orderBy('id')->get();
@@ -181,6 +181,7 @@ class provedorcalifica extends Controller
                                 ->select('proveedorcalifica.idproveedor','proveedores.proveedor')
                                 ->distinct()
                                 ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                ->where('proveedores.activo','Activo / aprobado')
                                 ->get();
 
 //      return(dd($proveedor));

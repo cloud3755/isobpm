@@ -208,7 +208,7 @@ alert ('{{Session::get('flash_message')}}')
 
                 <div class="form-group form-group-md col-sm-12">
                     <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
-                      <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo">
+                      <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo[]" multiple="multiple">
                 </div>
 
               </div>
@@ -403,15 +403,15 @@ alert ('{{Session::get('flash_message')}}')
 
               <div class="form-group form-group-md col-sm-12">
                   <h2><label for="archivo" class="control-label">(*) Archivo:</label></h2>
-                      <input class="form-control input-lg" id="archivo" type="file" placeholder="Elige el archivo" name="archivo" required>
+                    <input class="form-control input-lg" id="uarchivo" type="file" placeholder="Elige el archivo" name="uarchivo[]" multiple="multiple" required>
               </div>
-<!--<progress id="progress" value="0" visible="false"></progress> -->
+<progress id="progress" value=0></progress>
 <div class="form-group form-group-lg">
 <h2><label for="boton" class="control-label"></label></h2>
   <div class="col-md-12">
 <button name="guardadoc" type="button" class="btnobjetivo" id="guardadoc" style="font-family: Arial;"><i class="glyphicon glyphicon-upload"></i> Cargar Archivo </button>
 
-<!--  <button name="documentosalta" type="submit" class="btnobjetivo btn-lg" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-upload"></i> Cargar Archivo </button>-->
+<!--  <button name="documentosalta" type="submit" class="btnobjetivo btn-lg" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-upload"></i> Cargar Archivo </button> -->
 </div>
 </div>
 </form>
