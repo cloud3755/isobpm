@@ -190,6 +190,12 @@ Route::group( ['middleware' => 'auth'],
     }
     );
 
+    //GuardarLinkInteres
+    Route::post('/guardarLink', 'AdministradosController@LinkStore');
+    Route::get('/guardarLink', function(){
+      return redirect('/bienvenida');
+    }
+    );
     //Clientes
     Route::get('/clientes','AdministradosController@clientes');
     Route::post('clientes/store', 'AdministradosController@clientestore');
@@ -305,7 +311,7 @@ Route::group( ['middleware' => 'auth'],
     //Rutas para pagina inicio
 
     Route::post('/DocumentoInicio', 'BienvenidaController@retornardocumento');
-
+    Route::post('/ProcesoInicio', 'BienvenidaController@retornarProceso');
     //Ruta crear noticia
     Route::post('/administrados/noticiastore', 'AdministradosController@noticiastore');
     Route::get('/administrados/noticiastore', function(){

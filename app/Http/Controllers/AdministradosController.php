@@ -19,6 +19,7 @@ use App\Models\Noticias;
 use App\Models\Pendientes;
 use App\Models\lista_eventos;
 use App\Models\lista_noticias;
+use App\Models\LinksInteres;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades;
@@ -376,7 +377,7 @@ class AdministradosController extends Controller
       //functiones para las noticias
       public function noticiastore(Request $request)
       {
-      dd($request->input('listaAreasSeleccionadas'));
+      //dd($request->input('listaAreasSeleccionadas'));
        $user = Auth::user();
        $noticia = new Noticias;
        $date = date("Y-m-d");
@@ -386,8 +387,7 @@ class AdministradosController extends Controller
           $noticia->id_UsuarioCreo = $user->id;
           $noticia->fecha_creacion=$date;
           $noticia->Noticia = $request->input('descripcionNoticia');
-          $acces=$request->input('listaAreas');
-          dd($request->input('listaAreas'));
+          $acces=$request->input('listaAreasSeleccionadas');
           $noticia->save();
 
           for ($i=0;$i<count($acces);$i++)
@@ -425,17 +425,14 @@ class AdministradosController extends Controller
       public function LinkStore(Request $request)
       {
        $user = Auth::user();
-       $pendiente = new Pendientes;
-       $date = date("Y-m-d");
-
+       $Link= new LinksInteres;
         if($user->perfil != 4){
-          $pendiente->id_UsuarioCreo = $user->id;
-          $pendiente->id_UsuarioAsignado = $request->input('id_UsuarioAsignado');
-          $pendiente->terminado = false;
-          $pendiente->pendiente = $request->input('Pendiente');
-          $pendiente->fecha_creacion=$date;
-          $pendiente->fecha_limite=$request->input('fechalimite');
-          $pendiente->save();
+          
+          $Link->id_UsuarioCreo = $user->id;
+          $Link->id_empresa = $user->id_compania;
+          $Link->Nombrecorto = $request->input('NombreCorto');
+          $Link->URL = $request->input('Url');
+          $Link->save();
           return Redirect('/bienvenida');
         }else{
           return Redirect('/bienvenida');

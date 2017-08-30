@@ -19,6 +19,8 @@ use App\Models\Accioncorrectiva1;
 use App\Models\Noconformidades;
 use App\Models\LinksInteres;
 use App\Models\Areas;
+use App\Models\Productos;
+use App\Models\Estatus;
 use Carbon\Carbon;
 use Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +29,7 @@ use Mail;
 use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 use App\Models\EventModel;
 use App\Models\proveedores;
+use Chumper\Zipper\Zipper;
 
 class BienvenidaController extends Controller
 {
@@ -95,13 +98,48 @@ class BienvenidaController extends Controller
     public function show()
     {
       $usuarios = Auth::user();
+      
 
+
+		  if($usuarios->perfil == 4)
+		  {
+            $mejorasid = \DB::table('mejoras')
+                   ->join('users','mejoras.responsable_id','=','users.id')
+                   ->leftjoin('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
+                   ->select('mejoras.id', 'mejoras.proyecto')
+                   ->where('lista_accesos.id_usuario','=',$usuarios->id)
+                   ->orwhere('mejoras.creador_id',$usuarios->id)
+                   ->groupby('mejoras.id')
+                   ->get();
+		  }
+
+		  else{
+			     $mejorasid = \DB::table('mejoras')
+                   ->join('users','mejoras.responsable_id','=','users.id')
+                   
+                   ->leftjoin('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
+                   ->select('mejoras.id', 'mejoras.proyecto')
+                   ->where('mejoras.id_compania',$usuarios->id_compania)
+                   ->groupby('mejoras.id')
+                   ->get();
+		  }
       $noticiasw = \DB::table('noticias')
       ->join('lista_noticias', 'noticias.id', '=', 'lista_noticias.id_noticia')
       ->select('noticias.*')
-      ->where('id_empresa',$usuarios->id_compania)
+      ->where('noticias.id_empresa',$usuarios->id_compania)
+      ->where('lista_noticias.id_area',$usuarios->id_area)
       ->whereMonth('fecha_creacion', '=', date('m'))
+      //dd( $noticiasw);
       ->get();
+
+      $Links = new LinksInteres;
+      $Link = $Links->where('id_empresa',$usuarios->id_compania)->get();
+
+      $estatuses = new Estatus;
+      $estatus = $estatuses->all();
+
+      $productos = new Productos;  
+      $producto = $productos->where('idcompañia',$usuarios->id_compania)->get();
 
       $documentos = new Documentos;
       $documento = $documentos ->where('id_user',$usuarios->id)->get();
@@ -149,12 +187,20 @@ class BienvenidaController extends Controller
       $events = [];
       $options = [];
 
-$allevents = EventModel::all();
+$allevents = \DB::table('event_models')
+      ->join('lista_eventos', 'event_models.id', '=', 'lista_eventos.id_evento')
+      ->select('event_models.*')
+      ->where('lista_eventos.id_area',$usuarios->id_area)
+      //->whereMonth('fecha_creacion', '=', date('m'))
+      //dd( $noticiasw);
+      ->get();
+
 //return(dd($allevents));
 
     foreach ($allevents as $event) {
         $events[] = \Calendar::event(
             $event->title,
+            $event->Descripcion,
             $event->all_day,
             new \DateTime($event->start),
             new \DateTime($event->end),
@@ -171,15 +217,14 @@ $allevents = EventModel::all();
    ->setOptions(
      [//set fullcalendar options
      'firstDay' => 1,
-     'locale' => 'mx',
-     'header' => array('left' => 'prev,next,today', 'center' => 'title', 'right' => 'month week day')
-     ]);
+     'locale' => 'mx']);
 
             
 $calendar = \Calendar::setCallbacks([
     'eventClick' => 'function(calEvent, jsEvent, view) {
-     $("#infomensaje").text(calEvent.title);
-     $("#mostrarevento").dbclick();
+     $("#TituloEvento").text(calEvent.title);
+     $("#MensajeEvento").text(calEvent.descripcion);
+     $("#mostrarevento").click();
  }',
  /*
  'dayClick' => 'function(date, jsEvent, view) {
@@ -214,7 +259,11 @@ $calendar = \Calendar::setCallbacks([
         'pendiente',
         'accionesCorrectivas',
         'Noconformidades',
-        'Areas')
+        'Areas',
+        'Link',
+        'producto',
+        'estatus',
+        'mejorasid')
       );
 
     }
@@ -258,29 +307,44 @@ $calendar = \Calendar::setCallbacks([
         if ($request->isMethod('post')){   
 
           $documentos = new Documentos;
-          $documento = $documentos ->where('nombreunico',$request->nombreunico)->first();
+          $documento = 
+          $documentos ->where('id',$request->idDoc)
+                      ->first();
           return response()->json(
           [
-            'Documento' => $documento->nombre ,
-            'Descripcion' => $documento->descripcion,
             'link' => $documento->id
           ]); 
         }
     }
-
-    public function retornarproceso(Request $request)
+    public function retornarProceso(Request $request)
     {
-        if ($request->isMethod('post')){   
+      if ($request->isMethod('post')){   
 
-          $procesos = new Procesos;
-          $documento = $documentos ->where('nombreunico',$request->nombreunico)->first();
+      $procesos = new Proceso;
+      $proceso = $procesos->where('id',$request->idProceso);
+      $archivoabrir = $proceso->nombreunicoarchivo; 
+      if (!empty($archivoabrir)) { 
+        $rutacompleta = public_path(). "/storage/$archivoabrir"; 
+        //$rutacompleta = "public/storage/$archivoabrir"; 
+        $zipper = new Zipper(); 
+        $zipper->make($rutacompleta)->folder('')->extractTo('storage/bizagi'); 
+ 
+        foreach ($zipper->listFiles() as $lista): 
+          if ((stripos($lista,"index.html") !== false)) 
+          { 
+            $rutaalindex = $lista; 
+            // $rutaalindex2 = $lista; 
+          } 
+        endforeach; 
+ 
+        $rutaalindex = str_replace("/","\\",$rutaalindex); 
+ 
+        $rutaalindex = "\storage\bizagi\\$rutaalindex"; 
           return response()->json(
           [
-            'Documento' => $documento->nombre ,
-            'Descripcion' => $documento->descripcion,
-            'link' => $documento->id
+            'link' => $rutaalindex
           ]); 
         }
+      }
     }
-
 }

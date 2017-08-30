@@ -10,6 +10,7 @@ use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 
 
 use App\Models\User;
+use App\Models\lista_eventos;
 use Carbon\Carbon;
 use Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -143,7 +144,7 @@ $calendar = \Calendar::addEvents($events) //add an array with addEvents
     public function store(Request $request)
     {
         //
-
+        
         $user = Auth::user();
         $Event= new EventModel;
         $Event->title = $request->input('title');
@@ -161,9 +162,17 @@ $calendar = \Calendar::addEvents($events) //add an array with addEvents
 
         $Event->save();
 
-          session()->flash('flash_msg',"Se creó una nueva entrada en la agenda");
-          session()->flash('flash_type','warning');
+        session()->flash('flash_msg',"Se creó una nueva entrada en la agenda");
+        session()->flash('flash_type','warning');
+        $acces=$request->input('listaAreasSeleccionadas');
 
+        for ($i=0;$i<count($acces);$i++)
+        {
+        $acce = new lista_eventos;
+        $acce ->id_area = $acces[$i];
+        $acce ->id_evento = $Event->id;
+        $acce ->save();
+        }
 
 return Redirect('/bienvenida');
 

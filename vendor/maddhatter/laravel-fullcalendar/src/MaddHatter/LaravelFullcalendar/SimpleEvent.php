@@ -23,6 +23,10 @@ class SimpleEvent implements IdentifiableEvent
     public $title;
 
     /**
+     * @var string
+     */
+    public $descripcion;
+    /**
      * @var bool
      */
     public $isAllDay;
@@ -44,15 +48,17 @@ class SimpleEvent implements IdentifiableEvent
 
     /**
      * @param string          $title
+     * @param string          $descripcioin
      * @param bool            $isAllDay
      * @param string|DateTime $start If string, must be valid datetime format: http://bit.ly/1z7QWbg
      * @param string|DateTime $end   If string, must be valid datetime format: http://bit.ly/1z7QWbg
      * @param int|string|null $id
      * @param array           $options
      */
-    public function __construct($title, $isAllDay, $start, $end, $id = null, $options = [])
+    public function __construct($title, $descripcion, $isAllDay, $start, $end, $id = null, $options = [])
     {
         $this->title    = $title;
+        $this->descripcion = $descripcion;
         $this->isAllDay = $isAllDay;
         $this->start    = $start instanceof DateTime ? $start : new DateTime($start);
         $this->end      = $start instanceof DateTime ? $end : new DateTime($end);
@@ -80,6 +86,15 @@ class SimpleEvent implements IdentifiableEvent
         return $this->title;
     }
 
+    /**
+     * Get the event's title
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
     /**
      * Is it an all day event?
      *

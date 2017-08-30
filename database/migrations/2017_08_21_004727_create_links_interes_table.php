@@ -15,6 +15,7 @@ class CreateLinksInteresTable extends Migration
         Schema::create('links_interes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_UsuarioCreo');
+            $table->integer('id_empresa');
             $table->string('NombreCorto');
             $table->string('URL');
             $table->timestamps();

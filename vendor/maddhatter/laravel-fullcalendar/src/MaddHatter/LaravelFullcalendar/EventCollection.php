@@ -35,6 +35,7 @@ class EventCollection
         $eventArray = [
             'id' => $this->getEventId($event),
             'title' => $event->getTitle(),
+            'descripcion' => $event->getDescripcion(),
             'allDay' => $event->isAllDay(),
             'start' => $event->getStart()->format('c'),
             'end' => $event->getEnd()->format('c'),

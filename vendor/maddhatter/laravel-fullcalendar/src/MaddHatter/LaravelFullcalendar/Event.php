@@ -12,6 +12,12 @@ interface Event
     public function getTitle();
 
     /**
+     * Get the event's title
+     *
+     * @return string
+     */
+    public function getDescripcion();
+    /**
      * Is it an all day event?
      *
      * @return bool
