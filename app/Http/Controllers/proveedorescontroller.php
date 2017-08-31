@@ -179,9 +179,9 @@ return(dd($listainsumo));
            }
 
 
+           $filet = $request->file('archivo');
 
-
-    if (!\Input::file('archivo'))
+           if (count($filet[0]) == 0)
            {
              Session::flash('flash_message', 'Se guardo el proveedor: '.$request->input('proveedor'));
              return redirect('/proveedores/mostrar');
