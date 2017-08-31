@@ -91,7 +91,7 @@
                         <li class="text-danger">Sin Acciones</li>
                     @else
                         @foreach($accionesCorrectivas as $accion)
-                            <li><a value = "<?=$accioncorrectivas->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);">{{$accion->descripcion}}</a></li>
+                            <li><a value = "<?=$accion->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);">{{$accion->descripcion}}</a></li>
                         @endforeach
                     @endif
                 </ul>
