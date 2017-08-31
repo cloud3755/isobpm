@@ -105,7 +105,7 @@
                         <li class="text-danger">Sin items</li>
                     @else
                         @foreach($Noconformidades as $Noconformidad)
-                            <li><a data-toggle="modal" data-target="#modaleditNoconformidad<?=$noconformidad->id?>">{{$Noconformidad->descripcion}}</a></li>
+                            <li><a data-toggle="modal" data-target="#modaleditNoconformidad<?=$Noconformidad->id?>">{{$Noconformidad->descripcion}}</a></li>
                         @endforeach
                     @endif
                 </ul>
@@ -119,7 +119,7 @@
                         <li class="text-danger">Sin Proyectos</li>
                     @else
                         @foreach($mejorasid as $mejoras)
-                            <li><a href="/subiretapa/etapa/{{$mejoras->id}}">{{$mejoras->Proyecto}}</a></li>
+                            <li><a href="/subiretapa/etapa/{{$mejoras->id}}">{{$mejoras->proyecto}}</a></li>
                         @endforeach
                     @endif
                 </ul>
@@ -425,7 +425,7 @@
                 <h2 class="modal-title">Agregar pendiente</h2>
             </div>
                 <div class="modal-body">
-                    
+
                         <form class="form-group" action="/calendarioagenda/store" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="row">
@@ -435,31 +435,31 @@
                                 <input class="form-control input-lg" type="text" class="form-control" id = "title" placeholder="Nombre del evento" name="title">
                             </div>
                             <div class="col-lg-6">
-                                <h3><label for="all_day" class="control-label">Todo el dia:</label></h3>   
+                                <h3><label for="all_day" class="control-label">Todo el dia:</label></h3>
                                 <select class="form-control input-lg" id = "all_day"  name="all_day">
                                     <option selected="selected" value="1">Si</option>
                                     <option value="0">No</option>
-                                </select>                             
+                                </select>
                             </div>
                         </div>
                         <div class="form-group form-group-md col-lg-12">
                             <div class="col-lg-6">
-                                <h2><label for="start" class="control-label">Inicio:</label></h2>    
+                                <h2><label for="start" class="control-label">Inicio:</label></h2>
                                 <input type="datetime-local" class="form-control input-md" id = "start" name="start" value="<?php  echo date ( 'Y-m-d\TH:i' , time()  )?>">
                             </div>
                             <div class="col-lg-6">
-                                <h2><label for="end" class="control-label"> Fin:</label></h2>    
-                                <input type="datetime-local" class="form-control input-md" id = "end" name="end" value="<?php  echo date ( 'Y-m-d\TH:i' , time()  )?>">                 
+                                <h2><label for="end" class="control-label"> Fin:</label></h2>
+                                <input type="datetime-local" class="form-control input-md" id = "end" name="end" value="<?php  echo date ( 'Y-m-d\TH:i' , time()  )?>">
                             </div>
                         </div>
                         <div class="form-group form-group-md col-lg-12">
                             <div class="col-lg-6">
-                                <h2><label for="color" class="control-label">Color de pendiente:</label></h2>    
+                                <h2><label for="color" class="control-label">Color de pendiente:</label></h2>
                                 <input class="form-control input-md" type="color" id="color" name="color" onchange="clickColor(0, -1, -1, 5)" value="#0099ff" >
                             </div>
                             <div class="col-lg-6">
-                                <h2><label for="descripcion" class="control-label">Descripcion del pendiente:</label></h2>    
-                                <textarea id="descripcion" name="descripcion" rows="3" class="form-control input-md"></textarea>                
+                                <h2><label for="descripcion" class="control-label">Descripcion del pendiente:</label></h2>
+                                <textarea id="descripcion" name="descripcion" rows="3" class="form-control input-md"></textarea>
                             </div>
                         </div>
                         <center>
@@ -557,12 +557,12 @@
                         {{ csrf_field() }}
                         <div class="form-group form-group-md col-lg-12">
                             <div class="col-lg-6">
-                                <h2><label for="Url" class="control-label">Link:<br><br></label></h2>    
+                                <h2><label for="Url" class="control-label">Link:<br><br></label></h2>
                                 <input class="form-control input-md" type="text" name="Url" placeholder"Texto a mostrar" id="Url" required>
                             </div>
                             <div class="col-lg-6">
-                                <h2><label for="NombreCorto" class="control-label">Nombre a mostrar:</label></h2>    
-                                <input class="form-control input-md" type="text" name="NombreCorto" placeholder"Dirección" id="NombreCorto" required>                 
+                                <h2><label for="NombreCorto" class="control-label">Nombre a mostrar:</label></h2>
+                                <input class="form-control input-md" type="text" name="NombreCorto" placeholder"Dirección" id="NombreCorto" required>
                             </div>
                         </div>
                 </div>
@@ -677,7 +677,7 @@
                       <select class="form-control input-lg" name="area" required="">
                         <?php foreach ($Areas as $area): ?>
                           @if($area->id == $queja->area)
-                           <option value="<?=$areas['id']?>" selected><?=$area['nombre']?></option>
+                           <option value="<?=$area['id']?>" selected><?=$area['nombre']?></option>
                           @endif
                           <option value="<?=$area['id']?>"><?=$area['nombre']?></option>
                         <?php endforeach ?>
@@ -992,11 +992,11 @@
                         <h3><label>Fecha:</label></h3>
                             <input class="form-control input-lg" type="date" placeholder="Fecha"  value = "<?=$Noconformidad['fecha']?>" name="fecha">
                       </div>
-                    
+
                       <div class="col-lg-4 col-md-4 col-sm-4">
                         <h3><label>Proceso:</label></h3>
                             <select class="form-control input-lg" name="proceso_id" id="proceso_id">
-                              <?php foreach ($Proceso as $Procesos): ?>
+                              <?php foreach ($proceso as $Procesos): ?>
                                 @if($Procesos->id == $Noconformidad->proceso_id)
                                   <option value="<?=$Procesos['id']?>" selected><?=$Procesos['proceso']?></option>
                                 @else

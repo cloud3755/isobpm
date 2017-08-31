@@ -19,6 +19,7 @@ use App\Models\Accioncorrectiva1;
 use App\Models\Noconformidades;
 use App\Models\LinksInteres;
 use App\Models\Areas;
+use App\Models\Clientes;
 use App\Models\Productos;
 use App\Models\Estatus;
 use Carbon\Carbon;
@@ -98,7 +99,7 @@ class BienvenidaController extends Controller
     public function show()
     {
       $usuarios = Auth::user();
-      
+
 
 
 		  if($usuarios->perfil == 4)
@@ -116,7 +117,7 @@ class BienvenidaController extends Controller
 		  else{
 			     $mejorasid = \DB::table('mejoras')
                    ->join('users','mejoras.responsable_id','=','users.id')
-                   
+
                    ->leftjoin('lista_accesos','mejoras.listaequipo','=','lista_accesos.id_indicador')
                    ->select('mejoras.id', 'mejoras.proyecto')
                    ->where('mejoras.id_compania',$usuarios->id_compania)
@@ -138,7 +139,7 @@ class BienvenidaController extends Controller
       $estatuses = new Estatus;
       $estatus = $estatuses->all();
 
-      $producto = new Productos;  
+      $producto = new Productos;
       $productos = $producto->where('idcompañia',$usuarios->id_compania)->get();
 
       $documentos = new Documentos;
@@ -170,6 +171,9 @@ class BienvenidaController extends Controller
 
       $procesos = new Proceso;
       $proceso = $procesos->where('idcompañia',$usuarios->id_compania)->get();
+
+      $clientes = new Clientes;
+      $cliente = $clientes->where('id_compania',$usuarios->id_compania)->get();
 
       $proveedores = new proveedores;
       $proveedor = $proveedores->where('id_compania',$usuarios->id_compania)->orderBy('id')->get();
@@ -219,7 +223,7 @@ $allevents = \DB::table('event_models')
      'firstDay' => 1,
      'locale' => 'mx']);
 
-            
+
 $calendar = \Calendar::setCallbacks([
     'eventClick' => 'function(calEvent, jsEvent, view) {
      $("#TituloEvento").text(calEvent.title);
@@ -244,22 +248,23 @@ $calendar = \Calendar::setCallbacks([
      ]);
 // termina Para el calendario
 
-      return View('bienvenida', 
+      return View('bienvenida',
       compact(
-        'objetivo', 
+        'objetivo',
         'quejas',
         'proceso',
         'cuentaproveedor',
-        'empresa', 
+        'empresa',
         'noticiasw',
         'calendar',
         'documento',
         'indicador',
-        'User', 
+        'User',
         'pendiente',
         'accionesCorrectivas',
         'Noconformidades',
         'Areas',
+        'cliente',
         'Link',
         'productos',
         'estatus',
@@ -304,46 +309,46 @@ $calendar = \Calendar::setCallbacks([
 
     public function retornardocumento(Request $request)
     {
-        if ($request->isMethod('post')){   
+        if ($request->isMethod('post')){
 
           $documentos = new Documentos;
-          $documento = 
+          $documento =
           $documentos ->where('id',$request->idDoc)
                       ->first();
           return response()->json(
           [
             'link' => $documento->id
-          ]); 
+          ]);
         }
     }
     public function retornarProceso(Request $request)
     {
-      if ($request->isMethod('post')){   
+      if ($request->isMethod('post')){
 
       $procesos = new Proceso;
       $proceso = $procesos->where('id',$request->idProceso);
-      $archivoabrir = $proceso->nombreunicoarchivo; 
-      if (!empty($archivoabrir)) { 
-        $rutacompleta = public_path(). "/storage/$archivoabrir"; 
-        //$rutacompleta = "public/storage/$archivoabrir"; 
-        $zipper = new Zipper(); 
-        $zipper->make($rutacompleta)->folder('')->extractTo('storage/bizagi'); 
- 
-        foreach ($zipper->listFiles() as $lista): 
-          if ((stripos($lista,"index.html") !== false)) 
-          { 
-            $rutaalindex = $lista; 
-            // $rutaalindex2 = $lista; 
-          } 
-        endforeach; 
- 
-        $rutaalindex = str_replace("/","\\",$rutaalindex); 
- 
-        $rutaalindex = "\storage\bizagi\\$rutaalindex"; 
+      $archivoabrir = $proceso->nombreunicoarchivo;
+      if (!empty($archivoabrir)) {
+        $rutacompleta = public_path(). "/storage/$archivoabrir";
+        //$rutacompleta = "public/storage/$archivoabrir";
+        $zipper = new Zipper();
+        $zipper->make($rutacompleta)->folder('')->extractTo('storage/bizagi');
+
+        foreach ($zipper->listFiles() as $lista):
+          if ((stripos($lista,"index.html") !== false))
+          {
+            $rutaalindex = $lista;
+            // $rutaalindex2 = $lista;
+          }
+        endforeach;
+
+        $rutaalindex = str_replace("/","\\",$rutaalindex);
+
+        $rutaalindex = "\storage\bizagi\\$rutaalindex";
           return response()->json(
           [
             'link' => $rutaalindex
-          ]); 
+          ]);
         }
       }
     }
