@@ -138,8 +138,8 @@ class BienvenidaController extends Controller
       $estatuses = new Estatus;
       $estatus = $estatuses->all();
 
-      $productos = new Productos;  
-      $producto = $productos->where('idcompañia',$usuarios->id_compania)->get();
+      $producto = new Productos;  
+      $productos = $producto->where('idcompañia',$usuarios->id_compania)->get();
 
       $documentos = new Documentos;
       $documento = $documentos ->where('id_user',$usuarios->id)->get();
@@ -261,7 +261,7 @@ $calendar = \Calendar::setCallbacks([
         'Noconformidades',
         'Areas',
         'Link',
-        'producto',
+        'productos',
         'estatus',
         'mejorasid')
       );

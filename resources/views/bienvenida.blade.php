@@ -866,8 +866,8 @@
                             <h2><label>Producto:</label></h2>
                                 <select class="form-control input-lg" name="eproducto_id" id="eproducto_id" required="">
                                   <option value=""></option>
-                                  <?php foreach ($producto as $productos): ?>
-                                    <option value="<?=$productos['id']?>"><?=$productos['nombre']?></option>
+                                  <?php foreach ($productos as $producto): ?>
+                                    <option value="<?=$producto['id']?>"><?=$producto['nombre']?></option>
                                   <?php endforeach ?>
                                 </select>
                         </div>
@@ -1009,11 +1009,11 @@
                       <div class="col-lg-4 col-md-4 col-sm-4">
                           <h3><label>Producto:</label></h3>
                             <select class="form-control input-lg" name="producto_id" id="producto_id">
-                              <?php foreach ($Producto as $Productos): ?>
-                                @if($Productos->id == $Noconformidad->producto_id)
-                                    <option value="<?=$Productos['id']?>" selected><?=$Productos['nombre']?></option>
+                              <?php foreach ($productos as $producto): ?>
+                                @if($producto->id == $Noconformidad->producto_id)
+                                    <option value="<?=$producto['id']?>" selected><?=$producto['nombre']?></option>
                                 @else
-                                    <option value="<?=$Productos['id']?>"><?=$Productos['nombre']?></option>
+                                    <option value="<?=$producto['id']?>"><?=$producto['nombre']?></option>
                                 @endif
                               <?php endforeach ?>
                             </select>
