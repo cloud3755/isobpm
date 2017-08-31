@@ -1022,7 +1022,7 @@
                       <div class="col-lg-4 col-md-4 col-sm-4">
                           <h3><label>Area:</label></h3>
                               <select class="form-control input-lg" name="id_area" id="id_area">
-                                <?php foreach ($area as $areas): ?>
+                                <?php foreach ($Areas as $areas): ?>
                                   @if($areas->id == $Noconformidad->id_area)
                                     <option value="<?=$areas['id']?>"selected><?=$areas['nombre']?></option>
                                   @else
