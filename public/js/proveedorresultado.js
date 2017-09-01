@@ -242,7 +242,7 @@ else {
                $("#prov").empty();
                $("#prov").html(respuesta[i].proveedor);
                $("#FmyTable").append('<tr><td>'+respuesta[i].pedido+'</td><td>'+respuesta[i].fechacalificacion+'</td><td>'+respuesta[i].tiempo+'</td><td>'+respuesta[i].calidad+'</td><td>'+respuesta[i].servicio+'</td><td>'+respuesta[i].costo+'</td><td>'+respuesta[i].comentarioevaluacion+'</td><td>'+respuesta[i].archivo+
-                 txt +'</td></tr>');
+                 txt +'</td><td><form class="" action="/provedores/califica/delete/'+respuesta[i].id+'" method="delete">  <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btnobjetivo" id="btndelete_'+respuesta[i].id+'" style="font-family: Arial;" dataid="'+respuesta[i].id+'" onclick="return confirm(\'Estas seguro de eliminar la calificacion:?\')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button></form></td></tr>');
 
                           }
 

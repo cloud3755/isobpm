@@ -267,6 +267,7 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/proveedores', 'proveedorescontroller@index');
     Route::get('/proveedores/mostrar', 'proveedorescontroller@mostrar');
     Route::post('/proveedor/store', 'proveedorescontroller@store');
+    Route::delete('/proveedor/delete/{id}', 'proveedorescontroller@destroy');
     Route::post('/proveedor/disabled/{id}', 'proveedorescontroller@disabled');
     Route::get('/proveedor/show/{id}', 'proveedorescontroller@show');
     Route::get('/proveedor/show2/{id}', 'proveedorescontroller@show2');
@@ -297,6 +298,7 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/provedores/calificaresultado/', 'provedorcalifica@resultadoindex');
     Route::get('/provedores/califica/insumo/{id}', 'provedorcalifica@llenainsumos');
     Route::get('/provedores/califica/areas/{id}', 'provedorcalifica@llenaareas');
+    Route::get('/provedores/califica/delete/{id}', 'provedorcalifica@destroy');
     Route::get('/provedores/resultadogeneral', 'provedorcalifica@showresultgeneral');
     Route::post('/provedores/resultado/filtro', 'provedorcalifica@showresult');
     Route::post('/provedores/resultado/filtro/tabla','provedorcalifica@tabla');

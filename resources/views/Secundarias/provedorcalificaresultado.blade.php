@@ -166,6 +166,7 @@
         <th>  <div class="th-inner sortable both">    Costo  </div></th>
         <th>  <div class="th-inner sortable both">    Comentario  </div></th>
         <th>  <div class="th-inner sortable both">    Archivo   </div></th>
+        <th>  <div class="th-inner sortable both">    Eliminar   </div></th>
       </tr>
     </thead>
     <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->

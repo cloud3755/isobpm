@@ -494,6 +494,15 @@ else
      */
     public function destroy($id)
     {
+      $procalifica = DB::table('proveedorcalifica')->where('id', $id)->get();
+      if (count($procalifica) != 0)
+      {
+        if (\Storage::disk('calificaproveedor')->exists($procalifica[0]->nombreunico)) {
+          \Storage::disk('calificaproveedor')->delete($procalifica[0]->nombreunico);
+        }
+      }
+      $procalifica = DB::table('proveedorcalifica')->where('id', $id)->delete();
+
       return redirect('/proveedores');
     }
 }

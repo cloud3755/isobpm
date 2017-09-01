@@ -44,7 +44,9 @@ alert ('{{Session::get('flash_message')}}')
                       <th>  <div class="th-inner sortable both">    Telefono  </div></th>
                       <th>  <div class="th-inner sortable both">    Estatus  </div></th>
                       <th>  <div class="th-inner sortable both">    Acciones  </div></th>
-
+                      @if(Auth::user()->perfil <= 3)
+                        <th>  <div class="th-inner sortable both">  Eliminar  </div></th>
+                      @endif
                     </tr>
                   </thead>
                   <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -60,10 +62,19 @@ alert ('{{Session::get('flash_message')}}')
 
 
                         <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
-                        <?php if ($proveedors->idautor == $usuario->id || $usuario->perfil == 1 ) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
+                        <?php if ($proveedors->idautor == $usuario->id || $usuario->perfil >= 1 ) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
 
                       </td>
-
+                      @if(Auth::user()->perfil <= 3)
+                      <td>
+                        <form class="" action="/proveedor/delete/<?=$proveedors->id?>" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                          <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
+                          return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors->proveedor?>?')">Eliminar</button>
+                        </form>
+                      </td>
+                      @endif
                     </tr>
                     <?php endforeach ?>
                   </tbody>

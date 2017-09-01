@@ -16,6 +16,7 @@ use App\Models\proveedores;
 use App\Models\provedorinsumo;
 use Illuminate\Support\Facades\DB;
 use App\Models\archivosproveedores;
+use App\Models\Proveedorcalifica;
 
 
 
@@ -360,20 +361,26 @@ return redirect('/proveedores/mostrar');
     {
       $usuarios = Auth::user();
       $provedor = proveedores::findorfail($id);
+      $procalifica = DB::table('proveedorcalifica')->where('idproveedor', $id)->get();
+      for ($i=0;$i<count($procalifica);$i++)
+      {
+        if (\Storage::disk('calificaproveedor')->exists($procalifica[$i]->nombreunico)) {
+          \Storage::disk('calificaproveedor')->delete($procalifica[$i]->nombreunico);
+        }
+      }
+      $procalifica = DB::table('proveedorcalifica')->where('idproveedor', $id)->delete();
       $provedor-> delete();
       $insprovborra = provedorinsumo::where('idproveedor', $id)->delete();
-
 // bprrar archvos del proveedor
-    //  $provedor = archivosproveedores::findorfail($id);
-
+      $archivos = archivosproveedores::where('id_proveedor', $id)->get();
       // borramos el archivo zip
-  //    $archivoborrar = $provedor->nombreunico;
-  //    if(!empty($archivoborrar)){
-  //      \Storage::disk('provedor')->delete($archivoborrar);
-  //           }
-
-  //    $provedor-> delete();
-
+      for ($i=0;$i<count($archivos);$i++)
+      {
+        if (\Storage::disk('provedor')->exists($archivos[$i]->nombreunico)) {
+          \Storage::disk('provedor')->delete($archivos[$i]->nombreunico);
+        }
+        $archivos[$i]-> delete();
+      }
 Session::flash('flash_message', 'Se elimino el proveedor');
 
       return redirect('/proveedores/mostrar');
