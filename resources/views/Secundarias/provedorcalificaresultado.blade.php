@@ -36,6 +36,7 @@
 <div class="modal-body">
   <form id="formulariofiltro" class="form-horizontal" action="/provedores/resultado/filtro" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="uprofile" id="uprofile" value="{{ Auth::user()->perfil }}">
   <div class="container">
 
 
@@ -166,7 +167,9 @@
         <th>  <div class="th-inner sortable both">    Costo  </div></th>
         <th>  <div class="th-inner sortable both">    Comentario  </div></th>
         <th>  <div class="th-inner sortable both">    Archivo   </div></th>
-        <th>  <div class="th-inner sortable both">    Eliminar   </div></th>
+        @if(Auth::user()->perfil != 4)
+          <th>  <div class="th-inner sortable both">    Eliminar   </div></th>
+        @endif
       </tr>
     </thead>
     <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->

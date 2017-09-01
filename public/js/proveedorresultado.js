@@ -241,8 +241,15 @@ else {
  if(respuesta[i].archivo=='No se cargo archivo'){var txt = '';}else{var txt = '<a href="/proveedor/file/califica/ver/'+respuesta[i].id+'" target="_blank" style=\'color:#000\'><i class="glyphicon glyphicon-download-alt"></i></a>';}
                $("#prov").empty();
                $("#prov").html(respuesta[i].proveedor);
-               $("#FmyTable").append('<tr><td>'+respuesta[i].pedido+'</td><td>'+respuesta[i].fechacalificacion+'</td><td>'+respuesta[i].tiempo+'</td><td>'+respuesta[i].calidad+'</td><td>'+respuesta[i].servicio+'</td><td>'+respuesta[i].costo+'</td><td>'+respuesta[i].comentarioevaluacion+'</td><td>'+respuesta[i].archivo+
+               var profile = $("#uprofile").val();
+               console.log(profile);
+               if (profile !=4) {
+                 $("#FmyTable").append('<tr><td>'+respuesta[i].pedido+'</td><td>'+respuesta[i].fechacalificacion+'</td><td>'+respuesta[i].tiempo+'</td><td>'+respuesta[i].calidad+'</td><td>'+respuesta[i].servicio+'</td><td>'+respuesta[i].costo+'</td><td>'+respuesta[i].comentarioevaluacion+'</td><td>'+respuesta[i].archivo+
                  txt +'</td><td><form class="" action="/provedores/califica/delete/'+respuesta[i].id+'" method="delete">  <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btnobjetivo" id="btndelete_'+respuesta[i].id+'" style="font-family: Arial;" dataid="'+respuesta[i].id+'" onclick="return confirm(\'Estas seguro de eliminar la calificacion:?\')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button></form></td></tr>');
+               }else {
+                 $("#FmyTable").append('<tr><td>'+respuesta[i].pedido+'</td><td>'+respuesta[i].fechacalificacion+'</td><td>'+respuesta[i].tiempo+'</td><td>'+respuesta[i].calidad+'</td><td>'+respuesta[i].servicio+'</td><td>'+respuesta[i].costo+'</td><td>'+respuesta[i].comentarioevaluacion+'</td><td>'+respuesta[i].archivo+
+                 txt +'</td></tr>');
+               }
 
                           }
 
