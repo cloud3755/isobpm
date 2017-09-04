@@ -2,7 +2,21 @@
 
 @section('content')
 
-<script src="src/jquery.table2excel.js"></script>
+<script src="/js/EXCEL/src/jquery.table2excel.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(e){
+
+$("#excel").click(function(){
+$("#tblProIn").table2excel({
+  filename: "Reporte",
+  fileext:".xls"
+});
+});
+});
+
+</script>
 
     <div class="row" style="padding: 5px">
         <div class="col-lg-12 text-right">
@@ -481,14 +495,5 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$queja->id?>?')"><i
 
 <!-- termina modal para update -- >
 
-<script>
-
-$("#excel").click(function(){
-$("#tblProIn").table2excel({
-  filename: "Reporte"
-});
-});
-
-</script>
 
 @stop
