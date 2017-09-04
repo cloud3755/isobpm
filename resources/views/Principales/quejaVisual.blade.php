@@ -2,6 +2,8 @@
 
 @section('content')
 
+<script src="src/jquery.table2excel.js"></script>
+
     <div class="row" style="padding: 5px">
         <div class="col-lg-12 text-right">
             <button type="button" class="btn btn-primary" id="btnHelp">?</button>
@@ -45,6 +47,12 @@
   <div id="msg">
 
   </div>
+
+  <div class="col-lg-12 text-lefth">
+      <button type="button" class="btn btn-success" id="excel">Excel</button>
+      <br>
+  </div>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-red">
@@ -472,5 +480,15 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$queja->id?>?')"><i
 
 
 <!-- termina modal para update -- >
+
+<script>
+
+$("#excel").click(function(){
+$("#tblProIn").table2excel({
+  filename: "Reporte"
+});
+});
+
+</script>
 
 @stop
