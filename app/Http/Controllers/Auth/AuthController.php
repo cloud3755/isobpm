@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Empresas;
 
 class AuthController extends Controller
 {
@@ -61,8 +62,27 @@ class AuthController extends Controller
         // Validamos los datos y además mandamos como un segundo parámetro la opción de recordar el usuario.
         if(Auth::attempt($userdata, 0))
         {
-            // De ser datos válidos nos mandara a la bienvenida
-            return Redirect::to('/bienvenida');
+          $usuarios = Auth::user();
+          if ($usuarios->status != 3) {
+            // Si no estan activos los desloguea
+            return Redirect::to('/admin/auth/logout');
+          }else {
+            $empresas = new Empresas;
+            $empresa = $empresas->where('id',$usuarios->id_compania)->first();
+            if ($empresa->status_id != 3) {
+              if ($usuarios->perfil == 2 or  $usuarios->perfil == 1) {
+                //Si eres super admin o semi-super admin no importa la empresa
+                return Redirect::to('/bienvenida');
+              }else {
+                // Si no esta activa la empresa desloguea a los usuarios
+                return Redirect::to('/admin/auth/logout');
+              }
+            }else {
+              // De ser datos válidos nos mandara a la bienvenida
+              return Redirect::to('/bienvenida');
+            }
+
+          }
         }
         // En caso de que la autenticación haya fallado manda un mensaje al formulario de login y también regresamos los valores enviados con withInput().
         return Redirect::to('/admin/auth/login')
