@@ -46,9 +46,9 @@ ul.noBorder li div
     padding-bottom: .7em;
     cursor: pointer;
     background: #a9c7ff ;
-    background: -webkit-linear-gradient(#e0ebff,#a9c7ff); 
-    background: -o-linear-gradient(#e0ebff,#a9c7ff); 
-    background: -moz-linear-gradient(#e0ebff,#a9c7ff); 
+    background: -webkit-linear-gradient(#e0ebff,#a9c7ff);
+    background: -o-linear-gradient(#e0ebff,#a9c7ff);
+    background: -moz-linear-gradient(#e0ebff,#a9c7ff);
     background: linear-gradient(#e0ebff,#a9c7ff);
     color: black;
     width: 10.8%;
@@ -95,7 +95,7 @@ font-family: Arial, Helvetica, sans-serif;
 }
 .PrincipalPanel
 {
-    height: 60vh;
+    height: 80vh;
 }
 
 .scrollablePanel
@@ -132,15 +132,6 @@ font-family: Arial, Helvetica, sans-serif;
 	background-color: #4f4f4f;
 }
 
-body .modal-dialog {
-    max-width: 70%;
-    width: auto !important;
-    vertical-align: middle;
-    display: inline-block;
-}
-.modal {
-  text-align: center;
-}
 /*
 @media screen and (min-width: 768px) {
   .modal:before {

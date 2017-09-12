@@ -105,7 +105,7 @@
                             </form>
                           </td>
                           <td>
-                            @if(Auth::user()->perfil != 4)
+                            @if(Auth::user()->perfil != 4 or Auth::user()->id == $accioncorrectivas->responsable_id or Auth::user()->id == $accioncorrectivas->creador_id)
                               <button type="button" class="btnobjetivo" value = "<?=$accioncorrectivas->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
                             @endif
                           </td>
@@ -301,6 +301,7 @@
                   <form id="fileinfo" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
                     <input type="hidden" id="id">
+                    <input type="hidden" id="creador" value="{{ Auth::user()->id }} ">
                     <div class="row">
                       <div class="col-lg-4 col-md-4 col-sm-4">
                             <h2><label for="Usuario" class="control-label">Fecha Alta:</label></h2>
@@ -465,6 +466,24 @@
         $("#efechacierre").val(res.fechacierre);
         $("#id").val(res.id);
         $('#eestatus option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+
+        var creador = document.getElementById('creador').value;
+
+        if (creador == res.responsable_id) {
+          $("#efechaalta").attr('disabled','disabled');
+          $("#eindicador_id").attr('disabled','disabled');
+          $("#eproceso_id").attr('disabled','disabled');
+          $("#eproducto_id").attr('disabled','disabled');
+          $("#eid_area").attr('disabled','disabled');
+          $("#emonto").attr('disabled','disabled');
+          $("#edocumento").attr('disabled','disabled');
+          $("#archivoa").attr('disabled','disabled');
+          $("#edescripcion").attr('disabled','disabled');
+          $("#eresponsable_id").attr('disabled','disabled');
+          $("#efechacierre").attr('disabled','disabled');
+          $("#eestatus").attr('disabled','disabled');
+        }
+
 
       });
 

@@ -31,27 +31,27 @@
                     </ul>
                 </div>
                 <br>
-                <a data-toggle="collapse" href="#collapseIndicadores">Mis indicadores</a>
+                <a data-toggle="collapse" href="#collapseIndicadores">  <i class="fa fa-crosshairs fa-2x"></i>Mis indicadores</a>
                 <div id="collapseIndicadores" class="collapse">
                     <ul>
-                        @if(count($indicador)<=0)
+                        @if(count($indicadora)<=0)
                             <li class="text-danger">Sin indicadores</li>
                         @else
-                            @foreach($indicador as $indica)
+                            @foreach($indicadora as $indica)
                                 <li><a href="resultado/registro/{{$indica->id}}">{{$indica->nombre}}</a></li>
                             @endforeach
                         @endif
                     </ul>
                 </div>
                 <br>
-                <a data-toggle="collapse" href="#collapseProcesos">Mis procesos</a>
+                <a data-toggle="collapse" href="#collapseProcesos">  <i class="fa fa-cogs fa-2x"></i>Mis procesos</a>
                 <div id="collapseProcesos" class="collapse">
                     <ul>
-                        @if(count($proceso)<=0)
+                        @if(count($procesoa)<=0)
                             <li class="text-danger">Sin procesos</li>
                         @else
-                            @foreach($proceso as $pro)
-                                <li><a href="resultado/registro/{{$pro->id}}">{{$pro->proceso}}</a></li>
+                            @foreach($procesoa as $pro)
+                                <li><a href="procesos/registro/{{$pro->id}}">{{$pro->proceso}}</a></li>
                             @endforeach
 
                         @endif
@@ -77,7 +77,7 @@
                         <li class="text-danger">Sin quejas</li>
                     @else
                         @foreach($quejas as $queja)
-                            <li><a data-toggle="modal" data-target="#modaledit<?=$queja->id?>">{{$queja->descripcion}}</a></li>
+                            <li><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$queja->id}});">{{$queja->descripcion}}</a></li>
                         @endforeach
                     @endif
                 </ul>
@@ -91,7 +91,7 @@
                         <li class="text-danger">Sin Acciones</li>
                     @else
                         @foreach($accionesCorrectivas as $accion)
-                            <li><a value = "<?=$accion->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);">{{$accion->descripcion}}</a></li>
+                            <li><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accion->id}});">{{$accion->descripcion}}</a></li>
                         @endforeach
                     @endif
                 </ul>
@@ -105,7 +105,7 @@
                         <li class="text-danger">Sin items</li>
                     @else
                         @foreach($Noconformidades as $Noconformidad)
-                            <li><a data-toggle="modal" data-target="#modaleditNoconformidad<?=$Noconformidad->id?>">{{$Noconformidad->descripcion}}</a></li>
+                            <li><a data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC({{$Noconformidad->id}});">{{$Noconformidad->descripcion}}</a></li>
                         @endforeach
                     @endif
                 </ul>
@@ -186,172 +186,6 @@
                                             <?php endforeach ?>
 
 -->
-
-<!--
-    <div class="row">
-      <div class="col-lg-3 col-md-6" >
-          <div class="panel panel-doc" id="divPartnersPending">
-              <div class="panel-heading">
-                  <div class="row">
-                      <div class="col-xs-3">
-                          <i class="fa fa-file-text fa-5x"></i>
-                      </div>
-                      <div class="col-xs-9 text-right">
-                          <div class="huge" id="divPartnersNumber"></div>
-                          <div>INF. DOCUMENTADA</div>
-                      </div>
-                  </div>
-              </div>
-              <a href="/infdocumentada" class="pf">
-                  <div class="panel-footer">
-                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                      <div class="clearfix"></div>
-                  </div>
-              </a>
-          </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6" >
-          <div class="panel panel-obj" id="divPartnersPending">
-              <div class="panel-heading">
-                  <div class="row">
-                      <div class="col-xs-3">
-                          <i class="fa fa-crosshairs fa-5x"></i>
-                      </div>
-                      <div class="col-xs-9 text-right">
-                          <div class="huge" id="divPartnersNumber"></div>
-                          <div>OBJETIVOS & INDICADORES</div>
-                      </div>
-                  </div>
-              </div>
-              <a href="/objetivosindicadores" class="pf">
-                  <div class="panel-footer">
-                      <span class="pull-left" id="spPartnersPending"><?=$objetivo->count();?> en base</span>
-                      <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                      <div class="clearfix"></div>
-                  </div>
-              </a>
-          </div>
-      </div>
-
-
-    <div class="col-lg-3 col-md-6" >
-        <div class="panel panel-pro" id="divCompaniesPending">
-          <div class="panel-heading">
-              <div class="row">
-                  <div class="col-xs-3">
-                      <i class="fa fa-cogs fa-5x"></i>
-                  </div>
-                  <div class="col-xs-9 text-right">
-                      <div class="huge" id="divCompaniesNumber"></div>
-                      <div>PROCESOS</div>
-                  </div>
-              </div>
-          </div>
-          <a href="/procesos/visual" class="pf">
-              <div class="panel-footer">
-                    <span class="pull-left" id="spCompaniesPending"><?=$proceso->count();?> en base</span>
-                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                  <div class="clearfix"></div>
-              </div>
-          </a>
-      </div>
-    </div>
-
-
-    <div class="col-lg-3 col-md-6" >
-      <div class="panel panel-ris" id="divCompaniesPending">
-          <div class="panel-heading">
-              <div class="row">
-                  <div class="col-xs-3">
-                      <i class="fa fa-exclamation-triangle fa-5x"></i>
-                  </div>
-                  <div class="col-xs-9 text-right">
-                      <div class="huge" id="divCompaniesNumber"></div>
-                      <div>RIESGOS</div>
-                  </div>
-              </div>
-          </div>
-          <a href="/riesgos" class="pf">
-              <div class="panel-footer">
-                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                  <div class="clearfix"></div>
-              </div>
-          </a>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6" >
-      <div class="panel panel-ris" id="divCompaniesPending">
-          <div class="panel-heading">
-              <div class="row">
-                  <div class="col-xs-3">
-                      <i class="fa fa-exclamation-triangle fa-5x"></i>
-                  </div>
-                  <div class="col-xs-9 text-right">
-                      <div class="huge" id="divCompaniesNumber"></div>
-                      <div>OPORTUNIDADES</div>
-                  </div>
-              </div>
-          </div>
-          <a href="/oportunidades" class="pf">
-              <div class="panel-footer">
-                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                  <div class="clearfix"></div>
-              </div>
-          </a>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6" >
-      <div class="panel panel-mej" id="divCompaniesPending">
-          <div class="panel-heading">
-              <div class="row">
-                  <div class="col-xs-3">
-                      <i class="fa fa-line-chart  fa-5x"></i>
-                  </div>
-                  <div class="col-xs-9 text-right">
-                      <div class="huge" id="divCompaniesNumber"></div>
-                      <div>MEJORA</div>
-                  </div>
-              </div>
-          </div>
-          <a href="/mejoras" class="pf">
-              <div class="panel-footer">
-                  <span class="pull-left" id="spCompaniesPending">Quejas: <?=$quejas->count();?></span>
-                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                  <div class="clearfix"></div>
-              </div>
-          </a>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6" >
-      <div class="panel panel-mej" id="divCompaniesPending">
-          <div class="panel-heading">
-              <div class="row">
-                  <div class="col-xs-3">
-                      <i class="fa fa-line-chart  fa-5x"></i>
-                  </div>
-                  <div class="col-xs-9 text-right">
-                      <div class="huge" id="divCompaniesNumber"></div>
-                      <div>SEP</div>
-                  </div>
-              </div>
-          </div>
-          <a href="/proveedores" class="pf">
-            <!--  <div class="panel-footer">
-                  <span class="pull-left" id="spCompaniesPending">Quejas: </span>
-                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                  <div class="clearfix"></div>
-              </div> -->
-            <a href="/proveedores">
-              <div class="panel-footer">
-                <span class="pull-left" id="spCompaniesPending">Proveedores: <?=$cuentaproveedor ?></span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-          </a>
       </div>
     </div>
 </div>
@@ -371,7 +205,9 @@
               <?php endforeach ?>
             </select>
         </div>
-        <button type="submit" class="btnobjetivo" id="btnEditCli" style="font-family: Arial;">Seleccionar</button>
+        <div class="col-md-6">
+          <button type="submit" class="btnobjetivo" id="btnEditCli" style="font-family: Arial;">Seleccionar</button>
+      </div>
       </form>
     </div>
   </div>
@@ -588,7 +424,7 @@
                         {{ csrf_field() }}
                         <div class="col-lg-12">
                             <h2><label for="descripcionNoticia" class="control-label">Noticia:</label></h2>
-                            <textarea class="form-control" id="descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia"></textarea>
+                            <textarea class="form-control" id="descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia" required></textarea>
                         </div>
                         <center>
                             <h2>Elegir areas</h2>
@@ -601,7 +437,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <select multiple name="listaAreas[]" id="listaAreas" size="7" style="width: 100%;" onclick="agregaSeleccion('listaAreas', 'listaAreasSeleccionadas');">
+                                            <select multiple name="nlistaAreas[]" id="nlistaAreas" size="7" style="width: 100%;" onclick="agregaSeleccion('nlistaAreas', 'nlistaAreasSeleccionadas');">
                                                 @foreach ($Areas as $Area): ?>
 
                                                 <option value = "{{$Area->id}}" > {{$Area->nombre}} </option>
@@ -613,7 +449,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('listaAreas', 'listaAreasSeleccionadas');">
+                                                            <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('nlistaAreas', 'nlistaAreasSeleccionadas');">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -624,14 +460,14 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('listaAreasSeleccionadas', 'listaAreas');">
+                                                            <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('nlistaAreasSeleccionadas', 'nlistaAreas');">
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </td>
                                         <td>
-                                            <select multiple="multiple" name="listaAreasSeleccionadas[]" id="listaAreasSeleccionadas" size="7" style="width: 100%;" onclick="agregaSeleccion('listaAreasSeleccionadas','listaAreas');"></select>
+                                            <select multiple="multiple" name="nlistaAreasSeleccionadas[]" id="nlistaAreasSeleccionadas" size="7" style="width: 100%;" onclick="agregaSeleccion('nlistaAreasSeleccionadas','nlistaAreas');" required></select>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -653,175 +489,134 @@
 <!-- modal ver procesos -->
 
 <!-- modales de quejas -->
-<?php foreach ($quejas as $queja): ?>
-<div class="modal fade" id="modaledit<?=$queja['id']?>" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modaleditq" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">ALTA DE QUEJA</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">EDITAR QUEJA</h3>
             </div>
             <div class="modal-body">
-              <div class="container">
-                <form  action="/quejas/edit/<?=$queja['id']?>" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-                  <input type="hidden" name="_token" value="{{ csrf_token()}}">
-                <div class="form-group form-group-lg">
-                  <h2><label for="fecha requerimiento" class="control-label col-md-12">Fecha:</label></h2>
-                  <div class="col-md-6">
-                      <input class="form-control input-lg" type="date" placeholder="Fecha" name="fecha" value ="<?=$queja['fecha']?>">
+              <form id="fileinfo_q" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token()}}">
+                <input type="hidden" id="id_q">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h3><label>Fecha:</label></h3>
+                    <input class="form-control input-lg"  type="date" placeholder="Fecha" name="efecha_q"  id="efecha_q" required="">
                   </div>
-                </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="Usuario" class="control-label col-md-12">Area:</label></h2>
-                    <div class="col-md-6">
-                      <select class="form-control input-lg" name="area" required="">
-                        <?php foreach ($Areas as $area): ?>
-                          @if($area->id == $queja->area)
-                           <option value="<?=$area['id']?>" selected><?=$area['nombre']?></option>
-                          @endif
-                          <option value="<?=$area['id']?>"><?=$area['nombre']?></option>
-                        <?php endforeach ?>
-                      </select>
-
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2><label for="Usuario" class="control-label col-md-12">Proceso:</label></h2>
-                    <div class="col-md-6">
-                      <select class="form-control input-lg" name="proceso_id">
-                        <?php foreach ($proceso as $procesos): ?>
-                          @if($procesos->id == $queja->proceso)
-                           <option value="<?=$procesos['id']?>" selected><?=$procesos['proceso']?></option>
-                          @endif
-                          <option value="<?=$procesos['id']?>"><?=$procesos['proceso']?></option>
-                        <?php endforeach ?>
-                      </select>
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2><label for="Usuario" class="control-label col-md-12">Producto:</label></h2>
-                    <div class="col-md-6">
-                      <select class="form-control input-lg" name="producto_id">
-
-                        <?php foreach ($productos as $producto): ?>
-                          @if($producto->id == $queja->producto)
-                            <option value="<?=$producto['id']?>"  selected><?=$producto['nombre']?></option>
-                          @endif
-                          <option value="<?=$producto['id']?>"><?=$producto['nombre']?></option>
-                        <?php endforeach ?>
-                      </select>
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2><label for="Usuario" class="control-label col-md-12">Cliente:</label></h2>
-                    <div class="col-md-6">
-
-                      <select class="form-control input-lg" name="cliente_id">
-                        <?php foreach ($cliente as $clientes): ?>
-                          <option value="<?=$clientes['id']?>"><?=$clientes['nombre']?></option>
-                        <?php endforeach ?>
-                      </select>
-
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2>
-                    <label for="Usuario" class="control-label col-md-12">
-                    Decripcion de Queja:
-                    </label>
-                    </h2>
-                    <div class="col-md-6">
-                        <textarea class="form-control" id = "prodescripcionque" rows="3" placeholder="Descripcion de la queja" name="descripcion"><?=$queja['descripcion']?></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2><label for="tipo" class="control-label col-md-12" >Archivo de evidencia de queja: <br><?=$queja['archivoqueja']?></label></h2>
-                    <div class="col-md-6">
-                        <input class="file" id="file-1" type="file" placeholder="Archivo" name="archivo1">
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2><label for="tipo" class="control-label col-md-12" >Responsable:</label></h2>
-                    <div class="col-md-6">
-                        <select class="form-control input-lg" name="responsable">
-                          <?php foreach ($User as $Users): ?>
-                            <option value="<?=$Users['id']?>"><?=$Users['usuario']?></option>
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                      <h3><label>Area:</label></h3>
+                        <select class="form-control input-lg" name="earea_q" id="earea_q" required="">
+                          <option value=""></option>
+                          <?php foreach ($Areas as $areas): ?>
+                            <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
                           <?php endforeach ?>
                         </select>
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2>
-                    <label for="Usuario" class="control-label col-md-12">
-                    Acciones:
-                    </label>
-                    </h2>
-                    <div class="col-md-6">
-                        <textarea class="form-control" id = "prodescripcionque" rows="3" placeholder="Acciones tomadas" name="acciones"><?=$queja['acciones']?></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                  <h2><label for="fecha requerimiento" class="control-label col-md-12">Fecha plan:</label></h2>
-                  <div class="col-md-6">
-                      <input class="form-control input-lg" type="date" placeholder="Fecha" name="fecha_plan" value="<?=$queja['fecha_plan']?>">
                   </div>
-                </div>
 
-                <div class="form-group form-group-lg">
-                    <h2><label for="Usuario" class="control-label col-md-12">Evidencia:</label></h2>
-                    <div class="col-md-6">
-                        <input class="form-control input-lg" id="probproces" type="text" placeholder="evidencia" name="evidencia" value="<?=$queja['evidencia']?>">
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2><label for="tipo" class="control-label col-md-12" >Archivo de evidencia de queja: <br> <?=$queja['archivoevidencia']?> </label></h2>
-                    <div class="col-md-6">
-                        <input class="file" id="file-1" type="file" placeholder="Archivo" name="archivo2">
-                    </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                  <h2><label for="fecha requerimiento" class="control-label col-md-12">Fecha Cierre:</label></h2>
-                  <div class="col-md-6">
-                      <input class="form-control input-lg" type="date" placeholder="Fecha" name="fecha_cierre" value="<?=$queja['fecha_cierre']?>">
-                  </div>
-                </div>
-
-                <div class="form-group form-group-lg">
-                    <h2><label for="tipo" class="control-label col-md-12" >Status:</label></h2>
-                    <div class="col-md-6">
-                        <select class="form-control input-lg" name="status_id">
-                          <?php foreach ($estatus as $estatuses): ?>
-                            <option value="<?=$estatuses['id']?>"><?=$estatuses['nombre']?></option>
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                      <h3><label>Proceso:</label></h3>
+                        <select class="form-control input-lg" name="eproceso_id_q" id="eproceso_id_q">
+                          <option value=""></option>
+                          <?php foreach ($proceso as $procesos): ?>
+                            <option value="<?=$procesos['id']?>"><?=$procesos['proceso']?></option>
                           <?php endforeach ?>
                         </select>
-                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                      <h3><label>Producto:</label></h3>
+                        <select class="form-control input-lg" name="eproducto_id_q"  id="eproducto_id_q">
+                          <option value=""></option>
+                          <?php foreach ($productos as $producto): ?>
+                            <option value="<?=$producto['id']?>"><?=$producto['nombre']?></option>
+                          <?php endforeach ?>
+                        </select>
+                  </div>
+
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                      <h3><label>Monto:</label></h3>
+                          <input class="form-control input-lg" type="text" placeholder="monto" name="emonto_q" id="emonto_q">
+                  </div>
+
+                  <div class="col-lg-5 col-md-5 col-sm-5">
+                      <h3><label>Cliente:</label></h3>
+                        <select class="form-control input-lg" name="ecliente_id_q"  id="ecliente_id_q" required="">
+                          <option value=""></option>
+                          <?php foreach ($cliente as $clientes): ?>
+                            <option value="<?=$clientes['id']?>"><?=$clientes['nombre']?></option>
+                          <?php endforeach ?>
+                        </select>
+                  </div>
+
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                      <h3><label>Decripcion de queja:</label></h3>
+                          <textarea class="form-control" rows="3" placeholder="Descripcion de la queja" name="edescripcion_q" id="edescripcion_q" required=""></textarea>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label>Archivo de evidencia de queja:</label></h3>
+                      <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoa_q" id="earchivoa_q" >
+                      <input class="file" id="file-1" type="file" placeholder="Archivo" name="earchivo1_q">
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label>Responsable:</label></h3>
+                          <select class="form-control input-lg" name="eresponsable_q" id="eresponsable_q" required="">
+                            <option value=""></option>
+                            <?php foreach ($User as $Users): ?>
+                              <option value="<?=$Users['id']?>"><?=$Users['nombre']?></option>
+                            <?php endforeach ?>
+                          </select>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                      <h3><label>Acciones:</label></h3>
+                          <textarea class="form-control" rows="3" placeholder="Acciones tomadas" name="eacciones_q" id="eacciones_q"></textarea>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h3><label>Fecha plan:</label></h3>
+                        <input class="form-control input-lg" type="date" placeholder="Fecha" name="efecha_plan_q" id="efecha_plan_q">
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label>Evidencia:</label></h3>
+                      <input class="form-control input-lg" type="text" placeholder="evidencia" name="eevidencia_q" id="eevidencia_q">
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <h3><label>Archivo de evidencia:</label></h3>
+                      <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoa2_q" id="earchivoa2_q" >
+                      <input class="file" id="file-1" type="file" placeholder="Archivo" name="earchivo2_q">
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h3><label>Fecha Cierre:</label></h3>
+                    <input class="form-control input-lg" type="date" placeholder="Fecha" name="efecha_cierre_q" id="efecha_cierre_q">
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                      <h3><label>Status:</label></h3>
+                          <select class="form-control input-lg" name="estatus_id_q" id="estatus_id_q">
+                            <?php foreach ($estatus as $estatuses): ?>
+                              <option value="<?=$estatuses['id']?>"><?=$estatuses['nombre']?></option>
+                            <?php endforeach ?>
+                          </select>
+                  </div>
                 </div>
-
-    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Editar Queja</button>
-                </form>
-                        <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
-                    </div>
+                <div class="modal-footer">
+                  <a class="btn btn-primary" id="actualizarq" style="font-family: Arial;">Editar Queja</a>
+                  <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
                 </div>
+              </form>
             </div>
+          </div>
         </div>
 </div>
-
-<?php endforeach?>
-
 <!-- modales de quejas -->
 <!-- modales acciones correctivas -->
 <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
@@ -835,6 +630,7 @@
                   <form id="fileinfo" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
                     <input type="hidden" id="id">
+                    <input type="hidden" id="creador" value="{{ Auth::user()->id }} ">
                     <div class="row">
                       <div class="col-lg-4 col-md-4 col-sm-4">
                             <h2><label for="Usuario" class="control-label">Fecha Alta:</label></h2>
@@ -974,155 +770,158 @@
 <!-- modales acciones correctivas -->
 
 <!-- modales no conformidades -->
-    <?php foreach ($Noconformidades as $Noconformidad): ?>
-    <div class="modal fade" id="modaledit<?=$Noconformidad['id']?>" tabindex="-1" role="dialog" accept-charset="UTF-8" enctype="multipart/form-data">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                    <h2 class="modal-title">EDITAR NO CONFORMIDAD</h2>
+<div class="modal fade" id="modaledit_nc" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h2 class="modal-title">EDITAR NO CONFORMIDADES</h2>
+            </div>
+            <div class="modal-body">
+                <form id="fileinfo_nc" method="post">
+                  <input type="hidden" name="_token" value="{{ csrf_token()}}">
+                  <input type="hidden" id="id_nc">
+                <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <h3><label>Fecha:</label></h3>
+                      <input class="form-control input-lg" type="date" placeholder="Fecha" name="fecha_nc" id="fecha_nc" required="">
                 </div>
-                <div class="modal-body">
-                  <form  action="/noconformidad/edit/<?=$Noconformidad['id']?>" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-                      <input type="hidden" name="_token" value="{{ csrf_token()}}">
-                      <input type="hidden" name="id_compania" value="{{Auth::user()->id_compania}}">
 
-                    <div class="row">
-                      <div class="col-lg-4 col-md-4 col-sm-4">
-                        <h3><label>Fecha:</label></h3>
-                            <input class="form-control input-lg" type="date" placeholder="Fecha"  value = "<?=$Noconformidad['fecha']?>" name="fecha">
-                      </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h3><label>Proceso:</label></h3>
+                      <select class="form-control input-lg" name="proceso_id_nc" id="proceso_id_nc">
+                        <option value="50"></option>
+                        <?php foreach ($proceso as $Procesos): ?>
+                          <option value="<?=$Procesos['id']?>"><?=$Procesos['proceso']?></option>
+                        <?php endforeach ?>
+                      </select>
+                </div>
 
-                      <div class="col-lg-4 col-md-4 col-sm-4">
-                        <h3><label>Proceso:</label></h3>
-                            <select class="form-control input-lg" name="proceso_id" id="proceso_id">
-                              <?php foreach ($proceso as $Procesos): ?>
-                                @if($Procesos->id == $Noconformidad->proceso_id)
-                                  <option value="<?=$Procesos['id']?>" selected><?=$Procesos['proceso']?></option>
-                                @else
-                                  <option value="<?=$Procesos['id']?>"><?=$Procesos['proceso']?></option>
-                                @endif
-                              <?php endforeach ?>
-                            </select>
-                      </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h3><label>Producto:</label></h3>
+                      <select class="form-control input-lg" name="producto_id_nc" id="producto_id_nc">
+                        <option value="21"></option>
+                        <?php foreach ($productos as $producto): ?>
+                          <option value="<?=$producto['id']?>"><?=$producto['nombre']?></option>
+                        <?php endforeach ?>
+                      </select>
+                </div>
 
-                      <div class="col-lg-4 col-md-4 col-sm-4">
-                          <h3><label>Producto:</label></h3>
-                            <select class="form-control input-lg" name="producto_id" id="producto_id">
-                              <?php foreach ($productos as $producto): ?>
-                                @if($producto->id == $Noconformidad->producto_id)
-                                    <option value="<?=$producto['id']?>" selected><?=$producto['nombre']?></option>
-                                @else
-                                    <option value="<?=$producto['id']?>"><?=$producto['nombre']?></option>
-                                @endif
-                              <?php endforeach ?>
-                            </select>
-                      </div>
-
-                      <div class="col-lg-4 col-md-4 col-sm-4">
-                          <h3><label>Area:</label></h3>
-                              <select class="form-control input-lg" name="id_area" id="id_area">
-                                <?php foreach ($Areas as $areas): ?>
-                                  @if($areas->id == $Noconformidad->id_area)
-                                    <option value="<?=$areas['id']?>"selected><?=$areas['nombre']?></option>
-                                  @else
-                                    <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
-                                  @endif
-                                <?php endforeach ?>
-                              </select>
-                      </div>
-
-                      <div class="col-lg-8 col-md-8 col-sm-8">
-                          <h3><label>Evidencia no conformidad:</label></h3>
-                              <input class="form-control input-lg" id="documento" type="file" value = "" name="archivo1">
-                      </div>
-
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                          <h3><label>Documento:</label></h3>
-                              <input class="form-control input-lg" id="documento" type="text" value="<?=$Noconformidad['documento']?>" name="documento">
-                      </div>
-
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                          <h3><label> Decripcion:</label></h3>
-                              <textarea class="form-control" id = "descripcion" rows="3" name="descripcion" placeholder="Descripcion No conformidad"><?=$Noconformidad['descripcion']?></textarea>
-                      </div>
-
-                      <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h3><label> Acciones:</label></h3>
-                        <textarea class="form-control" id = "acciones" name = "acciones" rows="3" placeholder="Acciones a Realizar"><?=$Noconformidad['acciones']?></textarea>
-                      </div>
-
-                      <div class="col-lg-6 col-md-6 col-sm-6">
-                          <h3><label>Responsable:</label></h3>
-                              <select class="form-control input-lg" name="usuario_responsable_id" id="usuario_responsable_id">
-                                <?php foreach ($User as $Users): ?>
-                                  @if($Users->id == $Noconformidad->usuario_responsable_id)
-                                    <option value="<?=$Users['id']?>" selected><?=$Users['nombre']?></option>
-                                  @else
-                                    <option value="<?=$Users['id']?>"><?=$Users['nombre']?></option>
-                                  @endif
-                                <?php endforeach ?>
-                              </select>
-                      </div>
-
-
-                      <div class="col-lg-6 col-md-6 col-sm-6">
-                        <h3><label>Fecha plan:</label></h3>
-                            <input class="form-control input-lg" id="fecha_plan" type="date" value = "<?=$Noconformidad['fecha_plan']?>" placeholder="Fecha del Plan" name="fecha_plan">
-                      </div>
-
-                      <div class="col-lg-8 col-md-8 col-sm-8">
-                          <h3><label>Evidencia de cierre: <?=$Noconformidad['evidenciapertura']?></label></h3>
-                              <input class="form-control input-lg" id="evidencia" type="file" value = "<?=$Noconformidad['evidencia']?>" placeholder="Evidencia del cierre" name="archivo2">
-                      </div>
-
-                      <div class="col-lg-4 col-md-4 col-sm-4">
-                        <h3><label>Fecha Cierre:</label></h3>
-                            <input class="form-control input-lg" id="fecha_cierre" type="date" value = "<?=$Noconformidad['fecha_cierre']?>" placeholder="Fecha para el cierre" name="fecha_cierre">
-                      </div>
-                      @if($Noconformidad->creador_id == Auth::user()->id or Auth::user()->perfil <= 3)
-                      <div class="col-lg-6 col-md-6 col-sm-6">
-                        <h2><label>Status:</label></h2>
-                        <select class="form-control input-lg" name="estatus_id" id="estatus_id">
-                          <?php foreach ($estatus as $estatuses): ?>
-                            @if($estatuses->id == $Noconformidad->estatus_id)
-                            <option value="<?=$estatuses['id']?>" selected><?=$estatuses['nombre']?></option>
-                            @else
-                            <option value="<?=$estatuses['id']?>"><?=$estatuses['nombre']?></option>
-                            @endif
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h3><label>Area:</label></h3>
+                        <select class="form-control input-lg" name="id_area_nc" id="id_area_nc">
+                          <option value="2"></option>
+                          <?php foreach ($Areas as $areas): ?>
+                            <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
                           <?php endforeach ?>
                         </select>
-                      </div>
-                      @else
-                        <input type="hidden" name="estatus_id" id="estatus_id" value="<?=$Noconformidad->estatus_id?>">
-                      @endif
-
-                      <div class="col-lg-6 col-md-6 col-sm-6">
-                        <h2><label>Monto:</label></h2>
-                            <input class="form-control input-lg" id="monto" type="text" value = "<?=$Noconformidad['monto']?>" placeholder="Monto de la no conformidad" name="monto">
-                      </div>
-                    </div>
-
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btnobjetivo" id="btnEditCli" style="font-family: Arial;">Editar Registro</button>
-                    </form>
-                            <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
-                        </div>
-                    </div>
                 </div>
-            </div>
+
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <h3><label>Evidencia no conformidad:</label></h3>
+                    <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivoa_nc" id="archivoa_nc" >
+                    <input class="file" id="archivo1_nc" type="file" placeholder="Archivo" name="archivo1_nc">
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3><label>Documento:</label></h3>
+                        <input class="form-control input-lg" id="documento_nc" type="text" placeholder="Documento" name="documento_nc">
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3><label> Decripcion:</label></h3>
+                        <textarea class="form-control" id = "descripcion_nc" rows="3" name="descripcion_nc" placeholder="Descripcion No conformidad" required=""></textarea>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3><label> Acciones:</label></h3>
+                        <textarea class="form-control" id = "acciones_nc" name = "acciones_nc" rows="3" placeholder="Acciones a Realizar"></textarea>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h3><label>Responsable:</label></h3>
+                        <select class="form-control input-lg" name="usuario_responsable_id_nc" id="usuario_responsable_id_nc" required="">
+                          <option value=""></option>
+                          <?php foreach ($User as $Users): ?>
+                            <option value="<?=$Users['id']?>"><?=$Users['nombre']?></option>
+                          <?php endforeach ?>
+                        </select>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <h3><label>Fecha plan:</label></h3>
+                      <input class="form-control input-lg" id="fecha_plan_nc" type="date" placeholder="Fecha del Plan" name="fecha_plan_nc">
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h3><label>Evidencia de cierre:</label></h3>
+                    <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivob_nc" id="archivob_nc" >
+                    <input class="file" id="archivo2_nc" type="file" placeholder="Evidencia del cierre" name="archivo2_nc">
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <h3><label>Fecha Cierre:</label></h3>
+                      <input class="form-control input-lg" id="fecha_cierre_nc" type="date" placeholder="Fecha para el cierre" name="fecha_cierre_nc">
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <h3><label>Status:</label></h3>
+                        <select class="form-control input-lg" name="estatus_id_nc" id="estatus_id_nc">
+                          <?php foreach ($estatus as $estatuses): ?>
+                            <option value="<?=$estatuses['id']?>"><?=$estatuses['nombre']?></option>
+                          <?php endforeach ?>
+                        </select>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <h3><label>Monto:</label></h3>
+                      <input class="form-control input-lg" id="monto_nc" type="text" placeholder="Monto de la no conformidad" name="monto_nc" required="">
+                </div>
     </div>
 
-    <?php endforeach?>
+
+                    <div class="modal-footer">
+                      <a class="btn btn-primary" id="actualizar_nc" style="font-family: Arial;">Editar No Conformidad</a>
+                      <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+</div>
+
 <!-- modales no conformidades -->
 <button style="display:none;" id="mostrarevento" data-toggle="modal" data-target="#modaleventoclick"/>
 
 <!--script cargar datos modales-->
     <script type="text/javascript">
 
-function Editar(btn){
-      var route = "/accioncorrectiva/"+btn.value+"/edit";
+
+    function EditarNC(btn){
+      var route = "/noconformidad/"+btn+"/edit";
+      $.get(route, function(res){
+        $("#id_nc").val(res.id);
+        $("#fecha_nc").val(res.fecha);
+        $('#proceso_id_nc option[value="' + res.proceso_id + '"]').attr("selected", "selected");
+        $('#producto_id_nc option[value="' + res.producto_id + '"]').attr("selected", "selected");
+        $('#id_area_nc option[value="' + res.id_area + '"]').attr("selected", "selected");
+        $("#archivoa_nc").val(res.evidenciapertura);
+        $("#documento_nc").val(res.documento);
+        $("#descripcion_nc").val(res.descripcion);
+        $("#acciones_nc").val(res.acciones);
+        $('#usuario_responsable_id_nc option[value="' + res.usuario_responsable_id + '"]').attr("selected", "selected");
+        $("#fecha_plan_nc").val(res.fecha_plan);
+        $("#archivob_nc").val(res.evidencia);
+        $("#fecha_cierre_nc").val(res.fecha_cierre);
+        $('#estatus_id_nc option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+        $("#monto_nc").val(res.monto);
+
+      });
+
+    }
+
+    function Editar(btn){
+      var route = "/accioncorrectiva/"+btn+"/edit";
       $.get(route, function(res){
         $("#efechaalta").val(res.fechaalta);
         $('#eindicador_id option[value="' + res.indicador_id + '"]').attr("selected", "selected");
@@ -1144,6 +943,47 @@ function Editar(btn){
         $("#id").val(res.id);
         $('#eestatus option[value="' + res.estatus_id + '"]').attr("selected", "selected");
 
+        var creador = document.getElementById('creador').value;
+        console.log(creador);
+        if (creador == res.responsable_id) {
+          $("#efechaalta").attr('disabled','disabled');
+          $("#eindicador_id").attr('disabled','disabled');
+          $("#eproceso_id").attr('disabled','disabled');
+          $("#eproducto_id").attr('disabled','disabled');
+          $("#eid_area").attr('disabled','disabled');
+          $("#emonto").attr('disabled','disabled');
+          $("#edocumento").attr('disabled','disabled');
+          $("#archivoa").attr('disabled','disabled');
+          $("#edescripcion").attr('disabled','disabled');
+          $("#eresponsable_id").attr('disabled','disabled');
+          $("#efechacierre").attr('disabled','disabled');
+          $("#eestatus").attr('disabled','disabled');
+        }
+
+
+      });
+
+    }
+
+    function EditarQ(btn){
+      var route = "/quejas/"+btn+"/edit";
+      $.get(route, function(res){
+        $("#id_q").val(res.id);
+        $("#efecha_q").val(res.fecha);
+        $('#earea_q option[value="' + res.area + '"]').attr("selected", "selected");
+        $('#eproceso_id_q option[value="' + res.proceso + '"]').attr("selected", "selected");
+        $('#eproducto_id_q option[value="' + res.producto + '"]').attr("selected", "selected");
+        $("#emonto_q").val(res.monto);
+        $('#ecliente_id_q option[value="' + res.cliente_id + '"]').attr("selected", "selected");
+        $("#edescripcion_q").val(res.descripcion);
+        $("#earchivoa_q").val(res.archivoqueja);
+        $('#eresponsable_q option[value="' + res.usuario_responsable_id + '"]').attr("selected", "selected");
+        $("#eacciones_q").val(res.acciones);
+        $("#efecha_plan_q").val(res.fecha_plan);
+        $("#eevidencia_q").val(res.evidencia);
+        $("#earchivoa2_q").val(res.archivoevidencia);
+        $("#efecha_cierre_q").val(res.fecha_cierre);
+        $('#estatus_id_q option[value="' + res.estatus_id + '"]').attr("selected", "selected");
       });
 
     }
@@ -1166,7 +1006,7 @@ function agregaSeleccion(origen, destino) {
 
 
 
-        var select = document.getElementById('listaAreasSeleccionadas');
+        var select = document.getElementById(destino);
 
         for ( var i = 0, l = select.options.length, o; i < l; i++ )
         {
@@ -1194,7 +1034,7 @@ function agregaSeleccion(origen, destino) {
 
 
 
-    var select = document.getElementById('elistaSeleccionada');
+    var select = document.getElementById(destino);
 
     for ( var i = 0, l = select.options.length, o; i < l; i++ )
     {
@@ -1245,6 +1085,71 @@ function agregaSeleccion(origen, destino) {
             });
         }
         );
+      });
+
+      $(document).ready(function(){
+
+
+        $("#actualizar").click(function(){
+          var value = $("#id").val();
+          var route = "/accioncorrectiva/edit/"+value+"";
+          var token = $("#token").val();
+          var fd = new FormData(document.getElementById("fileinfo"));
+
+          $.ajax({
+            url: route,
+            headers: {'X-CSRF_TOKEN': token},
+            type: 'post',
+            data: fd,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,
+            success: function(){
+              alert("Cambios guardados correctamente");
+              location.reload();
+            }
+          });
+        });
+
+        $("#actualizarq").click(function(){
+          var value = $("#id_q").val();
+          var route = "/quejas/edit/"+value+"";
+          var token = $("#token").val();
+          var fd = new FormData(document.getElementById("fileinfo_q"));
+
+          $.ajax({
+            url: route,
+            headers: {'X-CSRF_TOKEN': token},
+            type: 'post',
+            data: fd,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,
+            success: function(){
+              alert("Cambios guardados correctamente");
+              location.reload();
+            }
+          });
+        });
+
+        $("#actualizar_nc").click(function(){
+          var value = $("#id_nc").val();
+          var route = "/noconformidad/edit/"+value+"";
+          var token = $("#token").val();
+          var fd = new FormData(document.getElementById("fileinfo_nc"));
+
+          $.ajax({
+            url: route,
+            headers: {'X-CSRF_TOKEN': token},
+            type: 'post',
+            data: fd,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,
+            success: function(){
+              alert("Cambios guardados correctamente");
+              location.reload();
+            }
+          });
+        });
+
       });
     </script>
 <!--script cargar datos modales-->

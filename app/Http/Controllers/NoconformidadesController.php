@@ -164,8 +164,8 @@ class NoconformidadesController extends Controller
     public function edit($id,Request $request)
     {
       $Noconformidad = Noconformidades::findorfail($id);
-        $file1                            = $request->file('archivo1');
-        $file2                            = $request->file('archivo2');
+        $file1                            = $request->file('archivo1_nc');
+        $file2                            = $request->file('archivo2_nc');
 
       if($file1!= null )
       {
@@ -193,24 +193,31 @@ class NoconformidadesController extends Controller
         $Noconformidad->apertura_unic        = $nombreunicoarchivo2;
       }
 
-      $Noconformidad->fecha                  = $request->input('fecha');
-      $Noconformidad->proceso_id             = $request->input('proceso_id');
-      $Noconformidad->documento              = $request->input('documento');
-      $Noconformidad->producto_id            = $request->input('producto_id');
-      $Noconformidad->descripcion            = $request->input('descripcion');
-      $Noconformidad->usuario_responsable_id = $request->input('usuario_responsable_id');
-      $Noconformidad->acciones               = $request->input('acciones');
-      $Noconformidad->fecha_plan             = $request->input('fecha_plan');
-      $Noconformidad->fecha_cierre           = $request->input('fecha_cierre');
-      $Noconformidad->estatus_id             = $request->input('estatus_id');
-      $Noconformidad->monto                  = $request->input('monto');
-      $Noconformidad->idcompañia             = $request->input('id_compania');
-      $Noconformidad->id_area                = $request->input('id_area');
+      $Noconformidad->fecha                  = $request->input('fecha_nc');
+      $Noconformidad->proceso_id             = $request->input('proceso_id_nc');
+      $Noconformidad->documento              = $request->input('documento_nc');
+      $Noconformidad->producto_id            = $request->input('producto_id_nc');
+      $Noconformidad->descripcion            = $request->input('descripcion_nc');
+      $Noconformidad->usuario_responsable_id = $request->input('usuario_responsable_id_nc');
+      $Noconformidad->acciones               = $request->input('acciones_nc');
+      $Noconformidad->fecha_plan             = $request->input('fecha_plan_nc');
+      $Noconformidad->fecha_cierre           = $request->input('fecha_cierre_nc');
+      $Noconformidad->estatus_id             = $request->input('estatus_id_nc');
+      $Noconformidad->monto                  = $request->input('monto_nc');
+      $Noconformidad->id_area                = $request->input('id_area_nc');
 
       $Noconformidad->save();
 
       return Redirect('/noconformidad/create');
     }
+
+    public function editM($id){
+      $nc = Noconformidades::find($id);
+        return response()->json(
+          $nc->toArray()
+        );
+    }
+
 
     /**
      * Update the specified resource in storage.

@@ -149,6 +149,12 @@ class QuejasController extends Controller
         //
     }
 
+    public function editM($id){
+      $queja = Quejas::find($id);
+        return response()->json(
+          $queja->toArray()
+        );
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -160,8 +166,8 @@ class QuejasController extends Controller
       $queja = Quejas::findorfail($id);
 
       //nombre del archivo
-      $file1                            = $request->file('archivo1');
-      $file2                            = $request->file('archivo2');
+      $file1                            = $request->file('earchivo1_q');
+      $file2                            = $request->file('earchivo2_q');
       //se valida que no este vacio el archivo 2
       if($file1!= null )
       {
@@ -188,19 +194,19 @@ class QuejasController extends Controller
         $queja->uniquearchivoqueja        = $nombreunicoarchivo2;
       }
 
-      $queja->fecha = $request->input('fecha');
-      $queja->cliente_id = $request->input('cliente_id');
-      $queja->descripcion = $request->input('descripcion');
-      $queja->usuario_responsable_id = $request->input('responsable');
-      $queja->acciones = $request->input('acciones');
-      $queja->fecha_plan = $request->input('fecha_plan');
-      $queja->evidencia = $request->input('evidencia');
-      $queja->fecha_cierre = $request->input('fecha_cierre');
-      $queja->estatus_id = $request->input('status_id');
-      $queja->producto   = $request->input('producto_id');
-      $queja->monto     = $request->input('monto');
-      $queja->area      = $request->input('area');
-      $queja->proceso    = $request->input('proceso_id');
+      $queja->fecha = $request->input('efecha_q');
+      $queja->cliente_id = $request->input('ecliente_id_q');
+      $queja->descripcion = $request->input('edescripcion_q');
+      $queja->usuario_responsable_id = $request->input('eresponsable_q');
+      $queja->acciones = $request->input('eacciones_q');
+      $queja->fecha_plan = $request->input('efecha_plan_q');
+      $queja->evidencia = $request->input('eevidencia_q');
+      $queja->fecha_cierre = $request->input('efecha_cierre_q');
+      $queja->estatus_id = $request->input('estatus_id_q');
+      $queja->producto   = $request->input('eproducto_id_q');
+      $queja->monto     = $request->input('emonto_q');
+      $queja->area      = $request->input('earea_q');
+      $queja->proceso    = $request->input('eproceso_id_q');
 
       $queja->save();
 

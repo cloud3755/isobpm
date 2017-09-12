@@ -112,6 +112,8 @@
     <script src="/js/index.js" ></script>
 </head>
 <body>
+  <header id="main-header" style="position: fixed; width: 100%; z-index: 1;">
+
     <div id="wrapper">
         <nav class="navbar navbar-inverse " role="navigation">
             <div class="navbar-header">
@@ -244,9 +246,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/infdocumentos">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Documento.jpg"/>
                     <br>
-                    <a  href="/infdocumentos">Documentos</a>
+                    Documentos</a>
                 </center>
 
             </div>
@@ -256,9 +259,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a class="" href="/infoperacion">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Carpeta.png"/>
                     <br>
-                    <a class="" href="/documentada/56">Registros</a>
+                    Registros</a>
                 </center>
 
             </div>
@@ -273,9 +277,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img class="imagesOfficeBar" src="/img/navBar office style images/personal.png"/>
+                    <a  href="/recpersonal">
+                      <img class="imagesOfficeBar" src="/img/navBar office style images/personal.png"/>
                     <br>
-                    <a  href="/recpersonal">Personal</a>
+                    Personal</a>
                 </center>
 
             </div>
@@ -284,9 +289,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img class="imagesOfficeBar" src="/img/navBar office style images/infraestructura.jpg"/>
+                    <a class="" href="/recinfraestructura">
+                      <img class="imagesOfficeBar" src="/img/navBar office style images/infraestructura.jpg"/>
                     <br>
-                    <a class="" href="/recinfraestructura">Infraestructura</a>
+                    Infraestructura</a>
                 </center>
 
             </div>
@@ -296,9 +302,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/EquipoMedicion.png"/>
+                    <a class="" href="/recmedicion">
+                      <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/EquipoMedicion.png"/>
                     <br>
-                    <a class="" href="/recmedicion">Equipo de medición</a>
+                    Equipo de medición</a>
                 </center>
 
             </div>
@@ -313,9 +320,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img class="imagesOfficeBar" src="/img/navBar office style images/Estrategia.jpg"/>
+                    <a  href="/infestrategia">
+                      <img class="imagesOfficeBar" src="/img/navBar office style images/Estrategia.jpg"/>
                     <br>
-                    <a  href="/infestrategia">Estrategia</a>
+                    Estrategia</a>
                 </center>
 
             </div>
@@ -324,9 +332,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/objetivos.jpg"/>
+                    <a class="" href="/objetivos/visual">
+                      <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/objetivos.jpg"/>
                     <br>
-                    <a class="" href="/objetivos/visual">Objetivos</a>
+                    Objetivos</a>
                 </center>
 
             </div>
@@ -336,9 +345,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/indicadores.png"/>
+                    <a class="" href="/resultado/create">
+                      <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/indicadores.png"/>
                     <br>
-                    <a class="" href="/indicadores/create">Indicadores</a>
+                    Indicadores</a>
                 </center>
 
             </div>
@@ -348,9 +358,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
+                    <a class="" href="/Dashboard">
+                      <img style="width:120px;" class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
                     <br>
-                    <a class="" href="/Dashboard">Dashboard</a>
+                    Dashboard</a>
                 </center>
 
             </div>
@@ -365,9 +376,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img class="imagesOfficeBar" src="/img/navBar office style images/procesos.jpg"/>
+                    <a  href="/procesos/visual">
+                      <img class="imagesOfficeBar" src="/img/navBar office style images/procesos.jpg"/>
                     <br>
-                    <a  href="/procesos/visual">Procesos</a>
+                    Procesos</a>
                 </center>
 
             </div>
@@ -382,9 +394,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/insumos">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/materiales.png"/>
                     <br>
-                    <a  href="/insumos">Materiales</a>
+                    Insumos</a>
                 </center>
 
             </div>
@@ -394,9 +407,10 @@
             <div class="bigdiv">
 
                 <center>
-                    <img class="imagesOfficeBar" src="/img/navBar office style images/proveedores.jpg"/>
+                    <a  href="/proveedores/mostrar">
+                      <img class="imagesOfficeBar" src="/img/navBar office style images/proveedores.jpg"/>
                     <br>
-                    <a  href="/proveedores">Proveedores</a>
+                    Proveedores</a>
                 </center>
             </div>
         </li>
@@ -404,9 +418,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/provedores/califica">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/EvaluacionProveedores.png"/>
                     <br>
-                    <a  href="/provedores/califica">Evaluación a Proveedores</a>
+                    Evaluación a Proveedores</a>
                 </center>
             </div>
         </li>
@@ -414,9 +429,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/provedores/calificaresultado">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
                     <br>
-                    <a  href="/proveedoradmin">Dashboard</a>
+                    Dashboard</a>
                 </center>
             </div>
         </li>
@@ -429,9 +445,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/abcriesgos/create">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Riesgos.jpg"/>
                     <br>
-                    <a  href="/abcriesgos/create">Riesgos</a>
+                    Riesgos</a>
                 </center>
 
             </div>
@@ -441,9 +458,10 @@
             <div class="bigdiv">
 
                 <center>
+                    <a  href="/riesgos/create">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/analisisRiesgo.png"/>
                     <br>
-                    <a  href="/riesgos/create">Análisis de Riesgos</a>
+                    Análisis de Riesgos</a>
                 </center>
             </div>
         </li>
@@ -451,9 +469,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/mapadecalor">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/mapacalor.jpg"/>
                     <br>
-                    <a  href="/mapadecalor">Mapa de Calor</a>
+                    Mapa de Calor</a>
                 </center>
             </div>
         </li>
@@ -466,9 +485,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/abcoportunidades/create">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/oportunidades.png"/>
                     <br>
-                    <a  href="/abcoportunidades/create">Oportunidades</a>
+                    Oportunidades</a>
                 </center>
             </div>
 
@@ -477,9 +497,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/oportunidades/create">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/analisisoportunidades.jpg"/>
                     <br>
-                    <a  href="/oportunidades/create">Análisis de Oportunidades</a>
+                    Análisis de Oportunidades</a>
                 </center>
             </div>
         </li>
@@ -487,9 +508,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/mapadecaloropor">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/mapacalor.jpg"/>
                     <br>
-                    <a  href="/mapadecaloropor">Mapa de Calor</a>
+                    Mapa de Calor</a>
                 </center>
             </div>
         </li>
@@ -502,9 +524,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/quejas/create">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/quejas.png"/>
                     <br>
-                    <a  href="/quejas/create">Quejas</a>
+                    Quejas</a>
                 </center>
             </div>
 
@@ -513,9 +536,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/noconformidad/create">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/noconformidades.jpg"/>
                     <br>
-                    <a  href="/noconformidad/create">No Conformidades</a>
+                    No Conformidades</a>
                 </center>
             </div>
         </li>
@@ -523,9 +547,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/accioncorrectiva">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/accionescorrectivas.jpg"/>
                     <br>
-                    <a  href="/accioncorrectiva">Acciones Correctivas</a>
+                    Acciones Correctivas</a>
                 </center>
             </div>
         </li>
@@ -533,9 +558,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/Promejoras">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/Lean-Six-Sigma.jpg"/>
                     <br>
-                    <a  href="/Promejoras">Proyectos de Mejora</a>
+                    Proyectos de Mejora</a>
                 </center>
             </div>
         </li>
@@ -543,9 +569,10 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/evainternas">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/auditorias.png"/>
                     <br>
-                    <a  href="/evainternas">Auditorias</a>
+                    Auditorias</a>
                 </center>
             </div>
         </li>
@@ -553,16 +580,18 @@
             <div class="bigdiv">
 
                 <center>
+                  <a  href="/DashboardMejora/">
                     <img class="imagesOfficeBar" src="/img/navBar office style images/dashboard.png"/>
                     <br>
-                    <a  href="/DashboardMejora/">Dashboard</a>
+                    Dashboard</a>
                 </center>
             </div>
         </li>
     </ul>
 </div>
+</header>
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
-            <div class="main-content">
+            <div class="main-content" style="padding-top: 7%;">
             <div>
             </div>
                 @yield('content')
