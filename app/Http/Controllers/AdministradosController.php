@@ -374,6 +374,8 @@ class AdministradosController extends Controller
         $usuarios->save();
         return redirect('/usuarios');
       }
+
+
       //functiones para las noticias
       public function noticiastore(Request $request)
       {
@@ -386,8 +388,9 @@ class AdministradosController extends Controller
           $noticia->id_empresa = $user->id_compania;
           $noticia->id_UsuarioCreo = $user->id;
           $noticia->fecha_creacion=$date;
+          $noticia->titulo = $request->input('titulonoticia');
           $noticia->Noticia = $request->input('descripcionNoticia');
-          $acces=$request->input('listaAreasSeleccionadas');
+          $acces=$request->input('nlistaAreasSeleccionadas');
           $noticia->save();
 
           for ($i=0;$i<count($acces);$i++)
@@ -401,6 +404,13 @@ class AdministradosController extends Controller
         }else{
           return Redirect('/');
         }
+      }
+
+      public function editM($id){
+        $noticia = Noticias::find($id);
+          return response()->json(
+            $noticia->toArray()
+          );
       }
 
       public function pendienteStore(Request $request)
@@ -427,7 +437,7 @@ class AdministradosController extends Controller
        $user = Auth::user();
        $Link= new LinksInteres;
         if($user->perfil != 4){
-          
+
           $Link->id_UsuarioCreo = $user->id;
           $Link->id_empresa = $user->id_compania;
           $Link->Nombrecorto = $request->input('NombreCorto');

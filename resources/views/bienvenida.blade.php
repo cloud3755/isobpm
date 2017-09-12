@@ -141,7 +141,7 @@
             <div class="scrollablePanel PersonalScroll" style="border:1px solid #002858;max-height: 15vh">
 
                     @foreach ($noticiasw as $noticia)
-                        <li><a href="#" class="icon-bar-graph">{{$noticia->Noticia}}</a></li>
+                      <li><a class="icon-bar-graph" data-toggle="modal" data-target="#modaleditnoticia" onclick="EditarNot({{$noticia->id}});">{{$noticia->titulo}}</a></li>
                     @endforeach
 
             </div>
@@ -423,6 +423,10 @@
                     <form action="{{ action('AdministradosController@noticiastore') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="col-lg-12">
+                            <h2><label for="titulonoticia" class="control-label">Titulo:</label></h2>
+                            <input class="form-control" id="titulonoticia" rows="3" placeholder="Titulo" name="titulonoticia" required></input>
+                        </div>
+                        <div class="col-lg-12">
                             <h2><label for="descripcionNoticia" class="control-label">Noticia:</label></h2>
                             <textarea class="form-control" id="descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia" required></textarea>
                         </div>
@@ -487,6 +491,40 @@
 @endif
 
 <!-- modal ver procesos -->
+<!-- modal ver noticia -->
+
+<div class="modal fade" id="modaleditnoticia" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">Noticia</h3>
+            </div>
+            <div class="modal-body">
+              <form id="fileinfo_not" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token()}}">
+                <input type="hidden" id="id_not">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3><label>Titulo:</label></h3>
+                    <input class="form-control input-lg"  type="text" placeholder="Titulo" name="titulo_not"  id="titulo_not" required="">
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                      <h3><label> Decripcion:</label></h3>
+                          <textarea class="form-control" id = "noticia__not" rows="3" name="noticia__not" placeholder="Descripcion Noticia" required=""></textarea>
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                <!--  <a class="btn btn-primary" id="actualizarq" style="font-family: Arial;">Editar Queja</a>-->
+                  <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+</div>
 
 <!-- modales de quejas -->
 <div class="modal fade" id="modaleditq" tabindex="-1" role="dialog">
@@ -984,6 +1022,16 @@
         $("#earchivoa2_q").val(res.archivoevidencia);
         $("#efecha_cierre_q").val(res.fecha_cierre);
         $('#estatus_id_q option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+      });
+
+    }
+
+    function EditarNot(btn){
+      var route = "/noticia/"+btn+"/edit";
+      $.get(route, function(res){
+        $("#id_not").val(res.id);
+        $("#titulo_not").val(res.titulo);
+        $("#noticia__not").val(res.Noticia);
       });
 
     }
