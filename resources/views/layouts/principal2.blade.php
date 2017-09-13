@@ -591,7 +591,7 @@
 </div>
 </header>
         <!--<div id="page-wrapper" style="background-image: url('/img/fondo-inicio.jpg'); background-repeat: no-repeat;">-->
-            <div class="main-content" style="padding-top: 7%;">
+            <div class="main-content paraelpading">
             <div>
             </div>
                 @yield('content')

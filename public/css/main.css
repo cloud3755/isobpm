@@ -19,6 +19,27 @@
 	width: 90%;
 }
 
+@media screen and (max-width:640px) {
+	.paraelpading{
+		padding-top: 40%;
+	}
+}
+@media screen and (max-width:768px) and (min-width:640px) {
+	.paraelpading{
+		padding-top: 30%;
+	}
+}
+@media screen and (max-width:1024px) and (min-width:768px) {
+	.paraelpading{
+		padding-top: 13%;
+	}
+}
+@media screen and (min-width:1024px) {
+	.paraelpading{
+		padding-top: 7%;
+	}
+}
+
 .social
 {
 	margin: 0;
