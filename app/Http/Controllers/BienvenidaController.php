@@ -313,7 +313,7 @@ class BienvenidaController extends Controller
 
       }else{
         $allevents = \DB::table('event_models')
-              ->join('lista_eventos', 'event_models.id', '=', 'lista_eventos.id_evento')
+              ->leftjoin('lista_eventos', 'event_models.id', '=', 'lista_eventos.id_evento')
               ->select('event_models.*')
               ->where('event_models.id_compania',$usuarios->id_compania)
               //->whereMonth('fecha_creacion', '=', date('m'))
