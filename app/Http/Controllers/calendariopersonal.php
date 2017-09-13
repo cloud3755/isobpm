@@ -144,7 +144,7 @@ $calendar = \Calendar::addEvents($events) //add an array with addEvents
     public function store(Request $request)
     {
         //
-        
+
         $user = Auth::user();
         $Event= new EventModel;
         $Event->title = $request->input('title');
@@ -158,6 +158,7 @@ $calendar = \Calendar::addEvents($events) //add an array with addEvents
         $Event->url = '';
         $Event->editable = '1';
         $Event->color = $request->input('color');
+        $Event->id_compania = $user->id_compania;
         $Event->Descripcion = $request->input('descripcion');
 
         $Event->save();
@@ -165,13 +166,12 @@ $calendar = \Calendar::addEvents($events) //add an array with addEvents
         session()->flash('flash_msg',"Se creó una nueva entrada en la agenda");
         session()->flash('flash_type','warning');
         $acces=$request->input('listaAreasSeleccionadas');
-
         for ($i=0;$i<count($acces);$i++)
         {
-        $acce = new lista_eventos;
-        $acce ->id_area = $acces[$i];
-        $acce ->id_evento = $Event->id;
-        $acce ->save();
+          $acce = new lista_eventos;
+          $acce ->id_area = $acces[$i];
+          $acce ->id_evento = $Event->id;
+          $acce ->save();
         }
 
 return Redirect('/bienvenida');

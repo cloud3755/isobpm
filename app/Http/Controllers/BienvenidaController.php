@@ -315,7 +315,7 @@ class BienvenidaController extends Controller
         $allevents = \DB::table('event_models')
               ->join('lista_eventos', 'event_models.id', '=', 'lista_eventos.id_evento')
               ->select('event_models.*')
-              ->where('lista_eventos.id_area',$usuarios->id_area)
+              ->where('event_models.id_compania',$usuarios->id_compania)
               //->whereMonth('fecha_creacion', '=', date('m'))
               //dd( $noticiasw);
               ->get();
