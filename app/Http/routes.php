@@ -316,9 +316,11 @@ Route::group( ['middleware' => 'auth'],
 
     Route::post('/DocumentoInicio', 'BienvenidaController@retornardocumento');
     Route::post('/ProcesoInicio', 'BienvenidaController@retornarProceso');
+    Route::post('/evento/delete/{id}', 'AdministradosController@eventodelete');
     //Ruta crear noticia
     Route::get('/noticia/{id}/edit', 'AdministradosController@editM');
     Route::post('/administrados/noticiastore', 'AdministradosController@noticiastore');
+    Route::post('/noticias/delete/{id}', 'AdministradosController@noticiadelete');
     Route::get('/administrados/noticiastore', function(){
       return redirect('/Bienvenida');
     });

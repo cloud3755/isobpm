@@ -184,10 +184,6 @@ body .tile-white-primary h3,
 body .tile-white-primary p {
   color: #282828;
 }
-body .btn-primary {
-  background: #222222;
-  border-color: #222222;
-}
 body .panel-invert {
   background: #222222;
 }
@@ -249,17 +245,7 @@ body.page-fade {
 body .page-container .sidebar-menu #main-menu li#search button i {
   color: #eeeeee;
 }
-body .btn-primary.btn-icon i {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-body .btn-primary:hover,
-body .btn-primary:focus,
-body .btn-primary:active,
-body .btn-primary.active,
-body .open .dropdown-toggle.btn-primary {
-  background: #1b1b1b;
-  border-color: #1b1b1b;
-}
+
 body .tile-block .tile-content .todo-list .neon-cb-replacement .cb-wrapper .checked {
   background: #222222;
 }

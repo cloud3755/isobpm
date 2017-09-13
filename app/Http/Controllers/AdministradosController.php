@@ -18,6 +18,7 @@ use App\Models\Documentos;
 use App\Models\Noticias;
 use App\Models\Pendientes;
 use App\Models\lista_eventos;
+use App\Models\EventModel;
 use App\Models\lista_noticias;
 use App\Models\LinksInteres;
 use Carbon\Carbon;
@@ -390,6 +391,7 @@ class AdministradosController extends Controller
           $noticia->fecha_creacion=$date;
           $noticia->titulo = $request->input('titulonoticia');
           $noticia->Noticia = $request->input('descripcionNoticia');
+          $noticia->fecha_hasta = $request->input('fecha_hasta');
           $acces=$request->input('nlistaAreasSeleccionadas');
           $noticia->save();
 
@@ -404,6 +406,22 @@ class AdministradosController extends Controller
         }else{
           return Redirect('/');
         }
+      }
+
+      public function noticiadelete($id, Request $request)
+      {
+        $noticia = Noticias::findorfail($id);
+        $listnoticia = DB::table('lista_noticias')->where('id_noticia', $id)->delete();
+        $noticia-> delete();
+        return Redirect('/bienvenida');
+      }
+
+      public function eventodelete($id, Request $request)
+      {
+        $evento = EventModel::findorfail($id);
+        $listeven = DB::table('lista_eventos')->where('id_evento', $id)->delete();
+        $evento-> delete();
+        return Redirect('/bienvenida');
       }
 
       public function editM($id){

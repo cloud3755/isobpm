@@ -126,7 +126,7 @@ class BienvenidaController extends Controller
                    ->select('noticias.*')
                    ->where('noticias.id_empresa',$usuarios->id_compania)
                    ->where('lista_noticias.id_area',$usuarios->id_area)
-                   ->whereMonth('fecha_creacion', '=', date('m'))
+                   ->where('fecha_hasta', '>=', date("Y-m-d"))
                    ->get();
                    //fin de noticias
 
@@ -218,7 +218,7 @@ class BienvenidaController extends Controller
                    $noticiasw = \DB::table('noticias')
                    ->select('noticias.*')
                    ->where('noticias.id_empresa',$usuarios->id_compania)
-                   ->whereMonth('fecha_creacion', '=', date('m'))
+                   ->where('fecha_hasta', '>=', date("Y-m-d"))
                    ->get();
 
                    $procesosa = new Proceso;
@@ -350,6 +350,7 @@ class BienvenidaController extends Controller
 $calendar = \Calendar::setCallbacks([
     'eventClick' => 'function(calEvent, jsEvent, view) {
      $("#TituloEvento").text(calEvent.title);
+     $("#id_eve").text(calEvent.id);
      $("#MensajeEvento").text(calEvent.descripcion);
      $("#mostrarevento").click();
  }',

@@ -359,7 +359,7 @@
 <!-- modal para agregar evento al calendario-->
 
 <!-- modal ver evento -->
-<div  class="modal fade" id="modaleventoclick" tabindex="-1" role="dialog" style="background-color:gray ; width:100%;">
+<div  class="modal fade" id="modaleventoclick" tabindex="-1" role="dialog">
     <div   class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -367,10 +367,21 @@
                 <h2 class="modal-title" id="TituloEvento">Evento</h2>
             </div>
             <div class="modal-body">
-                <p id="MensajeEvento"></p>
+              <div class="row">
+                <form id="fileinfo_eve" method="post">
+                  <input type="hidden" name="_token" value="{{ csrf_token()}}">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p id="MensajeEvento"></p>
+                    <p style="visibility:hidden" id="id_eve"></p>
+                  </div>
+                </form>
+              </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              @if(Auth::user()->perfil != 4)
+              <a class="btn borrar" id="eliminarevento" style="font-family: Arial;"><i class="glyphicon glyphicon-remove"></i>Eliminar Evento</a>
+              @endif
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -430,6 +441,10 @@
                             <h2><label for="descripcionNoticia" class="control-label">Noticia:</label></h2>
                             <textarea class="form-control" id="descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia" required></textarea>
                         </div>
+                        <div class="col-lg-12">
+                            <h2><label for="descripcionNoticia" class="control-label">Visible hasta::</label></h2>
+                            <input type="date" class="form-control" id="fecha_hasta" rows="3" name="fecha_hasta" required></input>
+                        </div>
                         <center>
                             <h2>Elegir areas</h2>
                             <table>
@@ -480,9 +495,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnNoticia">Agregar Noticia</button>
+                    <button type="submit" class="btn btn-success" id="btnNoticia"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                     </form>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                 </div>
             </div>
         </div>
@@ -517,8 +532,10 @@
 
                 </div>
                 <div class="modal-footer">
-                <!--  <a class="btn btn-primary" id="actualizarq" style="font-family: Arial;">Editar Queja</a>-->
-                  <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                  @if(Auth::user()->perfil != 4)
+                  <a class="btn btn-danger" id="eliminarnoticia" style="font-family: Arial;"><i class="fa fa-trash"></i><br>Eliminar</a>
+                  @endif
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                 </div>
               </form>
             </div>
@@ -647,8 +664,8 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <a class="btn btn-primary" id="actualizarq" style="font-family: Arial;">Editar Queja</a>
-                  <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                  <a class="btn btn-primary" id="actualizarq" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                 </div>
               </form>
             </div>
@@ -1196,6 +1213,60 @@ function agregaSeleccion(origen, destino) {
               location.reload();
             }
           });
+        });
+
+        $("#eliminarnoticia").click(function(){
+          var value = $("#id_not").val();
+          var titulo = $("#titulo_not").val();
+          var token = $("#token").val();
+          var fd = new FormData(document.getElementById("fileinfo_nc"));
+          var route = "/noticias/delete/"+value+"";
+          var isGood=confirm('Estas seguro de eliminar la noticia: '+titulo+'?');
+
+          if (isGood) {
+            $.ajax({
+              url: route,
+              headers: {'X-CSRF_TOKEN': token},
+              type: 'post',
+              data: fd,
+              processData: false,  // tell jQuery not to process the data
+              contentType: false,
+              success: function(){
+                alert("Noticia eliminada");
+                location.reload();
+              }
+              });
+            } else {
+              alert('No se borro la noticia');
+            }
+
+        });
+
+        $("#eliminarevento").click(function(){
+          var value = $("#id_eve").text();
+          var titulo = $("#TituloEvento").text();
+          var token = $("#token").val();
+          var fd = new FormData(document.getElementById("fileinfo_eve"));
+          var route = "/evento/delete/"+value+"";
+          var isGood=confirm('Estas seguro de eliminar la evento: '+titulo+'?');
+
+          if (isGood) {
+            $.ajax({
+              url: route,
+              headers: {'X-CSRF_TOKEN': token},
+              type: 'post',
+              data: fd,
+              processData: false,  // tell jQuery not to process the data
+              contentType: false,
+              success: function(){
+                alert("Evento eliminado");
+                location.reload();
+              }
+              });
+            } else {
+              alert('No se borro el evento');
+            }
+
         });
 
       });

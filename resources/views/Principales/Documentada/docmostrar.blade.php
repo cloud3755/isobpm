@@ -44,8 +44,8 @@
                         <?=$documentos->archivo?>
 
                         <a href="/documento/<?=$documentos->id?>" target="_blank" style='color:#FFF'>
-                          <button type="button" class="btn btn-default">
-                               <span class="glyphicon glyphicon-download-alt"></span>
+                          <button type="button" class="btn btn-warning">
+                               <i class="glyphicon glyphicon-cloud-download"></i><br>Descargar
                           </button>
                         </a>
                         @endif
