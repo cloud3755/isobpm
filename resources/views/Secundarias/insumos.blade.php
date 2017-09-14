@@ -23,7 +23,7 @@ alert ('{{Session::get('flash_message')}}')
         <div class="panel panel-red">
             <div class="panel-heading">
                 Alta de insumos
-                <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
             </div>
         <div class="panel-body">
           <div class="row">
@@ -54,11 +54,11 @@ alert ('{{Session::get('flash_message')}}')
                       <td>  <?=$insumos->archivo?></td>
                       <td>
                       <form class="" action="/insumos/delete/<?=$insumos->id?>" method="post">
-                         <a href="/insumo/file/ver/<?=$insumos->id?>" target="_blank" style=\'color:#FFF\'><button type="button" <?php if ($insumos->archivo == 'No se cargo archivo') { echo"disabled";} else {echo"";} ?> class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>
-                        <button type="button" class="btnobjetivo" value = "<?=$insumos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar </button>
+                         <a href="/insumo/file/ver/<?=$insumos->id?>" target="_blank" style=\'color:#FFF\'><button type="button" <?php if ($insumos->archivo == 'No se cargo archivo') { echo"disabled";} else {echo"";} ?> class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i><br> Archivo </button> </a>
+                        <button type="button" class="btn btn-primary" value = "<?=$insumos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i><br>Editar </button>
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                        <button type="submit" class="btnobjetivo" id="btndelete_<?=$insumos->id?>" style="font-family: Arial;" dataid="<?=$insumos->id?>" onclick="
-return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Servicio?>?')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
+                        <button type="submit" class="btn btn-danger" id="btndelete_<?=$insumos->id?>" style="font-family: Arial;" dataid="<?=$insumos->id?>" onclick="
+return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Servicio?>?')"><i class="fa fa-trash"></i><br>Eliminar</button>
                       </form>
 
                       </td>
@@ -126,8 +126,8 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 
               </div>
                     <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Guardar de insumo</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                      <button type="btn btn-primary" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
               </form>
                 </div>

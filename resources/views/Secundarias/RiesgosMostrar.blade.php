@@ -52,7 +52,7 @@
 
                </div>
               <br><br>
-                 <button type="button" class="btnobjetivo" onclick=location="/procesos/visual" data-dismiss="modal" id="btnCloseUpload">Regresar</button>
+                 <button type="button" class="btnobjetivo" onclick=location="/riesgos/create" data-dismiss="modal" id="btnCloseUpload">Regresar</button>
             </div>
   </form>
 

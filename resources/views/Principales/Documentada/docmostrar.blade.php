@@ -14,7 +14,7 @@
         <div class="panel panel-red">
             <div class="panel-heading">
                 Documentos
-                <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
             </div>
         <div class="panel-body">
           <div class="row">
@@ -31,7 +31,8 @@
                       <th>  <div class="th-inner sortable both">    Tamaño(Bytes)  </div></th>
                       <th>  <div class="th-inner sortable both">    Fecha Modificacion  </div></th>
                       <th>  <div class="th-inner sortable both">    Revision  </div></th>
-                      <th>  <div class="th-inner sortable both">    Modificacion  </div></th>
+                      <th>  <div class="th-inner sortable both">    Modificar  </div></th>
+                      <th>  <div class="th-inner sortable both">    Eliminar  </div></th>
                     </tr>
                   </thead>
                   <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -43,27 +44,25 @@
                         @IF($documentos->archivo != '')
                         <?=$documentos->archivo?>
 
-                        <a href="/documento/<?=$documentos->id?>" target="_blank" style='color:#FFF'>
-                          <button type="button" class="btn btn-warning">
-                               <i class="glyphicon glyphicon-cloud-download"></i><br>Descargar
-                          </button>
-                        </a>
+                        <a href="/documento/<?=$documentos->id?>" target="_blank" style='color:#FFF'><button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i></button></a>
                         @endif
                       </td>
                       <td>  <?=$documentos->size?></td>
                       <td>  <?=$documentos->updated_at?></td>
                       <td>  <?=$documentos->review?></td>
+                      @if(Auth::user()->id == $documentos->id_user OR Auth::user()->perfil != 4)
                       <td>
-                        @if(Auth::user()->id == $documentos->id_user OR Auth::user()->perfil != 4)
+                        <button type="button" class="btn btn-primary" value = "<?=$documentos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i><br> Editar  </button>
+                      </td>
+                      <td>
                         <form class="" action="/documentada/destroy/{{ $documentos->id }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                          <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-                            return confirm('Estas seguro de eliminar el documento <?=$documentos->nombre?>?')">Eliminar</button>
-                          <button type="button" class="btnobjetivo" value = "<?=$documentos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                          <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+                            return confirm('Estas seguro de eliminar el documento <?=$documentos->nombre?>?')"><i class="fa fa-trash"></i><br>Eliminar</button>
                         </form>
-                        @endif
                       </td>
+                      @endif
                     </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -174,8 +173,8 @@
                 </div>
               </div>
                     <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Subir Documento</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                      <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                   </form>
                 </div>
@@ -344,8 +343,8 @@
 
               </div>
                     <div class="modal-footer">
-                    <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                      <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                 </div>
               </form>

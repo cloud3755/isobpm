@@ -29,7 +29,7 @@
         <div class="panel panel-red">
             <div class="panel-heading">
                 <?=$tipoobjetiv['nombre'] ?>
-                    <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload<?=$tipoobjetiv['id'] ?>"><i class="glyphicon glyphicon-upload"></i></button>
+                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload<?=$tipoobjetiv['id'] ?>"><i class="glyphicon glyphicon-floppy-save"></i></button>
             </div>
 </br>
 
@@ -102,9 +102,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;" >Alta de Objetivo</button>
+                      <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                     </form>
-                    <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                 </div>
             </div>
         </div>

@@ -101,8 +101,7 @@ class ObjetivosController extends Controller
 
         session()->flash('flash_msg',"Se actualizo el objetivo");
         session()->flash('flash_type','warning');
-
-      return redirect('objetivos/visual');
+        return redirect()->action('ObjetivosControllerVisual@show', [$id]);
     }
 
 

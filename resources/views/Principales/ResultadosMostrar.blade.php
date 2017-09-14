@@ -3,8 +3,6 @@
 @section('content')
 
 <br><br><br><br><br><br><br><br><br>
-
-<center><button type="button" class="btnobjetivo" onclick=location="/objetivosindicadores" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
 <br>
 <div class="row">
     <div class="col-lg-12">

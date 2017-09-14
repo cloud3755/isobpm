@@ -168,7 +168,8 @@
     <div class="panel-heading panel-heading2">Eventos</div>
         <div class="panel-body panel-body2">
             <div class="scrollablePanel PersonalScroll calendar" style="max-height: 33vh">
-            <center><button type="button" class="btn btnobjetivo" data-toggle="modal" data-dismiss="modal" data-target="#modalAgregarEvento">Agregar Evento</button></center>
+
+            <center><button type="button" class="btn btn-success" data-toggle="modal" data-dismiss="modal" data-target="#modalAgregarEvento"><i class="glyphicon glyphicon-floppy-save"></i> Agregar</button></center>
                 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
                 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
                 <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
@@ -347,9 +348,9 @@
                         </center>
                 </div>
                         <div class="modal-footer">
-                        <button type="submit" class="btnobjetivo" id="btnNoticia" style="font-family: Arial;">Agregar Evento</button>
+                          <button type="submit" class="btn btn-success" id="btnNoticia"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                         </form>
-                            <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -379,9 +380,9 @@
             </div>
             <div class="modal-footer">
               @if(Auth::user()->perfil != 4)
-              <a class="btn borrar" id="eliminarevento" style="font-family: Arial;"><i class="glyphicon glyphicon-remove"></i>Eliminar Evento</a>
+                <a class="btn btn-danger" id="eliminarevento" style="font-family: Arial;"><i class="fa fa-trash"></i><br>Eliminar</a>
               @endif
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
             </div>
         </div>
     </div>
@@ -390,6 +391,7 @@
 
 @if(Auth::user()->perfil != 4)
 
+<!-- modal Agregar link -->
 <div class="modal fade" id="modalAgregarLink" tabindex="-1" role="dialog" style="background-color:gray">
 
     <div class="modal-dialog" role="document">
@@ -415,93 +417,95 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btnobjetivo" id="btnAgregarLink">Agregar link</button>
+                <button type="submit" class="btn btn-success" id="btnAgregarLink"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                 </form>
-                <button type="button" class="btnobjetivo" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
             </div>
         </div>
     </div>
 </div>
-    <div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Agregar Noticia</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                    <form action="{{ action('AdministradosController@noticiastore') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <div class="col-lg-12">
-                            <h2><label for="titulonoticia" class="control-label">Titulo:</label></h2>
-                            <input class="form-control" id="titulonoticia" rows="3" placeholder="Titulo" name="titulonoticia" required></input>
-                        </div>
-                        <div class="col-lg-12">
-                            <h2><label for="descripcionNoticia" class="control-label">Noticia:</label></h2>
-                            <textarea class="form-control" id="descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia" required></textarea>
-                        </div>
-                        <div class="col-lg-12">
-                            <h2><label for="descripcionNoticia" class="control-label">Visible hasta::</label></h2>
-                            <input type="date" class="form-control" id="fecha_hasta" rows="3" name="fecha_hasta" required></input>
-                        </div>
-                        <center>
-                            <h2>Elegir areas</h2>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Areas no elegidas</td>
-                                        <td></td>
-                                        <td>Areas elegidas</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select multiple name="nlistaAreas[]" id="nlistaAreas" size="7" style="width: 100%;" onclick="agregaSeleccion('nlistaAreas', 'nlistaAreasSeleccionadas');">
-                                                @foreach ($Areas as $Area): ?>
 
-                                                <option value = "{{$Area->id}}" > {{$Area->nombre}} </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('nlistaAreas', 'nlistaAreasSeleccionadas');">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('nlistaAreasSeleccionadas', 'nlistaAreas');">
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <select multiple="multiple" name="nlistaAreasSeleccionadas[]" id="nlistaAreasSeleccionadas" size="7" style="width: 100%;" onclick="agregaSeleccion('nlistaAreasSeleccionadas','nlistaAreas');" required></select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </center>
+<!-- modal Agregar Noticia -->
+<div class="modal fade" id="modalAgregarNoticia" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Agregar Noticia</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                <form action="{{ action('AdministradosController@noticiastore') }}" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="col-lg-12">
+                        <h2><label for="titulonoticia" class="control-label">Titulo:</label></h2>
+                        <input class="form-control" id="titulonoticia" rows="3" placeholder="Titulo" name="titulonoticia" required></input>
                     </div>
+                    <div class="col-lg-12">
+                        <h2><label for="descripcionNoticia" class="control-label">Noticia:</label></h2>
+                        <textarea class="form-control" id="descripcionNoticia" rows="3" placeholder="Noticia" name="descripcionNoticia" required></textarea>
+                    </div>
+                    <div class="col-lg-12">
+                        <h2><label for="descripcionNoticia" class="control-label">Visible hasta::</label></h2>
+                        <input type="date" class="form-control" id="fecha_hasta" rows="3" name="fecha_hasta" required></input>
+                    </div>
+                    <center>
+                        <h2>Elegir areas</h2>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Areas no elegidas</td>
+                                    <td></td>
+                                    <td>Areas elegidas</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select multiple name="nlistaAreas[]" id="nlistaAreas" size="7" style="width: 100%;" onclick="agregaSeleccion('nlistaAreas', 'nlistaAreasSeleccionadas');">
+                                            @foreach ($Areas as $Area): ?>
+
+                                            <option value = "{{$Area->id}}" > {{$Area->nombre}} </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="button" name="agregar todo" value=">>>" title="agregar todo" onclick="agregaTodo('nlistaAreas', 'nlistaAreasSeleccionadas');">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="button" name="quitar todas" value="<<<" title="Quitar todo" onclick="agregaTodo('nlistaAreasSeleccionadas', 'nlistaAreas');">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <select multiple="multiple" name="nlistaAreasSeleccionadas[]" id="nlistaAreasSeleccionadas" size="7" style="width: 100%;" onclick="agregaSeleccion('nlistaAreasSeleccionadas','nlistaAreas');" required></select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </center>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="btnNoticia"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
-                    </form>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="btnNoticia"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
             </div>
         </div>
     </div>
+</div>
 
 @endif
 
@@ -814,8 +818,8 @@
 
                     </div>
                     <div class="modal-footer">
-                      <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                      <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                      <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                   </form>
                 </div>
@@ -936,8 +940,8 @@
 
 
                     <div class="modal-footer">
-                      <a class="btn btn-primary" id="actualizar_nc" style="font-family: Arial;">Editar No Conformidad</a>
-                      <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                      <a class="btn btn-primary" id="actualizar_nc" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                   </form>
                 </div>

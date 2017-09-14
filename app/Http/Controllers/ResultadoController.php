@@ -101,7 +101,7 @@ class ResultadoController extends Controller
 
         session()->flash('flash_msg',"Se guardo correctamene el periodo");
         session()->flash('flash_type','warning');
-        return redirect('resultado/create');
+        return redirect()->action('ResultadoController@show', [$request->input('indicador_id')]);
     }
 
     /**
@@ -229,7 +229,7 @@ class ResultadoController extends Controller
 
             session()->flash('flash_msg',"Se guardo correctamene el periodo");
             session()->flash('flash_type','warning');
-            return redirect('resultado/create');
+            return redirect()->action('ResultadoController@show', [$request->input('indicador_id')]);
 
 
     }

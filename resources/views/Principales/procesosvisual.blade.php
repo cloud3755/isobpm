@@ -35,7 +35,7 @@
             <div class="panel-heading">
               <!--<center>             </center>-->
                 <?=$tipoproc['nombreproceso'] ?>
-                <button type="button" class="btn btn-green btn-xs" id="<?=$tipoproc['nombreproceso'] ?>" data-toggle="modal" data-target="#modalUpload"  onclick="tipoproceso(this);"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" id="<?=$tipoproc['nombreproceso'] ?>" data-toggle="modal" data-target="#modalUpload"  onclick="tipoproceso(this);"><i class="glyphicon glyphicon-floppy-save"></i></button>
             </div>
 </br>
 
@@ -332,8 +332,8 @@
 
           </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
-                        <a class="btn btnprocesoform btn-md active" role="button" id="actualizar" style="font-family: Arial;">Alta de Proceso</a>
+                        <a class="btn btn-success" role="button" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                 </div>
             </div>

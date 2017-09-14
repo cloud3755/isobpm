@@ -109,8 +109,8 @@
                                     <td>
                                     <form class="" action="/resultado/destroy/{{ $resultados->id }}" method="post">
                                                   {{ csrf_field() }}
-                                    <button type="button" class="btnobjetivo" id="edit<?=$resultados['id']?>" data-toggle="modal" data-target="#modaledit<?=$resultados['id']?>">Editar</i></button>
                                     </form>
+                                    <button type="button" class="btn btn-primary" id="edit<?=$resultados['id']?>" data-toggle="modal" data-target="#modaledit<?=$resultados['id']?>"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -128,7 +128,8 @@
                             <tr>
                                 <td><input class="form-control input-lg" id="mes" type="<?=$formato?>"  name="mes" value="<?= $siguientefecha?>"></td>
                                 <td><input class="form-control input-lg" id="valor" type="Text" placeholder="# del valor de tu periodo" name="valor" required></td>
-                                <td><button type="submit" class="btnobjetivo" id="btnresultado" style="font-family: Arial;" >Alta de Resultado</button></td>
+                                <td>
+                                  <button type="submit" class="btn btn-success" id="btnresultado"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button></td>
                             </tr>
                           </form>
                         </table>
@@ -175,8 +176,8 @@ else {
                    </div>
                    </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btnobjetivo" id="btnEditCli" style="font-family: Arial;">Editar Registro</button>
-                        <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                        <button type="submit" class="btn btn-primary" id="btnEditCli" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
 
                  </div>
                  </div>

@@ -27,6 +27,12 @@
                             <?php endforeach ?>
                         </select>
                     </div>
+                    <div class="col-md-1">
+                      <button type="submit" class="btn btn-primary" id="btnobjetivo" style="font-family: Arial;" ><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                      </div>
+                      <div class="col-md-1">
+                        <button type="button" class="btnobjetivo" onclick=location="/objetivos/visual" data-dismiss="modal" id="btnCloseUpload">Regresar</button>
+                      </div>
                   </div>
                     <div class="form-group form-group-lg">
                         <h2><label for="Usuario" class="control-label col-md-12">Objetivo:</label></h2>
@@ -49,18 +55,9 @@
 
 
                     <div class="form-group form-group-lg">
-                        <h2>
-                          <label for="tipo" class="control-label col-md-12" >
-                            Responsable actual:
-                          </label>
-                        </h2>
-                        <div class="col-md-6">
-                            <input class="form-control input-lg" disabled="true" id="aux" value="<?=$responsableactual['nombre'] ?>" type="text" placeholder="fecha" name="aux">
-                        </div>
-                      </br>
                       <h2>
                         <label for="tipo" class="control-label col-md-12" >
-                          Nuevo responsable:
+                          Responsable:
                         </label>
                       </h2>
                         <div class="col-md-6">
@@ -75,24 +72,23 @@
                             </select>
                         </div>
                       </div>
-                      <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;" >Guardar cambios</button>
-                      <button type="button" class="btnobjetivo" onclick=location="/objetivos/visual" data-dismiss="modal" id="btnCloseUpload">Regresar</button>
                 </div>
               </form>
               @if(Auth::user()->perfil <= 3)
+              <div class="col-md-1">
               <form class="" action="/objetivos/destroy/<?=$registro['id']?>" method="post">
                 <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                <button type="submit" class="btnprocesoform" id="btndelete_<?=$registro['id']?>" style="font-family: Arial;" dataid="<?=$registro['id']?>" onclick="
-return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
+                <button type="submit" class="btn btn-danger" id="btndelete_<?=$registro['id']?>" style="font-family: Arial;" dataid="<?=$registro['id']?>" onclick="
+return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"><i class="fa fa-trash"></i><br>Eliminar</button>
               </form>
+              </div>
               @endif
               <div class="row">
                   <div class="col-lg-12">
                       <div class="panel panel-red" id="tablaobjetivo">
                           <div class="panel-heading">
                               Indicadores
-
-                              <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i> </button>
+                              <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
 
                           </div>
                       <div class="panel-body">
@@ -124,14 +120,13 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
                                   <td><?=$indicadorrel->logicaindicador?></td>
                                   <td><?=$indicadorrel->indicadormeta?></td>
                                   <td>
-                                    <button type="button" class="btnobjetivo" value = "<?=$indicadorrel->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                                    <button type="button" class="btn btn-primary" value = "<?=$indicadorrel->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
                                   </td>
                                   <td><form class="" action="/indicadores/destroy/{{ $indicadorrel->id }}" method="post">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-
-                                      <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-        return confirm('Estas seguro de eliminar el indicador <?=$indicadorrel->nombreindicador?>?')">Eliminar</button>
+                                      <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+        return confirm('Estas seguro de eliminar el indicador <?=$indicadorrel->nombreindicador?>?')"><i class="fa fa-trash"></i><br>Eliminar</button>
 
                                     </form>
                                     </td>
@@ -145,6 +140,7 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
                   </div>
           </div>
         </div>
+
         <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -306,18 +302,16 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
 
 
                   <div class="modal-footer">
-                              <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Alta de indicador</button>
+                    <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                         </form>
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                 </div>
               </div>
             </div>
         </div>
 
-
-
-          <div class="modal fade" id="modaledit" tabindex="-1" role="dialog">
+        <div class="modal fade" id="modaledit" tabindex="-1" role="dialog">
               <div class="modal-dialog" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
@@ -532,8 +526,8 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
 
                         </div>
                         <div class="modal-footer">
-                        <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                   </div>
                 </div>
