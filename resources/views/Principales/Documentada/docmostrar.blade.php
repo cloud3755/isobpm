@@ -52,14 +52,14 @@
                       <td>  <?=$documentos->review?></td>
                       @if(Auth::user()->id == $documentos->id_user OR Auth::user()->perfil != 4)
                       <td>
-                        <button type="button" class="btn btn-primary" value = "<?=$documentos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i><br> Editar  </button>
+                        <button type="button" class="btn btn-primary" value = "<?=$documentos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i></button>
                       </td>
                       <td>
                         <form class="" action="/documentada/destroy/{{ $documentos->id }}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                           <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
-                            return confirm('Estas seguro de eliminar el documento <?=$documentos->nombre?>?')"><i class="fa fa-trash"></i><br>Eliminar</button>
+                            return confirm('Estas seguro de eliminar el documento <?=$documentos->nombre?>?')"><i class="fa fa-trash"></i></button>
                         </form>
                       </td>
                       @endif

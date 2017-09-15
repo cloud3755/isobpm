@@ -78,7 +78,7 @@ function Editar(btn){
 
          $.get(route2, function(res){
              for (var i = 0; i < res.length; i++) {
-               $("#elist").append('<li class="list-group-item" id="'+res[i].idinsumo+'"><center><h5>'+res[i].Producto_o_Servicio+' <a href="/insumo/file/ver/'+res[i].idinsumo+'"> <span class="glyphicon glyphicon-download-alt"></i></a></h5></center></li>');
+               $("#elist").append('<li class="list-group-item" id="'+res[i].idinsumo+'"><center><h5>'+res[i].Producto_o_Servicio+' <a href="/insumo/file/ver/'+res[i].idinsumo+'" class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i></a></h5></center></li>');
 //               $("#elist").append('<li class="list-group-item" id="'+res[i].idinsumo+'"><center><h5>'+res[i].Producto_o_Servicio+'</h5></center></li>');
 
              }
@@ -87,7 +87,7 @@ function Editar(btn){
 
          $.get(route4, function(res){
              for (var i = 0; i < res.length; i++) {
-               $("#elistfile").append('<li class="list-group-item" id="'+res[i].id+'"><center><h5>'+res[i].archivo+'  <a href="/proveedor/file/ver/'+res[i].id+'"> <span class="glyphicon glyphicon-download-alt"></i></a></h5></center></li>');
+               $("#elistfile").append('<li class="list-group-item" id="'+res[i].id+'"><center><h5>'+res[i].archivo+'  <a href="/proveedor/file/ver/'+res[i].id+'" class="btn btn-warning"> <i class="glyphicon glyphicon-cloud-download"></i></a></h5></center></li>');
 
              }
 
@@ -148,8 +148,8 @@ function Archivo(btn){
     $("#archivo").empty();
     $("#FmyTable").empty();
     for (var i = 0; i < res.length; i++) {
-      $("#FmyTable").append('<tr><td>'+res[i].nombre+'</td><td>'+res[i].archivo+'</td><td>'+res[i].size+'</td><td><form class="form-inline" action="/proveedor/file/delete/'+res[i].id+'" method="delete"> <a href="/proveedor/file/ver/'+res[i].id+'" target="_blank" style=\'color:#FFF\'><button type="button" class="btnobjetivo"><i class="glyphicon glyphicon-download-alt"></i> Ver archivo </button> </a>  <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btnobjetivo" id="btndelete_'+res[i].id+'" style="font-family: Arial;" dataid="'+res[i].id+'" onclick="return confirm(\'Estas seguro de eliminar el archivo: ' +
-       res[i].nombre +'?\')"><i class="glyphicon glyphicon-remove"></i> Eliminar</button></form></td></tr>');
+      $("#FmyTable").append('<tr><td>'+res[i].nombre+'</td><td>'+res[i].archivo+'</td><td>'+res[i].size+'</td><td><a href="/proveedor/file/ver/'+res[i].id+'" target="_blank" style=\'color:#FFF\'><button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i> </button> </a> </td><td><form class="form-inline" action="/proveedor/file/delete/'+res[i].id+'" method="delete"> <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btn btn-danger" id="btndelete_'+res[i].id+'" style="font-family: Arial;" dataid="'+res[i].id+'" onclick="return confirm(\'Estas seguro de eliminar el archivo: ' +
+       res[i].nombre +'?\')"><i class="fa fa-trash"></i></button></form></td></tr>');
     }
 
 

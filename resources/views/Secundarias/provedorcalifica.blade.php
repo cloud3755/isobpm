@@ -312,7 +312,7 @@ alert ('{{Session::get('flash_message')}}')
               </div>
               </div>
                     <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnsubmit" style="font-family: Arial;">Guardar evaluacion</button>
+                    <button type="submit" class="btn btn-success" id="btnsubmit"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                   </div>
               </form>
               </div>

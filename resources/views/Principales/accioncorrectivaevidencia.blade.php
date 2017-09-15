@@ -84,7 +84,7 @@
           <div class="panel panel-red">
               <div class="panel-heading">
                   Subir Evidencia
-                  <button type="button" class="btn btn-green btn-xs" id="" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+									<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
               </div>
 							<table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="tblProIn">
 								<thead style='background-color: #868889; color:#FFF'>
@@ -106,15 +106,15 @@
 										<td><?=$evidencias['descripcion']?></td>
 										<td><?=$evidencias['archivo_html1']?>
 											<a href="/storage/<?=$evidencias['nombreunicoarchivo1']?>" downloadFile="<?=$evidencias['nombreunicoarchivo1']?>" style='color:#FFF'>
-											 	<button type="button" class="btn btn-default btn-xs">
-														 <span class="glyphicon glyphicon-download-alt"></span>
+											 	<button type="button" class="btn btn-warning">
+														 <span class="glyphicon glyphicon-cloud-download"></span>
     										</button>
 											</a>
 										</td>
 									<td><?=$evidencias['archivo_html2']?>
 										<a href="/storage/<?=$evidencias['nombreunicoarchivo2']?>" downloadFile="<?=$evidencias['nombreunicoarchivo2']?>" style='color:#FFF'>
-											<button type="button" class="btn btn-default btn-xs">
-													 <span class="glyphicon glyphicon-download-alt"></span>
+											<button type="button" class="btn btn-warning">
+													 <span class="glyphicon glyphicon-cloud-download"></span>
 											</button>
 										</a>
 									</td>
@@ -176,8 +176,8 @@
 
 					 		 </div>
 					 			            <div class="modal-footer">
-					 			                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
-					 			                <button type="submit" value="file" class="btnobjetivo" id="btnaltaproceso" style="font-family: Arial;">Alta de Evidencia</button>
+															<button type="submit" value="file" class="btn btn-success" id="btnaltaproceso" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
+					 			              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
 					 			            </div>
 					 			         </div>
 					 			      </div>

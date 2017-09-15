@@ -110,7 +110,7 @@
                                     <form class="" action="/resultado/destroy/{{ $resultados->id }}" method="post">
                                                   {{ csrf_field() }}
                                     </form>
-                                    <button type="button" class="btn btn-primary" id="edit<?=$resultados['id']?>" data-toggle="modal" data-target="#modaledit<?=$resultados['id']?>"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
+                                    <button type="button" class="btn btn-primary" id="edit<?=$resultados['id']?>" data-toggle="modal" data-target="#modaledit<?=$resultados['id']?>"><i class="glyphicon glyphicon-edit"></i></button>
                                     </td>
                                 </tr>
                             <?php endforeach ?>

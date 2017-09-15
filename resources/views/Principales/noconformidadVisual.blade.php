@@ -230,7 +230,7 @@ function doSearch()
             <div class="panel panel-red">
                 <div class="panel-heading">
                     No conformidades
-                    <button type="button" class="btn btn-green btn-xs" id="" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                    <button type="button" class="btn btn-success btn-xs" id="" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
                 </div>
             <div class="panel-body">
               <div class="table-responsive">
@@ -274,8 +274,8 @@ function doSearch()
                           <td>  <?=$noconformidad->evidencia?>
                             @IF($noconformidad->evidencia != '')
                             <a href="/storage/noconformidad/<?=$noconformidad->evidencia_unic?>" downloadFile="<?=$noconformidad->evidencia_unic?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-default">
-                                   <span class="glyphicon glyphicon-download-alt"></span>
+                              <button type="button" class="btn btn-warning">
+                                   <i class="glyphicon glyphicon-cloud-download"></i>
                               </button>
                             </a>
                             @endif
@@ -283,8 +283,8 @@ function doSearch()
                           <td>  <?=$noconformidad->evidenciapertura?>
                             @IF($noconformidad->evidenciapertura != '')
                             <a href="/storage/noconformidad/<?=$noconformidad->apertura_unic?>" downloadFile="<?=$noconformidad->apertura_unic?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-default">
-                                   <span class="glyphicon glyphicon-download-alt"></span>
+                              <button type="button" class="btn btn-warning">
+                                   <i class="glyphicon glyphicon-cloud-download"></i>
                               </button>
                             </a>
                             @endif
@@ -294,15 +294,15 @@ function doSearch()
                           <td>  <?=$noconformidad->creador?></td>
                           <td>  <?=$noconformidad->monto?></td>
                           <td>
-                            <button type="button" class="btnobjetivo" value = "<?=$noconformidad->id?>" data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                            <button type="button" class="btn btn-primary" value = "<?=$noconformidad->id?>" data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC(this);"><i class="glyphicon glyphicon-edit"></i></button>
                           </td>
                           <td>
 <!-- se creara un bucle para generar los n modales necesarios para la edicion de datos -->
                               <form class="" action="/noconformidad/delete/<?=$noconformidad->id?>" method="post">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}
-                                <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-  return confirm('Estas seguro de eliminar la queja numero: <?=$noconformidad->id?>?')">Eliminar</button>
+                                <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+  return confirm('Estas seguro de eliminar la queja numero: <?=$noconformidad->id?>?')"><i class="fa fa-trash"></i></button>
                               </form>
                           </td>
                         </tr>
@@ -430,8 +430,8 @@ function doSearch()
 
 
                         <div class="modal-footer">
-                          <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;" >Alta de No Conformidad</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <button type="submit" class="btn btn-success" id="btnaltaindicador" style="font-family: Arial;" ><i class="glyphicon glyphicon-floppy-save"><br>Agregar</i></button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                       </form>
                     </div>
@@ -550,8 +550,8 @@ function doSearch()
 
 
                         <div class="modal-footer">
-                          <a class="btn btn-primary" id="actualizar_nc" style="font-family: Arial;">Editar No Conformidad</a>
-                          <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <a class="btn btn-primary" id="actualizar_nc" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                       </form>
                     </div>

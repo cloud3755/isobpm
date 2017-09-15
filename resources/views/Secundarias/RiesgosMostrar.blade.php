@@ -67,7 +67,7 @@
         <div class="panel panel-red">
             <div class="panel-heading">
                 Riesgos
-                <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
             </div>
             <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -111,14 +111,14 @@
                                     <td><?=$Analisisriesgos2->Severidad2?></td>
                                     <td><?=$Analisisriesgos2->probabilidad2?></td>
                                     <td>
-                                      <button type="button" class="btnobjetivo" value = "<?=$Analisisriesgos2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                                      <button type="button" class="btn btn-primary" value = "<?=$Analisisriesgos2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i></button>
                                     </td>
                                     <td>
                                        <form class="" action="/analisisrisk/destroy/{{ $Analisisriesgos2->id }}" method="post">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-                                        <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;" onclick="
-                                        return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}?')">Eliminar</button>
+                                        <button type="submit" class="btn btn-danger" id="btnobjetivo" style="font-family: Arial;" onclick="
+                                        return confirm('seguro de eliminar el indicador {{$Analisisriesgos2->actividad}}?')"><i class="fa fa-trash"></i></button>
                                       </form>
                                     </td>
                                 </tr>
@@ -225,8 +225,8 @@
 
                 </div>
               <div class="modal-footer">
-                  <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Analisis Riesgo</button>
-                  <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                  <button type="submit" class="btn btn-success" id="btnaltaindicador" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
               </div>
               </form>
             </div>
@@ -330,8 +330,8 @@
               </div>
 
               <div class="modal-footer">
-              <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                  <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
               </div>
             </form>
         </div>

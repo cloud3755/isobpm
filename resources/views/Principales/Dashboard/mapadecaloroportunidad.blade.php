@@ -114,7 +114,6 @@
         <div class="panel panel-red">
             <div class="panel-heading">
                 Oportunidades
-                <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -153,7 +152,7 @@
                                     <td><?=$Oportunidades2->controles?></td>
                                     <td><?=$Oportunidades2->esfuerzo2?></td>
                                     <td><?=$Oportunidades2->impacto2?></td>
-                                    <td><button type="button" class="btnobjetivo" value = "<?=$Oportunidades2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button></td>
+                                    <td><button type="button" class="btn btn-primary" value = "<?=$Oportunidades2->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i></button></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -266,8 +265,8 @@
                 </div>
 
                 <div class="modal-footer">
-                <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                  <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                 </div>
               </form>
           </div>

@@ -120,13 +120,13 @@ return confirm('Estas seguro de eliminar el proceso <?=$registro['nombre']?>?')"
                                   <td><?=$indicadorrel->logicaindicador?></td>
                                   <td><?=$indicadorrel->indicadormeta?></td>
                                   <td>
-                                    <button type="button" class="btn btn-primary" value = "<?=$indicadorrel->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
+                                    <button type="button" class="btn btn-primary" value = "<?=$indicadorrel->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i></button>
                                   </td>
                                   <td><form class="" action="/indicadores/destroy/{{ $indicadorrel->id }}" method="post">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                       <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
-        return confirm('Estas seguro de eliminar el indicador <?=$indicadorrel->nombreindicador?>?')"><i class="fa fa-trash"></i><br>Eliminar</button>
+        return confirm('Estas seguro de eliminar el indicador <?=$indicadorrel->nombreindicador?>?')"><i class="fa fa-trash"></i></button>
 
                                     </form>
                                     </td>

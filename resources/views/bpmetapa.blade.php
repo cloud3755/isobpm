@@ -192,7 +192,7 @@
       </div>
 
       <br>
-      <center><a class="btn btnprocesoform btn-md active" id="actualizar" style="font-family: Arial;">Modificar</a></center>
+      <center><a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a></center>
         <br>
   </form>
       <br>
@@ -201,7 +201,7 @@
               <div class="panel panel-red">
                   <div class="panel-heading">
                     MODELAR PROCESO
-                      <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaldr"><i class="glyphicon glyphicon-upload"></i></button>
+                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modaldr"><i class="glyphicon glyphicon-floppy-save"></i></button>
                   </div>
               <div class="panel-body">
                 <div class="table-responsive">
@@ -228,8 +228,8 @@
                             <td> <?=$etapa->archivo?>
                               @if($etapa->uniquearchivo != null)
                                   <a href="/storage/mejoras/<?=$etapa->uniquearchivo?>" downloadFile="<?=$etapa->uniquearchivo?>" target="_blank" style='color:#FFF'>
-                                    <button type="button" class="btn btn-default">
-                                      <span class="glyphicon glyphicon-download-alt"></span>
+                                    <button type="button" class="btn btn-warning">
+                                      <i class="glyphicon glyphicon-cloud-download"></i>
                                     </button>
                               @endif
                             </td>
@@ -238,8 +238,8 @@
                               <form class="" action="/etapa/eliminaretapa/<?=$etapa->id?>" method="post">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}
-                                <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-  return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">Eliminar</button>
+                                <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+  return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')"><i class="fa fa-trash"></i></button>
                               </form>
                             </td>
                           </tr>
@@ -260,7 +260,7 @@
           <div class="panel panel-red">
               <div class="panel-heading">
                 ANALIZAR PROCESO
-                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
               </div>
           <div class="panel-body">
             <div class="table-responsive">
@@ -287,8 +287,8 @@
                           <td> <?=$etapa->archivo?>
                             @if($etapa->uniquearchivo != null)
                                 <a href="/storage/mejoras/<?=$etapa->uniquearchivo?>" downloadFile="<?=$etapa->uniquearchivo?>" target="_blank" style='color:#FFF'>
-                                  <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-download-alt"></span>
+                                  <button type="button" class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-cloud-download"></i>
                                   </button>
                             @endif
                           </td>
@@ -297,8 +297,8 @@
                             <form class="" action="/etapa/eliminaretapa/<?=$etapa->id?>" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                              <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">Eliminar</button>
+                              <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
                         </tr>
@@ -319,7 +319,7 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
           <div class="panel panel-red">
               <div class="panel-heading">
                 REDISEÑAR PROCESO
-                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalek"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalek"><i class="glyphicon glyphicon-floppy-save"></i></button>
               </div>
           <div class="panel-body">
             <div class="table-responsive">
@@ -346,8 +346,8 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
                           <td> <?=$etapa->archivo?>
                             @if($etapa->uniquearchivo != null)
                                 <a href="/storage/mejoras/<?=$etapa->uniquearchivo?>" downloadFile="<?=$etapa->uniquearchivo?>" target="_blank" style='color:#FFF'>
-                                  <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-download-alt"></span>
+                                  <button type="button" class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-cloud-download"></i>
                                   </button>
                             @endif
                           </td>
@@ -356,8 +356,8 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
                             <form class="" action="/etapa/eliminaretapa/<?=$etapa->id?>" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                              <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">Eliminar</button>
+                              <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
                         </tr>
@@ -378,7 +378,7 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
           <div class="panel panel-red">
               <div class="panel-heading">
                 IMPLEMENTAR PROCESO
-                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalcm"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalcm"><i class="glyphicon glyphicon-floppy-save"></i></button>
               </div>
           <div class="panel-body">
             <div class="table-responsive">
@@ -405,8 +405,8 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
                           <td> <?=$etapa->archivo?>
                             @if($etapa->uniquearchivo != null)
                                 <a href="/storage/mejoras/<?=$etapa->uniquearchivo?>" downloadFile="<?=$etapa->uniquearchivo?>" target="_blank" style='color:#FFF'>
-                                  <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-download-alt"></span>
+                                  <button type="button" class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-cloud-download"></i>
                                   </button>
                             @endif
                           </td>
@@ -415,8 +415,8 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
                             <form class="" action="/etapa/eliminaretapa/<?=$etapa->id?>" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                              <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">Eliminar</button>
+                              <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
                         </tr>
@@ -438,7 +438,7 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
           <div class="panel panel-red">
               <div class="panel-heading">
                 MONITOREO DE PROCESO
-                  <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalproceso"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalproceso"><i class="glyphicon glyphicon-floppy-save"></i></button>
               </div>
           <div class="panel-body">
             <div class="table-responsive">
@@ -465,8 +465,8 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
                           <td> <?=$etapa->archivo?>
                             @if($etapa->uniquearchivo != null)
                                 <a href="/storage/mejoras/<?=$etapa->uniquearchivo?>" downloadFile="<?=$etapa->uniquearchivo?>" target="_blank" style='color:#FFF'>
-                                  <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-download-alt"></span>
+                                  <button type="button" class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-cloud-download"></i>
                                   </button>
                             @endif
                           </td>
@@ -475,8 +475,8 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
                             <form class="" action="/etapa/eliminaretapa/<?=$etapa->id?>" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                              <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">Eliminar</button>
+                              <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
                         </tr>
@@ -531,9 +531,9 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
 
                 </div>
                       <div class="modal-footer">
-                          <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Etapa</button>
+                          <button type="submit" class="btn btn-success" id="btnaltaindicador"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                   </form>
-                          <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                       </div>
                   </div>
               </div>
@@ -583,9 +583,9 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
 
 
                       <div class="modal-footer">
-                          <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Etapa</button>
+                          <button type="submit" class="btn btn-success" id="btnaltaindicador"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                   </form>
-                          <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                       </div>
                   </div>
               </div>
@@ -631,9 +631,9 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
 
                 </div>
                       <div class="modal-footer">
-                          <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Etapa</button>
+                          <button type="submit" class="btn btn-success" id="btnaltaindicador"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                   </form>
-                          <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                       </div>
                   </div>
               </div>
@@ -680,9 +680,9 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
 
                 </div>
                       <div class="modal-footer">
-                          <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Etapa</button>
+                          <button type="submit" class="btn btn-success" id="btnaltaindicador"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                   </form>
-                          <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                       </div>
                   </div>
               </div>
@@ -729,9 +729,9 @@ return confirm('Estas seguro de eliminar la queja numero: <?=$etapa->id?>?')">El
 
                 </div>
                       <div class="modal-footer">
-                          <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Etapa</button>
+                        <button type="submit" class="btn btn-success" id="btnaltaindicador"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                   </form>
-                          <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                       </div>
                   </div>
               </div>

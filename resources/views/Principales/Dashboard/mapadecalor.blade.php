@@ -132,6 +132,7 @@
                                 <th><div class="th-inner sortable both">Actividad</div></th>
                                 <th><div class="th-inner sortable both">Area</div></th>
                                 <th><div class="th-inner sortable both">Tipo riesgo</div></th>
+                                <th><div class="th-inner sortable both">Riesgo</div></th>
                                 <th><div class="th-inner sortable both">descripcion_modo_falla</div></th>
                                 <th><div class="th-inner sortable both">Severidad</div></th>
                                 <th><div class="th-inner sortable both">probabilidad</div></th>
@@ -150,6 +151,7 @@
                                     <td><?=$Analisisriesgos->nombreproceso?></td>
                                     <td><?=$Analisisriesgos->actividad?></td>
                                     <td><?=$Analisisriesgos->nomarea?></td>
+                                    <td><?=$Analisisriesgos->nomtipo?></td>
                                     <td><?=$Analisisriesgos->abcriesgo?></td>
                                     <td><?=$Analisisriesgos->descripcion_modo_falla?></td>
                                     <td><?=$Analisisriesgos->Severidad?></td>
@@ -159,7 +161,9 @@
                                     <td><?=$Analisisriesgos->probabilidad?></td>
                                     <td><?=$Analisisriesgos->riesgo_inherente?></td>
                                     <td><?=$Analisisriesgos->riesgo_residual?></td>
-                                    <td><button type="button" class="btnobjetivo" value = "<?=$Analisisriesgos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button></td>
+                                    <td>
+                                      <button type="button" class="btn btn-primary" value = "<?=$Analisisriesgos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i> </button>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -265,8 +269,8 @@
               </div>
 
               <div class="modal-footer">
-              <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                  <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
               </div>
             </form>
         </div>

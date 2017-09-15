@@ -241,7 +241,7 @@ function doSearch()
             <div class="panel panel-red">
                 <div class="panel-heading">
                     Quejas
-                    <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
                 </div>
             <div class="panel-body">
               <div class="table-responsive">
@@ -305,15 +305,15 @@ function doSearch()
                            @endif
                          </td>
                          <td>
-                           <button type="button" class="btnobjetivo" value = "<?=$queja->id?>" data-toggle="modal" data-target="#modaleditq" onclick="EditarQ(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                           <button type="button" class="btn btn-primary" value = "<?=$queja->id?>" data-toggle="modal" data-target="#modaleditq" onclick="EditarQ(this);"><i class="glyphicon glyphicon-edit"></i></button>
                          </td>
                          @if(Auth::user()->perfil != 4)
                          <td>
                            <!-- se creara un bucle para generar los n modales necesarios para la edicion de datos -->
                            <form id="formeliminar" action="/quejas/delete/<?=$queja->id?>" method="post">
                              <input type="hidden" name="_token" value="{{{ csrf_token() }}}" id="token">
-                             <button type="submit" class="borrar"  style="font-family: Arial;"  onclick="
-                             return confirm('Estas seguro de eliminar la queja numero: <?=$queja->id?>?')"><i class="glyphicon glyphicon-remove"></i>Eliminar</button>
+                             <button type="submit" class="btn btn-danger"  style="font-family: Arial;"  onclick="
+                             return confirm('Estas seguro de eliminar la queja numero: <?=$queja->id?>?')"><i class="fa fa-trash"></i></button>
                            </form>
                          </td>
                          @endif
@@ -454,8 +454,8 @@ function doSearch()
 
 
                         <div class="modal-footer">
-                            <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Queja</button>
-                            <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                            <button type="submit" class="btn btn-success" id="btnaltaindicador" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                       </form>
                     </div>
@@ -586,8 +586,8 @@ function doSearch()
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <a class="btn btn-primary" id="actualizarq" style="font-family: Arial;">Editar Queja</a>
-                  <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                  <a class="btn btn-primary" id="actualizarq" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                 </div>
               </form>
             </div>

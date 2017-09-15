@@ -40,7 +40,9 @@ alert ('{{Session::get('flash_message')}}')
                       <th>  <div class="th-inner sortable both">    Descripcion  </div></th>
                       <th>  <div class="th-inner sortable both">    Tipo  </div></th>
                       <th>  <div class="th-inner sortable both">    Archivo de especificaciones  </div></th>
-                      <th>  <div class="th-inner sortable both">    Acciones  </div></th>
+                      <th>  <div class="th-inner sortable both">    Archivo  </div></th>
+                      <th>  <div class="th-inner sortable both">    Editar  </div></th>
+                      <th>  <div class="th-inner sortable both">    Eliminar  </div></th>
                       </tr>
                   </thead>
                   <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -53,12 +55,16 @@ alert ('{{Session::get('flash_message')}}')
                       <td>  <?=$insumos->Tipo?></td>
                       <td>  <?=$insumos->archivo?></td>
                       <td>
+                        <a href="/insumo/file/ver/<?=$insumos->id?>" target="_blank" style=\'color:#FFF\'><button type="button" <?php if ($insumos->archivo == 'No se cargo archivo') { echo"disabled";} else {echo"";} ?> class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i></button> </a>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-primary" value = "<?=$insumos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i> </button>
+                      </td>
+                      <td>
                       <form class="" action="/insumos/delete/<?=$insumos->id?>" method="post">
-                         <a href="/insumo/file/ver/<?=$insumos->id?>" target="_blank" style=\'color:#FFF\'><button type="button" <?php if ($insumos->archivo == 'No se cargo archivo') { echo"disabled";} else {echo"";} ?> class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i><br> Archivo </button> </a>
-                        <button type="button" class="btn btn-primary" value = "<?=$insumos->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i><br>Editar </button>
                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                         <button type="submit" class="btn btn-danger" id="btndelete_<?=$insumos->id?>" style="font-family: Arial;" dataid="<?=$insumos->id?>" onclick="
-return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Servicio?>?')"><i class="fa fa-trash"></i><br>Eliminar</button>
+                          return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Servicio?>?')"><i class="fa fa-trash"></i></button>
                       </form>
 
                       </td>
@@ -126,7 +132,7 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
 
               </div>
                     <div class="modal-footer">
-                      <button type="btn btn-primary" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
+                      <button type="submit" class="btn btn-success" id="btnobjetivo" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
               </form>
@@ -190,8 +196,8 @@ return confirm('Estas seguro de eliminar el insumo: <?=$insumos->Producto_o_Serv
                     <div class="modal-footer">
             <!--  <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">guardar cambio insumo</button> -->
                         <a class="btn btn-primary" id="actualizar" style="font-family: Arial;" onclick="
-return confirm('Estas seguro de querer guardar los cambios')">Guardar Cambios</a>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+return confirm('Estas seguro de querer guardar los cambios')"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                 </div>
               </form>

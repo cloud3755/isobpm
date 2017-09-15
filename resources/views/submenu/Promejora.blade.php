@@ -158,15 +158,15 @@
                         <td>
                           <form class="" action="/subiretapa/etapa/<?=$mejoras->id?>">
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                              <button type="submit" class="btnobjetivo" ><i class="glyphicon glyphicon-pencil">Editar</i></button>
+                              <button type="submit" class="btn btn-primary" ><i class="glyphicon glyphicon-edit"></i></button>
                           </form>
                         </td>
                         <td>
                           <form class="" action="/mejora/delete/<?=$mejoras->id?>" method="post">
                               {{ csrf_field() }}
                               {{ method_field('DELETE') }}
-                            <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-return confirm('Estas seguro de eliminar El proyecto: <?=$mejoras->proyecto?>?')">Eliminar</button>
+                            <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+return confirm('Estas seguro de eliminar El proyecto: <?=$mejoras->proyecto?>?')"><i class="fa fa-trash"></i></button>
                           </form>
                         </td>
                       </tr>

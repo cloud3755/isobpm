@@ -26,7 +26,7 @@ alert ('{{Session::get('flash_message')}}')
         <div class="panel panel-red">
             <div class="panel-heading">
                 Agregar proveedores
-                <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
             </div>
         <div class="panel-body">
           <div class="row">
@@ -43,7 +43,8 @@ alert ('{{Session::get('flash_message')}}')
                       <th>  <div class="th-inner sortable both">    Email  </div></th>
                       <th>  <div class="th-inner sortable both">    Telefono  </div></th>
                       <th>  <div class="th-inner sortable both">    Estatus  </div></th>
-                      <th>  <div class="th-inner sortable both">    Acciones  </div></th>
+                      <th>  <div class="th-inner sortable both">    Ver  </div></th>
+                      <th>  <div class="th-inner sortable both">    Editar  </div></th>
                       @if(Auth::user()->perfil <= 3)
                         <th>  <div class="th-inner sortable both">  Eliminar  </div></th>
                       @endif
@@ -59,10 +60,12 @@ alert ('{{Session::get('flash_message')}}')
                       <td>  <?=$proveedors->telefono?></td>
                       <td>  <?=$proveedors->activo?></td>
                       <td>
+                        <button type="button" class="btn btn-info" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i></button>
+                      </td>
+                      <td>
 
 
-                        <button type="button" class="btnobjetivo" value = "<?=$proveedors->id?>" name=1 data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-eye-open"></i> Ver detalles </button>
-                        <?php if ($proveedors->idautor == $usuario->id || $usuario->perfil >= 1 ) {echo"<button type=\"button\" class=\"btnobjetivo\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-pencil\"></i> Editar / Alta de documentos </button>"; } ?>
+                        <?php if ($proveedors->idautor == $usuario->id || $usuario->perfil >= 1 ) {echo"<button type=\"button\" class=\"btn btn-primary\" value = \"".$proveedors->id."\" name=2 data-toggle=\"modal\" data-target=\"#modaledit\" onclick=\"Editar(this);\"><i class=\"glyphicon glyphicon-edit\"></i></button>"; } ?>
 
                       </td>
                       @if(Auth::user()->perfil <= 3)
@@ -70,8 +73,8 @@ alert ('{{Session::get('flash_message')}}')
                         <form class="" action="/proveedor/delete/<?=$proveedors->id?>" method="post">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                          <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" onclick="
-                          return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors->proveedor?>?')">Eliminar</button>
+                          <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
+                          return confirm('Estas seguro de eliminar el proveedor: <?=$proveedors->proveedor?>?')"><i class="fa fa-trash"></i></button>
                         </form>
                       </td>
                       @endif
@@ -224,8 +227,8 @@ alert ('{{Session::get('flash_message')}}')
 
               </div>
                     <div class="modal-footer">
-                    <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Guardar/enviar a aprobacion</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                      <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
               </form>
                 </div>
@@ -381,10 +384,10 @@ alert ('{{Session::get('flash_message')}}')
 
               </div>
                     <div class="modal-footer" id="footer">
-                    <button name="documentosalta" type="button" class="btnobjetivo" id="documentosalta" value = "" data-toggle="modal" data-dismiss="modal" data-target="#modalarchivos" onclick="Archivo(this);"><i class="glyphicon glyphicon-pencil"></i> Alta / Baja documentos</button>
+                    <button name="documentosalta" type="button" class="btn btn-success" id="documentosalta" value = "" data-toggle="modal" data-dismiss="modal" data-target="#modalarchivos" onclick="Archivo(this);"><i class="glyphicon glyphicon-floppy-save"></i><br>Documentos</button>
                     <!--     <button type="submit" class="act" id="act" style="font-family: Arial;">Guardar cambio insumo</button> -->
-                    <button name="guardacambios" type="button" class="btnobjetivo" id="guardacambios" style="font-family: Arial;"><i class="glyphicon glyphicon-pencil"></i>Guardar cambios</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                    <button name="guardacambios" type="button" class="btn btn-primary" id="guardacambios" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
               </form>
                 </div>
@@ -420,7 +423,7 @@ alert ('{{Session::get('flash_message')}}')
 <div class="form-group form-group-lg">
 <h2><label for="boton" class="control-label"></label></h2>
   <div class="col-md-12">
-<button name="guardadoc" type="button" class="btnobjetivo" id="guardadoc" style="font-family: Arial;"><i class="glyphicon glyphicon-upload"></i> Cargar Archivo </button>
+    <button name="guardadoc" type="button" class="btn btn-success" id="guardadoc" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
 
 <!--  <button name="documentosalta" type="submit" class="btnobjetivo btn-lg" id="documentosalta" value = "" data-toggle="modal" data-target="#modalarchivos" onclick=""><i class="glyphicon glyphicon-upload"></i> Cargar Archivo </button> -->
 </div>
@@ -448,7 +451,8 @@ alert ('{{Session::get('flash_message')}}')
               <th>  <div class="th-inner sortable both">    Nombre  </div></th>
               <th>  <div class="th-inner sortable both">    Archivo  </div></th>
               <th>  <div class="th-inner sortable both">    Tamaño  </div></th>
-              <th>  <div class="th-inner sortable both">    Acciones  </div></th>
+              <th>  <div class="th-inner sortable both">    Archivo  </div></th>
+              <th>  <div class="th-inner sortable both">    Eliminar  </div></th>
 
             </tr>
           </thead>
@@ -474,7 +478,7 @@ alert ('{{Session::get('flash_message')}}')
                     <div class="modal-footer" id="footer">
 
 
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
 
                 </div>

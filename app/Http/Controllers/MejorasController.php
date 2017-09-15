@@ -148,13 +148,13 @@ class MejorasController extends Controller
     public function eliminaretapa($id)
     {
       $mejoraetapas = Mejoraetapas::findorfail($id);
-
+      $mejora = $mejoraetapas->id_mejoras;
       if($mejoraetapas->uniquearchivo != null)
         \Storage::disk('mejoras')->delete($mejoraetapas->uniquearchivo);
 
         $mejoraetapas->delete();
 
-        return redirect('/Promejoras');
+        return redirect()->action('MejorasController@subiretapas', [$mejora]);
     }
 
     public function eliminarmejora($id)
@@ -190,7 +190,7 @@ class MejorasController extends Controller
             \Storage::disk('mejoras')->put($nombreunicoarchivo1,  \File::get($file1));
         }
         $mejoraetapas->save();
-        return redirect('/Promejoras');
+        return redirect()->action('MejorasController@subiretapas', [$request->input('idmejora')]);
     }
 
       public function index()

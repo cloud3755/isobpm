@@ -190,10 +190,10 @@
 					</div>
 			</div>
 			<br>
-			<center><a class="btn btnprocesoform btn-md active" role="button" id="actualizar" style="font-family: Arial;">Alta de proyecto</a></center>
+			<center><a class="btn btn-success" role="button" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</a></center>
 	</form>
 	<br>
-	<center><button type="submit" onclick=location="/Promejoras" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Regresar</button></center>
+	<center><button type="submit" onclick=location="/Promejoras" class="btn btn-secondary" id="btnaltaindicador" style="font-family: Arial;"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button></center>
 
 <script type="text/javascript">
 

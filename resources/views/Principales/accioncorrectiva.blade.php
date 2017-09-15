@@ -27,7 +27,8 @@
         <div class="col-lg-12">
             <div class="panel panel-red">
                 <div class="panel-heading">
-                    Accion <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                    Accion
+                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
                 </div>
             <div class="panel-body">
               <div class="table-responsive">
@@ -72,8 +73,8 @@
                             @if($accioncorrectivas->porque2 != '')
                             <?=$accioncorrectivas->porque2?>
                             <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniquedocumento?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniquedocumento?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-default btn-xs">
-                                   <span class="glyphicon glyphicon-download-alt"></span>
+                              <button type="button" class="btn btn-warning">
+                                   <span class="glyphicon glyphicon-cloud-download"></span>
                               </button>
                             </a>
                             @endif
@@ -88,8 +89,8 @@
                             @if($accioncorrectivas->porque2 != '')
                             <?=$accioncorrectivas->evidencia?>
                             <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniqueevidencia?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniqueevidencia?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-default btn-xs">
-                                   <span class="glyphicon glyphicon-download-alt"></span>
+                              <button type="button" class="btn btn-warning">
+                                   <span class="glyphicon glyphicon-cloud-download"></span>
                               </button>
                             </a>
                             @endif
@@ -101,12 +102,12 @@
                             <form class="" action="/subirevidencia/evidencia/<?=$accioncorrectivas->id?>">
                               <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
                               <input type="hidden" name="responsable_id" value="<?=$accioncorrectivas->responsable_id?>">
-                                <button type="submit" class="btnobjetivo" ><i class="glyphicon glyphicon-pencil">Evidencia</i></button>
+                                <button type="submit" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i></button>
                             </form>
                           </td>
                           <td>
                             @if(Auth::user()->perfil != 4 or Auth::user()->id == $accioncorrectivas->responsable_id or Auth::user()->id == $accioncorrectivas->creador_id)
-                              <button type="button" class="btnobjetivo" value = "<?=$accioncorrectivas->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                              <button type="button" class="btn btn-primary" value = "<?=$accioncorrectivas->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i> </button>
                             @endif
                           </td>
 
@@ -279,9 +280,9 @@
 
 
                         <div class="modal-footer">
-                            <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Alta de Accion</button>
+                            <button type="submit" class="btn btn-success" id="btnaltaindicador" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
                     </form>
-                            <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -430,8 +431,8 @@
 
                     </div>
                     <div class="modal-footer">
-                      <a class="btn btn-primary" id="actualizar" style="font-family: Arial;">Guardar Cambios</a>
-                      <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                      <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                   </form>
                 </div>
