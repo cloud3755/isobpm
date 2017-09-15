@@ -129,7 +129,6 @@ return array(
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
     'Insumoproveedor' => $baseDir . '/database/migrations/2017_08_08_185251_Insumoproveedor.php',
     'Insumos' => $baseDir . '/database/migrations/2017_08_05_150816_insumos.php',
-    'Insumoscalificados' => $baseDir . '/database/migrations/2017_08_18_180027_insumoscalificados.php',
     'ListaAccesos' => $baseDir . '/database/migrations/2017_04_08_160104_lista_accesos.php',
     'ListaEnvio' => $baseDir . '/database/migrations/2017_03_28_055749_lista_envio.php',
     'ListaIndicadoresProcesos' => $baseDir . '/database/migrations/2017_04_09_163012_lista_indicadores_procesos.php',
@@ -538,6 +537,7 @@ return array(
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'Provedorinsumo' => $baseDir . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
     'Proveedores' => $baseDir . '/database/migrations/2017_08_07_214700_proveedores.php',
+    'Puestos' => $baseDir . '/database/migrations/2017_09_15_173349_puestos.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',
@@ -583,6 +583,7 @@ return array(
     'TypedocumentsTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'UnidadesTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'UserTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'insumoscalificados' => $baseDir . '/database/migrations/2017_08_18_180027_insumoscalificados.php',
     'objetivosTableSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'proveedorcalifica' => $baseDir . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
 );

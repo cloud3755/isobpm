@@ -1,28 +1,7 @@
 @extends('layouts.principal2')
 
 @section('content')
-
-
-<title>jQuery orgChart Plugin Demo</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="/js/Create-An-Editable-Organization-Chart-with-jQuery-orgChart-Plugin/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<link href="/js/Create-An-Editable-Organization-Chart-with-jQuery-orgChart-Plugin/jquery.orgchart.css" media="all" rel="stylesheet" type="text/css" />
-<style type="text/css">
-#orgChart{
-width: auto;
-height: auto;
-}
-
-#orgChartContainer{
-width: 1000px;
-height: 500px;
-overflow: auto;
-background: #eeeeee;
-}
-
-</style>
-
-
+<link charset="utf-8" href="/js/getorgchart/getorgchart.js">
 
 
 
@@ -37,77 +16,93 @@ alert ('{{Session::get('flash_message')}}')
 
 </center>
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Modulo personal ogranigrama</h1>
-    </div>
-</div>
 
-<center><button type="button" class="btnobjetivo" onclick=location="/bienvenida" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
-
-<br><br><br><br><br>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-red">
-            <div class="panel-heading">
-
-                <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target=""><i class="glyphicon glyphicon-upload"></i></button>
-            </div>
-        </div>
-    </div>
-</div>
+<style type="text/css">
+    html, body {margin: 0px; padding: 0px;width: 100%;height: 100%;overflow: hidden; }
+.label {width: 150px; float: left;}
+select{width: 50%;}
+.field {padding: 10px 0 0 10px; height: 21px;}
+#people, .content {width: 100%; height: 100%;}
+#toolbar {width: 100%; background-color: #F3F3F3; height: 100%; }
+#toolbar, select, label, input[type=text] {font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif"; color: #444444;font-size: 12px;}
+.title {font-size: 20px; padding: 20px 0 0 10px;}
+#toolbar input {margin-left: 0px;}
+.event-console {width: 87%; height: 149px; background-color: white; margin: 20px 0 0 10px;border: 1px solid #C7C7C7; padding: 10px; overflow-y: scroll;}
+.arrow-left {width: 0; height: 0; border-top: 11px solid transparent;border-bottom: 11px solid transparent; 	border-right:11px solid #444444; float: left;margin-right: 3px;cursor: pointer;		}
+.arrow-right {width: 0; height: 0; border-bottom: 11px solid transparent;border-left: 11px solid #444444; 	border-top:11px solid transparent; float: left;margin-left: 3px;cursor: pointer;}
+.input{width: 50%;float: left; min-width: 183px;}
+.input input{width: 142px;float: left;}
+</style>
 
 
-    <div id="orgChartContainer">
-      <div id="orgChart"></div>
-    </div>
-    <div id="consoleOutput">
-    </div>
-<script src="/js/Create-An-Editable-Organization-Chart-with-jQuery-orgChart-Plugin/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="/js/Create-An-Editable-Organization-Chart-with-jQuery-orgChart-Plugin/jquery.orgchart.js"></script>
-    <script type="text/javascript">
-    var testData = [
-        {id: 1, name: 'My Organization', parent: 0},
-        {id: 2, name: 'CEO Office', parent: 1},
-        {id: 3, name: 'Division 1', parent: 1},
-        {id: 4, name: 'Division 2', parent: 1},
-        {id: 6, name: 'Division 3', parent: 1},
-        {id: 7, name: 'Division 4', parent: 1},
-        {id: 8, name: 'Division 5', parent: 1},
-        {id: 5, name: 'Sub Division', parent: 3},
 
-    ];
-    $(function(){
-        org_chart = $('#orgChart').orgChart({
-            data: testData,
-            showControls: true,
-            allowEdit: true,
-            onAddNode: function(node){
-                log('Created new node on node '+node.data.id);
-                org_chart.newNode(node.data.id);
-            },
-            onDeleteNode: function(node){
-                log('Deleted node '+node.data.id);
-                org_chart.deleteNode(node.data.id);
-            },
-            onClickNode: function(node){
-                log('Clicked node '+node.data.id);
-            }
 
-        });
-    });
+<div id="people"></div>
 
-    // just for example purpose
-    function log(text){
-        $('#consoleOutput').append('<p>'+text+'</p>')
-    }
-    </script><script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
 
+
+
+<script type="text/ecmascript">
+
+function redrawChart(){
+  $("#people").getOrgChart({
+    primaryColumns: ["name", "title", "phone", "mail"],
+    imageColumn: "image",
+    editable: true,
+    zoomable: true,
+    searchable: true,
+    printable: true,
+    movable: true,
+    scale: true,
+    gridView: true,
+    theme: "cassandra",
+    color: "black",
+    orientation: "0",
+    linkType: "M",
+    levelSeparation: "100",
+    siblingSeparation: "30",
+    subtreeSeparation: "100",
+    removeEvent: function(sender, args) {log("deleting person with id: " + args.id); return true; },
+    updateEvent: function(sender, args) {log("updating person with id: " + args.id); return true; },
+    renderBoxContentEvent: function(sender, args) {log("render content box with id: " + args.id); },
+    clickEvent: function(sender, args) {log("clicked person with id: " + args.id); return true; },
+    dataSource: [
+      { id: 1, parentId: "", name: "Mary D. Barnes", title: "Founder", phone: "765-386-5597", image: "images/f-57.jpg" },
+      { id: 2, parentId: 1, name: "Larry B. Welborn", title: "Podiatrist", phone: "516-922-7920", image: "images/f-56.jpg" },
+      { id: 3, parentId: 1, name: "John D. Blakely", title: "Ballet master", phone: "617-361-4327", mail: "john.blakely@dom.com" },
+      { id: 4, parentId: 2, name: "Megan F. Borg", title: "Botanist", phone: "205-324-9284", image: "images/f-54.jpg" },
+      { id: 5, parentId: 2, name: "Kyle E. Christensen", title: "Animal control officer", phone: "702-486-3752", image: "images/f-53.jpg" },
+      { id: 6, parentId: 3, name: "Luther L. Myers", title: "Log sorter", phone: "949-599-1120", image: "images/f-52.jpg" },
+      { id: 7, parentId: 3, name: "Ruth J. Christopher", title: "Certified athletic", phone: "256-759-3427", image: "images/f-51.jpg" }
+    ]
+  });
+
+}
+
+redrawChart();
+
+function log(message){
+  var d = new Date();
+  var time = d.getHours();
+  time += ":" + d.getMinutes();
+  time += ":" + d.getSeconds() + " - ";
+  document.getElementById("eventConsole").innerHTML =  time + message + "<br />" + document.getElementById("eventConsole").innerHTML;
+}
+
+$(".arrow-left, .arrow-right").click(function() {
+  var inc = parseFloat($(this).attr("inc"));
+  var $inp = $(this).parent().find("input");
+  var val = parseFloat($inp.val());
+  var def = parseFloat($inp.attr("def"));
+  var min = parseFloat($inp.attr("min"));
+
+  if (!$.isNumeric(val))
+    $inp.val(def);
+  else if (val > min)
+    $inp.val(Math.round((val + inc) * 100) / 100);
+  redrawChart();
+});
 
 </script>
 

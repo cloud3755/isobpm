@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="/js/select2/select2.css">
 
 
+    <link rel="stylesheet" href="/css/getorgchart/getorgchart.css">
+
+
+
     <script src="/js/jquery.js" charset="utf-8"></script>
     <script src="/js/jquery.mvclite.js" charset="utf-8"></script>
     <script src="/js/jquery.multi-select.js" charset="utf-8"></script>

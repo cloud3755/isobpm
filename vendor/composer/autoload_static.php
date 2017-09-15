@@ -447,7 +447,6 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
         'Insumoproveedor' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_185251_Insumoproveedor.php',
         'Insumos' => __DIR__ . '/../..' . '/database/migrations/2017_08_05_150816_insumos.php',
-        'Insumoscalificados' => __DIR__ . '/../..' . '/database/migrations/2017_08_18_180027_insumoscalificados.php',
         'ListaAccesos' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_160104_lista_accesos.php',
         'ListaEnvio' => __DIR__ . '/../..' . '/database/migrations/2017_03_28_055749_lista_envio.php',
         'ListaIndicadoresProcesos' => __DIR__ . '/../..' . '/database/migrations/2017_04_09_163012_lista_indicadores_procesos.php',
@@ -856,6 +855,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'Provedorinsumo' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
         'Proveedores' => __DIR__ . '/../..' . '/database/migrations/2017_08_07_214700_proveedores.php',
+        'Puestos' => __DIR__ . '/../..' . '/database/migrations/2017_09_15_173349_puestos.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
         'SebastianBergmann\\Comparator\\ComparisonFailure' => __DIR__ . '/..' . '/sebastian/comparator/src/ComparisonFailure.php',
@@ -901,6 +901,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'TypedocumentsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'UnidadesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'UserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'insumoscalificados' => __DIR__ . '/../..' . '/database/migrations/2017_08_18_180027_insumoscalificados.php',
         'objetivosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'proveedorcalifica' => __DIR__ . '/../..' . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
     );

@@ -310,6 +310,10 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/proveedoradmin/aprobar','proveedorescontroller@aprobar');
     Route::post('/proveedoradmin/rechazo','proveedorescontroller@rechazo');
 
+    // Rutas modulo personal
+    Route::get('/personal','personalcontroller@index');
+
+
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Rutas para pagina inicio
