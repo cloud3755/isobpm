@@ -15,8 +15,8 @@ class Puestos extends Migration
         //
         Schema::create('puestos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('nombre');
-            $table->integer('padre');
+            $table->integer('parentId');
+            $table->string('nombre');
             $table->integer('id_compania');
             $table->timestamps();
         });

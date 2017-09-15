@@ -313,7 +313,7 @@ Route::group( ['middleware' => 'auth'],
     // Rutas modulo personal
     Route::get('/personal','personalcontroller@index');
 
-
+ 
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Rutas para pagina inicio
