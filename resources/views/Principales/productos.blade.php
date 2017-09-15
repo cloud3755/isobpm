@@ -14,7 +14,7 @@
             <div class="panel panel-red">
                 <div class="panel-heading">
                     Productos y/o Servicios
-                    <button type="button" class="btn btn-green btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-upload"></i></button>
+                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
                 </div>
             <div class="panel-body">
                 <div class="dataTable_wrapper">
@@ -23,7 +23,8 @@
                           <th>  <div class="th-inner sortable both">    Codigo  </div></th>
                           <th>  <div class="th-inner sortable both">    Nombre  </div></th>
                           <th>  <div class="th-inner sortable both">    Descripcion  </div></th>
-                          <th>  <div class="th-inner sortable both">    Modificacion  </div></th>
+                          <th>  <div class="th-inner sortable both">    Editar  </div></th>
+                          <th>  <div class="th-inner sortable both">    Eliminar  </div></th>
                         </tr>
                       </thead>
                       <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
@@ -34,11 +35,13 @@
                           <td>  <?=$productos['nombre']?></td>
                           <td>  <?=$productos['descripcion']?></td>
                           <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaledit<?=$productos['id']?>"><i class="glyphicon glyphicon-edit"></i>  </button>
+                          </td>
+                          <td>
                             <form class="" action="/productos/destroy/{{ $productos->id }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                              <button type="submit" class="btnobjetivo" id="btnpro" style="font-family: Arial;" >Eliminar</button>
-                              <button type="button" class="btnobjetivo" data-toggle="modal" data-target="#modaledit<?=$productos['id']?>"><i class="glyphicon glyphicon-pencil"></i> Editar  </button>
+                              <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" ><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
                         </tr>
@@ -82,9 +85,9 @@
                     </div>
         </div>
                         <div class="modal-footer">
-                        <button type="submit" class="btnobjetivo" id="btnobjetivo" style="font-family: Arial;">Subir registro</button>
+                          <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
             </form>
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -127,9 +130,9 @@
 
 
                         <div class="modal-footer">
-                            <button type="submit" class="btnobjetivo" id="btnaltaindicador" style="font-family: Arial;">Editar Registro</button>
+                            <button type="submit" class="btn btn-primary" id="btnaltaindicador" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
                     </form>
-                            <button type="button" class="btnobjetivo" data-dismiss="modal" id="btnCloseUpload">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                     </div>
                 </div>
