@@ -209,6 +209,7 @@
         <div class="col-md-6">
           <button type="submit" class="btnobjetivo" id="btnEditCli" style="font-family: Arial;">Seleccionar</button>
       </div>
+        <button id="btn_modalversion" type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalversion" style="border:0px; width:0px; height:0px;"></button>
       </form>
     </div>
   </div>
@@ -540,6 +541,71 @@
                   <a class="btn btn-danger" id="eliminarnoticia" style="font-family: Arial;"><i class="fa fa-trash"></i><br>Eliminar</a>
                   @endif
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+</div>
+
+<div class="modal fade" id="modalversion" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">Nueva version</h3>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row">
+                  <div id="pagina1">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <img src="/img/version/v1.png" style="width: 80%; height: 50%; float: left; margin-right:5px" />
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <p><font size=5>
+                        En este módulo de Oportunidades podrás generar tu catalogo de Oportunidades,
+                         y realizar la identificación y análisis de oportunidades de tus procesos
+                         desde su arquitectura. Además podrás acceder a un mapa de calor con la
+                         identificación y clasificación de las oportunidades detectadas en el análisis.
+                        </font>
+                       </p>
+                    </div>
+                  </div>
+                <div id="pagina2" style="display:none;">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3><label> Decripcion2:</label></h3>
+                    <textarea class="form-control" id = "noticia__not" rows="3" name="noticia__not" placeholder="Descripcion noticia 2" required=""></textarea>
+                  </div>
+                </div>
+                <div id="pagina3" style="display:none;">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3><label> Decripcion3:</label></h3>
+                    <textarea class="form-control" id = "noticia__not" rows="3" name="noticia__not" placeholder="Descripcion noticia 3" required=""></textarea>
+                  </div>
+                </div>
+                <div id="pagina4" style="display:none;">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <img src="/img/version/v1.png" style="width: 80%; height: 50%; float: left; margin-right:5px" />
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p><font size=5>
+                      En este módulo de Oportunidades podrás generar tu catalogo de Oportunidades,
+                       y realizar la identificación y análisis de oportunidades de tus procesos
+                       desde su arquitectura. Además podrás acceder a un mapa de calor con la
+                       identificación y clasificación de las oportunidades detectadas en el análisis.
+                      </font>
+                     </p>
+                  </div>
+                </div>
+                <center>
+                <ul class="pagination">
+                  <li id="lip1" class="active" ><a onClick="pagina1();">1</a></li>
+                  <li id="lip2"><a onClick="pagina2();">2</a></li>
+                  <li id="lip3"><a onClick="pagina3();">3</a></li>
+                  <li id="lip4"><a onClick="pagina4();">4</a></li>
+                </ul>
+                </center>
                 </div>
               </form>
             </div>
@@ -949,12 +1015,58 @@
         </div>
 </div>
 
+
+
 <!-- modales no conformidades -->
 <button style="display:none;" id="mostrarevento" data-toggle="modal" data-target="#modaleventoclick"/>
 
 <!--script cargar datos modales-->
     <script type="text/javascript">
 
+    function pagina1()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "";
+      document.getElementById("lip3").className = "";
+      document.getElementById("lip4").className = "";
+      $('#pagina1').show();
+      $('#pagina2').hide();
+      $('#pagina3').hide();
+      $('#pagina4').hide();
+    }
+    function pagina2()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "active";
+      document.getElementById("lip3").className = "";
+      document.getElementById("lip4").className = "";
+      $('#pagina1').hide();
+      $('#pagina2').show();
+      $('#pagina4').hide();
+      $('#pagina3').hide();
+    }
+    function pagina3()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "active";
+      document.getElementById("lip3").className = "active";
+      document.getElementById("lip4").className = "";
+      $('#pagina1').hide();
+      $('#pagina2').hide();
+      $('#pagina3').show();
+      $('#pagina4').hide();
+    }
+    function pagina4()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "active";
+      document.getElementById("lip3").className = "active";
+      document.getElementById("lip4").className = "active";
+      $('#pagina1').hide();
+      $('#pagina2').hide();
+      $('#pagina3').hide();
+      $('#pagina4').show();
+    }
 
     function EditarNC(btn){
       var route = "/noconformidad/"+btn+"/edit";
@@ -1158,6 +1270,7 @@ function agregaSeleccion(origen, destino) {
 
       $(document).ready(function(){
 
+        $("#btn_modalversion").click();
 
         $("#actualizar").click(function(){
           var value = $("#id").val();
