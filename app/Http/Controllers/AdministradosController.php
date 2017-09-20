@@ -24,7 +24,7 @@ use App\Models\LinksInteres;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class AdministradosController extends Controller
 {
