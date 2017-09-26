@@ -21,6 +21,7 @@ use App\Models\lista_eventos;
 use App\Models\EventModel;
 use App\Models\lista_noticias;
 use App\Models\LinksInteres;
+use App\Models\puestos;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades;
@@ -220,21 +221,32 @@ class AdministradosController extends Controller
       {
         $date = Carbon::now();
         $user = Auth::user();
-        $empresas = new Empresas;
-        $empresas->id_plan = $request->input('id_plan');
-        $empresas->razonSocial = $request->input('razonSocial');
-        $empresas->domicilio = $request->input('domicilio');
-        $empresas->correo = $request->input('correo');
-        $empresas->telefono = $request->input('telefono');
-        $empresas->rubro = $request->input('rubro');
-        $empresas->uso = $request->input('uso');
-        $empresas->codigo = 'Campo unico';
-        $empresas->fecha = $date->toDateTimeString();
-        $empresas->status_id = $request->input('status_id');
-        $empresas->cuota_usada = '1';
-        $empresas->img = $request->input('img');
-        $empresas->id_creador = $user->id;
-        $empresas->save();
+
+
+        $idd = DB::table('empresas')->insertGetId(
+            ['id_plan' => $request->input('id_plan'),
+             'razonSocial' => $request->input('razonSocial'),
+             'domicilio' => $request->input('domicilio'),
+             'correo' => $request->input('correo'),
+             'telefono' => $request->input('telefono'),
+             'rubro' => $request->input('rubro'),
+             'uso' => $request->input('uso'),
+             'codigo' => 'Campo unico',
+             'fecha' => $date->toDateTimeString(),
+             'status_id' => $request->input('status_id'),
+             'cuota_usada' => '1',
+             'img' => $request->input('img'),
+             'id_creador' => $user->id,
+             ]);
+
+
+        $puestos = new puestos;
+        $puestos->nombrepuesto = $request->input('razonSocial');
+        $puestos->id_compania = $idd;
+        $puestos->cadenadescendencia = "";
+        $puestos->nivel = 0;
+        $puestos->save();
+
         return redirect('/empresas');
       }
 
@@ -242,6 +254,9 @@ class AdministradosController extends Controller
       {
         $empresas = Empresas::findorfail($id);
         $empresas-> delete();
+
+       DB::table('puestos')->where('id_compania', '=', $id)->delete();
+
         return Redirect('/empresas');
       }
 
@@ -262,6 +277,7 @@ class AdministradosController extends Controller
         $empresas->cuota_usada = '1';
         $empresas->img = $request->input('img');
         $empresas->save();
+
         return redirect('/empresas');
       }
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Puestos extends Migration
+class Puestoindicadores extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class Puestos extends Migration
     public function up()
     {
         //
-        Schema::create('puestos', function (Blueprint $table) {
+        Schema::create('puestoindicadores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parentId');
-            $table->string('nombrepuesto');
+            $table->integer('id_puesto');
+            $table->integer('id_indicadores');
+            $table->double('ponderacion');
             $table->integer('id_compania');
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class Puestos extends Migration
     public function down()
     {
         //
-        Schema::drop('puestos');
+        Schema::drop('puestoindicadores');
     }
 }

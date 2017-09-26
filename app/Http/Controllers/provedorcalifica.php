@@ -52,13 +52,16 @@ class provedorcalifica extends Controller
     public function indexinsumo($id)
     {
       $usuarios = Auth::user();
+
       $listainsumo = DB::table('provedorinsumos')
                                ->join('insumos','provedorinsumos.idinsumo','=','insumos.id')
                                ->select('provedorinsumos.id as id','insumos.Producto_o_Servicio as Producto_o_Servicio','insumos.id as idinsumo')
                                ->where('provedorinsumos.idproveedor','=',$id)
                                ->get();
 
-      return response()->json($listainsumo);
+     
+
+      return ($listainsumo);
 
     }
 

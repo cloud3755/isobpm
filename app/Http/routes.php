@@ -312,8 +312,17 @@ Route::group( ['middleware' => 'auth'],
 
     // Rutas modulo personal
     Route::get('/personal','personalcontroller@index');
+    Route::get('/personalorganigramashow','personalcontroller@showorganigrama');
+    Route::post('/personalorganigramaedit/{id}','personalcontroller@editorganigrama');
+    Route::post('/personalorganigramainsert/{id}','personalcontroller@insertorganigrama');
+    Route::get('/personalorganigramadelete/{id}','personalcontroller@deleteorganigrama');
+    Route::get('/personalorganigramavalidadelete/{id}','personalcontroller@validadeleteorganigrama');
+    Route::get('/personaldescriptorpuesto/{id}','personalcontroller@personaldescriptorpuesto');
+    Route::post('/personaldescriptoredit/{id}','personalcontroller@personaldescriptoredit');
+    Route::post('/personalperfiledit/{id}','personalcontroller@personalperfiledit');
 
- 
+
+
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Rutas para pagina inicio
