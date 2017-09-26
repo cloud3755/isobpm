@@ -213,6 +213,7 @@
     </div>
   </div>
 @endif
+<button id="btn_modalversion" type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalversion" style="border:0px; width:0px; height:0px;"></button>
 
   </div>
 </div>
@@ -541,6 +542,93 @@
                   @endif
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                 </div>
+              </form>
+            </div>
+          </div>
+        </div>
+</div>
+
+<div class="modal fade" id="modalversion" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+              <center>
+                <h2 class="modal-title">ISObpm</h2>
+              </center>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row" style="height: 460px;">
+                  <div id="pagina1">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <p align="center" ><font size=6 color="#0167FF" >Nueva Versión</font></p>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <p><font size=5>
+                          En esta nueva versión de ISObpm encontrarás una imagen totalmente renovada tanto en su navegación como en contenido, así como Módulos adicionales que ayudarán en la Operación de tu Sistema de Gestión.
+                          <br>
+                          <br>
+                          ° Módulo de Inicio
+                          <br>
+                          ° Módulo de Proveedores
+                          <br>
+                          ° Módulo de Oportunidades
+                          <br>
+                        </font>
+                       </p>
+                    </div>
+                  </div>
+                <div id="pagina2" style="display:none;">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p align="center" ><font size=6 color="#0167FF" >Nueva Página de Inicio</font></p>
+                    <img src="/img/version/v2.png" style="width: 100%; height: 100%; float: left; margin-right:5px" />
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p><font size=5>
+                      En esta página de inicio personalizada por usuario podrás identificar tu principal información del Sistema de Gestión, así como un nuevo calendario de actividades, Noticias, y Links
+                        <br>
+                      </font>
+                     </p>
+                  </div>
+                </div>
+                <div id="pagina3" style="display:none;">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p align="center" ><font size=6 color="#0167FF" >Nuevo Módulo de Proveedores</font></p>
+                    <img src="/img/version/v3.png" style="width: 100%; height: 100%; float: left; margin-right:5px" />
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p><font size=5>
+                      En este nuevo módulo de Proveedores podrás dar de alta tu catálogo de suministros, tu catalogo de proveedores, y podrás realizar la evaluación de estos proveedores. También tendrás acceso a un Dashboard de reportes de resultados de las evaluaciones a tus proveedores.
+                        <br>
+                      </font>
+                     </p>
+                  </div>
+                </div>
+                <div id="pagina4" style="display:none;">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p align="center" ><font size=6 color="#0167FF" >Nuevo Módulo de Oportunidades</font></p>
+                    <img src="/img/version/v1.png" style="width: 80%; height: 50%; float: left; margin-right:5px" />
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p><font size=5>
+                      En este módulo de Oportunidades podrás generar tu catalogo de Oportunidades,
+                       y realizar la identificación y análisis de oportunidades de tus procesos
+                       desde su arquitectura. Además podrás acceder a un mapa de calor con la
+                       identificación y clasificación de las oportunidades detectadas en el análisis.
+                      </font>
+                     </p>
+                  </div>
+                </div>
+                </div>
+                <center>
+                <ul class="pagination">
+                  <li id="lip1" class="active" ><a onClick="pagina1();">1</a></li>
+                  <li id="lip2"><a onClick="pagina2();">2</a></li>
+                  <li id="lip3"><a onClick="pagina3();">3</a></li>
+                  <li id="lip4"><a onClick="pagina4();">4</a></li>
+                </ul>
+                </center>
               </form>
             </div>
           </div>
@@ -949,12 +1037,58 @@
         </div>
 </div>
 
+
+
 <!-- modales no conformidades -->
 <button style="display:none;" id="mostrarevento" data-toggle="modal" data-target="#modaleventoclick"/>
 
 <!--script cargar datos modales-->
     <script type="text/javascript">
 
+    function pagina1()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "";
+      document.getElementById("lip3").className = "";
+      document.getElementById("lip4").className = "";
+      $('#pagina1').show();
+      $('#pagina2').hide();
+      $('#pagina3').hide();
+      $('#pagina4').hide();
+    }
+    function pagina2()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "active";
+      document.getElementById("lip3").className = "";
+      document.getElementById("lip4").className = "";
+      $('#pagina1').hide();
+      $('#pagina2').show();
+      $('#pagina4').hide();
+      $('#pagina3').hide();
+    }
+    function pagina3()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "active";
+      document.getElementById("lip3").className = "active";
+      document.getElementById("lip4").className = "";
+      $('#pagina1').hide();
+      $('#pagina2').hide();
+      $('#pagina3').show();
+      $('#pagina4').hide();
+    }
+    function pagina4()
+    {
+      document.getElementById("lip1").className = "active";
+      document.getElementById("lip2").className = "active";
+      document.getElementById("lip3").className = "active";
+      document.getElementById("lip4").className = "active";
+      $('#pagina1').hide();
+      $('#pagina2').hide();
+      $('#pagina3').hide();
+      $('#pagina4').show();
+    }
 
     function EditarNC(btn){
       var route = "/noconformidad/"+btn+"/edit";
@@ -1158,6 +1292,7 @@ function agregaSeleccion(origen, destino) {
 
       $(document).ready(function(){
 
+        $("#btn_modalversion").click();
 
         $("#actualizar").click(function(){
           var value = $("#id").val();

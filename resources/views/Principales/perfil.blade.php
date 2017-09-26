@@ -162,14 +162,14 @@
                                 No se ha subido imagen
                             @endif
                         </span>
-                        <form method="POST" action="{{ action('AdministradosController@imageUserStore') }}" enctype="multipart/form-data">
-                        
+                        <form id="form1" method="POST" action="{{ action('AdministradosController@imageUserStore') }}" enctype="multipart/form-data">
+
                         <input style="display:none;" id="imagen" type="file" name="imagen">
                         <button  id="btnSeleccionarImagen" class="btn btn-default" type="button" value="Seleccione" >Seleccione</button>
-                        <button id="btnSubirImagen" class="btn btn-default" type="submit" value="" ><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+                        <button id="btnSubirImagen" class="btn btn-default" type="submit" value="" disabled><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
                         {{ csrf_field() }}
                         </form>
-                        
+
                         </div>
                     </div>
                 </div>
@@ -179,10 +179,10 @@
                     <span class="pull-left" >Imagen</span>
                     <span class="pull-right" >
                         @if(Auth::user()->nombreimagen!=null)
-                        <img style="width: 50px;height: 50px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" /> 
+                        <img style="width: 50px;height: 50px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" />
 
                         @else
-                        <img style="width: 50px;height: 50px;"  src="/img/tableCredential images/user.jpg" /> 
+                        <img style="width: 50px;height: 50px;"  src="/img/tableCredential images/user.jpg" />
                         @endif
                     </span>
                     <div class="clearfix"></div>
@@ -199,6 +199,7 @@ $('#btnSeleccionarImagen').click(function () {
 
 $("#imagen").change(function () {
     $('#val').text(document.getElementById("imagen").files[0].name);
+    $('#btnSubirImagen').prop('disabled', false);
 });
 
 </script>
