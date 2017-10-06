@@ -102,13 +102,35 @@ class personalcontroller extends Controller
 
            $puestoindicadores = DB::table('puestoindicadores')
                                     ->join('puestos','puestoindicadores.id_puesto','=','puestos.id')
-                                    ->select('*')
+                                    ->join('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                    ->select('puestoindicadores.id','indicadores.nombre','puestoindicadores.ponderacion')
                                     ->where('puestoindicadores.id_compania','=',$compañiaid)
                                     ->where('puestoindicadores.id_puesto','=',$id)
                                     ->get();
 
-//return(dd($perfilpuesto));
-        return view('\Principales\personaldescriptorpuesto',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores'));
+
+            $indicadorescompania = DB::table('indicadores')
+                                     ->join('users','indicadores.creador_id','=','users.id')
+                                     ->wherenotIn('indicadores.id',function ($query) use ($id) {
+                                                                 $query->select('puestoindicadores.id_indicadores')->from('puestoindicadores')
+                                                                       ->where('puestoindicadores.id_puesto','=',$id);
+                                                                         })
+                                     ->where('users.id_compania','=',$compañiaid)
+                                     ->select('indicadores.id','indicadores.nombre')
+                                     ->get();
+
+
+             $sumaponderado = DB::table('puestoindicadores')
+                                      ->join('puestos','puestoindicadores.id_puesto','=','puestos.id')
+                                      ->join('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                      ->where('puestoindicadores.id_compania','=',$compañiaid)
+                                      ->where('puestoindicadores.id_puesto','=',$id)
+                                      ->sum('ponderacion');
+
+
+//return(dd($sumaponderado));
+
+        return view('\Principales\personaldescriptorpuesto',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores','indicadorescompania','sumaponderado'));
     }
 
 
@@ -351,6 +373,181 @@ class personalcontroller extends Controller
 
     }
 
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function indicadorpersonaldestroy($id)
+    {
+        //
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+
+        DB::table('puestoindicadores')
+                    ->where('id', $id)
+                    ->where('id_compania', $compañiaid)
+                    ->delete();
+
+       return response()->json("true");
+
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function indicadorpersonaltable($id)
+    {
+        //
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+        $puestoindicadores = DB::table('puestoindicadores')
+                                 ->join('puestos','puestoindicadores.id_puesto','=','puestos.id')
+                                 ->join('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                 ->select('puestoindicadores.id','indicadores.nombre','puestoindicadores.ponderacion')
+                                 ->where('puestoindicadores.id_compania','=',$compañiaid)
+                                 ->where('puestoindicadores.id_puesto','=',$id)
+                                 ->get();
+
+       return response()->json($puestoindicadores);
+
+    }
+
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function indicadorpersonalindicadores($id)
+    {
+        //
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+        $indicadorescompania = DB::table('indicadores')
+                                 ->join('users','indicadores.creador_id','=','users.id')
+                                 ->wherenotIn('indicadores.id',function ($query) use ($id) {
+                                                             $query->select('puestoindicadores.id_indicadores')->from('puestoindicadores')
+                                                                   ->where('puestoindicadores.id_puesto','=',$id);
+                                                                     })
+                                 ->where('users.id_compania','=',$compañiaid)
+                                 ->select('indicadores.id','indicadores.nombre')
+                                 ->get();
+
+       return response()->json($indicadorescompania);
+
+
+    }
+
+
+
+
+
+/**
+ * Remove the specified resource from storage.
+ *
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ */
+public function indicadorpersonalponderacion($id)
+{
+    //
+    $usuarios = Auth::user();
+
+    $compañiaid = $usuarios->id_compania;
+
+    $iduser = $usuarios->id;
+
+    $sumaponderado = DB::table('puestoindicadores')
+                             ->join('puestos','puestoindicadores.id_puesto','=','puestos.id')
+                             ->join('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                             ->where('puestoindicadores.id_compania','=',$compañiaid)
+                             ->where('puestoindicadores.id_puesto','=',$id)
+                             ->sum('ponderacion');
+
+   return response()->json($sumaponderado);
+
+
+}
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregaindicadorperfil($idpuesto,$idindicador,$ponderador)
+    {
+        //
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+       DB::table('puestoindicadores')->insert(
+            [
+             'id_puesto' => $idpuesto,
+             'id_indicadores' => $idindicador,
+             'ponderacion' => $ponderador,
+             'id_compania' => $compañiaid,
+             ]);
+
+       return response()->json("true");
+
+    }
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function modificaindicadorpuesto($idpuestoindicador,$ponderador)
+    {
+        //
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+       DB::table('puestoindicadores')
+                 ->where('id', $idpuestoindicador)
+                 ->where('id_compania', $compañiaid)
+                 ->update(
+                   [
+                   'ponderacion' => $ponderador,
+                   ]);
+
+       return response()->json("true");
+
+    }
 
 
 

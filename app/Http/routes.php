@@ -320,9 +320,13 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/personaldescriptorpuesto/{id}','personalcontroller@personaldescriptorpuesto');
     Route::post('/personaldescriptoredit/{id}','personalcontroller@personaldescriptoredit');
     Route::post('/personalperfiledit/{id}','personalcontroller@personalperfiledit');
-
-
-
+    Route::get('/indicadorpersonal/destroy/{id}','personalcontroller@indicadorpersonaldestroy');
+    Route::post('/indicadorpersonal/edit/{id}','personalcontroller@indicadorpersonaledit');
+    Route::get('/indicadorpersonal/table/{id}','personalcontroller@indicadorpersonaltable');
+    Route::get('/indicadorpersonal/ponderacion/{id}','personalcontroller@indicadorpersonalponderacion');
+    Route::get('/indicadorpersonal/indicadores/{id}','personalcontroller@indicadorpersonalindicadores');
+    Route::get('/agregaindicadorperfil/{idpuesto}/{idindicador}/{ponderador}','personalcontroller@agregaindicadorperfil');
+    Route::get('/modificaindicadorpuesto/{idpuestoindicador}/{ponderador}','personalcontroller@modificaindicadorpuesto');
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Rutas para pagina inicio
