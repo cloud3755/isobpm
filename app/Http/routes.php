@@ -224,6 +224,8 @@ Route::group( ['middleware' => 'auth'],
     Route::post('usuarios/store', 'AdministradosController@usuariostore');
     Route::delete('usuarios/destroy/{id}', 'AdministradosController@usuariosdestroy');
     Route::post('usuarios/edit/{id}', 'AdministradosController@usuariosedit');
+    Route::get('/usuarios/puestos/{idarea}','AdministradosController@usuariospuestos');
+    Route::get('/usuarios/desempeno/{id}/{periodo}','AdministradosController@usuariosdesempeno');
 
     //mejoras
     Route::get('/Promejoras','MejorasController@index');

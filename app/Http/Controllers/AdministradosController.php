@@ -289,7 +289,7 @@ class AdministradosController extends Controller
         $Users = Auth::user();
 
         $usuario = DB::table('users')
-        ->join('areas','areas.id','=','users.id_area')
+        ->leftjoin('areas','areas.id','=','users.id_area')
         ->select('users.*','areas.nombre as area')
         ->where('users.id_compania',$Users->id_compania)
         ->where('perfil','!=','1')
@@ -302,8 +302,12 @@ class AdministradosController extends Controller
         $areas = new Areas;
         $area = $areas->where('id_compania',$Users->id_compania)->get();
 
+        $puestos = DB::table('puestos')
+                            ->where('id_compania',$Users->id_compania)
+                            ->get();
 
-        return view('/Principales/usuarios', compact('usuario','empresa','statuses','area'));
+
+        return view('/Principales/usuarios', compact('usuario','empresa','statuses','area','puestos'));
       }
       //protected $fillable = ['id_plan','razonSocial','domicilio','correo','telefono','rubro','uso','codigo','fecha','status_id','cuota_usada','img'];
       public function usuariostore(Request $request)
@@ -391,6 +395,59 @@ class AdministradosController extends Controller
         $usuarios->save();
         return redirect('/usuarios');
       }
+
+
+      public function usuariospuestos($idarea)
+      {
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+        $puestos = DB::table('puestos')
+                                 ->leftjoin('descriptorpuesto','puestos.id','=','descriptorpuesto.id_puesto')
+                                 ->select('puestos.id','puestos.nombrepuesto')
+                                 ->where('puestos.id_compania','=',$compañiaid)
+                                 ->where('descriptorpuesto.id_area','=',$idarea)
+                                 ->get();
+
+        return response()->json($puestos);
+      }
+
+
+
+
+      public function usuariosdesempeno($id,$periodo)
+      {
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+
+        $desempeño = DB::table('users')
+                                 ->leftjoin('puestoindicadores','puestoindicadores.id_puesto','=','users.id_puesto')
+                                 ->leftjoin('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                 ->leftjoin('resultados','resultados.indicador_id','=','indicadores.id')
+                                 ->leftjoin('frecuencias','frecuencias.id','=','indicadores.frecuencia_id')
+                                 ->leftjoin('unidades','unidades.id','=','indicadores.unidad')
+                                 ->leftjoin('logicas','logicas.id','=','indicadores.logica')
+                              //   ->select('indicadores.nombre as indicador','resultados.mes as periodo','puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor )'))
+                                 ->select('indicadores.nombre as indicador',DB::raw('substring( resultados.mes,1,7 ) as periodo'),'puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor ) as resultado'))
+                              //   ->select('*')
+                                 ->where('users.id_compania','=',$compañiaid)
+                                 ->where('users.id','=',$id)
+                                 ->where(DB::raw('substring( resultados.mes,1,7 )'),'=',$periodo)
+                                 ->groupby('indicadores.nombre',DB::raw('substring( resultados.mes,1,7)'),'puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta')
+                              //   ->groupby('indicadores.nombre','resultados.mes','puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta')
+                                 ->get('resultados.valor');
+
+
+        return response()->json($desempeño);
+      }
+
 
 
       //functiones para las noticias

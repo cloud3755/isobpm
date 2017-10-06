@@ -54,7 +54,7 @@
                           <td>  <?=$usuarios->created_at?></td>
                           <td>  <?=$usuarios->area?></td>
                           <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaledit<?=$usuarios->id?>"><i class="glyphicon glyphicon-edit"></i>  </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaledit<?=$usuarios->id?>" ><i class="glyphicon glyphicon-edit"></i>  </button>
                           </td>
                           <td>
                             <form class="" action="/usuarios/destroy/{{ $usuarios->id }}" method="post">
@@ -83,7 +83,7 @@
 
 <!-- Modal para agregar Usuarios-->
     <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" style="background-color:gray">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title">ALTA DE USUARIOS</h2>
@@ -142,11 +142,17 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <label style="font-weight: bold">Area:</label>
-                            <select class="form-control" id="status" name="id_area" required="">
+                            <select class="form-control" id="id_area" name="id_area" required="">
                               <option value=""></option>
                               <?php foreach ($area as $areas): ?>
                                 <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
                               <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <label style="font-weight: bold">Puesto:</label>
+                            <select class="form-control" id="puestoalta" name="puestoalta" required>
+                              <option value="">Elige un puesto</option>
                             </select>
                         </div>
                     </div>
@@ -164,7 +170,7 @@
 
 <?php foreach ($usuario as $usuarios): ?>
 <div class="modal fade" id="modaledit<?=$usuarios->id?>" tabindex="-1" role="dialog" style="background-color:gray">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">EDITAR USUARIO</h2>
@@ -247,7 +253,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <label style="font-weight: bold">Area:</label>
-                        <select class="form-control" id="id_area" name="id_area">
+                        <select class="form-control" id="id_area2" name="id_area2">
                           <?php foreach ($area as $areas): ?>
                             @if($usuarios->id_area == $areas['id'])
                               <option  selected="selected" value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
@@ -257,10 +263,23 @@
                           <?php endforeach ?>
                         </select>
                     </div>
+                    <div class="col-lg-6 col-md-6">
+                        <label style="font-weight: bold">Puesto:</label>
+                        <select class="form-control" id="puestoedit" name="puestoedit" required>
+                          <?php foreach ($puestos as $puesto): ?>
+                            @if($usuarios->id_puesto == $puesto->id)
+                              <option  selected="selected" value="<?=$puesto->id?>"><?=$puesto->nombrepuesto?></option>
+                            @else
+                              <option value="<?=$puesto->id?>"><?=$puesto->nombrepuesto?></option>
+                            @endif
+                          <?php endforeach ?>
+                        </select>
+                    </div>
                 </div>
 
 
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btndesempeño" style="font-family: Arial;" name="btndesempeño" data-dismiss="modal" data-toggle="modal" data-target="#modaldesempeño" value="<?=$usuarios->id?>" onclick="abremodaldesempeño(this)"><i class="glyphicon glyphicon-stats"></i><br>Desempeño</button>
                         <button type="submit" class="btn btn-primary" id="btnEditCli" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
@@ -273,6 +292,71 @@
 <?php endforeach?>
 
 <!-- Fin del modal para editar Usuarios-->
+
+
+
+<!-- Modal para mostrar desempeño-->
+    <div class="modal fade" id="modaldesempeño" tabindex="-1" role="dialog" style="background-color:gray">
+        <div class="modal-dialog-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">DESEMPEÑO DE USUARIO</h2>
+                </div>
+                <div class="modal-body">
+                  <form class="" action="" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="iddesempeño" id="iddesempeño" value="">
+                    <div class="row">
+                      <center>
+                      <div class="col-lg-2">
+                          <label style="font-weight: bold">Periodo:</label>
+                          <input type="month" class="form-control" id="periodo" name="periodo" />
+                      </div>
+                      <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary" id="btnbuscadesempeño" style="font-family: Arial;" name="btnbuscadesempeño" onclick="buscadesempeño()"><i class="glyphicon glyphicon-search"></i><br>Buscar</button>
+                      </div>
+                      <div class="col-lg-4">
+                        <label  class="control-label" for="sumaponderado">Suma ponderados:</label>
+                        <h4 id="labelponderado">  </h4>
+                      </div>
+                      <div class="col-lg-4">
+                        <label  class="control-label" for="sumaponderado">Resultado del periodo:</label>
+                        <h4 id="labelresultado">  </h4>
+                      </div>
+                      </center>
+                    </div>
+                    <br>
+                    <div class="row" id="tablecontainer">
+                      <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
+                        <thead style='background-color: #868889; color:#FFF'>
+                          <tr>
+                            <th>  <div class="th-inner sortable both">    Indicador  </div></th>
+                            <th>  <div class="th-inner sortable both">    Periodo  </div></th>
+                            <th>  <div class="th-inner sortable both">    Ponderacion  </div></th>
+                            <th>  <div class="th-inner sortable both">    Resultado  </div></th>
+                            <th>  <div class="th-inner sortable both">    Logica  </div></th>
+                            <th>  <div class="th-inner sortable both">    Meta  </div></th>
+                            <th>  <div class="th-inner sortable both">    Cumple  </div></th>
+                          </tr>
+                        </thead>
+                       <tbody id = "tablaindicadores">
+
+                      </tbody>
+                     </table>
+
+                    </div>
+                        <div class="modal-footer">
+
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+<!-- Fin del modal para mostrar desempeño-->
+
+
+
 
 <script type="text/javascript">
 
@@ -382,7 +466,209 @@ $(document).ready(function(){
 
   $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
 
+
+// cambios en formulario 1
+
+  $('#id_area').change(function(){
+
+    $("#id_area option[value='']").remove();
+
+    var route = "/usuarios/puestos/" + $('#id_area').val();
+
+    $.get(route, function(res){
+
+    $("#puestoalta").empty();
+
+
+    $("#puestoalta").append('<option value="">Elige un puesto</option>');
+
+ for (var i = 0; i < res.length; i++) {
+    $("#puestoalta").append('<option value=\"'+res[i].id+'">'+res[i].nombrepuesto+'</option>');
+  }
+
+  });
+ });
+
+ $('#puestoalta').change(function(){
+
+   $("#puestoalta option[value='']").remove();
+
 });
+
+
+// cambios en formulario 1
+
+$('#id_area2').change(function(){
+
+  $("#id_area2 option[value='']").remove();
+
+  var route = "/usuarios/puestos/" + $('#id_area2').val();
+
+  $.get(route, function(res){
+
+  $("#puestoedit").empty();
+
+  $("#puestoedit").append('<option value="">Elige un puesto</option>');
+
+for (var i = 0; i < res.length; i++) {
+  $("#puestoedit").append('<option value=\"'+res[i].id+'">'+res[i].nombrepuesto+'</option>');
+}
+
+});
+});
+
+$('#puestoalta').change(function(){
+
+ $("#puestoalta option[value='']").remove();
+
+});
+
+
+
+
+
+// termina document ready
+});
+// termina document ready
+
+function abremodaldesempeño(btn) {
+
+$("#iddesempeño").val(btn.value);
+
+}
+
+
+function buscadesempeño() {
+
+if ($("#periodo").val() == "")
+{
+  return false;
+}
+
+$("#labelresultado").empty();
+$("#labelponderado").empty();
+$("#tablaindicadores").empty();
+
+var route = "/usuarios/desempeno/" + $("#iddesempeño").val() + "/" + $("#periodo").val();
+
+$.get(route, function(res){
+
+ var ponderado = 0
+ var resultado = 0
+ var conseguido = ""
+
+    for (var i = 0; i < res.length; i++) {
+
+    ponderado = ponderado + res[i].ponderacion
+    
+  switch(res[i].logica) {
+      case '=':
+          if(res[i].resultado == res[i].meta) {
+          conseguido = "SI";
+          } else {
+          conseguido = "NO";
+          }
+          $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
+          '</center></td><td><center>'+ conseguido + '</center></td></tr>');
+
+          if(res[i].resultado == res[i].meta) {
+            resultado = resultado + res[i].ponderacion;
+          }
+
+                   break;
+
+       case '<>':
+           if(res[i].resultado != res[i].meta) {
+          conseguido =  "SI";
+           }
+           else {
+          conseguido =  "NO";
+          }
+           $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
+           '</center></td><td><center>'+ conseguido + '</center></td></tr>');
+
+           if(res[i].resultado != res[i].meta) {
+             resultado = resultado + res[i].ponderacion;
+           }
+
+                    break;
+
+        case '>':
+            if(res[i].resultado > res[i].meta) {
+              conseguido = "SI";
+            }
+            else {
+              conseguido = "NO";
+            }
+            $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
+            '</center></td><td><center>'+ conseguido + '</center></td></tr>');
+
+            if(res[i].resultado > res[i].meta) {
+              resultado = resultado + res[i].ponderacion;
+            }
+
+                     break;
+
+         case '<':
+             if(res[i].resultado < res[i].meta) {
+               conseguido = "SI";
+              }
+              else {
+                conseguido = "NO";
+              }
+             $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
+             '</center></td><td><center>'+ conseguido + '</center></td></tr>');
+
+             if(res[i].resultado < res[i].meta) {
+               resultado = resultado + res[i].ponderacion;
+             }
+
+                      break;
+
+          case '>=':
+              if(res[i].resultado >= res[i].meta) {
+                conseguido = "SI";
+              }
+              else {
+                conseguido = "NO";
+              }
+              $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
+              '</center></td><td><center>'+ conseguido + '</center></td></tr>');
+
+              if(res[i].resultado >= res[i].meta) {
+                resultado = resultado + res[i].ponderacion;
+              }
+
+                       break;
+
+           case '<=':
+              if(res[i].resultado <= res[i].meta) {
+                 conseguido = "SI";
+                }
+                else {
+                  conseguido = "NO";
+                }
+               $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
+               '</center></td><td><center>'+ conseguido + '</center></td></tr>');
+
+               if(res[i].resultado <= res[i].meta) {
+                 resultado = resultado + res[i].ponderacion;
+               }
+
+                        break;
+
+
+    }
+}
+$("#labelponderado").append(ponderado + " %");
+$("#labelresultado").append(resultado + " %");
+
+  });
+
+}
+
+
+
 
 function mostrarpas(){
   if(document.getElementById("chkVerPassword").checked)

@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('empresa');
             $table->string('nombreunicoimagen');
             $table->string('nombreimagen');
+            $table->integer('id_puesto');
         });
     }
 
