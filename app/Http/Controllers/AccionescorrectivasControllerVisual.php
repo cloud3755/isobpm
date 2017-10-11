@@ -69,15 +69,16 @@ class AccionescorrectivasControllerVisual extends Controller
             ->select('accioncorrectiva1s.*','productos.nombre as productonombre','procesos.proceso as procesonombre','users.nombre as usernombre','estatuses.nombre as statusnombre','indicadores.nombre as indicadornombre')
             ->where('accioncorrectiva1s.idcompañia','=',$usuarios->id_compania)
             ->where('accioncorrectiva1s.responsable_id','=',$usuarios->id)
+            ->Orwhere('accioncorrectiva1s.creador_id','=',$usuarios->id)
             ->get();
         }
 
         else
         {
              $relaciontabla = \DB::table('accioncorrectiva1s')
-             ->join('estatuses','accioncorrectiva1s.estatus_id','=','estatuses.id')
+             ->leftjoin('estatuses','accioncorrectiva1s.estatus_id','=','estatuses.id')
              ->leftjoin('procesos','accioncorrectiva1s.id_proceso','=','procesos.id')
-             ->join('users','accioncorrectiva1s.responsable_id','=','users.id')
+             ->leftjoin('users','accioncorrectiva1s.responsable_id','=','users.id')
              ->leftjoin('indicadores','accioncorrectiva1s.indicador_id','=','indicadores.id')
              ->leftjoin('productos','accioncorrectiva1s.producto_id','=','productos.id')
              ->select('accioncorrectiva1s.*','productos.nombre as productonombre','procesos.proceso as procesonombre','users.nombre as usernombre','estatuses.nombre as statusnombre','indicadores.nombre as indicadornombre')
