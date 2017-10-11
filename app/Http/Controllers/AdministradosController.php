@@ -44,7 +44,18 @@ class AdministradosController extends Controller
     //  ->where('users.id',3)
     //  ->get());
 
-      return view('/Principales/perfil');
+    $Users = Auth::user();
+
+    $usuario = DB::table('users')
+    ->leftjoin('areas','areas.id','=','users.id_area')
+    ->select('users.*','areas.nombre as area')
+    ->where('users.id_compania',$Users->id_compania)
+    ->where('perfil','!=','1')
+    ->get();
+
+
+
+      return view('/Principales/perfil',compact('Users','usuario'));
     }
     /**
      * Show the form for creating a new resource.

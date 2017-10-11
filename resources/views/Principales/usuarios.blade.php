@@ -279,7 +279,7 @@
 
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btndesempeño" style="font-family: Arial;" name="btndesempeño" data-dismiss="modal" data-toggle="modal" data-target="#modaldesempeño" value="<?=$usuarios->id?>" onclick="abremodaldesempeño(this)"><i class="glyphicon glyphicon-stats"></i><br>Desempeño</button>
+
                         <button type="submit" class="btn btn-primary" id="btnEditCli" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
@@ -293,67 +293,6 @@
 
 <!-- Fin del modal para editar Usuarios-->
 
-
-
-<!-- Modal para mostrar desempeño-->
-    <div class="modal fade" id="modaldesempeño" tabindex="-1" role="dialog" style="background-color:gray">
-        <div class="modal-dialog-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">DESEMPEÑO DE USUARIO</h2>
-                </div>
-                <div class="modal-body">
-                  <form class="" action="" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="iddesempeño" id="iddesempeño" value="">
-                    <div class="row">
-                      <center>
-                      <div class="col-lg-2">
-                          <label style="font-weight: bold">Periodo:</label>
-                          <input type="month" class="form-control" id="periodo" name="periodo" />
-                      </div>
-                      <div class="col-lg-2">
-                        <button type="button" class="btn btn-primary" id="btnbuscadesempeño" style="font-family: Arial;" name="btnbuscadesempeño" onclick="buscadesempeño()"><i class="glyphicon glyphicon-search"></i><br>Buscar</button>
-                      </div>
-                      <div class="col-lg-4">
-                        <label  class="control-label" for="sumaponderado">Suma ponderados:</label>
-                        <h4 id="labelponderado">  </h4>
-                      </div>
-                      <div class="col-lg-4">
-                        <label  class="control-label" for="sumaponderado">Resultado del periodo:</label>
-                        <h4 id="labelresultado">  </h4>
-                      </div>
-                      </center>
-                    </div>
-                    <br>
-                    <div class="row" id="tablecontainer">
-                      <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
-                        <thead style='background-color: #868889; color:#FFF'>
-                          <tr>
-                            <th>  <div class="th-inner sortable both">    Indicador  </div></th>
-                            <th>  <div class="th-inner sortable both">    Periodo  </div></th>
-                            <th>  <div class="th-inner sortable both">    Ponderacion  </div></th>
-                            <th>  <div class="th-inner sortable both">    Resultado  </div></th>
-                            <th>  <div class="th-inner sortable both">    Logica  </div></th>
-                            <th>  <div class="th-inner sortable both">    Meta  </div></th>
-                            <th>  <div class="th-inner sortable both">    Cumple  </div></th>
-                          </tr>
-                        </thead>
-                       <tbody id = "tablaindicadores">
-
-                      </tbody>
-                     </table>
-
-                    </div>
-                        <div class="modal-footer">
-
-                        </div>
-                      </form>
-                    </div>
-                </div>
-            </div>
-    </div>
-<!-- Fin del modal para mostrar desempeño-->
 
 
 
@@ -531,141 +470,7 @@ $('#puestoalta').change(function(){
 });
 // termina document ready
 
-function abremodaldesempeño(btn) {
 
-$("#iddesempeño").val(btn.value);
-
-}
-
-
-function buscadesempeño() {
-
-if ($("#periodo").val() == "")
-{
-  return false;
-}
-
-$("#labelresultado").empty();
-$("#labelponderado").empty();
-$("#tablaindicadores").empty();
-
-var route = "/usuarios/desempeno/" + $("#iddesempeño").val() + "/" + $("#periodo").val();
-
-$.get(route, function(res){
-
- var ponderado = 0
- var resultado = 0
- var conseguido = ""
-
-    for (var i = 0; i < res.length; i++) {
-
-    ponderado = ponderado + res[i].ponderacion
-    
-  switch(res[i].logica) {
-      case '=':
-          if(res[i].resultado == res[i].meta) {
-          conseguido = "SI";
-          } else {
-          conseguido = "NO";
-          }
-          $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
-          '</center></td><td><center>'+ conseguido + '</center></td></tr>');
-
-          if(res[i].resultado == res[i].meta) {
-            resultado = resultado + res[i].ponderacion;
-          }
-
-                   break;
-
-       case '<>':
-           if(res[i].resultado != res[i].meta) {
-          conseguido =  "SI";
-           }
-           else {
-          conseguido =  "NO";
-          }
-           $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
-           '</center></td><td><center>'+ conseguido + '</center></td></tr>');
-
-           if(res[i].resultado != res[i].meta) {
-             resultado = resultado + res[i].ponderacion;
-           }
-
-                    break;
-
-        case '>':
-            if(res[i].resultado > res[i].meta) {
-              conseguido = "SI";
-            }
-            else {
-              conseguido = "NO";
-            }
-            $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
-            '</center></td><td><center>'+ conseguido + '</center></td></tr>');
-
-            if(res[i].resultado > res[i].meta) {
-              resultado = resultado + res[i].ponderacion;
-            }
-
-                     break;
-
-         case '<':
-             if(res[i].resultado < res[i].meta) {
-               conseguido = "SI";
-              }
-              else {
-                conseguido = "NO";
-              }
-             $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
-             '</center></td><td><center>'+ conseguido + '</center></td></tr>');
-
-             if(res[i].resultado < res[i].meta) {
-               resultado = resultado + res[i].ponderacion;
-             }
-
-                      break;
-
-          case '>=':
-              if(res[i].resultado >= res[i].meta) {
-                conseguido = "SI";
-              }
-              else {
-                conseguido = "NO";
-              }
-              $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
-              '</center></td><td><center>'+ conseguido + '</center></td></tr>');
-
-              if(res[i].resultado >= res[i].meta) {
-                resultado = resultado + res[i].ponderacion;
-              }
-
-                       break;
-
-           case '<=':
-              if(res[i].resultado <= res[i].meta) {
-                 conseguido = "SI";
-                }
-                else {
-                  conseguido = "NO";
-                }
-               $("#tablaindicadores").append('<tr><td><center>'+res[i].indicador+'</center></td><td><center>'+res[i].periodo+'</center></td><td><center>'+res[i].ponderacion+'</center></td><td><center>'+res[i].resultado+'</center></td><td><center>'+res[i].logica+'</center></td><td><center>'+res[i].meta+
-               '</center></td><td><center>'+ conseguido + '</center></td></tr>');
-
-               if(res[i].resultado <= res[i].meta) {
-                 resultado = resultado + res[i].ponderacion;
-               }
-
-                        break;
-
-
-    }
-}
-$("#labelponderado").append(ponderado + " %");
-$("#labelresultado").append(resultado + " %");
-
-  });
-
-}
 
 
 

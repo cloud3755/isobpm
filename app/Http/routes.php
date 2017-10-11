@@ -329,6 +329,8 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/indicadorpersonal/indicadores/{id}','personalcontroller@indicadorpersonalindicadores');
     Route::get('/agregaindicadorperfil/{idpuesto}/{idindicador}/{ponderador}','personalcontroller@agregaindicadorperfil');
     Route::get('/modificaindicadorpuesto/{idpuestoindicador}/{ponderador}','personalcontroller@modificaindicadorpuesto');
+    Route::get('/personalview','personalcontroller@indexview');
+    Route::get('/personaldescriptorpuestoview/{id}','personalcontroller@personaldescriptorpuestoview');
 
     Route::post('cambioempresa/edit', 'BienvenidaController@cambioempresa');
     //Rutas para pagina inicio

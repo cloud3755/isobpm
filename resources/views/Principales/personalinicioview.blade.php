@@ -20,21 +20,33 @@ alert ('{{Session::get('flash_message')}}')
 <link rel="stylesheet" href="/css/jquery-ui.css">
 <script src="/js/jquery-1.12.4.js"></script>
 <script src="/js/jquery-ui.js"></script>
-<script src="/js/organigramageneral.js"></script>
+<script src="/js/organigramageneralview.js"></script>
 
 
 <div id="pruebasjquery"></div>
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Editar el organigrama</h1>
+        <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Organigrama</h1>
     </div>
 </div>
 
 
-<center><button type="button" class="btnobjetivo" onclick=location="/admin" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
-
-
+<center><button type="button" class="btnobjetivo" onclick=location="/recpersonal" data-dismiss="modal" id="btnCloseUpload">Regresar</button></center>
+<!--<br>
+<div class="row">
+  <center>
+    <div class="col-lg-4">
+      </div>
+   <div class="col-lg-4">
+     <select class="form-control" name="filtroOrg" id="filtroOrg" >
+                <option value="1" selected="selected" >Puestos general</option>
+                <option value="2">Detalle usuarios</option>
+     </select>
+   </div>
+  </center>
+</div>
+-->
 <style type="text/css">
     html, body {
         margin: 0px;
@@ -78,9 +90,6 @@ alert ('{{Session::get('flash_message')}}')
                </div><br />
             <center>
                <input id="btnVer" type="button" class="btnobjetivo" value="Ver informacion de puesto" onclick="iradescripcion()"/>
-               <input id="btnInsert" type="button" class="btnobjetivo" value="Agregar puesto subordinado" onclick="insertNodeEvent()" />
-               <input id="btnSave" type="button" class="btnobjetivo" value="Guardar cambios" onclick="updateNodeEvent()"/>
-               <input id="btnDelete" type="button" class="btnobjetivo" value="Eliminar puesto" onclick="removeNodeEvent()" />
             <!--   <input type="submit"> -->
             </center>
             </form>
