@@ -70,7 +70,7 @@
                           <td> <?=$accioncorrectivas->productonombre?> </td>
                           <td> <?=$accioncorrectivas->documento?> </td>
                           <td>
-                            @if($accioncorrectivas->porque2 != '')
+                            @if($accioncorrectivas->uniquedocumento != '')
                             <?=$accioncorrectivas->porque2?>
                             <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniquedocumento?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniquedocumento?>" style='color:#FFF'>
                               <button type="button" class="btn btn-warning">
@@ -86,7 +86,7 @@
                           <td> <?=$accioncorrectivas->fechaaccion?> </td>
                           <td> <?=$accioncorrectivas->respuestaaccion?> </td>
                           <td>
-                            @if($accioncorrectivas->porque2 != '')
+                            @if($accioncorrectivas->uniqueevidencia != '')
                             <?=$accioncorrectivas->evidencia?>
                             <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniqueevidencia?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniqueevidencia?>" style='color:#FFF'>
                               <button type="button" class="btn btn-warning">
