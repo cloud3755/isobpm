@@ -22,6 +22,7 @@ class EventModels extends Migration
           $table->boolean('editable');
           $table->string('color');
           $table->string('Descripcion');
+          $table->integer('id_compania');
           $table->timestamps();
 
       });
