@@ -69,8 +69,8 @@ $(document).ready(function(){
 
   if(args.node.pid == null)
    {
-     $("#btnVer").hide();
-     $("#btnSave").hide();
+     //$("#btnVer").hide();
+    // $("#btnSave").hide();
      $("#btnDelete").hide();
    }
    $("#hdnId").val(args.node.id);

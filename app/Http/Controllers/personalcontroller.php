@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\puestos;
 use App\Models\descriptorpuesto;
+use Carbon\Carbon;
 
 class personalcontroller extends Controller
 {
@@ -118,16 +119,15 @@ class personalcontroller extends Controller
                                     ->get();
 
 
-            $indicadorescompania = DB::table('indicadores')
-                                     ->join('users','indicadores.creador_id','=','users.id')
-                                     ->wherenotIn('indicadores.id',function ($query) use ($id) {
-                                                                 $query->select('puestoindicadores.id_indicadores')->from('puestoindicadores')
-                                                                       ->where('puestoindicadores.id_puesto','=',$id);
-                                                                         })
-                                     ->where('users.id_compania','=',$compañiaid)
-                                     ->select('indicadores.id','indicadores.nombre')
-                                     ->get();
-
+          $indicadorescompania = DB::table('indicadores')
+                                           ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
+                                           ->wherenotIn('indicadores.id',function ($query) use ($id) {
+                                                                       $query->select('puestoindicadores.id_indicadores')->from('puestoindicadores')
+                                                                             ->where('puestoindicadores.id_puesto','=',$id);
+                                                                               })
+                                           ->where('objetivos.id_compania','=',$compañiaid)
+                                           ->select('indicadores.id','indicadores.nombre')
+                                           ->get();
 
              $sumaponderado = DB::table('puestoindicadores')
                                       ->join('puestos','puestoindicadores.id_puesto','=','puestos.id')
@@ -461,12 +461,12 @@ class personalcontroller extends Controller
         $iduser = $usuarios->id;
 
         $indicadorescompania = DB::table('indicadores')
-                                 ->join('users','indicadores.creador_id','=','users.id')
+                                 ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
                                  ->wherenotIn('indicadores.id',function ($query) use ($id) {
                                                              $query->select('puestoindicadores.id_indicadores')->from('puestoindicadores')
                                                                    ->where('puestoindicadores.id_puesto','=',$id);
                                                                      })
-                                 ->where('users.id_compania','=',$compañiaid)
+                                 ->where('objetivos.id_compania','=',$compañiaid)
                                  ->select('indicadores.id','indicadores.nombre')
                                  ->get();
 
@@ -637,6 +637,82 @@ public function indicadorpersonalponderacion($id)
                                     ->get();
 
 
+          $indicadorescompania = DB::table('indicadores')
+                                           ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
+                                           ->wherenotIn('indicadores.id',function ($query) use ($id) {
+                                                                       $query->select('puestoindicadores.id_indicadores')->from('puestoindicadores')
+                                                                             ->where('puestoindicadores.id_puesto','=',$id);
+                                                                               })
+                                           ->where('objetivos.id_compania','=',$compañiaid)
+                                           ->select('indicadores.id','indicadores.nombre')
+                                           ->get();
+
+
+             $sumaponderado = DB::table('puestoindicadores')
+                                      ->join('puestos','puestoindicadores.id_puesto','=','puestos.id')
+                                      ->join('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                      ->where('puestoindicadores.id_compania','=',$compañiaid)
+                                      ->where('puestoindicadores.id_puesto','=',$id)
+                                      ->sum('ponderacion');
+
+
+        return view('\Principales\personaldescriptorpuestoview',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores','indicadorescompania','sumaponderado'));
+
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function personalresults()
+    {
+        //
+         $usuarios = Auth::user();
+
+
+         $compañiaid = $usuarios->id_compania;
+
+         $iduser = $usuarios->id;
+
+         $users = DB::table('users')
+                           ->select('id','nombre')
+                           ->where('users.empresa','=',$compañiaid)
+                           ->get();
+
+/*
+         $areas = DB::table('areas')
+                                  ->select('areas.id','areas.nombre')
+                                  ->where('areas.id_compania','=',$compañiaid)
+                                  ->get();
+
+         $descriptorpuesto = DB::table('descriptorpuesto')
+                                  ->leftjoin('puestos','descriptorpuesto.id_puesto','=','puestos.id')
+                                  ->leftjoin('puestos as reportaa','descriptorpuesto.reportaa','=','reportaa.id')
+                                  ->leftjoin('areas','descriptorpuesto.id_area','=','areas.id')
+                                  ->select('descriptorpuesto.*','puestos.nombrepuesto as nombrepuesto','reportaa.nombrepuesto as reportaa','areas.nombre as areanombre')
+                                  ->where('descriptorpuesto.id_empresa','=',$compañiaid)
+                                  ->where('descriptorpuesto.id_puesto','=',$id)
+                                  ->first();
+
+          $perfilpuesto = DB::table('perfilpuesto')
+                                   ->join('puestos','perfilpuesto.id_puesto','=','puestos.id')
+                                   ->select('*')
+                                   ->where('perfilpuesto.id_compania','=',$compañiaid)
+                                   ->where('perfilpuesto.id_puesto','=',$id)
+                                   ->first();
+
+           $puestoindicadores = DB::table('puestoindicadores')
+                                    ->join('puestos','puestoindicadores.id_puesto','=','puestos.id')
+                                    ->join('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                    ->select('puestoindicadores.id','indicadores.nombre','puestoindicadores.ponderacion')
+                                    ->where('puestoindicadores.id_compania','=',$compañiaid)
+                                    ->where('puestoindicadores.id_puesto','=',$id)
+                                    ->get();
+
+
             $indicadorescompania = DB::table('indicadores')
                                      ->join('users','indicadores.creador_id','=','users.id')
                                      ->wherenotIn('indicadores.id',function ($query) use ($id) {
@@ -654,14 +730,262 @@ public function indicadorpersonalponderacion($id)
                                       ->where('puestoindicadores.id_compania','=',$compañiaid)
                                       ->where('puestoindicadores.id_puesto','=',$id)
                                       ->sum('ponderacion');
+*/
 
-
-        return view('\Principales\personaldescriptorpuestoview',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores','indicadorescompania','sumaponderado'));
-
-
-
+        return view('/Principales/personalresultado',compact('users'));
 
 
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function personalresultsfiltro(Request $request)
+    {
+        //
+      $usuarios = Auth::user();
+
+      $compañiaid = $usuarios->id_compania;
+
+      $iduser = $usuarios->id;
+
+      // $today = Carbon::now(-5)->subMonth();
+
+
+      if(strlen($request->fech) <> 7)
+      {
+        return (dd([]));
+      }
+
+      if(strlen($request->fecha2) <> 7)
+      {
+        return (dd([]));
+      }
+
+      $inicio =   Carbon::createFromDate(substr ($request->fech, 0,4 ), substr ($request->fech, 5,2 ), 1)->startOfDay();
+      $final = Carbon::createFromDate(substr ($request->fecha2, 0,4 ), substr ($request->fecha2, 5,2 ), 1)->endOfDay()->addmonth()->subday();
+
+
+
+      if($inicio > $final)
+      {
+        return (dd([]));
+      }
+
+      else
+      {
+        //return(dd($final));
+
+         $desempeño = DB::table('users')
+                                  ->leftjoin('puestoindicadores','puestoindicadores.id_puesto','=','users.id_puesto')
+                                  ->leftjoin('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                  ->leftjoin('resultados','resultados.indicador_id','=','indicadores.id')
+                                  ->leftjoin('frecuencias','frecuencias.id','=','indicadores.frecuencia_id')
+                                  ->leftjoin('unidades','unidades.id','=','indicadores.unidad')
+                                  ->leftjoin('logicas','logicas.id','=','indicadores.logica')
+                               //   ->select('indicadores.nombre as indicador','resultados.mes as periodo','puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor )'))
+                                  ->select('indicadores.nombre as indicador',DB::raw('substring( resultados.mes,1,7 ) as periodo'),'puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor ) as resultado'))
+                               //   ->select('*')
+                                  ->where('users.id_compania','=',$compañiaid)
+                                  ->where('users.id','=',$request->usuario)
+                                  ->whereBetween('resultados.mes',[$inicio,$final])
+                                  ->groupby('indicadores.nombre',DB::raw('substring( resultados.mes,1,7)'),'puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta');
+                               //   ->groupby('indicadores.nombre','resultados.mes','puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta')
+
+         //return (dd($desempeño));
+
+        $other = DB::table( DB::raw("({$desempeño->toSql()}) as sub") )->select(
+                                  //  'indicador',
+                                  'periodo',
+                                  //'ponderacion',
+                                  //'logica',
+                                  //'meta',
+                                  //'resultado',
+                                  DB::raw("sum(case when logica = '=' then case when resultado = meta then ponderacion else 0.00 end when logica = '<>' then case when resultado <> meta then ponderacion else 0.00 end when logica = '<' then case when resultado < meta then ponderacion else 0.00 end when logica = '>' then case when resultado > meta then ponderacion else 0.00 end when logica = '>=' then case when resultado >= meta then ponderacion else 0.00 end when logica = '<=' then case when resultado <= meta then ponderacion else 0.00 end end) as resultadofinal")
+                                  )->mergeBindings($desempeño)
+                                  ->groupby('periodo')
+                                  ->orderby('periodo')
+                                  ->get();
+
+//return(dd($other));
+
+
+
+//        return response()->json($desempeño);
+
+       $result[] = ['Periodo','Resultado'];
+       foreach ($other as $key => $value) {
+          $result[++$key] = [$value->periodo , $value->resultadofinal];
+      }
+
+      return response()->json($result);
+      }
+      }
+
+
+
+
+
+
+      /**
+       * Display the specified resource.
+       *
+       * @param  int  $id
+       * @return \Illuminate\Http\Response
+       */
+      public function personalresultsdetail()
+      {
+          //
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+        $users = DB::table('users')
+                          ->select('id','nombre')
+                          ->where('users.empresa','=',$compañiaid)
+                          ->get();
+
+
+        $today = Carbon::now(-5);
+
+
+        $inicio =  Carbon::now(-5)->startOfMonth()->todatestring();
+        $final = Carbon::now(-5)->endOfMonth();
+
+        $iniciostr = substr($inicio,0,7);
+        $finalstr =  substr($final,0,7);
+
+        $desempeño = DB::table('users')
+                                 ->leftjoin('areas','users.id_area','=','areas.id')
+                                 ->leftjoin('puestos','users.id_puesto','=','puestos.id')
+                                 ->leftjoin('puestoindicadores','puestoindicadores.id_puesto','=','users.id_puesto')
+                                 ->leftjoin('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                 ->leftjoin('resultados','resultados.indicador_id','=','indicadores.id')
+                                 ->leftjoin('frecuencias','frecuencias.id','=','indicadores.frecuencia_id')
+                                 ->leftjoin('unidades','unidades.id','=','indicadores.unidad')
+                                 ->leftjoin('logicas','logicas.id','=','indicadores.logica')
+                              //   ->select('indicadores.nombre as indicador','resultados.mes as periodo','puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor )'))
+                                 ->select('areas.nombre as area','puestos.nombrepuesto','users.nombre','indicadores.nombre as indicador',DB::raw('substring( resultados.mes,1,7 ) as periodo'),'puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor ) as resultado'))
+                              //   ->select('*')
+                                 ->where('users.id_compania','=',$compañiaid)
+                              //   ->where('users.id','=',$request->usuario)
+                                 ->whereBetween('resultados.mes',[$inicio,$final])
+                                 ->groupby('areas.nombre','puestos.nombrepuesto','users.nombre','indicadores.nombre',DB::raw('substring( resultados.mes,1,7)'),'puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta');
+                              //   ->groupby('indicadores.nombre','resultados.mes','puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta')
+
+    //    return (dd($desempeño));
+
+       $other = DB::table( DB::raw("({$desempeño->toSql()}) as sub") )->select(
+                                 'sub.*',
+
+                                 DB::raw("(case when logica = '=' then case when resultado = meta then ponderacion else 0.00 end when logica = '<>' then case when resultado <> meta then ponderacion else 0.00 end when logica = '<' then case when resultado < meta then ponderacion else 0.00 end when logica = '>' then case when resultado > meta then ponderacion else 0.00 end when logica = '>=' then case when resultado >= meta then ponderacion else 0.00 end when logica = '<=' then case when resultado <= meta then ponderacion else 0.00 end end) as obtenido")
+                                 )->mergeBindings($desempeño)
+                              //   ->groupby('periodo')
+                              ->orderby('nombre')
+                              ->orderby('periodo')
+                              ->orderby('area')
+                              ->orderby('nombrepuesto')
+                              ->orderby('indicador')
+                                 ->get();
+
+// return (dd($other));
+
+        return view('/Principales/personalresultadodetail',compact('other','iniciostr','finalstr','users'));
+        }
+
+
+
+        /**
+         * Display the specified resource.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function personalresultsdetailfiltro(Request $request)
+        {
+            //
+    //      return(dd($request));
+          $usuarios = Auth::user();
+
+          $compañiaid = $usuarios->id_compania;
+
+          $iduser = $usuarios->id;
+
+          $users = DB::table('users')
+                            ->select('id','nombre')
+                            ->where('users.empresa','=',$compañiaid)
+                            ->get();
+
+
+
+          if(strlen($request->fech) <> 7)
+          {
+            return (dd([]));
+          }
+
+          if(strlen($request->fecha2) <> 7)
+          {
+            return (dd([]));
+          }
+
+
+
+          $inicio =   Carbon::createFromDate(substr ($request->fech, 0,4 ), substr ($request->fech, 5,2 ), 1)->startOfDay();
+          $final = Carbon::createFromDate(substr ($request->fecha2, 0,4 ), substr ($request->fecha2, 5,2 ), 1)->endOfDay()->addmonth()->subday();
+
+
+          if($inicio > $final)
+          {
+            return (dd([]));
+          }
+
+          else
+          {
+
+
+          $desempeño = DB::table('users')
+                                   ->leftjoin('areas','users.id_area','=','areas.id')
+                                   ->leftjoin('puestos','users.id_puesto','=','puestos.id')
+                                   ->leftjoin('puestoindicadores','puestoindicadores.id_puesto','=','users.id_puesto')
+                                   ->leftjoin('indicadores','puestoindicadores.id_indicadores','=','indicadores.id')
+                                   ->leftjoin('resultados','resultados.indicador_id','=','indicadores.id')
+                                   ->leftjoin('frecuencias','frecuencias.id','=','indicadores.frecuencia_id')
+                                   ->leftjoin('unidades','unidades.id','=','indicadores.unidad')
+                                   ->leftjoin('logicas','logicas.id','=','indicadores.logica')
+                                //   ->select('indicadores.nombre as indicador','resultados.mes as periodo','puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor )'))
+                                   ->select('areas.nombre as area','puestos.nombrepuesto','users.nombre','indicadores.nombre as indicador',DB::raw('substring( resultados.mes,1,7 ) as periodo'),'puestoindicadores.ponderacion','logicas.simbolo as logica','indicadores.meta',DB::raw('AVG( resultados.valor ) as resultado'))
+                                //   ->select('*')
+                                   ->where('users.id_compania','=',$compañiaid)
+                                //   ->where('users.id','=',$request->usuario)
+                                   ->whereBetween('resultados.mes',[$inicio,$final])
+                                   ->groupby('areas.nombre','puestos.nombrepuesto','users.nombre','indicadores.nombre',DB::raw('substring( resultados.mes,1,7)'),'puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta');
+                                //   ->groupby('indicadores.nombre','resultados.mes','puestoindicadores.ponderacion','logicas.simbolo','indicadores.meta')
+
+      //    return (dd($desempeño));
+
+         $other = DB::table( DB::raw("({$desempeño->toSql()}) as sub") )->select(
+                                   'sub.*',
+
+                                   DB::raw("(case when logica = '=' then case when resultado = meta then ponderacion else 0.00 end when logica = '<>' then case when resultado <> meta then ponderacion else 0.00 end when logica = '<' then case when resultado < meta then ponderacion else 0.00 end when logica = '>' then case when resultado > meta then ponderacion else 0.00 end when logica = '>=' then case when resultado >= meta then ponderacion else 0.00 end when logica = '<=' then case when resultado <= meta then ponderacion else 0.00 end end) as obtenido")
+                                   )->mergeBindings($desempeño)
+                                //   ->groupby('periodo')
+                                   ->orderby('nombre')
+                                   ->orderby('periodo')
+                                   ->orderby('area')
+                                   ->orderby('nombrepuesto')
+                                   ->orderby('indicador')
+                                   ->get();
+
+    // return (dd($other));
+
+            return response()->json($other);
+          }
+       }
+
 
 }

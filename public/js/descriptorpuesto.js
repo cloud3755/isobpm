@@ -357,14 +357,14 @@ if (confirm('seguro de eliminar el indicador?') == false )
           };
           toastr.warning('No se eliminó el indicador', 'Borrar cancelado');
 
-      }, 0);
+      }, 1000);
   return false
 }
 
 var route = "/indicadorpersonal/destroy/"+btn.value;
 
 $.get(route, function(res){
-
+     reload();
   setTimeout(function() {
           toastr.options = {
               closeButton: true,
@@ -374,7 +374,7 @@ $.get(route, function(res){
           };
           toastr.success('Se eliminó el indicador', 'Borrar efectuado');
 
-      }, 0);
+      }, 1000);
     });
-   reload();
+
   }
