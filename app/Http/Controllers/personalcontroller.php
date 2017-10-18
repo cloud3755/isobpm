@@ -37,7 +37,7 @@ class personalcontroller extends Controller
                                  ->where('puestos.id_compania','=',$compañiaid)
                                  ->get();
 
-      return view('\Principales\personalinicio',compact('puestos'));
+      return view('/Principales/personalinicio',compact('puestos'));
 
                                }
 
@@ -137,7 +137,7 @@ class personalcontroller extends Controller
                                       ->sum('ponderacion');
 
 
-        return view('\Principales\personaldescriptorpuesto',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores','indicadorescompania','sumaponderado'));
+        return view('/Principales/personaldescriptorpuesto',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores','indicadorescompania','sumaponderado'));
 
                  }
 
@@ -584,7 +584,7 @@ public function indicadorpersonalponderacion($id)
                                  ->where('puestos.id_compania','=',$compañiaid)
                                  ->get();
 
-      return view('\Principales\personalinicioview',compact('puestos'));
+      return view('/Principales/personalinicioview',compact('puestos'));
 
 
     }
