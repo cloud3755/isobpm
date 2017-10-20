@@ -8,196 +8,108 @@
     </div>
 </div>
 
-<br><br><br><br><br>
+<br>
 <div class="row">
     <div class="col-lg-12">
-        <h3><i class="fa fa-user fa-2x"></i>&nbsp;Información Usuario</h3>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <div>{{ Auth::user()->usuario }}</div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Usuario</span>
-                    <div class="clearfix"></div>
-                </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <div>{{ Auth::user()->nombre }}</div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Nombre</span>
-                    <div class="clearfix"></div>
-                </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <div>
-                          @if(Auth::user()->perfil == 1)
-                            Super-Administrador
-                          @elseif(Auth::user()->perfil == 2)
-                            Partner
-                          @elseif(Auth::user()->perfil == 3)
-                            Administrador
-                          @else
-                            Usuario
-                          @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Perfil</span>
-                    <div class="clearfix"></div>
-                </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <div>
-                          @if(Auth::user()->telefono)
-                            {{Auth::user()->telefono}}
-                          @else
-                            Sin telefono
-                          @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Teléfono</span>
-                    <div class="clearfix"></div>
-                </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <div>{{ Auth::user()->created_at }}</div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Fecha Creación</span>
-                    <div class="clearfix"></div>
-                </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <div>{{ Auth::user()->updated_at }}</div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Fecha Ultima Actualizacion</span>
-                    <div class="clearfix"></div>
-                </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <div>
-                          @if(Auth::user()->status == 1)
-                            Pendiente
-                          @elseif(Auth::user()->status == 2)
-                            Suspendido
-                          @else
-                            Activo
-                          @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Estatus</span>
-                    <div class="clearfix"></div>
-                </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-4 col-sm-6" >
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div>
-                        <span id='val'>
-                            @if(Auth::user()->nombreimagen!=null)
-                               {{ Auth::user()->nombreimagen}}
-                            @else
-                                No se ha subido imagen
-                            @endif
-                        </span>
-                        <form id="form1" method="POST" action="{{ action('AdministradosController@imageUserStore') }}" enctype="multipart/form-data">
+      <center>                      <span class="" >
+                              @if(Auth::user()->nombreimagen!=null)
+                              <img style="width: 50px;height: 50px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" />
 
-                        <input style="display:none;" id="imagen" type="file" name="imagen">
-                        <button  id="btnSeleccionarImagen" class="btn btn-default" type="button" value="Seleccione" >Seleccione</button>
-                        <button id="btnSubirImagen" class="btn btn-default" type="submit" value="" disabled><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
-                        {{ csrf_field() }}
-                        </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="panel-footer" style="font-size:12px; font-weight: bold">
-                    <span class="pull-left"><i class="fa fa-terminal fa-2x"></i></span>
-                    <span class="pull-left" >Imagen</span>
-                    <span class="pull-right" >
-                        @if(Auth::user()->nombreimagen!=null)
-                        <img style="width: 50px;height: 50px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" />
-
-                        @else
-                        <img style="width: 50px;height: 50px;"  src="/img/tableCredential images/user.jpg" />
-                        @endif
-                    </span>
-                    <div class="clearfix"></div>
-                </div>
-
-
-
-        </div>
+                              @else
+                              <img style="width: 50px;height: 50px;"  src="/img/tableCredential images/user.jpg" />
+                              @endif
+                          </span><h3> {{ Auth::user()->usuario }} </h3></center>
     </div>
 </div>
-
+<br>
 <div class="row">
-  <div class="col-lg-6" >
+<div class="col-sm-2"></div>
+  <div class="col-sm-3">
+       <h4><label class="label btn-primary" for="personalACargo"> Nombre: </label></h4>
+       <label class="" for="personalACargo"> {{ Auth::user()->nombre }} </label>
+  </div>
+  <div class="col-sm-3">
+       <h4><label class="label btn-primary" for="personalACargo"> Perfil: </label></h4>
+       <label class="" for="personalACargo">                           @if(Auth::user()->perfil == 1)
+                                   Super-Administrador
+                                 @elseif(Auth::user()->perfil == 2)
+                                   Partner
+                                 @elseif(Auth::user()->perfil == 3)
+                                   Administrador
+                                 @else
+                                   Usuario
+                                 @endif</label>
+  </div>
+  <div class="col-sm-3">
+       <h4><label class="label btn-primary" for="personalACargo"> Telefono: </label></h4>
+       <label class="" for="personalACargo">  @if(Auth::user()->telefono)
+                                   {{Auth::user()->telefono}}
+                                 @else
+                                   Sin telefono
+                                 @endif</label>
+  </div>
+</div>
+<br>
+<div class="row">
+<div class="col-sm-2"></div>
+  <div class="col-sm-3">
+       <h4><label class="label btn-primary" for="personalACargo"> Fecha Creación </label></h4>
+       <label class="" for="personalACargo">  {{ Auth::user()->created_at }}</label>
+  </div>
+  <div class="col-sm-3">
+       <h4><label class="label btn-primary" for="personalACargo"> Estatus: </label></h4>
+       <label class="" for="personalACargo">                           @if(Auth::user()->status == 1)
+                                   Pendiente
+                                 @elseif(Auth::user()->status == 2)
+                                   Suspendido
+                                 @else
+                                   Activo
+                                 @endif
+                               </label>
+  </div>
+
+  <div class="col-sm-3">
+       <h4><label class="label btn-primary" for="personalACargo"> Imagen: </label></h4>
+       <label class="" id="val" for="personalACargo">
+           @if(Auth::user()->nombreimagen!=null)
+              {{ Auth::user()->nombreimagen}}
+           @else
+               No se ha subido imagen
+           @endif
+       </label>
+  </div>
+
+</div>
+
+<br>
+<div class="row">
+  <div class="col-sm-2"></div>
+<div class="col-sm-3">
+  <form id="form1" method="POST" action="{{ action('AdministradosController@imageUserStore') }}" enctype="multipart/form-data">
+
+  <input style="display:none;" id="imagen" type="file" name="imagen">
+  <button  id="btnSeleccionarImagen" class="btn btn-primary" type="button" value="Seleccione" ><i class="fa fa-file-photo-o" aria-hidden="true"> </i><br>Seleccionar imagen</button>
+  <button id="btnSubirImagen" class="btn btn-primary" type="submit" value="" disabled><i class="fa fa-cloud-upload" aria-hidden="true"></i><br>Guardar imagen</button>
+  {{ csrf_field() }}
+  </form>
+       </div>
+
+  <div class="col-lg-3">
     <button type="button" class="btn btn-primary" id="btndesempeño" style="font-family: Arial;" name="btndesempeño" data-dismiss="modal" data-toggle="modal" data-target="#modaldesempeño" value="<?=$Users->id?>" onclick="abremodaldesempeño(this)"><i class="glyphicon glyphicon-stats"></i><br>Desempeño</button>
   </div>
+
+  <div class="col-sm-3">
+    <form id="form2" method="POST" action="{{ action('AdministradosController@fileUserStore') }}" enctype="multipart/form-data">
+
+    <input style="display:none;" id="fileusr" type="file" name="fileusr[]">
+    <button  id="archivobtn" class="btn btn-primary" type="button" value="Seleccionearchivo" ><i class="fa fa-file-o" aria-hidden="true"> </i><br>Seleccinar archivos</button>
+    <button id="btnSubirArchivo" class="btn btn-primary" type="submit" value="" disabled><i class="fa fa-cloud-upload" aria-hidden="true"></i><br>Guardar archivos</button>
+
+    {{ csrf_field() }}
+    </form>
+  </div>
+
+
 </div>
 
 
@@ -206,6 +118,7 @@
         <div class="modal-dialog-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h2 class="modal-title">DESEMPEÑO DE USUARIO</h2>
                 </div>
                 <div class="modal-body">
@@ -265,6 +178,11 @@
 
 <script>
 
+$('#btnSubirImagen').hide();
+
+$('#btnSubirArchivo').hide();
+
+
 $('#btnSeleccionarImagen').click(function () {
     $("#imagen").click();
 });
@@ -272,8 +190,22 @@ $('#btnSeleccionarImagen').click(function () {
 $("#imagen").change(function () {
     $('#val').text(document.getElementById("imagen").files[0].name);
     $('#btnSubirImagen').prop('disabled', false);
+    $('#btnSubirImagen').show();
 });
 
+
+
+
+
+$('#archivobtn').click(function () {
+    $("#fileusr").click();
+});
+
+$("#fileusr").change(function () {
+    $('#val').text(document.getElementById("fileusr").files[0].name);
+    $('#btnSubirArchivo').prop('disabled', false);
+    $('#btnSubirArchivo').show();
+});
 
 
 

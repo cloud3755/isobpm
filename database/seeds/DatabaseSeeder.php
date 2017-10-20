@@ -40,7 +40,8 @@ class DatabaseSeeder extends Seeder
             $this->command->info('Tiporiesgos table seeded');
             $this->call('EtapasserTableSeeder');
             $this->command->info('Etapas table seeded');
-
+            $this->call('companiat');
+            $this->command->info('empresa table seeded');
 
 
         //Model::reguard();
@@ -107,7 +108,10 @@ class EtapasserTableSeeder extends Seeder {
                    'password'    =>  Hash::make('isobpm'),
                    'nombre'      =>  'isobpm',
                    'perfil'      =>  1,
-                   'email'       =>  'isobpm@isobpm.com'
+                   'email'       =>  'isobpm@isobpm.com',
+                   'status'      =>  3,
+                   'area'        =>  1,
+                   'empresa'     =>  1
                  ));
 
          db::table('Users')->insert(array(
@@ -139,6 +143,25 @@ class EtapasserTableSeeder extends Seeder {
 
         }
      }
+
+     class companiat extends Seeder {
+
+         public function run()
+         {
+           db::table('empresas')->insert(array(
+                    'id_plan' => 1,
+                    'razonSocial' => 'Prueba company',
+                    'status_id' => 1,
+
+                  ));
+
+
+         }
+
+
+}
+
+
         class EstatusesTableSeeder extends Seeder {
 
             public function run()

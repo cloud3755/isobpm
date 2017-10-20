@@ -185,6 +185,12 @@ Route::group( ['middleware' => 'auth'],
        return redirect('/perfil');
     }
     );
+    //Guardar archivos perfil
+    Route::post('/guardararchivosperfil', 'AdministradosController@fileUserStore');
+    Route::get('/guardararchivosperfil', function(){
+       return redirect('/perfil');
+    }
+    );
     //Guardar pendiente
     Route::post('/guardarpendiente', 'AdministradosController@pendienteStore');
     Route::get('/guardarpendiente', function(){

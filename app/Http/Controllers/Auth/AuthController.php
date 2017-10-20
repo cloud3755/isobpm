@@ -62,6 +62,7 @@ class AuthController extends Controller
         // Validamos los datos y además mandamos como un segundo parámetro la opción de recordar el usuario.
         if(Auth::attempt($userdata, 0))
         {
+          return Redirect::to('/bienvenida');
           $usuarios = Auth::user();
           if ($usuarios->status != 3) {
             // Si no estan activos los desloguea
