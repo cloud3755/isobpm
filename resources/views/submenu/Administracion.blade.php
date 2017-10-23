@@ -157,7 +157,7 @@
                   </div>
                   <div class="col-xs-9 text-right">
                       <div class="huge" id="divUsers"></div>
-                      <div>Documentos eliminados</div>
+                      <div>Documentos Obsoletos</div>
                   </div>
               </div>
           </div>
