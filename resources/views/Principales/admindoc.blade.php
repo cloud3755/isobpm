@@ -269,7 +269,7 @@
 //Funcion para el edit
 
 function Editar(btn){
-  var route = "https://www.isobpm.com/documentada/"+btn.value+"/edit";
+  var route = "/documentada/"+btn.value+"/edit";
 
   $.get(route, function(res){
     $("#enombre").val(res.nombre);
@@ -421,7 +421,7 @@ $(document).ready(function(){
 
   $("#actualizar").click(function(){
     var value = $("#id").val();
-    var route = "https://www.isobpm.com/aprobacion/"+value+"";
+    var route = "/aprobacion/"+value+"";
     var token = $("#token").val();
     var fd = new FormData(document.getElementById("fileinfo"));
 

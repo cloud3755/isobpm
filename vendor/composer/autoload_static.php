@@ -333,6 +333,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateAreasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_010410_create_areas_table.php',
         'CreateClientesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_07_222913_create_clientes_table.php',
         'CreateDocumentosTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_14_213756_create_documentos_table.php',
+        'CreateDocumentoseliminadosTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_23_055446_create_documentoseliminados_table.php',
         'CreateDocumentostmpsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_07_215611_create_documentostmps_table.php',
         'CreateEmpresasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_010351_create_empresas_table.php',
         'CreateEstatusesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_234758_create_estatuses_table.php',

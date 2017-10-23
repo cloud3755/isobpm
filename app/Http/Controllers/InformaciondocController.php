@@ -10,6 +10,7 @@ use Illuminate\Support\Collection as Collection;
 use App\Models\Typedocuments;
 use App\Models\Documentos;
 use App\Models\Documentostmp;
+use App\Models\Documentoseliminados;
 use App\Models\User;
 use App\Models\informacion_accesos;
 use Illuminate\Support\Facades\Auth;
@@ -144,8 +145,14 @@ class InformaciondocController extends Controller
     $documentos = Documentos::findorfail($id);
 
     if ($usuarios->perfil != 4) {
+      DB::table('documentoseliminados')->insert([
+        'id_tipo' => $documentos->id_tipo, 'nombre' => $documentos->nombre , 'archivo' => $documentos->archivo,
+        'nombreunico' => $documentos->nombreunico, 'size'=> $documentos->size, 'descripcion'=> $documentos->descripcion,
+        'id_user'=> $documentos->id_user, 'id_compania'=> $documentos->id_compania, 'review'=> $documentos->review,
+        'status'=> $documentos->status, 'acceso'=> $documentos->acceso, 'created_at'=> $documentos->created_at,
+        'updated_at'=> $documentos->updated_at]
+    );
       $documentos-> delete();
-      \Storage::disk('documentos')->delete($documentos->nombreunico);
     }else {
       $documentos->status = 2;
       $documentos->save();
@@ -153,6 +160,20 @@ class InformaciondocController extends Controller
 
     return redirect()->action('InformaciondocController@mostrar', [$documentos->id_tipo]);
 
+  }
+
+  public function doceliminar($id)
+  {
+    $usuarios = Auth::user();
+    $documentos = Documentoseliminados::findorfail($id);
+
+    if ($usuarios->perfil != 4) {
+      $documentos-> delete();
+      \Storage::disk('documentos')->delete($documentos->nombreunico);
+    }else {
+      return redirect('bienvenida');
+    }
+    return redirect('documentoseliminados');
   }
 
   public function editM($id,Request $request)
@@ -353,8 +374,14 @@ class InformaciondocController extends Controller
       $documentoe->status = 1;
       $documentoe->save();
     }elseif ($documentoe->status == 2) {
+      DB::table('documentoseliminados')->insert([
+        'id_tipo' => $documentoe->id_tipo, 'nombre' => $documentoe->nombre , 'archivo' => $documentoe->archivo,
+        'nombreunico' => $documentoe->nombreunico, 'size'=> $documentoe->size, 'descripcion'=> $documentoe->descripcion,
+        'id_user'=> $documentoe->id_user, 'id_compania'=> $documentoe->id_compania, 'review'=> $documentoe->review,
+        'status'=> $documentoe->status, 'acceso'=> $documentoe->acceso, 'created_at'=> $documentoe->created_at,
+        'updated_at'=> $documentoe->updated_at]
+    );
       $documentoe-> delete();
-      \Storage::disk('documentos')->delete($documentoe->nombreunico);
     }else {
       $usuarios = Auth::user();
       $document = Documentostmp::where('id_documento', $id)->first();
@@ -401,8 +428,14 @@ class InformaciondocController extends Controller
         $documentoe[$i]->status = 1;
         $documentoe[$i]->save();
       }elseif ($documentoe[$i]->status == 2) {
+        DB::table('documentoseliminados')->insert([
+          'id_tipo' => $documentoe[$i]->id_tipo, 'nombre' => $documentoe[$i]->nombre , 'archivo' => $documentoe[$i]->archivo,
+          'nombreunico' => $documentoe[$i]->nombreunico, 'size'=> $documentoe[$i]->size, 'descripcion'=> $documentoe[$i]->descripcion,
+          'id_user'=> $documentoe[$i]->id_user, 'id_compania'=> $documentoe[$i]->id_compania, 'review'=> $documentoe[$i]->review,
+          'status'=> $documentoe[$i]->status, 'acceso'=> $documentoe[$i]->acceso, 'created_at'=> $documentoe[$i]->created_at,
+          'updated_at'=> $documentoe[$i]->updated_at]
+      );
         $documentoe[$i]-> delete();
-        \Storage::disk('documentos')->delete($documentoe[$i]->nombreunico);
       }else {
         $usuarios = Auth::user();
         $document = Documentostmp::where('id_documento', $documentoe[$i]->id)->first();

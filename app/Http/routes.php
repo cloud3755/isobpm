@@ -267,6 +267,8 @@ Route::group( ['middleware' => 'auth'],
     Route::post('/denegar/{id}', 'InformaciondocController@denegar');
     Route::post('/aprobartodo', 'InformaciondocController@aprobartodo');
 
+    Route::get('/documentoseliminados', 'AdministradosController@doceliminados');
+    Route::delete('/doceliminar/destroy/{id}', 'InformaciondocController@doceliminar');
 
     // prueba calendario
     Route::get('/calendarioagenda', 'calendariopersonal@index');

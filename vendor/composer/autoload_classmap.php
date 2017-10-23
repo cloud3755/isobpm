@@ -15,6 +15,7 @@ return array(
     'CreateAreasTable' => $baseDir . '/database/migrations/2017_04_08_010410_create_areas_table.php',
     'CreateClientesTable' => $baseDir . '/database/migrations/2017_04_07_222913_create_clientes_table.php',
     'CreateDocumentosTable' => $baseDir . '/database/migrations/2017_04_14_213756_create_documentos_table.php',
+    'CreateDocumentoseliminadosTable' => $baseDir . '/database/migrations/2017_10_23_055446_create_documentoseliminados_table.php',
     'CreateDocumentostmpsTable' => $baseDir . '/database/migrations/2017_05_07_215611_create_documentostmps_table.php',
     'CreateEmpresasTable' => $baseDir . '/database/migrations/2017_04_08_010351_create_empresas_table.php',
     'CreateEstatusesTable' => $baseDir . '/database/migrations/2017_03_12_234758_create_estatuses_table.php',

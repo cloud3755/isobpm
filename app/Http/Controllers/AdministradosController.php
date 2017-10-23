@@ -15,6 +15,7 @@ use App\Models\Empresas;
 use App\Models\Status;
 use App\Models\Plans;
 use App\Models\Documentos;
+use App\Models\Documentoseliminados;
 use App\Models\Noticias;
 use App\Models\Pendientes;
 use App\Models\lista_eventos;
@@ -74,12 +75,34 @@ class AdministradosController extends Controller
     public function documentos()
     {
       $usuarios = Auth::user();
+      if ($usuarios->perfil != 4) {
+        $documentos = new Documentos;
+        $documento = $documentos->where('id_compania',$usuarios->id_compania)->where('status','!=',1)->get();
 
-      $documentos = new Documentos;
-      $documento = $documentos->where('id_compania',$usuarios->id_compania)->where('status','!=',1)->get();
-
-      return view('/Principales/admindoc', compact('documento'));
+        return view('/Principales/admindoc', compact('documento'));
+      }else {
+        return redirect('bienvenida');
+      }
     }
+
+
+    public function doceliminados()
+    {
+      $usuarios = Auth::user();
+      if ($usuarios->perfil != 4) {
+        $documento = $mejorasid = \DB::table('documentoseliminados')
+                     ->leftjoin('users','documentoseliminados.id_user','=','users.id')
+                     ->select('documentoseliminados.*', 'users.nombre as responsable')
+                     ->where('documentoseliminados.id_compania',$usuarios->id_compania)
+                     ->get();
+
+        return view('/Principales/doceliminados', compact('documento'));
+      }else {
+        return redirect('bienvenida');
+      }
+    }
+
+
 
     //Funciones para los Productos y servicios
     public function productos()
