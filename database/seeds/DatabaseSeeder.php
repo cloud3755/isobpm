@@ -110,7 +110,7 @@ class EtapasserTableSeeder extends Seeder {
                    'perfil'      =>  1,
                    'email'       =>  'isobpm@isobpm.com',
                    'status'      =>  3,
-                   'area'        =>  1,
+                   'id_area'        =>  1,
                    'empresa'     =>  1
                  ));
 

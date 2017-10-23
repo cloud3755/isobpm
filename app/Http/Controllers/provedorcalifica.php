@@ -59,7 +59,7 @@ class provedorcalifica extends Controller
                                ->where('provedorinsumos.idproveedor','=',$id)
                                ->get();
 
-     
+
 
       return ($listainsumo);
 
@@ -132,6 +132,11 @@ class provedorcalifica extends Controller
            'size' => $bytes ,
            'fechacalificacion' => $fecha,
            'comentarioevaluacion' => $request->input('evalcomnt'),
+           'obstiempo' => $request->input('obstiempo'),
+           'obscalidad' => $request->input('obscalidad'),
+           'obsservicio' => $request->input('obsservicio'),
+           'obscosto' => $request->input('obscosto'),
+
            ]);
 
 

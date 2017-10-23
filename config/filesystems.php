@@ -91,6 +91,13 @@ return [
         ],
 
 
+        'userfile' => [
+            'driver' => 'local',
+            'root'   => public_path().'/storage/userfile',
+        ],
+
+
+
         'ftp' => [
             'driver'   => 'ftp',
             'host'     => 'ftp.example.com',

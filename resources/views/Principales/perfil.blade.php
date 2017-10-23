@@ -99,10 +99,10 @@
   </div>
 
   <div class="col-sm-3">
-    <form id="form2" method="POST" action="{{ action('AdministradosController@fileUserStore') }}" enctype="multipart/form-data">
-
-    <input style="display:none;" id="fileusr" type="file" name="fileusr[]">
-    <button  id="archivobtn" class="btn btn-primary" type="button" value="Seleccionearchivo" ><i class="fa fa-file-o" aria-hidden="true"> </i><br>Seleccinar archivos</button>
+    <form id="form2" method="POST" action="/guardararchivosperfil1" enctype="multipart/form-data">
+    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+    <input style="display:none;" id="fileusr" type="file" name="fileusr[]" multiple="multiple">
+    <button  id="archivobtn" class="btn btn-primary" type="button" value="Seleccionearchivo" ><i class="fa fa-file-o" aria-hidden="true"> </i><br>Seleccionar archivos</button>
     <button id="btnSubirArchivo" class="btn btn-primary" type="submit" value="" disabled><i class="fa fa-cloud-upload" aria-hidden="true"></i><br>Guardar archivos</button>
 
     {{ csrf_field() }}
@@ -112,6 +112,40 @@
 
 </div>
 
+
+<br>
+<div class="row">
+
+  <div class="col-lg-12">
+      <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#FFF;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Mis archivos</h1>
+  </div>
+
+  <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="fdatos">
+    <thead style='background-color: #868889; color:#FFF'>
+      <tr>
+        <th>  <div class="th-inner sortable both">    Nombre  </div></th>
+        <th>  <div class="th-inner sortable both">    Tamaño  </div></th>
+        <th>  <div class="th-inner sortable both">    Archivo  </div></th>
+        <th>  <div class="th-inner sortable both">    Eliminar  </div></th>
+      </tr>
+    </thead>
+    <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
+    <tbody id = "FmyTable">
+      <?php foreach ($archivos as $archivo): ?>
+      <tr>
+        <td><?=$archivo->nombre?></td>
+          <td><?=$archivo->size?></td>
+          <td>
+            <a href="/perfil/file/ver/<?=$archivo->id?>" target="_blank" style=\'color:#FFF\'><button type="button" <?php if ($archivo->archivo == 'No se cargo archivo') { echo"disabled";} else {echo"";} ?> class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i></button> </a>
+          </td>
+            <td><form class="form-inline" action="/perfil/file/delete/<?=$archivo->id?>" method="delete"> <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btn btn-danger" id="btndelete_<?=$archivo->id?>" style="font-family: Arial;" dataid=<?=$archivo->id?>
+              onclick="return confirm('Estas seguro de eliminar el archivo?')"><i class="fa fa-trash"></i></button></form>
+
+      <?php endforeach ?>
+    </tbody>
+  </table>
+
+</div>
 
 <!-- Modal para mostrar desempeño-->
     <div class="modal fade" id="modaldesempeño" tabindex="-1" role="dialog" style="background-color:gray">

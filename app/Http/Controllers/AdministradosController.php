@@ -24,8 +24,11 @@ use App\Models\LinksInteres;
 use App\Models\puestos;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\File;
 
 class AdministradosController extends Controller
 {
@@ -46,6 +49,8 @@ class AdministradosController extends Controller
 
     $Users = Auth::user();
 
+    $compañiaid = $Users->id_compania;
+
     $usuario = DB::table('users')
     ->leftjoin('areas','areas.id','=','users.id_area')
     ->select('users.*','areas.nombre as area')
@@ -53,9 +58,13 @@ class AdministradosController extends Controller
     ->where('perfil','!=','1')
     ->get();
 
+    $archivos = DB::table('userfiles')
+    ->where('id_compania','=',$compañiaid)
+    ->where('id_user','=',$Users->id)
+    ->get();
 
 
-      return view('/Principales/perfil',compact('Users','usuario'));
+      return view('/Principales/perfil',compact('Users','usuario','archivos'));
     }
     /**
      * Show the form for creating a new resource.
@@ -567,6 +576,100 @@ class AdministradosController extends Controller
         //Guardad imagen
        \Storage::disk('imagenesusuarios')->put($nombreunicoarchivo1,  $imagen);
        return Redirect('/perfil');
+      }
+
+      public function fileUserStore1(Request $request)
+      {
+        $usuarios = Auth::user();
+        $compañiaid = $usuarios->id_compania;
+
+        $filet = $request->file('fileusr');
+
+        if (count($filet[0]) == 0)
+        {
+          Session::flash('flash_message', 'No se envio ningun archivo');
+          return redirect('/perfil');
+
+        }
+        else {
+          // alta de archivos
+
+               foreach($request->file('fileusr') as $file1)
+               {
+
+             //   $file1                            = $request->file('archivo');
+                $extension1                       = strtolower($file1->getclientoriginalextension());
+                $nombreunicoarchivo1              = uniqid().'.'.$extension1;
+                $bytes                            = \File::size($file1);
+
+                DB::table('userfiles')->insert(
+                    ['nombre' =>  $file1->getClientOriginalName(),
+                     'archivo' =>  $file1->getClientOriginalName(),
+                     'nombreunico' => $nombreunicoarchivo1,
+                     'size' =>  $bytes,
+                     'id_user' => $usuarios->id,
+                     'id_compania' => $compañiaid,
+                     ]);
+
+
+                \Storage::disk('userfile')->put($nombreunicoarchivo1,  \File::get($file1));
+                }
+        }
+
+   Session::flash('flash_message', 'Se guardaronlos archivos');
+       return Redirect('/perfil');
+      }
+
+
+      public function perfildestroy($id)
+      {
+
+      $fileperfil = DB::table('userfiles')->where('id', '=', $id)->first();
+
+
+      $archivoborrar = $fileperfil->nombreunico;
+      if($archivoborrar!='No se cargo archivo'){
+        \Storage::disk('userfile')->delete($archivoborrar);
+             }
+
+      DB::table('userfiles')->where('id', '=', $id)->delete();
+
+      Session::flash('flash_message', 'Se elimino el archivo');
+
+      return Redirect('/perfil');
+
+      }
+
+
+      public function perfilverfile($id)
+      {
+
+
+      $usuarios = Auth::user();
+      $documento = DB::table('userfiles')->where('id', '=', $id)->first();
+
+      $cadena = $documento->nombreunico;
+      if (\Storage::disk('userfile')->exists($cadena)) {
+        $response = Response::make(File::get("storage/userfile/".$documento->nombreunico));
+
+        if(ends_with($cadena,'docx')){
+          $response->header('Content-Type', "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        }elseif (ends_with($cadena,'txt')) {
+          $response->header('Content-Type', 'text/plain');
+        }else{
+          $content_types = File::mimeType("storage/userfile/".$documento->nombreunico);
+          $response->header('Content-Type', $content_types);
+        }
+      }else {
+          $response = "Archivo no encontrado";
+      }
+
+      // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
+
+      return $response;
+
+//      return Redirect('/perfil');
+
       }
 
 

@@ -28,6 +28,10 @@ class proveedorcalifica extends Migration
       $table->integer('size');
       $table->date('fechacalificacion');
       $table->string('comentarioevaluacion');
+      $table->string('obstiempo');
+      $table->string('obscalidad');
+      $table->string('obsservicio');
+      $table->string('obscosto');
       $table->timestamps();
     });
     }

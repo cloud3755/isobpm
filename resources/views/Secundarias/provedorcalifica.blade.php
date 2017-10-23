@@ -149,7 +149,7 @@ alert ('{{Session::get('flash_message')}}')
 
 <div id="comnt" class="form-group form-group-md col-sm-12">
 
-  <h2><label for="pedidos" class="control-label" >(*) comentario:</label></h2>
+  <h2><label for="pedidos" class="control-label" >(*) observacion:</label></h2>
   <textarea class="form-control input-lg" id = "evalcomnt" name="evalcomnt" rows="3" name="direccion" maxlength="255" required></textarea>
 
 </div>
@@ -194,6 +194,9 @@ alert ('{{Session::get('flash_message')}}')
               </label>
             </h3>
     </div>
+    <h2><label for="tiempo" class="control-label" >(*) Observacion tiempo:</label></h2>
+    <textarea class="form-control input-lg" id = "obstiempo" name="obstiempo" rows="3" name="direccion" maxlength="255" required></textarea>
+
   </div>
   <div class="col-lg-6">
     <h2><label for="calidad" class="control-label" >Calidad:</label></h2>
@@ -231,6 +234,8 @@ alert ('{{Session::get('flash_message')}}')
               </label>
             </h3>
     </div>
+    <h2><label for="tiempo" class="control-label" >(*) Observacion calidad:</label></h2>
+    <textarea class="form-control input-lg" id = "obscalidad" name="obscalidad" rows="3" name="direccion" maxlength="255" required></textarea>
   </div>
 </div>
   <div class="row">
@@ -270,6 +275,8 @@ alert ('{{Session::get('flash_message')}}')
               </label>
             </h3>
     </div>
+    <h2><label for="tiempo" class="control-label" >(*) Observacion Servicio:</label></h2>
+    <textarea class="form-control input-lg" id = "obsservicio" name="obsservicio" rows="3" name="direccion" maxlength="255" required></textarea>
     </div>
     <div class="col-lg-6">
     <h2><label for="costo" class="control-label" >Costo:</label></h2>
@@ -307,6 +314,8 @@ alert ('{{Session::get('flash_message')}}')
               </label>
             </h3>
     </div>
+    <h2><label for="tiempo" class="control-label" >(*) Observacion costo:</label></h2>
+    <textarea class="form-control input-lg" id = "obscosto" name="obscosto" rows="3" name="direccion" maxlength="255" required></textarea>
 </div>
             </div>
               </div>
