@@ -398,6 +398,13 @@ class AdministradosController extends Controller
         return Redirect('/usuarios');
       }
 
+      public function usuarioseditM($id){
+        $Usuarios = User::find($id);
+          return response()->json(
+            $Usuarios->toArray()
+          );
+      }
+
       public function usuariosedit($id,Request $request)
       {
         $user = Auth::user();
@@ -406,8 +413,8 @@ class AdministradosController extends Controller
         $empresa = new Empresas;
 
         if($user->perfil == 1){
-          $empresas = $empresa->where('id',$request->input('id_compania'))->first();
-          $usuarios->id_compania = $request->input('id_compania');
+          $empresas = $empresa->where('id',$request->input('eid_compania'))->first();
+          $usuarios->id_compania = $request->input('eid_compania');
           $usuarios->empresa = $empresas->razonSocial;
         }else{
           $empresas = $empresa->where('id', $user->id_compania)->first();
@@ -415,26 +422,27 @@ class AdministradosController extends Controller
           $usuarios->empresa = $empresas->razonSocial;
         }
         //No se para que este campo
-        $usuarios->usuario = $request->input('email');
+        $usuarios->usuario = $request->input('eemail');
         //Campos normales
-        if ($request->input('password') != null) {
-          $usuarios->password = bcrypt($request->input('password'));
+        if ($request->input('epassword') != null) {
+          $usuarios->password = bcrypt($request->input('epassword'));
         }
 
 
-        $usuarios->nombre = $request->input('nombre');
-        $usuarios->perfil = $request->input('perfil');
-        $usuarios->email = $request->input('email');
-        $usuarios->telefono = $request->input('telefono');
-        $usuarios->status = $request->input('status');
+        $usuarios->nombre = $request->input('enombre');
+        $usuarios->perfil = $request->input('eperfil');
+        $usuarios->email = $request->input('eemail');
+        $usuarios->telefono = $request->input('etelefono');
+        $usuarios->status = $request->input('estatus');
         //No se como se llenan estos
         $usuarios->quota = 0;
         $usuarios->num_com = 1;
         //Nunca se llenan
         $usuarios->direccion = '';
         $usuarios->descripcion = '';
-        $usuarios->id_area = $request->input('id_area');
-        //Falta agregar el area
+        $usuarios->id_area = $request->input('id_area2');
+        $usuarios->id_puesto = $request->input('puestoedit');
+        
         $usuarios->save();
         return redirect('/usuarios');
       }

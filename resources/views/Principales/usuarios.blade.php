@@ -54,7 +54,7 @@
                           <td>  <?=$usuarios->created_at?></td>
                           <td>  <?=$usuarios->area?></td>
                           <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaledit<?=$usuarios->id?>" ><i class="glyphicon glyphicon-edit"></i>  </button>
+                            <button type="button" onclick="Editar(this);" class="btn btn-primary" data-toggle="modal" data-target="#modaledit" value="{{ $usuarios->id }}"><i class="glyphicon glyphicon-edit"></i>  </button>
                           </td>
                           <td>
                             <form class="" action="/usuarios/destroy/{{ $usuarios->id }}" method="post">
@@ -166,130 +166,95 @@
             </div>
     </div>
 <!-- Fin del modal para agregar Usuarios-->
+
 <!-- Modal para editar Usuarios-->
 
-<?php foreach ($usuario as $usuarios): ?>
-<div class="modal fade" id="modaledit<?=$usuarios->id?>" tabindex="-1" role="dialog" style="background-color:gray">
+<div class="modal fade" id="modaledit" tabindex="-1" role="dialog" style="background-color:gray">
     <div class="modal-dialog-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">EDITAR USUARIO</h2>
             </div>
             <div class="modal-body">
-              <form  action="/usuarios/edit/<?=$usuarios->id?>" method="post">
+              <form id="fileinfo" method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token()}}">
+                <input type="hidden" id="eid">
+                <input type="hidden" id="puestoedit2">
                 <div class="row">
                   @if(Auth::user()->perfil == 1)
                     <div class="col-lg-12">
                         <label style="font-weight: bold">Empresa:</label>
-                        <select class="form-control" style="width: 100%" id="id_compania" name="id_compania" required>
-                            <option id="optionPartner" style="display: none" selected="selected"></option>
+                        <select class="form-control" style="width: 100%" id="eid_compania" name="eid_compania" required>
+                              <option value="" selected></option>
                             <?php foreach ($empresa as $empresas): ?>
-                              @if($usuarios->id_compania == $empresas['id'])
-                                <option value="<?=$empresas['id']?>" selected><?=$empresas['razonSocial']?></option>
-                              @else
-                                <option value="<?=$empresas['id']?>"><?=$empresas['razonSocial']?></option>
-                              @endif
+                              <option value="<?=$empresas['id']?>"><?=$empresas['razonSocial']?></option>
                             <?php endforeach ?>
                         </select>
                     </div>
                     @endif
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">Correo:</label>
-                        <input type="text" class="form-control" id="email" name="email" value="<?=$usuarios->email?>" />
+                        <input type="text" class="form-control" id="eemail" name="eemail"/>
                     </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                           <label style="font-weight: bold">Si queda vacio permanece la misma contraseña</label>
-                          <input type="password" class="form-control" id="password" name="password"/>
+                          <input type="password" class="form-control" id="epassword" name="epassword"/>
                       </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">Perfil:</label>
-                        <select class="form-control" id="perfil" name="perfil">
-                          @if($usuarios->perfil == 2)
-                            @if(Auth::user()->perfil == 1)
-                              <option value="1">Super-Administrador</option>
-                              <option value="2" selected>Partner</option>
-                            @endif
+                        <select class="form-control" id="eperfil" name="eperfil">
+                            <option value="" selected></option>
+                            <option value="1">Super-Administrador</option>
+                            <option value="2">Partner</option>
                             <option value="3">Administrador</option>
                             <option value="4">Usuario</option>
-                          @endif
-                          @if($usuarios->perfil == 3)
-                            @if(Auth::user()->perfil == 1)
-                              <option value="1">Super-Administrador</option>
-                              <option value="2">Partner</option>
-                            @endif
-                            <option value="3" selected>Administrador</option>
-                            <option value="4">Usuario</option>
-                          @endif
-                          @if($usuarios->perfil == 4)
-                            @if(Auth::user()->perfil == 1)
-                              <option value="1">Super-Administrador</option>
-                              <option value="2">Partner</option>
-                            @endif
-                            <option value="3">Administrador</option>
-                            <option value="4" selected>Usuario</option>
-                          @endif
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">(*) Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?=$usuarios->nombre?>"/>
+                        <input type="text" class="form-control" id="enombre" name="enombre" />
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <label style="font-weight: bold">Teléfono:</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" value="<?=$usuarios->telefono?>"/>
+                        <input type="text" class="form-control" id="etelefono" name="etelefono"/>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <label style="font-weight: bold">Estatus:</label>
-                        <select class="form-control" id="status" name="status">
+                        <select class="form-control" id="estatus" name="estatus">
+                          <option value="0" selected></option>
                           <?php foreach ($statuses as $status): ?>
-                            @if($usuarios->status == $status['id'])
-                              <option  selected="selected" value="<?=$status['id']?>"><?=$status['nombre']?></option>
-                            @else
-                              <option value="<?=$status['id']?>"><?=$status['nombre']?></option>
-                            @endif
+                            <option value="<?=$status['id']?>"><?=$status['nombre']?></option>
                           <?php endforeach ?>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <label style="font-weight: bold">Area:</label>
                         <select class="form-control" id="id_area2" name="id_area2">
+                          <option value="" selected></option>
                           <?php foreach ($area as $areas): ?>
-                            @if($usuarios->id_area == $areas['id'])
-                              <option  selected="selected" value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
-                            @else
-                              <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
-                            @endif
+                            <option value="<?=$areas['id']?>"><?=$areas['nombre']?></option>
                           <?php endforeach ?>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <label style="font-weight: bold">Puesto:</label>
                         <select class="form-control" id="puestoedit" name="puestoedit" required>
-                          <?php foreach ($puestos as $puesto): ?>
-                            @if($usuarios->id_puesto == $puesto->id)
-                              <option  selected="selected" value="<?=$puesto->id?>"><?=$puesto->nombrepuesto?></option>
-                            @else
-                              <option value="<?=$puesto->id?>"><?=$puesto->nombrepuesto?></option>
-                            @endif
-                          <?php endforeach ?>
+                          <option value="" selected></option>
+
                         </select>
                     </div>
                 </div>
 
 
                     <div class="modal-footer">
-
-                        <button type="submit" class="btn btn-primary" id="btnEditCli" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
+                      <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                   </form>
                 </div>
             </div>
         </div>
 </div>
-
-<?php endforeach?>
 
 <!-- Fin del modal para editar Usuarios-->
 
@@ -405,7 +370,25 @@ $(document).ready(function(){
 
   $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
 
-
+  $("#actualizar").click(function(){
+    var value = $("#eid").val();
+    var route = "/usuarios/edit/"+value+"";
+    var token = $("#token").val();
+    var fd = new FormData(document.getElementById("fileinfo"));
+console.log($("#puestoedit").val());
+    $.ajax({
+      url: route,
+      headers: {'X-CSRF_TOKEN': token},
+      type: 'post',
+      data: fd,
+      processData: false,  // tell jQuery not to process the data
+      contentType: false,
+      success: function(){
+        alert("Cambios guardados correctamente");
+        location.reload();
+      }
+    });
+  });
 // cambios en formulario 1
 
   $('#id_area').change(function(){
@@ -471,7 +454,34 @@ $('#puestoalta').change(function(){
 // termina document ready
 
 
+function Editar(btn){
+    var route = "/usuarios/"+btn.value+"/edit";
 
+    $.get(route, function(res){
+      $("#enombre").val(res.nombre);
+      $("#eid").val(res.id);
+      $("#puestoedit2").val(res.id_puesto);
+      $("#eemail").val(res.email);
+      $("#etelefono").val(res.telefono);
+      $("#epassword").val("");
+      $('#eid_compania option[value="' + res.id_compania + '"]').attr("selected", "selected");
+      $('#eperfil option[value="' + res.perfil + '"]').attr("selected", "selected");
+      $('#estatus option[value="' + res.status + '"]').attr("selected", "selected");
+      $('#id_area2 option[value="' + res.id_area + '"]').attr("selected", "selected");
+
+      var route2 = "/usuarios/puestos/" + res.id_area;
+      var idpuesto = res.id_puesto
+      $.get(route2, function(res2){
+        $("#puestoedit").empty();
+        $("#puestoedit").append('<option value="">Elige un puesto</option>');
+        for (var i = 0; i < res2.length; i++) {
+          $("#puestoedit").append('<option value=\"'+res2[i].id+'">'+res2[i].nombrepuesto+'</option>');
+        }
+        $('#puestoedit option[value="' + document.getElementById("puestoedit2").value + '"]').attr("selected", "selected");
+      });
+    });
+
+  }
 
 
 
