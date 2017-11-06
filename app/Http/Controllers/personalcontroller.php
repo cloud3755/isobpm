@@ -86,10 +86,13 @@ class personalcontroller extends Controller
 
        $iduser = $usuarios->id;
 
+
+
        $orga = DB::table('puestos')
                                 ->join('users','users.id_puesto','=','puestos.id')
-                              //  ->select('id','parentId','nombrepuesto')
-                                ->select('*')
+//                                ->select('users.id','users.id_jefe','puestos.nombrepuesto','users.nombre',DB::raw('(CASE WHEN users.nombreunicoimagen = "Null" THEN "/img/tableCredential images/user.jpg" ELSE /storage/imagenesusuarios/+users.nombreunicoimagen END) AS image'))
+                                ->select('users.id','users.id_jefe','puestos.nombrepuesto','users.nombre',DB::raw('(CASE WHEN users.nombreunicoimagen = "Null" THEN "/img/tableCredential images/user.jpg" WHEN users.nombreunicoimagen = "" THEN "/img/tableCredential images/user.jpg" WHEN users.nombreunicoimagen is null THEN "/img/tableCredential images/user.jpg" ELSE CONCAT("/storage/imagenesusuarios/",users.nombreunicoimagen) END) AS image'))
+                              //  ->select('*')
                                 ->where('puestos.id_compania','=',$compañiaid)
                                 ->get();
 
@@ -633,7 +636,7 @@ public function indicadorpersonalponderacion($id)
 
         $puestos = DB::table('puestos')
                                  ->join('users','puestos.id','=','users.id_puesto')
-                                 ->select('id','parentId','nombrepuesto')
+                                 ->select('puestos.id','parentId','nombrepuesto')
                                  ->where('puestos.id_compania','=',$compañiaid)
                                  ->get();
 

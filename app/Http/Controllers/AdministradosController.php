@@ -444,7 +444,8 @@ class AdministradosController extends Controller
         $usuarios->descripcion = '';
         $usuarios->id_area = $request->input('id_area2');
         $usuarios->id_puesto = $request->input('puestoedit');
-        
+        $usuarios->id_jefe = $request->input('id_jefeedit');
+
         $usuarios->save();
         return redirect('/usuarios');
       }

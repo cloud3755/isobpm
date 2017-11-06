@@ -515,6 +515,7 @@ function Editar(btn){
       $('#estatus option[value="' + res.status + '"]').attr("selected", "selected");
       $('#id_area2 option[value="' + res.id_area + '"]').attr("selected", "selected");
 
+
       var route2 = "/usuarios/puestos/" + res.id_area;
       var idpuesto = res.id_puesto
       $.get(route2, function(res2){
@@ -524,7 +525,20 @@ function Editar(btn){
           $("#puestoedit").append('<option value=\"'+res2[i].id+'">'+res2[i].nombrepuesto+'</option>');
         }
         $('#puestoedit option[value="' + document.getElementById("puestoedit2").value + '"]').attr("selected", "selected");
+
+
       });
+
+    //  alert( $('#puestoedit').val());
+      var route3 = "/usuarios/jefes/" + document.getElementById("puestoedit2").value;
+      $.get(route3, function(res3){
+        $("#id_jefeedit").empty();
+        for (var i = 0; i < res3.length; i++) {
+          $("#id_jefeedit").append('<option value=\"'+res3[i].id+'">'+res3[i].nombre+'</option>');
+        }
+        $('#id_jefeedit option[value="' + document.getElementById("puestoedit2").value + '"]').attr("selected", "selected");
+      });
+
     });
 
   }

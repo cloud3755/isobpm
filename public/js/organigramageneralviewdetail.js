@@ -23,7 +23,8 @@ $(document).ready(function(){
 
 
       var orgChart = new getOrgChart(document.getElementById("people"), {
-          primaryFields: ["nombrepuesto"],
+          primaryFields: ["nombrepuesto","nombre"],
+          photoFields: ["image"],
           enableEdit: false,
           enableDetailsView: false,
          // searchable: false,
@@ -36,7 +37,7 @@ $(document).ready(function(){
          // createNodeEvent: createNodeEvent
       });
 
-      $.getJSON("/personalorganigramashow", function (data) {
+      $.getJSON("/personalorganigramashowdetail", function (data) {
           orgChart.loadFromJSON(data);
 
 
@@ -64,13 +65,14 @@ $(document).ready(function(){
   function clickNodeEvent(sender, args) {
 
 
-
+/*
   if(args.node.pid == null)
    {
      return false;
    }
 
     iradescripcion(args.node.id)
+    */
   }
 
 
