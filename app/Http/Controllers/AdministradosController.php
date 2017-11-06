@@ -386,6 +386,8 @@ class AdministradosController extends Controller
         $usuarios->direccion = '';
         $usuarios->descripcion = '';
         $usuarios->id_area = $request->input('id_area');
+        $usuarios->id_puesto = $request->input('puestoalta');
+        $usuarios->id_jefe = $request->input('id_jefe');
         //Falta agregar el area
         $usuarios->save();
         return redirect('/usuarios');
@@ -457,6 +459,55 @@ class AdministradosController extends Controller
 
         return response()->json($puestos);
       }
+
+      public function jefesmostrar($idpuesto)
+      {
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+        $jefes1 = DB::table('puestos')
+                                 ->select('puestos.parentId')
+                                 ->where('puestos.id_compania','=',$compañiaid)
+                                 ->where('puestos.id','=',$idpuesto)
+                                 ->first();
+
+         $jefes = DB::table('users')
+                                  ->select('users.id','users.nombre')
+                                  ->where('users.id_compania','=',$compañiaid)
+                                  ->where('users.id_puesto','=',$jefes1->parentId)
+                                  ->get();
+
+
+        return response()->json($jefes);
+      }
+
+      public function usuariospuestosjefes($idpuesto)
+      {
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+        $jefes1 = DB::table('puestos')
+                                 ->select('puestos.parentId')
+                                 ->where('puestos.id_compania','=',$compañiaid)
+                                 ->where('puestos.id','=',$idpuesto)
+                                 ->first();
+
+         $jefes = DB::table('users')
+                                  ->select('users.id','users.nombre')
+                                  ->where('users.id_compania','=',$compañiaid)
+                                  ->where('users.id_puesto','=',$jefes1->parentId)
+                                  ->get();
+
+
+        return response()->json($jefes);
+      }
+
 
 
 

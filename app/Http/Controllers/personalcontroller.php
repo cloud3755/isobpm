@@ -71,6 +71,33 @@ class personalcontroller extends Controller
     }
 
 
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showorganigramadetail()
+    {
+        //
+       $usuarios = Auth::user();
+
+       $compañiaid = $usuarios->id_compania;
+
+       $iduser = $usuarios->id;
+
+       $orga = DB::table('puestos')
+                                ->join('users','users.id_puesto','=','puestos.id')
+                              //  ->select('id','parentId','nombrepuesto')
+                                ->select('*')
+                                ->where('puestos.id_compania','=',$compañiaid)
+                                ->get();
+
+       return response()->json($orga);
+
+    }
+
+
     /**
      * Display the specified resource.
      *
@@ -589,6 +616,31 @@ public function indicadorpersonalponderacion($id)
 
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexviewdetail()
+    {
+        //
+        $usuarios = Auth::user();
+
+        $compañiaid = $usuarios->id_compania;
+
+        $iduser = $usuarios->id;
+
+        $puestos = DB::table('puestos')
+                                 ->join('users','puestos.id','=','users.id_puesto')
+                                 ->select('id','parentId','nombrepuesto')
+                                 ->where('puestos.id_compania','=',$compañiaid)
+                                 ->get();
+
+      return view('/Principales/personalinicioviewdetail',compact('puestos'));
+
+
+    }
 
     /**
      * Display the specified resource.

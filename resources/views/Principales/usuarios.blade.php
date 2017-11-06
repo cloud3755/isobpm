@@ -155,6 +155,12 @@
                               <option value="">Elige un puesto</option>
                             </select>
                         </div>
+                        <div class="col-lg-6 col-md-6">
+                            <label style="font-weight: bold">Jefe inmediato:</label>
+                            <select class="form-control" id="id_jefe" name="id_jefe">
+                              <option value="">Elige un jefe</option>
+                            </select>
+                        </div>
                     </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
@@ -273,6 +279,12 @@
                               <option value="<?=$puesto->id?>"><?=$puesto->nombrepuesto?></option>
                             @endif
                           <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <label style="font-weight: bold">Jefe inmediato:</label>
+                        <select class="form-control" id="id_jefeedit" name="id_jefeedit" >
+
                         </select>
                     </div>
                 </div>
@@ -401,6 +413,7 @@ $.fn.pageMe = function(opts){
     }
 };
 
+
 $(document).ready(function(){
 
   $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
@@ -428,11 +441,7 @@ $(document).ready(function(){
   });
  });
 
- $('#puestoalta').change(function(){
 
-   $("#puestoalta option[value='']").remove();
-
-});
 
 
 // cambios en formulario 1
@@ -456,19 +465,56 @@ for (var i = 0; i < res.length; i++) {
 });
 });
 
+
 $('#puestoalta').change(function(){
 
  $("#puestoalta option[value='']").remove();
 
+
+     var route = "/usuarios/jefes/" + $('#puestoalta').val();
+
+     $.get(route, function(res){
+
+       $("#id_jefe option[value='']").remove();
+       $("#id_jefe").empty();
+       for (var i = 0; i < res.length; i++) {
+         $("#id_jefe").append('<option value=\"'+res[i].id+'">'+res[i].nombre+'</option>');
+       }
+
+
+     });
+
 });
 
 
 
+$('#puestoedit').change(function(){
+
+ $("#puestoedit option[value='']").remove();
+
+     var route = "/usuarios/jefes/" + $('#puestoedit').val();
+
+     $.get(route, function(res){
+
+       $("#id_jefeedit option[value='']").remove();
+       $("#id_jefeedit").empty();
+       for (var i = 0; i < res.length; i++) {
+         $("#id_jefeedit").append('<option value=\"'+res[i].id+'">'+res[i].nombre+'</option>');
+       }
+
+
+     });
+
+});
 
 
 // termina document ready
 });
-// termina document ready
+
+
+
+
+
 
 
 

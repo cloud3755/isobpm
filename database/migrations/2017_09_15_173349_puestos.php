@@ -15,9 +15,11 @@ class Puestos extends Migration
         //
         Schema::create('puestos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parentId');
+            $table->integer('parentId')->nullable();
             $table->string('nombrepuesto');
             $table->integer('id_compania');
+            $table->string('cadenadescendencia');
+            $table->integer('nivel')->nullable();
             $table->timestamps();
         });
     }

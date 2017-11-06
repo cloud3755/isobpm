@@ -231,6 +231,7 @@ Route::group( ['middleware' => 'auth'],
     Route::post('usuarios/edit/{id}', 'AdministradosController@usuariosedit');
     Route::get('/usuarios/puestos/{idarea}','AdministradosController@usuariospuestos');
     Route::get('/usuarios/desempeno/{id}/{periodo}','AdministradosController@usuariosdesempeno');
+    Route::get('/usuarios/jefes/{idpuesto}','AdministradosController@usuariospuestosjefes');
 
     //mejoras
     Route::get('/Promejoras','MejorasController@index');
@@ -322,6 +323,7 @@ Route::group( ['middleware' => 'auth'],
     // Rutas modulo personal
     Route::get('/personal','personalcontroller@index');
     Route::get('/personalorganigramashow','personalcontroller@showorganigrama');
+    Route::get('/personalorganigramashowdetail','personalcontroller@showorganigramadetail');
     Route::post('/personalorganigramaedit/{id}','personalcontroller@editorganigrama');
     Route::post('/personalorganigramainsert/{id}','personalcontroller@insertorganigrama');
     Route::get('/personalorganigramadelete/{id}','personalcontroller@deleteorganigrama');
@@ -337,6 +339,8 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/agregaindicadorperfil/{idpuesto}/{idindicador}/{ponderador}','personalcontroller@agregaindicadorperfil');
     Route::get('/modificaindicadorpuesto/{idpuestoindicador}/{ponderador}','personalcontroller@modificaindicadorpuesto');
     Route::get('/personalview','personalcontroller@indexview');
+    Route::get('/personalviewdetail','personalcontroller@indexviewdetail');
+
     Route::get('/personaldescriptorpuestoview/{id}','personalcontroller@personaldescriptorpuestoview');
     Route::get('/results','personalcontroller@personalresults');
     Route::post('/personal/resultado/filtro','personalcontroller@personalresultsfiltro');

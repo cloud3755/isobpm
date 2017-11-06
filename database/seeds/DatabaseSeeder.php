@@ -42,6 +42,9 @@ class DatabaseSeeder extends Seeder
             $this->command->info('Etapas table seeded');
             $this->call('companiat');
             $this->command->info('empresa table seeded');
+            $this->call('puestoseed');
+            $this->command->info('puesto table seeded');
+
 
 
         //Model::reguard();
@@ -158,6 +161,19 @@ class EtapasserTableSeeder extends Seeder {
 
          }
 
+}
+         class puestoseed extends Seeder {
+
+             public function run()
+             {
+               db::table('puestos')->insert(array(
+                        'nombrepuesto' => 'Prueba company',
+                        'id_compania' => 1,
+
+                      ));
+
+
+             }
 
 }
 
