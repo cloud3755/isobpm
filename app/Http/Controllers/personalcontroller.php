@@ -708,7 +708,7 @@ public function indicadorpersonalponderacion($id)
                                       ->sum('ponderacion');
 
 
-        return view('\Principales\personaldescriptorpuestoview',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores','indicadorescompania','sumaponderado'));
+        return view('/Principales/personaldescriptorpuestoview',compact('areas','descriptorpuesto','perfilpuesto','puestoindicadores','indicadorescompania','sumaponderado'));
 
 
     }

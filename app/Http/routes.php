@@ -229,6 +229,7 @@ Route::group( ['middleware' => 'auth'],
     Route::post('usuarios/store', 'AdministradosController@usuariostore');
     Route::delete('usuarios/destroy/{id}', 'AdministradosController@usuariosdestroy');
     Route::post('usuarios/edit/{id}', 'AdministradosController@usuariosedit');
+    Route::get('usuarios/{id}/edit', 'AdministradosController@usuarioseditM');
     Route::get('/usuarios/puestos/{idarea}','AdministradosController@usuariospuestos');
     Route::get('/usuarios/desempeno/{id}/{periodo}','AdministradosController@usuariosdesempeno');
     Route::get('/usuarios/jefes/{idpuesto}','AdministradosController@usuariospuestosjefes');
