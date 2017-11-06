@@ -274,8 +274,10 @@ function doSearch()
 
   <div class="table-responsive">
     <form>
-        Buscar <input id="searchTerm" type="text" onkeyup="doSearch()" />
+        Buscar <input id="searchTerm" type="text" onkeyup="doSearch()" /> <button type="button" class="btn btn-success" id="excel">Excel</button>
     </form>
+
+
     <div class="dataTable_wrapper">
         <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
           <thead style='background-color: #868889; color:#FFF'>
