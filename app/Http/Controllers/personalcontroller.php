@@ -734,9 +734,10 @@ public function indicadorpersonalponderacion($id)
 
          $users = DB::table('users')
                            ->select('id','nombre')
-                           ->where('users.empresa','=',$compañiaid)
+                           ->where('users.id_compania','=',$compañiaid)
                            ->get();
 
+//return(dd($users));
 /*
          $areas = DB::table('areas')
                                   ->select('areas.id','areas.nombre')

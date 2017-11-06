@@ -94,6 +94,13 @@
                                     $('#curve_chart').hide();},
                   success: function(respuesta){
 
+                              if (respuesta.length == 1)
+                              {
+                                alert("no se encontraron resultados");
+                                $('#curve_chart').hide();
+                                return false;
+                              }
+
                               google.charts.load('current', {'packages':['corechart']});
                               google.charts.setOnLoadCallback(drawChart);
 
