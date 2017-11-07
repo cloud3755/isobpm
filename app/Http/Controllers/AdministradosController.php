@@ -266,7 +266,7 @@ class AdministradosController extends Controller
         $user = Auth::user();
 
 
-        $idd = DB::table('empresas')->insertGetId(
+        $iddc = DB::table('empresas')->insertGetId(
             ['id_plan' => $request->input('id_plan'),
              'razonSocial' => $request->input('razonSocial'),
              'domicilio' => $request->input('domicilio'),
@@ -283,12 +283,51 @@ class AdministradosController extends Controller
              ]);
 
 
-        $puestos = new puestos;
-        $puestos->nombrepuesto = $request->input('razonSocial');
-        $puestos->id_compania = $idd;
-        $puestos->cadenadescendencia = "";
-        $puestos->nivel = 0;
-        $puestos->save();
+         $idd = DB::table('puestos')->insertGetId(
+             ['nombrepuesto' =>  $request->input('razonSocial'),
+              'id_compania' => $iddc,
+              'cadenadescendencia' => "",
+              'nivel' => 0,
+              ]);
+
+
+
+        $idd2 =  DB::table('descriptorpuesto')->insertGetId(
+            [
+             'id_puesto' => $idd,
+             'id_empresa' =>  $iddc,
+             'id_area' => "0",
+             'personalacargo' =>"0",
+             'reportaa' => "",
+             'montovalores' => "",
+             'mision' => "",
+             'funciones' => "",
+             'responsabilidades' => "",
+             'mision' => "",
+             'funciones' => "",
+             'responsabilidades' => "",
+             'autoridades' => "",
+             'capacitacion' => "",
+             'herramientas' => "",
+             'softwareactivos' => "",
+             ]);
+
+
+        $idd2 =  DB::table('perfilpuesto')->insertGetId(
+            [
+             'id_puesto' => $idd,
+             'rangoedad' => "",
+             'sexo' => "0",
+             'otrosreq' => "",
+             'conocimientos' => "",
+             'educacion' => "",
+             'formacion' => "",
+             'habilidades' => "",
+             'experiencias' => "",
+             'id_compania' =>  $iddc,
+             ]);
+
+
 
         return redirect('/empresas');
       }
