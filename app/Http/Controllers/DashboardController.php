@@ -23,6 +23,7 @@ class DashboardController extends Controller
       $resultados = new Resultados;
       $resultado = \DB::table('resultados')->select('mes', 'valor')
                 ->where('indicador_id',0)
+                ->orderBy('mes', 'asc')
                 ->get();
 
 
@@ -48,7 +49,9 @@ class DashboardController extends Controller
       $resultados = new Resultados;
       $resultado = \DB::table('resultados')->select('mes', 'valor')
                 ->where('indicador_id',$request->input("selectindicador"))
-                ->whereBetween('mes', [$request->input("fechainicio"), $request->input("fechafin")])->get();
+                ->whereBetween('mes', [$request->input("fechainicio"), $request->input("fechafin")])
+                ->orderBy('mes', 'asc')
+                ->get();
 
 
       $indicador = \DB::table('indicadores')
