@@ -606,8 +606,6 @@ function Editar(btn){
     //  alert( $('#puestoedit').val());
       var route4 = "/usuarios/archivos/" + res.id;
       $.get(route4, function(res4){
-        console.log(res4);
-
         var eldiv = document.getElementById('ArchTable');
         var arrayusers = '';
         for (var i = 0; i < res4.length; i++) {
@@ -620,6 +618,7 @@ function Editar(btn){
 
 
     //  alert( $('#puestoedit').val());
+    if (document.getElementById("puestoedit2").value != 0 && document.getElementById("puestoedit2").value != null) {
       var route3 = "/usuarios/jefes/" + document.getElementById("puestoedit2").value;
       $.get(route3, function(res3){
         $("#id_jefeedit").empty();
@@ -628,6 +627,7 @@ function Editar(btn){
         }
         $('#id_jefeedit option[value="' + document.getElementById("puestoedit2").value + '"]').attr("selected", "selected");
       });
+    }
 
     });
 
