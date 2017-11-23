@@ -556,6 +556,16 @@ class AdministradosController extends Controller
         return response()->json($jefes);
       }
 
+      public function usuariosarchivos($id)
+      {
+
+        $archivos = DB::table('userfiles')
+        ->where('id_user','=',$id)
+        ->get();
+
+        return response()->json($archivos);
+      }
+
 
 
 
@@ -725,7 +735,7 @@ class AdministradosController extends Controller
                 $bytes                            = \File::size($file1);
 
                 DB::table('userfiles')->insert(
-                    ['nombre' =>  $file1->getClientOriginalName(),
+                    ['nombre' =>  $request->input('nombrearchivo'),
                      'archivo' =>  $file1->getClientOriginalName(),
                      'nombreunico' => $nombreunicoarchivo1,
                      'size' =>  $bytes,
@@ -740,6 +750,47 @@ class AdministradosController extends Controller
 
    Session::flash('flash_message', 'Se guardaronlos archivos');
        return Redirect('/perfil');
+      }
+
+      public function fileUserStoreadmin(Request $request)
+      {
+        $usuarios = Auth::user();
+        $compañiaid = $usuarios->id_compania;
+        $filet = $request->file('fileusr');
+
+        if (count($filet[0]) == 0)
+        {
+          Session::flash('flash_message', 'No se envio ningun archivo');
+          return redirect('/usuarios');
+
+        }
+        else {
+          // alta de archivos
+
+               foreach($request->file('fileusr') as $file1)
+               {
+
+             //   $file1                            = $request->file('archivo');
+                $extension1                       = strtolower($file1->getclientoriginalextension());
+                $nombreunicoarchivo1              = uniqid().'.'.$extension1;
+                $bytes                            = \File::size($file1);
+
+                DB::table('userfiles')->insert(
+                    ['nombre' =>  $request->input('nombrearchivo'),
+                     'archivo' =>  $file1->getClientOriginalName(),
+                     'nombreunico' => $nombreunicoarchivo1,
+                     'size' =>  $bytes,
+                     'id_user' => $request->input('archivosid'),
+                     'id_compania' => $compañiaid,
+                     ]);
+
+
+                \Storage::disk('userfile')->put($nombreunicoarchivo1,  \File::get($file1));
+                }
+        }
+
+   Session::flash('flash_message', 'Se guardaronlos archivos');
+       return Redirect('/usuarios');
       }
 
 
@@ -759,6 +810,25 @@ class AdministradosController extends Controller
       Session::flash('flash_message', 'Se elimino el archivo');
 
       return Redirect('/perfil');
+
+      }
+
+      public function perfildestroyadmin($id)
+      {
+
+      $fileperfil = DB::table('userfiles')->where('id', '=', $id)->first();
+
+
+      $archivoborrar = $fileperfil->nombreunico;
+      if($archivoborrar!='No se cargo archivo'){
+        \Storage::disk('userfile')->delete($archivoborrar);
+             }
+
+      DB::table('userfiles')->where('id', '=', $id)->delete();
+
+      Session::flash('flash_message', 'Se elimino el archivo');
+
+      return Redirect('/usuarios');
 
       }
 

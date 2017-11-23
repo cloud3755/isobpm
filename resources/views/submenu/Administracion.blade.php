@@ -224,7 +224,7 @@
                   </div>
                   <div class="col-xs-9 text-right">
                       <div class="huge" id="divResultados"></div>
-                      <div>Ver resultados</div>
+                      <div>Desempeño de personal</div>
                   </div>
               </div>
           </div>

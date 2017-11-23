@@ -19,7 +19,11 @@
             <div class="panel-body">
               <div class="row">
                 <div class="table-responsive">
-                    <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="tblUsers">
+                  <form>
+                      Buscar <input id="searchTerm" type="text" onkeyup="doSearch()" />
+                  </form>
+                  <br>
+                    <table width="100%" class="table table-responsive table-striped table-bordered table-hover"  id="datos">
                       <thead style='background-color: #868889; color:#FFF'>
                         <tr>
                           <th>  <div class="th-inner sortable both">    Usuario  </div></th>
@@ -263,12 +267,81 @@
                       <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                   </form>
+
+                  <div class="row">
+                      <div class="col-lg-12 col-md-12">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                Archivos
+                                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalArchivos"><i class="glyphicon glyphicon-floppy-save"></i></button>
+                            </div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="table-responsive">
+                                <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="fdatos">
+                                  <thead style='background-color: #868889; color:#FFF'>
+                                    <tr>
+                                      <th>  <div class="th-inner sortable both">    Nombre  </div></th>
+                                      <th>  <div class="th-inner sortable both">    Tamaño  </div></th>
+                                      <th>  <div class="th-inner sortable both">    Archivo  </div></th>
+                                      <th>  <div class="th-inner sortable both">    Eliminar  </div></th>
+                                    </tr>
+                                  </thead>
+                                  <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
+                                  <tbody id = "ArchTable">
+
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Fin del modal para editar Usuarios-->
+
+<!-- Modal para archivos de usuario-->
+<div class="modal fade" id="modalArchivos" tabindex="-1" role="dialog" style="background-color:gray">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title">ALTA DE DOCUMENTO</h3>
+            </div>
+            <div class="modal-body">
+              <form class="" action="/guardararchivosperfiladmin" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="archivosid" id="archivosid">
+              <div class="container">
+                <div class="form-group form-group-lg">
+                    <h2><label for="Usuario" class="control-label col-md-12">Nombre:</label></h2>
+                    <div class="col-md-6 col-sm-9">
+                        <input class="form-control input-lg" id="nombrearchivo" type="Text" placeholder="Nombre" name="nombrearchivo" required>
+                    </div>
+                </div>
+                <div class="form-group form-group-lg">
+                    <h2><label for="Usuario" class="control-label col-md-12">Archivo:</label></h2>
+                    <div class="col-md-6 col-sm-9">
+                        <input id="fileusr" type="file" name="fileusr[]" multiple="multiple" required>
+                    </div>
+                </div>
+              </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
+                    </div>
+                  </form>
                 </div>
             </div>
         </div>
 </div>
 
-<!-- Fin del modal para editar Usuarios-->
+<!-- Fin del modal archivos de usuario-->
 
 
 
@@ -506,6 +579,7 @@ function Editar(btn){
     $.get(route, function(res){
       $("#enombre").val(res.nombre);
       $("#eid").val(res.id);
+      $("#archivosid").val(res.id);
       $("#puestoedit2").val(res.id_puesto);
       $("#eemail").val(res.email);
       $("#etelefono").val(res.telefono);
@@ -528,6 +602,22 @@ function Editar(btn){
 
 
       });
+
+    //  alert( $('#puestoedit').val());
+      var route4 = "/usuarios/archivos/" + res.id;
+      $.get(route4, function(res4){
+        console.log(res4);
+
+        var eldiv = document.getElementById('ArchTable');
+        var arrayusers = '';
+        for (var i = 0; i < res4.length; i++) {
+          arrayusers = arrayusers + '<tr><td>'+res4[i].nombre+'</td> <td>'+res4[i].size+'</td> <td><a href="/perfil/file/ver/'+res4[i].id+'" target="_blank" style="color:#FFF"><button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-cloud-download"></i></button> </a></td> <td><form class="form-inline" action="/perfiladmin/file/delete/'+res4[i].id+'" method="delete"> <input type="hidden" name="_token" value="{{{ csrf_token() }}}"> <button type="submit" class="btn btn-danger" id="btndelete_'+res4[i].id+'" style="font-family: Arial;" dataid='+res4[i].id+'onclick="return confirm(\'Estas seguro de eliminar el archivo?\')"><i class="fa fa-trash"></i></button></form></td>';
+        }
+        eldiv.innerHTML= arrayusers;
+
+
+      });
+
 
     //  alert( $('#puestoedit').val());
       var route3 = "/usuarios/jefes/" + document.getElementById("puestoedit2").value;
@@ -555,6 +645,40 @@ function mostrarpas(){
 
   }
 };
+
+function doSearch()
+{
+  var tableReg = document.getElementById('datos');
+  var searchText = document.getElementById('searchTerm').value.toLowerCase();
+  var cellsOfRow="";
+  var found=false;
+  var compareWith="";
+
+  // Recorremos todas las filas con contenido de la tabla
+  for (var i = 1; i < tableReg.rows.length; i++)
+  {
+    cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+    found = false;
+    // Recorremos todas las celdas
+    for (var j = 0; j < cellsOfRow.length-1 && !found; j++)
+    {
+      compareWith = cellsOfRow[j].innerHTML.toLowerCase();
+      // Buscamos el texto en el contenido de la celda
+      if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
+      {
+        found = true;
+      }
+    }
+    if(found)
+    {
+      tableReg.rows[i].style.display = '';
+    } else {
+      // si no ha encontrado ninguna coincidencia, esconde la
+      // fila de la tabla
+      tableReg.rows[i].style.display = 'none';
+    }
+  }
+}
 </script>
 
 @stop

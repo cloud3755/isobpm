@@ -187,7 +187,9 @@ Route::group( ['middleware' => 'auth'],
     );
     //Guardar archivos perfil
     Route::post('/guardararchivosperfil1', 'AdministradosController@fileUserStore1');
+    Route::post('/guardararchivosperfiladmin', 'AdministradosController@fileUserStoreadmin');
     Route::get('/perfil/file/delete/{id}', 'AdministradosController@perfildestroy');
+    Route::get('/perfiladmin/file/delete/{id}', 'AdministradosController@perfildestroyadmin');
     Route::get('/perfil/file/ver/{id}', 'AdministradosController@perfilverfile');
 
     //Guardar pendiente
@@ -233,6 +235,7 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/usuarios/puestos/{idarea}','AdministradosController@usuariospuestos');
     Route::get('/usuarios/desempeno/{id}/{periodo}','AdministradosController@usuariosdesempeno');
     Route::get('/usuarios/jefes/{idpuesto}','AdministradosController@usuariospuestosjefes');
+    Route::get('/usuarios/archivos/{id}','AdministradosController@usuariosarchivos');
 
     //mejoras
     Route::get('/Promejoras','MejorasController@index');
