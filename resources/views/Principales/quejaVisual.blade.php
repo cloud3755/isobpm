@@ -257,10 +257,7 @@ function doSearch()
                           <th><div class="th-inner sortable both">  Responsable</div></th>
                           <th><div class="th-inner sortable both">  Descripcion</div></th>
                           <th><div class="th-inner sortable both">  Cliente</div></th>
-                          <th><div class="th-inner sortable both">  Acciones</div></th>
                           <th><div class="th-inner sortable both">  Fecha plan</div></th>
-                          <th><div class="th-inner sortable both">  Evidencia</div></th>
-                          <th><div class="th-inner sortable both">  Fecha cierre</div></th>
                           <th><div class="th-inner sortable both">  Status</div></th>
                           <th><div class="th-inner sortable both">  Archivo 1</div></th>
                           <th><div class="th-inner sortable both">  Archivo 2</div></th>
@@ -279,10 +276,7 @@ function doSearch()
                           <td> <?=$queja->usernombre?> </td>
                           <td> <?=$queja->descripcion?> </td>
                           <td> <?=$queja->clientenombre?> </td>
-                          <td> <?=$queja->acciones?> </td>
                           <td> <?=$queja->fecha_plan?> </td>
-                          <td> <?=$queja->evidencia?> </td>
-                          <td> <?=$queja->fecha_cierre?> </td>
                           <td> <?=$queja->statusnombre?> </td>
                           <td>
                             @IF($queja->archivoqueja != '')

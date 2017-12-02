@@ -41,19 +41,10 @@
                         <tr>
                           <th><div class="th-inner sortable both">  ID</div></th>
                           <th><div class="th-inner sortable both">  fecha alta</div></th>
-                          <th><div class="th-inner sortable both">  Indicador</div></th>
-                          <th><div class="th-inner sortable both">  Proceso</div></th>
-                          <th><div class="th-inner sortable both">  Producto</div></th>
-                          <th><div class="th-inner sortable both">  Documento</div></th>
-                          <th><div class="th-inner sortable both">  Archivo 1</div></th>
                           <th><div class="th-inner sortable both">  Descripcion</div></th>
                           <th><div class="th-inner sortable both">  Responsable</div></th>
-                          <th><div class="th-inner sortable both">  Analisis</div></th>
-                          <th><div class="th-inner sortable both">  Accion correctiva</div></th>
                           <th><div class="th-inner sortable both">  Fecha de accion</div></th>
                           <th><div class="th-inner sortable both">  Evidencia</div></th>
-                          <th><div class="th-inner sortable both">  Archivo 2</div></th>
-                          <th><div class="th-inner sortable both">  Fecha Cierre</div></th>
                           <th><div class="th-inner sortable both">  Status</div></th>
                           <th><div class="th-inner sortable both">   Subir Evidencia</div></th>
                           <th><div class="th-inner sortable both">   Editar accion</div></th>
@@ -65,26 +56,9 @@
                         <tr>
                           <td> <?=$accioncorrectivas->id?> </td>
                           <td> <?=$accioncorrectivas->fechaalta?> </td>
-                          <td> <?=$accioncorrectivas->indicadornombre?> </td>
-                          <td> <?=$accioncorrectivas->procesonombre?> </td>
-                          <td> <?=$accioncorrectivas->productonombre?> </td>
-                          <td> <?=$accioncorrectivas->documento?> </td>
-                          <td>
-                            @if($accioncorrectivas->uniquedocumento != '')
-                            <?=$accioncorrectivas->porque2?>
-                            <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniquedocumento?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniquedocumento?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-warning">
-                                   <span class="glyphicon glyphicon-cloud-download"></span>
-                              </button>
-                            </a>
-                            @endif
-                          </td>
                           <td> <?=$accioncorrectivas->descripcion?> </td>
                           <td> <?=$accioncorrectivas->usernombre?> </td>
-                          <td> <?=$accioncorrectivas->porque1?> </td>
-                          <td> <?=$accioncorrectivas->accioncorrectiva?> </td>
                           <td> <?=$accioncorrectivas->fechaaccion?> </td>
-                          <td> <?=$accioncorrectivas->respuestaaccion?> </td>
                           <td>
                             @if($accioncorrectivas->uniqueevidencia != '')
                             <?=$accioncorrectivas->evidencia?>
@@ -95,7 +69,6 @@
                             </a>
                             @endif
                           </td>
-                          <td> <?=$accioncorrectivas->fechacierre?> </td>
                           <td> <?=$accioncorrectivas->statusnombre?> </td>
                           <td>
 <!-- se creara un bucle para generar los n modales necesarios para la edicion de datos -->
