@@ -241,20 +241,16 @@ function doSearch()
                     <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
                       <thead style='background-color: #868889; color:#FFF'>
                         <tr>
+                          <th>  <div class="th-inner sortable both">    id  </div></th>
                           <th>  <div class="th-inner sortable both">    fecha  </div></th>
-                          <th>  <div class="th-inner sortable both">    Proceso  </div></th>
-                          <th>  <div class="th-inner sortable both">    Producto  </div></th>
-                          <th>  <div class="th-inner sortable both">    Documento  </div></th>
                           <th>  <div class="th-inner sortable both">    Descripcion  </div></th>
                           <th>  <div class="th-inner sortable both">    Responsable  </div></th>
-                          <th>  <div class="th-inner sortable both">    Acciones  </div></th>
-                          <th>  <div class="th-inner sortable both">    Fecha Plan  </div></th>
+                         <th>  <div class="th-inner sortable both">    Fecha Plan  </div></th>
                           <th>  <div class="th-inner sortable both">    Evidencia  </div></th>
                           <th>  <div class="th-inner sortable both">    Evidencia Apertura  </div></th>
                           <th>  <div class="th-inner sortable both">    Fecha cierre  </div></th>
                           <th>  <div class="th-inner sortable both">    Status  </div></th>
                           <th>  <div class="th-inner sortable both">    Creador  </div></th>
-                          <th>  <div class="th-inner sortable both">    Monto  </div></th>
                           <th>  <div class="th-inner sortable both">    Editar  </div></th>
                           <th>  <div class="th-inner sortable both">  Eliminar</div></th>
                         </tr>
@@ -263,13 +259,10 @@ function doSearch()
                       <tbody id = "myTable">
                         <?php foreach ($relaciontabla as $noconformidad): ?>
                         <tr>
+                          <td>  <?=$noconformidad->id?> </td>
                           <td>  <?=$noconformidad->fecha?> </td>
-                          <td>  <?=$noconformidad->procesonombre?></td>
-                          <td>  <?=$noconformidad->productonombre?></td>
-                          <td>  <?=$noconformidad->documento?></td>
                           <td>  <?=$noconformidad->descripcion?></td>
                           <td>  <?=$noconformidad->usuarionombre?></td>
-                          <td>  <?=$noconformidad->acciones?></td>
                           <td>  <?=$noconformidad->fecha_plan?></td>
                           <td>  <?=$noconformidad->evidencia?>
                             @IF($noconformidad->evidencia != '')
@@ -292,7 +285,6 @@ function doSearch()
                           <td>  <?=$noconformidad->fecha_cierre?></td>
                           <td>  <?=$noconformidad->estatusnombre?></td>
                           <td>  <?=$noconformidad->creador?></td>
-                          <td>  <?=$noconformidad->monto?></td>
                           <td>
                             <button type="button" class="btn btn-primary" value = "<?=$noconformidad->id?>" data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC(this);"><i class="glyphicon glyphicon-edit"></i></button>
                           </td>
