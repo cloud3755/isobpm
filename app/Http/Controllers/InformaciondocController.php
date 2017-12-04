@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection as Collection;
 use App\Models\Typedocuments;
 use App\Models\Documentos;
+use App\Models\Activosdeinf;
 use App\Models\Documentostmp;
 use App\Models\Documentoseliminados;
 use App\Models\User;
@@ -512,6 +513,76 @@ class InformaciondocController extends Controller
     // using this will allow you to do some checks on it (if pdf/docx/doc/xls/xlsx)
 
     return $response;
+  }
+
+
+
+  //Activos de informacion
+
+  public function activosinf()
+  {
+
+    $usuarios = Auth::user();
+    $Activos = \DB::table('activosdeinfs')
+    ->leftjoin('users','activosdeinfs.responsable','=','users.id')
+    ->select('activosdeinfs.*','users.nombre as usernombre')
+    ->where('activosdeinfs.id_compania','=',$usuarios->id_compania)
+    ->get();
+
+    $Users = new User;
+    $User = $Users->where('id_compania',$usuarios->id_compania)->where('perfil','>=',3)->get();
+
+    return view('/Principales/Activos',compact('usuarios','Activos','User'));
+  }
+
+  public function editActivo($id){
+
+    $Activo = Activosdeinf::find($id);
+    return response()->json(
+      $Activo->toArray()
+    );
+  }
+
+  public function activosdestroy($id)
+  {
+    $usuarios = Auth::user();
+    $activos = Activosdeinf::findorfail($id);
+
+    $activos-> delete();
+
+    return redirect('activosinf');
+
+  }
+
+  public function activosstore(Request $request)
+  {
+    $usuarios = Auth::user();
+    $Activos = new Activosdeinf;
+
+    $Activos->nombre = $request->input('nombre');
+    $Activos->descripcion = $request->input('descripcion');
+    $Activos->responsable = $request->input('nresponsable');
+    $Activos->id_creador = $usuarios->id;
+    $Activos->id_compania = $usuarios->id_compania;
+
+    $Activos->save();
+
+    return redirect('activosinf');
+  }
+
+  public function editactivos($id,Request $request)
+  {
+    $usuarios = Auth::user();
+    $Activos = Activosdeinf::findorfail($id);
+    $Activos->nombre = $request->input('enombre');
+    $Activos->descripcion = $request->input('edescripcion');
+    $Activos->responsable = $request->input('eresponsable');
+
+    $Activos->save();
+
+    return response()->json([
+      'mensaje' => "listo"
+    ]);
   }
 
 }

@@ -90,8 +90,9 @@ Route::group( ['middleware' => 'auth'],
 		Route::get('/procesos/visual','ProcesosControllerVisual@create');
 		Route::get('/procesos/create','ProcesosController@create');
 		Route::post('/procesos/store','ProcesosController@store');
-		Route::post('/procesos/edit/{id}','ProcesosController@show');
 		Route::post('/procesos/edit/{id}','ProcesosController@edit');
+		Route::post('/procesos/edit2/{id}','ProcesosController@edit2');
+		Route::post('/procesos/edit3/{id}','ProcesosController@edit3');
 		Route::post('/procesos/delete/{id}','ProcesosController@destroy');
 		Route::get('/procesos/visual/{id}','ProcesosControllerVisual@visualzip');
     Route::get('/procesos/registro/{id}','ProcesosControllerVisual@show');
@@ -367,6 +368,18 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/administrados/noticiastore', function(){
       return redirect('/Bienvenida');
     });
+
+		Route::get('/activosinf', 'InformaciondocController@activosinf');
+    Route::get('/activos/{id}/edit', 'InformaciondocController@editActivo');
+    Route::delete('/activos/destroy/{id}', 'InformaciondocController@activosdestroy');
+    Route::post('/activos/store', 'InformaciondocController@activosstore');
+    Route::post('/activos/edit/{id}', 'InformaciondocController@editactivos');
+
+    Route::post('/sipoc/store', 'ProcesosController@sipocstore');
+    Route::get('/sipoc/{id}/edit', 'ProcesosController@editsipoc');
+    Route::post('/sipoc/edit/{id}', 'ProcesosController@sipocedit');
+    Route::delete('/sipoc/destroy/{id}', 'ProcesosController@sipocdestroy');
+
     }
 );
 

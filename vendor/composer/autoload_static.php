@@ -329,6 +329,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateAbcriesgosTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_10_033635_create_abcriesgos_table.php',
         'CreateAccesosindicadoresTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220929_create_accesosindicadores_table.php',
         'CreateAccioncorrectiva1sTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_31_180435_create_accioncorrectiva1s_table.php',
+        'CreateActivosdeinfsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_02_001641_create_activosdeinfs_table.php',
         'CreateAnalisisriesgosTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_195118_create_analisisriesgos_table.php',
         'CreateAreasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_010410_create_areas_table.php',
         'CreateClientesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_07_222913_create_clientes_table.php',
@@ -344,8 +345,12 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateIndicadoresTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220728_create_indicadores_table.php',
         'CreateInformacionAccesosTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_16_051539_create_informacion_accesos_table.php',
         'CreateLinksInteresTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_21_004727_create_links_interes_table.php',
+        'CreateListaActivosProcesosTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_02_001621_create_lista_activos_procesos_table.php',
+        'CreateListaDocumentosProcesosTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_01_235811_create_lista_documentos_procesos_table.php',
         'CreateListaEventosTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_020825_create_lista_eventos_table.php',
+        'CreateListaInsumosProcesosTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_01_233626_create_lista_insumos_procesos_table.php',
         'CreateListaNoticiasTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_020735_create_lista_noticias_table.php',
+        'CreateListaPuestosProcesosTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_01_202250_create_lista_puestos_procesos_table.php',
         'CreateLogicasTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_27_001308_create_logicas_table.php',
         'CreateMejoraetapasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_09_005828_create_mejoraetapas_table.php',
         'CreateMejorasTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_09_000915_create_mejoras_table.php',
@@ -361,6 +366,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'CreateProductosTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_07_040703_create_productos_table.php',
         'CreateQuejasTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_215148_create_quejas_table.php',
         'CreateResultadosTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_26_220947_create_resultados_table.php',
+        'CreateSipocsTable' => __DIR__ . '/../..' . '/database/migrations/2017_12_04_172846_create_sipocs_table.php',
         'CreateStatusesTable' => __DIR__ . '/../..' . '/database/migrations/2017_04_08_023704_create_statuses_table.php',
         'CreateTipoObjetivosTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_27_000622_create_tipo_objetivos_table.php',
         'CreateTipoProcesos' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_183519_create_tipo_procesos.php',
@@ -910,6 +916,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'insumoscalificados' => __DIR__ . '/../..' . '/database/migrations/2017_08_18_180027_insumoscalificados.php',
         'objetivosTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'proveedorcalifica' => __DIR__ . '/../..' . '/database/migrations/2017_08_13_061714_proveedorcalifica.php',
+        'puestoseed' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

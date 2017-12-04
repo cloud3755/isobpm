@@ -23,10 +23,27 @@ class CreateProcesosTable extends Migration
             $table->string('detalle_de_rev',255);
             $table->string('archivo_html',100);
             $table->string('indicadores',50);
+            $table->string('puestos',50);
+            $table->string('insumos',50);
+            $table->string('documento',50);
+            $table->string('activo',50);
             $table->string('lista_de_distribucion',50);
             $table->string('nombreunicoarchivo',100);
             $table->integer('idcompañia')->unsigned();
             $table->integer('creador_id');
+            $table->string('Takt')->nullable();
+            $table->string('Yield')->nullable();
+            $table->string('RTY')->nullable();
+            $table->string('DPMO')->nullable();
+            $table->string('Sigma')->nullable();
+            $table->string('Persona')->nullable();
+            $table->string('Maquina')->nullable();
+            $table->string('dinero')->nullable();
+            $table->string('SLA1')->nullable();
+            $table->string('SLA2')->nullable();
+            $table->string('SLA3')->nullable();
+            $table->string('Mes')->nullable();
+            $table->integer('tipoarchivo')->nullable();
             $table->timestamps(); // created at and updated at
         });
     }

@@ -121,12 +121,6 @@
     <div id="wrapper">
         <nav class="navbar navbar-inverse " role="navigation">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="/bienvenida">
                   <font color="white">Inicio</font>
                     <img src=" /img/marca-blanca.png" style="width: 35px; height: 35px; float: left; margin-right:5px" />
@@ -314,6 +308,18 @@
 
             </div>
 
+        </li>
+        <li>
+            <div class="bigdiv">
+
+                <center>
+                    <a  href="/activosinf">
+                      <img class="imagesOfficeBar" src="/img/navBar office style images/personal.png"/>
+                    <br>
+                    Activos de informacion</a>
+                </center>
+
+            </div>
         </li>
     </ul>
 </div>

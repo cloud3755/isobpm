@@ -8,6 +8,7 @@ use App\Models\Indicadores;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Proceso;
+use App\Models\puestos;
 use App\Models\User;
 use App\Models\tipoproceso;
 use App\Models\Analisisriesgos;
@@ -136,12 +137,12 @@ class ProcesosControllerVisual extends Controller
         //$rutacompleta = "public/storage/$archivoabrir";
         $zipper = new Zipper();
         $zipper->make($rutacompleta)->folder('')->extractTo('storage/bizagi');
-
+        $rutaalindex = "";
         foreach ($zipper->listFiles() as $lista):
           if ((stripos($lista,"index.html") !== false))
           {
             $rutaalindex = $lista;
-            // $rutaalindex2 = $lista;
+             $rutaalindex2 = 'si es';
           }
         endforeach;
 
@@ -152,6 +153,10 @@ class ProcesosControllerVisual extends Controller
 
       $indicator = $proceso['indicadores'];
       $lista = $proceso['lista_de_distribucion'];
+      $puestolist = $proceso['puestos'];
+      $Insumoslist = $proceso['insumos'];
+      $Documentoslist = $proceso['documento'];
+      $Activoslist = $proceso['activo'];
 
       $procesos = new Proceso;
       $proceso = $procesos->where('id',$id)->get();
@@ -225,9 +230,109 @@ class ProcesosControllerVisual extends Controller
                        //->where('lista_indicadores_procesos.id_proceso',$indicator)
                        ->get();
 
-    //  return(dd($indicador));
 
-       return View('/Secundarias/ProcesosMostrar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex'));
+    $Puestorelacion = \DB::table('lista_puestos_procesos')
+                     ->select('lista_puestos_procesos.id_proceso','puestos.*')
+                     ->join('puestos','puestos.id', '=', 'lista_puestos_procesos.id_puesto')
+                     ->where('lista_puestos_procesos.id_proceso',$puestolist)
+                     ->get();
+
+     //return(dd($listaenvio));
+
+     $Puesto = \DB::table('puestos')
+                     ->select('lista_puestos_procesos.id_proceso','puestos.*')
+                     ->leftJoin('lista_puestos_procesos', function($join) use ($puestolist)
+                       {
+                           $join->on('puestos.id', '=', 'lista_puestos_procesos.id_puesto');
+                           $join->on(function($query) use ($puestolist)
+                           {
+                             $query->on('lista_puestos_procesos.id_proceso', '=', DB::raw("'".$puestolist."'"));
+                           });
+                       })
+                     ->where('id_compania',$usuario->id_compania)
+                     ->whereNull('id_proceso')
+                     //->where('lista_envios.id_proceso',$lista)
+                     ->get();
+
+
+    $Insumosrelacion = \DB::table('lista_insumos_procesos')
+                     ->select('lista_insumos_procesos.id_proceso','insumos.*')
+                     ->join('insumos','insumos.id', '=', 'lista_insumos_procesos.id_insumo')
+                     ->where('lista_insumos_procesos.id_proceso',$Insumoslist)
+                     ->get();
+
+     //return(dd($listaenvio));
+
+
+     $Insumos = \DB::table('insumos')
+                     ->select('lista_insumos_procesos.id_proceso','insumos.*')
+                     ->leftJoin('lista_insumos_procesos', function($join) use ($Insumoslist)
+                       {
+                           $join->on('insumos.id', '=', 'lista_insumos_procesos.id_insumo');
+                           $join->on(function($query) use ($Insumoslist)
+                           {
+                             $query->on('lista_insumos_procesos.id_proceso', '=', DB::raw("'".$Insumoslist."'"));
+                           });
+                       })
+                     ->where('idcompañia',$usuario->id_compania)
+                     ->whereNull('id_proceso')
+                     //->where('lista_envios.id_proceso',$lista)
+                     ->get();
+//return(dd($Insumos));
+
+$Documentosrelacion = \DB::table('lista_documentos_procesos')
+                 ->select('lista_documentos_procesos.id_proceso','documentos.*')
+                 ->join('documentos','documentos.id', '=', 'lista_documentos_procesos.id_documento')
+                 ->where('lista_documentos_procesos.id_proceso',$Documentoslist)
+                 ->get();
+
+ //return(dd($listaenvio));
+
+ $Documentos = \DB::table('documentos')
+                 ->select('lista_documentos_procesos.id_proceso','documentos.*')
+                 ->leftJoin('lista_documentos_procesos', function($join) use ($Documentoslist)
+                   {
+                       $join->on('documentos.id', '=', 'lista_documentos_procesos.id_documento');
+                       $join->on(function($query) use ($Documentoslist)
+                       {
+                         $query->on('lista_documentos_procesos.id_proceso', '=', DB::raw("'".$Documentoslist."'"));
+                       });
+                   })
+                 ->where('id_compania',$usuario->id_compania)
+                 ->whereNull('id_proceso')
+                 //->where('lista_envios.id_proceso',$lista)
+                 ->get();
+
+$Activosrelacion = \DB::table('lista_activos_procesos')
+                 ->select('lista_activos_procesos.id_proceso','activosdeinfs.*')
+                 ->join('activosdeinfs','activosdeinfs.id', '=', 'lista_activos_procesos.id_activo')
+                 ->where('lista_activos_procesos.id_proceso',$Activoslist)
+                 ->get();
+
+
+
+ $Activos = \DB::table('activosdeinfs')
+                 ->select('lista_activos_procesos.id_proceso','activosdeinfs.*')
+                 ->leftJoin('lista_activos_procesos', function($join) use ($Activoslist)
+                   {
+                       $join->on('activosdeinfs.id', '=', 'lista_activos_procesos.id_activo');
+                       $join->on(function($query) use ($Activoslist)
+                       {
+                         $query->on('lista_activos_procesos.id_proceso', '=', DB::raw("'".$Activoslist."'"));
+                       });
+                   })
+                 ->where('id_compania',$usuario->id_compania)
+                 ->whereNull('id_proceso')
+                 //->where('lista_envios.id_proceso',$lista)
+                 ->get();
+
+       $sipoc = \DB::table('sipocs')
+                      ->where('id_proceso','=',$id)
+                      ->get();
+
+
+
+       return View('/Secundarias/ProcesosMostrar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex','archivoabrir','rutacompleta','rutaalindex2','Puesto','Puestorelacion','Insumos','Documentos','Activos','Insumosrelacion','Documentosrelacion','Activosrelacion','sipoc'));
     }
 
     /**

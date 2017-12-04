@@ -12,6 +12,11 @@ use App\Models\tipoproceso;
 use App\Models\Indicadores;
 use App\Models\lista_envio;
 use App\Models\lista_indicadores_proceso;
+use App\Models\lista_puestos_procesos;
+use App\Models\lista_insumos_procesos;
+use App\Models\lista_documentos_procesos;
+use App\Models\lista_activos_procesos;
+use App\Models\Sipoc;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Auth;
@@ -163,24 +168,19 @@ for ($i=0;$i<count($envio);$i++)
 
 
 
-    public function show($id)
-    {
-        //
-    }
-
-
 
     public function edit($id,Request $request)
     {
         // para editar registro
         $proceso = Proceso::findOrFail($id);
-
         $proceso->tipo = $request->input('tipo');
         $proceso->proceso = $request->input('proceso');
         $proceso->descripcion = $request->input('descripcion');
         $proceso->usuario_responsable_id = $request->input('usuario_responsable_id');
         $proceso->rev = $request->input('rev');
         $proceso->detalle_de_rev = $request->input('detalle_de_rev');
+        $proceso->tipoarchivo = $request->input('tipoarchivo');
+
         //obtenemos el campo file definido en el formulario
         $file = $request->file('file');
         if  ($file != null)
@@ -202,16 +202,21 @@ for ($i=0;$i<count($envio);$i++)
           $nombre = $file->getClientOriginalName();
           \Storage::disk('local')->put($nombreunicoarchivo,  \File::get($file));
         }
+        $proceso->save();
+    }
+
+    public function edit2($id,Request $request)
+    {
+        // para editar registro
+        $proceso = Proceso::findOrFail($id);
+
         $paraindicador = $proceso->indicadores;
         //obtenemos un id para relacionar la lista de envio
         $paralista = $proceso->lista_de_distribucion;
 
-        $proceso->save();
-
         //    borramos lista de envio
 
         DB::table('lista_envios')->where('id_proceso',$paralista)->delete();
-
 
         //    guardamos la nueva lista de envio
         $envio=$request->input('lista_de_distribucion'); //$_POST["lista_de_distribucion"];
@@ -222,6 +227,7 @@ for ($i=0;$i<count($envio);$i++)
           $lista->id_proceso = $paralista;
           $lista->save();
         }
+
 
         DB::table('lista_indicadores_procesos')->where('id_proceso',$paraindicador)->delete();
 
@@ -235,10 +241,88 @@ for ($i=0;$i<count($envio);$i++)
           $ind ->save();
         }
 
-        return Redirect('/procesos/visual');
+        $parapuestos = $proceso->puestos;
+        DB::table('lista_puestos_procesos')->where('id_proceso',$parapuestos)->delete();
 
-        //return('proxiamente edicion $id');
+        $proceso->puestos = uniqid('pue_');
+        $parapuestos = $proceso->puestos;
+        //    guardamos lista de indicadores
+        $indi=$request->input('Puestos'); //$_POST["lista_de_distribucion"];
+        for ($i=0;$i<count($indi);$i++)
+        {
+          $ind = new lista_puestos_procesos;
+          $ind ->id_puesto = $indi[$i];
+          $ind ->id_proceso = $parapuestos;
+          $ind ->save();
+        }
 
+        $parainsumos = $proceso->insumos;
+        DB::table('lista_insumos_procesos')->where('id_proceso',$parainsumos)->delete();
+
+        $proceso->insumos = uniqid('insu_');
+        $parainsumos = $proceso->insumos;
+        //    guardamos lista de indicadores
+        $indi=$request->input('Insumos'); //$_POST["lista_de_distribucion"];
+        for ($i=0;$i<count($indi);$i++)
+        {
+          $ind = new lista_insumos_procesos;
+          $ind ->id_insumo = $indi[$i];
+          $ind ->id_proceso = $parainsumos;
+          $ind ->save();
+        }
+
+        $paradocumento = $proceso->documento;
+        DB::table('lista_documentos_procesos')->where('id_proceso',$paradocumento)->delete();
+
+        $proceso->documento = uniqid('doc_');
+        $paradocumento = $proceso->documento;
+        //    guardamos lista de indicadores
+        $indi=$request->input('Doculist'); //$_POST["lista_de_distribucion"];
+        for ($i=0;$i<count($indi);$i++)
+        {
+          $ind = new lista_documentos_procesos;
+          $ind ->id_documento = $indi[$i];
+          $ind ->id_proceso = $paradocumento;
+          $ind ->save();
+        }
+
+        $paraactivo = $proceso->activo;
+        DB::table('lista_activos_procesos')->where('id_proceso',$paraactivo)->delete();
+
+        $proceso->activo = uniqid('act_');
+        $paraactivo = $proceso->activo;
+        //    guardamos lista de indicadores
+        $indi=$request->input('Activos'); //$_POST["lista_de_distribucion"];
+        for ($i=0;$i<count($indi);$i++)
+        {
+          $ind = new lista_activos_procesos;
+          $ind ->id_activo = $indi[$i];
+          $ind ->id_proceso = $paraactivo;
+          $ind ->save();
+        }
+
+        $proceso->save();
+
+    }
+
+    public function edit3($id,Request $request)
+    {
+        // para editar registro
+        $proceso = Proceso::findOrFail($id);
+        $proceso->Takt = $request->input('Takt');
+        $proceso->Yield = $request->input('Yield');
+        $proceso->RTY = $request->input('RTY');
+        $proceso->DPMO = $request->input('DPMO');
+        $proceso->Sigma = $request->input('Sigma');
+        $proceso->Persona = $request->input('Persona');
+        $proceso->Maquina = $request->input('Maquina');
+        $proceso->dinero = $request->input('dinero');
+        $proceso->SLA1 = $request->input('SLA1');
+        $proceso->SLA2 = $request->input('SLA2');
+        $proceso->SLA3 = $request->input('SLA3');
+        $proceso->Mes = $request->input('Mes');
+
+        $proceso->save();
     }
 
 
@@ -270,4 +354,57 @@ for ($i=0;$i<count($envio);$i++)
       return Redirect('/procesos/visual');
       //  return dd($rutacompleta);
     }
+
+
+      public function editsipoc($id){
+
+        $Sipoc = Sipoc::find($id);
+        return response()->json(
+          $Sipoc->toArray()
+        );
+      }
+
+      public function sipocdestroy($id)
+      {
+        $usuarios = Auth::user();
+        $Sipoc = Sipoc::findorfail($id);
+        $Sipoc-> delete();
+
+      }
+
+      public function sipocstore(Request $request)
+      {
+        $usuarios = Auth::user();
+        $Sipoc = new Sipoc;
+
+        $Sipoc->S = $request->input('S');
+        $Sipoc->I = $request->input('I');
+        $Sipoc->P = $request->input('P');
+        $Sipoc->O = $request->input('O');
+        $Sipoc->C = $request->input('C');
+        $Sipoc->id_proceso = $request->input('porceso_id');
+
+        $Sipoc->save();
+
+        return redirect()->action('ProcesosControllerVisual@show', [$request->input('porceso_id')]);
+      }
+
+      public function sipocedit($id,Request $request)
+      {
+        $usuarios = Auth::user();
+        $Sipoc = Sipoc::findorfail($id);
+        $Sipoc->S = $request->input('eS');
+        $Sipoc->I = $request->input('eI');
+        $Sipoc->P = $request->input('eP');
+        $Sipoc->O = $request->input('eO');
+        $Sipoc->C = $request->input('eC');
+
+        $Sipoc->save();
+
+        return response()->json([
+          'mensaje' => "listo"
+        ]);
+      }
+
+
 }
