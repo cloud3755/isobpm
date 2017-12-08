@@ -309,7 +309,18 @@ for ($i=0;$i<count($envio);$i++)
     {
         // para editar registro
         $proceso = Proceso::findOrFail($id);
+
+        $proceso->demandamen = $request->input('demandamen');
+        $proceso->diasmes = $request->input('diasmes');
+        $proceso->turnosdia = $request->input('turnosdia');
+        $proceso->turnoshora = $request->input('turnoshora');
+        $proceso->horades = $request->input('horades');
+        $proceso->Tiemposeg = $request->input('Tiemposeg');
+        $proceso->Tiempomin = $request->input('Tiempomin');
         $proceso->Takt = $request->input('Takt');
+        $proceso->taktseg = $request->input('taktseg');
+
+
         $proceso->Yield = $request->input('Yield');
         $proceso->RTY = $request->input('RTY');
         $proceso->DPMO = $request->input('DPMO');

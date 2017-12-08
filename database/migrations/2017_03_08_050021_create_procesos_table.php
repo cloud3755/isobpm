@@ -43,6 +43,14 @@ class CreateProcesosTable extends Migration
             $table->string('SLA2')->nullable();
             $table->string('SLA3')->nullable();
             $table->string('Mes')->nullable();
+            $table->string('demandamen')->nullable();
+            $table->string('diasmes')->nullable();
+            $table->string('turnosdia')->nullable();
+            $table->string('turnoshora')->nullable();
+            $table->string('horades')->nullable();
+            $table->string('Tiemposeg')->nullable();
+            $table->string('Tiempomin')->nullable();
+            $table->string('taktseg')->nullable();
             $table->integer('tipoarchivo')->nullable();
             $table->timestamps(); // created at and updated at
         });

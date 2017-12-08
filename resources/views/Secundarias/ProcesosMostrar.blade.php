@@ -18,6 +18,11 @@
 .glyphicon {
     font-size: 150%;
 }
+.labeltask {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}​
 .fa {
     font-size: 160%;
 }
@@ -226,6 +231,7 @@
                       <div id="bitacora">
                         <div class="row">
                           <form id="fileinfo2" method="post">
+                            <font size=2em>
                           <div class="container">
                             <div class="col-md-6 col-sm-6 col-lg-4">
                               <h2><label for="Usuario" >Indicadores:</label></h2>
@@ -574,6 +580,7 @@
                                 </div>
 
                           </div>
+                          </font>
                           </form>
                         </div>
                       </div>
@@ -584,83 +591,122 @@
                       <div class="container">
                         <form id="fileinfo3" method="post">
                         <div class="row">
-
-                        <div class="col-md-12">
-                          <label for="">Takt Time:</label>
-                          <input type="text" name="Takt" id="Takt" value="<?=$procesos['Takt']?>">
-                          <button type="button" name="calcular" style="background: #FF9966; border-radius: 5px;">Calcular</button>
-                        </div>
-                        <div class="col-md-12">
-
-                        </div>
-                      </div>
-
-                        <div class="container" style="margin-top:40px;">
-                            <div class="col-md-6 col-sm-6">
-                              <h3>Nivel de calidad</h3>
-
-                              <div class="col-md-12">
-                                <label for="">Yield:</label>
-                                <input type="text" name="Yield" id="Yield" value="<?=$procesos['Yield']?>">
-                              </div>
-                              <div class="col-md-12">
-                                <label for="">RTY:</label>
-                                <input type="text" name="RTY" id="RTY" value="<?=$procesos['RTY']?>">
-                              </div>
-                              <div class="col-md-12">
-                                <label for="">DPMO's:</label>
-                                <input type="text" name="DPMO" id="DPMO" value="<?=$procesos['DPMO']?>">
-                              </div>
-                              <div class="col-md-12">
-                                <label for="">Nivel Sigma:</label>
-                                <input type="text" name="Sigma" id="Sigma" value="<?=$procesos['Sigma']?>">
-                              </div>
-                            </div>
-
-                            <div class="col-md-6 col-sm-6">
-                              <h3>Productividad</h3>
-                              <div class="col-md-12">
-                                <label for="">#/Persona:</label>
-                                <input type="text" name="Persona" id="Persona" value="<?=$procesos['Persona']?>">
-                              </div>
-                              <div class="col-md-12">
-                                <label for="">#/Maquina:</label>
-                                <input type="text" name="Maquina" id="Maquina" value="<?=$procesos['Maquina']?>">
-                              </div>
-                              <div class="col-md-12">
-                                <label for="">$/#:</label>
-                                <input type="text" name="dinero" id="dinero" value="<?=$procesos['dinero']?>">
-                              </div>
-                            </div>
-
-
-                        </div>
-                        <div class="container" style="margin-top:40px;">
-
-                          <div class="col-md-6 col-sm-6">
-                            <h3>Niveles de Servicio:</h3>
+                          <div class="col-md-4 col-sm-4 col-xs-4">
+                            <div class="container" style="margin-top:40px;">
+                            <h3>Takt Time</h3>
                             <div class="col-md-12">
-                              <label for="">SLA1:</label>
-                              <input type="text" name="SLA1" id="SLA1" value="<?=$procesos['SLA1']?>">
+                              <label for="" class="labeltask">Demanda mensual:</label>
+                              <input type="number" name="demandamen" id="demandamen" value="<?=$procesos['demandamen']?>">
                             </div>
                             <div class="col-md-12">
-                              <label for="">SLA2:</label>
-                              <input type="text" name="SLA2" id="SLA2" value="<?=$procesos['SLA2']?>">
+                              <label for="" class="labeltask">Días lab al mes:</label>
+                              <input type="number" name="diasmes" id="diasmes" value="<?=$procesos['diasmes']?>">
                             </div>
                             <div class="col-md-12">
-                              <label for="">SLA3:</label>
-                              <input type="text" name="SLA3" id="SLA3" value="<?=$procesos['SLA3']?>">
+                              <label for="" class="labeltask">Turnos al día:</label>
+                              <input type="number" name="turnosdia" id="turnosdia" value="<?=$procesos['turnosdia']?>">
+                            </div>
+                            <div class="col-md-12">
+                              <label for="" class="labeltask">Horas por turno:</label>
+                              <input type="number" name="turnoshora" id="turnoshora" value="<?=$procesos['turnoshora']?>">
+                            </div>
+                            <div class="col-md-12">
+                              <label for="" class="labeltask">Horas descanso:</label>
+                              <input type="number" name="horades" id="horades" value="<?=$procesos['horades']?>">
+                            </div>
+                            <div class="col-md-12">
+                              <br>
+                              <br>
+                            </div>
+                              <div class="col-md-12">
+                                <label for="" class="labeltask">Tiempo Disp seg:</label>
+                                <input readonly style="background: #58ACFA; color: white;" type="text" name="Tiemposeg" id="Tiemposeg" value="<?=$procesos['Tiemposeg']?>">
+                              </div>
+                              <div class="col-md-12">
+                                <label for="" class="labeltask">Tiempo Disp min:</label>
+                                <input style="background: #58ACFA; color: white;" type="text" name="Tiempomin" id="Tiempomin" value="<?=$procesos['Tiempomin']?>">
+                              </div>
+                              <div class="col-md-12">
+                                <label for="" class="labeltask">Takt Time min:</label>
+                                <input style="background: #58ACFA; color: white;" type="text" name="Takt" id="Takt" value="<?=$procesos['Takt']?>">
+                              </div>
+                              <div class="col-md-12">
+                                <label for="" class="labeltask">Takt Time seg:</label>
+                                <input style="background: #58ACFA; color: white;" type="text" name="taktseg" id="taktseg" value="<?=$procesos['taktseg']?>">
+                              </div>
+                              <div class="col-md-12" style="float: right;">
+                                <button onclick="calcular2()" type="button" name="calcular" style="background: #FF9966; border-radius: 5px;">Calcular</button>
+                              </div>
                             </div>
                           </div>
+                          <div class="col-xs-8 col-md-8 col-sm-8">
+                            <div class="container" style="margin-top:40px;">
+                                <div class="col-md-4 col-sm-4">
+                                  <h3>Nivel de calidad</h3>
 
-                          <div class="col-md-6 col-sm-6">
-                            <h3>Capacidad del proceso</h3>
-                            <div class="col-md-12">
-                              <label for="">#/Mes:</label>
-                              <input type="text" name="Mes" id="Mes" value="<?=$procesos['Mes']?>">
+                                  <div class="col-md-12">
+                                    <label for="" class="labeltask">Yield:</label>
+                                    <input type="text" name="Yield" id="Yield" value="<?=$procesos['Yield']?>">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label for="" class="labeltask">RTY:</label>
+                                    <input type="text" name="RTY" id="RTY" value="<?=$procesos['RTY']?>">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label for="" class="labeltask">DPMO's:</label>
+                                    <input type="text" name="DPMO" id="DPMO" value="<?=$procesos['DPMO']?>">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label for="" class="labeltask">Nivel Sigma:</label>
+                                    <input type="text" name="Sigma" id="Sigma" value="<?=$procesos['Sigma']?>">
+                                  </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4">
+                                  <h3>Productividad</h3>
+                                  <div class="col-md-12">
+                                    <label for="" class="labeltask">#/Persona:</label>
+                                    <input type="text" name="Persona" id="Persona" value="<?=$procesos['Persona']?>">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label for="" class="labeltask">#/Maquina:</label>
+                                    <input type="text" name="Maquina" id="Maquina" value="<?=$procesos['Maquina']?>">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label for="" class="labeltask">$/#:</label>
+                                    <input type="text" name="dinero" id="dinero" value="<?=$procesos['dinero']?>">
+                                  </div>
+                                </div>
+
+
+                            </div>
+                            <div class="container" style="margin-top:40px;">
+                              <div class="col-md-4 col-sm-4">
+                                <h3>Niveles de Servicio:</h3>
+                                <div class="col-md-12">
+                                  <label for="" class="labeltask">SLA1:</label>
+                                  <input type="text" name="SLA1" id="SLA1" value="<?=$procesos['SLA1']?>">
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="" class="labeltask">SLA2:</label>
+                                  <input type="text" name="SLA2" id="SLA2" value="<?=$procesos['SLA2']?>">
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="" class="labeltask">SLA3:</label>
+                                  <input type="text" name="SLA3" id="SLA3" value="<?=$procesos['SLA3']?>">
+                                </div>
+                              </div>
+
+                              <div class="col-md-4 col-sm-4">
+                                <h3>Capacidad del proceso</h3>
+                                <div class="col-md-12">
+                                  <label for="" class="labeltask">#/Mes:</label>
+                                  <input type="text" name="Mes" id="Mes" value="<?=$procesos['Mes']?>">
+                                </div>
+                              </div>
+
                             </div>
                           </div>
-
                         </div>
                       </form>
                     </div>
@@ -805,6 +851,26 @@
 
 <script type="text/javascript">
 
+
+function calcular2(){
+  var demandamen = document.getElementById("demandamen").value;
+  var diasmes = document.getElementById("diasmes").value;
+  var turnosdia = document.getElementById("turnosdia").value;
+  var turnoshora = document.getElementById("turnoshora").value;
+  var horades = document.getElementById("horades").value;
+
+  var dispmin = (((turnoshora - horades)*turnosdia)*diasmes)*60;
+  var dispseg = (((turnoshora - horades)*turnosdia)*diasmes)*3600;
+  var taktseg = dispseg/demandamen;
+  var taktmin = taktseg/diasmes;
+
+  $("#Tiemposeg").val(dispmin);
+  $("#Tiempomin").val(dispseg);
+  $("#Takt").val(taktmin);
+  $("#taktseg").val(taktseg);
+
+}
+
 //Funcion para el edit
 
 function Editar(btn){
@@ -909,12 +975,12 @@ function destroysipoc(){
   var value = $("#eid").val();
   if(confirm('Estas seguro de querer borrar el registro '+value+'?')){
     var route = "/sipoc/destroy/"+value+"";
-    var token = $("#token").val();
+
 
     $.ajax({
         url: route,
-        headers: {'X-CSRF_TOKEN': token},
-        type: 'DELETE',
+        headers: {'X-CSRF-Token': $('meta[name="_token"]').attr('content')},
+        type: 'delete',
         success: function(result) {
           alert("Cambios guardados correctamente");
           location.reload();
