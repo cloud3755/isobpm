@@ -314,7 +314,7 @@
 
                 <center>
                     <a  href="/activosinf">
-                      <img class="imagesOfficeBar" src="/img/navBar office style images/personal.png"/>
+                      <img class="imagesOfficeBar" src="/img/navBar office style images/Activos de Informacion.jpg"/>
                     <br>
                     Activos de informacion</a>
                 </center>

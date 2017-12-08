@@ -624,15 +624,15 @@
                               </div>
                               <div class="col-md-12">
                                 <label for="" class="labeltask">Tiempo Disp min:</label>
-                                <input style="background: #58ACFA; color: white;" type="text" name="Tiempomin" id="Tiempomin" value="<?=$procesos['Tiempomin']?>">
+                                <input readonly style="background: #58ACFA; color: white;" type="text" name="Tiempomin" id="Tiempomin" value="<?=$procesos['Tiempomin']?>">
                               </div>
                               <div class="col-md-12">
                                 <label for="" class="labeltask">Takt Time min:</label>
-                                <input style="background: #58ACFA; color: white;" type="text" name="Takt" id="Takt" value="<?=$procesos['Takt']?>">
+                                <input readonly style="background: #58ACFA; color: white;" type="text" name="Takt" id="Takt" value="<?=$procesos['Takt']?>">
                               </div>
                               <div class="col-md-12">
                                 <label for="" class="labeltask">Takt Time seg:</label>
-                                <input style="background: #58ACFA; color: white;" type="text" name="taktseg" id="taktseg" value="<?=$procesos['taktseg']?>">
+                                <input readonly style="background: #58ACFA; color: white;" type="text" name="taktseg" id="taktseg" value="<?=$procesos['taktseg']?>">
                               </div>
                               <div class="col-md-12" style="float: right;">
                                 <button onclick="calcular2()" type="button" name="calcular" style="background: #FF9966; border-radius: 5px;">Calcular</button>
