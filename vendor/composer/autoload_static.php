@@ -864,6 +864,7 @@ class ComposerStaticInit2dbc6ded330d5687a34db5cd8410c260
         'Perfilpuesto' => __DIR__ . '/../..' . '/database/migrations/2017_09_25_184258_perfilpuesto.php',
         'Provedorinsumo' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
         'Proveedores' => __DIR__ . '/../..' . '/database/migrations/2017_08_07_214700_proveedores.php',
+        'Proyecto' => __DIR__ . '/../..' . '/database/migrations/2017_12_29_214836_proyecto.php',
         'Puestoindicadores' => __DIR__ . '/../..' . '/database/migrations/2017_09_25_194836_puestoindicadores.php',
         'Puestos' => __DIR__ . '/../..' . '/database/migrations/2017_09_15_173349_puestos.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',

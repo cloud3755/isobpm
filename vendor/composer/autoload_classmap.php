@@ -546,6 +546,7 @@ return array(
     'Perfilpuesto' => $baseDir . '/database/migrations/2017_09_25_184258_perfilpuesto.php',
     'Provedorinsumo' => $baseDir . '/database/migrations/2017_08_08_184452_provedorinsumo.php',
     'Proveedores' => $baseDir . '/database/migrations/2017_08_07_214700_proveedores.php',
+    'Proyecto' => $baseDir . '/database/migrations/2017_12_29_214836_proyecto.php',
     'Puestoindicadores' => $baseDir . '/database/migrations/2017_09_25_194836_puestoindicadores.php',
     'Puestos' => $baseDir . '/database/migrations/2017_09_15_173349_puestos.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',

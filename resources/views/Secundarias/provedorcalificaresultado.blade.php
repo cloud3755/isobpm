@@ -41,7 +41,7 @@
 
 
   <div class="form-group form-group-md col-sm-12">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <h2><label for="proveedor" class="control-label" >(*) Proveedor:</label></h2>
       <select class="form-control" id="proveedor" name="proveedor">
         <option value="0"> Elige proveedor</option>
@@ -51,14 +51,24 @@
       </select>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-4">
     <div id="areas">
     <h2><label for="area" class="control-label" >(*) Area que evalua:</label></h2>
     <select class="form-control" id="area" name="area" required>
 
     </select>
+</div>
+</div>
+
+    <div class="col-sm-4">
+        <div id="proyectos">
+      <h2><label for="proyecto" class="control-label" >Proyecto:</label></h2>
+      <select class="form-control" id="proyecto" name="proyecto">
+
+      </select>
     </div>
-    </div>
+  </div>
+
 
   </div>
 

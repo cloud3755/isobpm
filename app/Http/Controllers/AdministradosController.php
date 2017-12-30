@@ -11,6 +11,7 @@ use App\Models\Productos;
 use App\Models\Clientes;
 use App\Models\User;
 use App\Models\Areas;
+use App\Models\proyecto;
 use App\Models\Empresas;
 use App\Models\Status;
 use App\Models\Plans;
@@ -241,6 +242,7 @@ class AdministradosController extends Controller
         $areas->save();
         return redirect('/areas');
       }
+
 
       //Funciones para las Empresas
       public function empresas()
@@ -863,6 +865,45 @@ class AdministradosController extends Controller
 //      return Redirect('/perfil');
 
       }
+
+
+
+      //Funciones para las proyectos
+
+      public function proyectos()
+      {
+        $Users = Auth::user();
+
+        $proyecto = new proyecto;
+        $proyect = $proyecto->where('id_compania',$Users->id_compania)->get();
+        return view('/Principales/proyectos', compact('proyect'));
+      }
+
+      public function proyectosstore(Request $request)
+      {
+        $usuarios = Auth::user();
+        $proyecto = new proyecto;
+        $proyecto->nombre = $request->input('nombre');
+        $proyecto->id_compania = $usuarios->id_compania;
+        $proyecto->save();
+        return redirect('/proyectos');
+      }
+
+      public function proyectosdestroy($id)
+      {
+        $proyecto = proyecto::findorfail($id);
+        $proyecto-> delete();
+        return Redirect('/proyectos');
+      }
+
+      public function proyectosedit($id,Request $request)
+      {
+        $proyecto = proyecto::findorfail($id);
+        $proyecto->nombre = $request->input('nombre');
+        $proyecto->save();
+        return redirect('/proyectos');
+      }
+
 
 
 }

@@ -116,6 +116,9 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/mejoras', 'MenuController@mejoras');
     Route::get('/admin', 'MenuController@admin');
     Route::get('/infdocumentada', 'MenuController@infdocumentada');
+
+
+
     //Route::get('/Promejoras', 'MenuController@promejoras');
 
     //Rutas Menu informacion documentada
@@ -219,6 +222,14 @@ Route::group( ['middleware' => 'auth'],
     Route::post('areas/edit/{id}', 'AdministradosController@areasedit');
 
 
+    //Proyectos
+    Route::get('proyectos', 'AdministradosController@proyectos');
+    Route::post('proyectos/store', 'AdministradosController@proyectosstore');
+		Route::delete('proyectos/destroy/{id}', 'AdministradosController@proyectosdestroy');
+    Route::post('proyectos/edit/{id}', 'AdministradosController@proyectosedit');
+
+
+
     //Empresas
     Route::get('/perfil','AdministradosController@index');
 
@@ -315,6 +326,8 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/provedores/calificaresultado/', 'provedorcalifica@resultadoindex');
     Route::get('/provedores/califica/insumo/{id}', 'provedorcalifica@llenainsumos');
     Route::get('/provedores/califica/areas/{id}', 'provedorcalifica@llenaareas');
+    Route::get('/provedores/califica/proyectos/{id}', 'provedorcalifica@llenaproyectos');
+
     Route::get('/provedores/califica/delete/{id}', 'provedorcalifica@destroy');
     Route::get('/provedores/resultadogeneral', 'provedorcalifica@showresultgeneral');
     Route::post('/provedores/resultado/filtro', 'provedorcalifica@showresult');

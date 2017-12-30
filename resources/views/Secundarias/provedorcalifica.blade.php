@@ -38,7 +38,7 @@ alert ('{{Session::get('flash_message')}}')
 
 
               <div class="form-group form-group-md col-sm-12">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                   <h2><label for="proveedor" class="control-label" >(*) Proveedor:</label></h2>
                   <select class="form-control" id="proveedor">
                     <option value="0"> Selecciona un proveedor a evaluar</option>
@@ -48,10 +48,21 @@ alert ('{{Session::get('flash_message')}}')
                   </select>
                 </div>
 
-                <div class="col-sm-6">
-                  <h2><label for="fecha" class="control-label" >(*) Fecha de evaluacion:</label></h2>
+                <div class="col-sm-4">
+                  <h2><label for="fecha" class="control-label" >(*)Fecha de evaluacion:</label></h2>
                     <input class="form-control" id="fechacalificacion" type="date" placeholder="Agrega la fecha de calificacion" name="fechacalificacion" value="<?php echo date("Y-m-d");?>" required>
                 </div>
+
+                <div class="col-sm-4">
+                  <h2><label for="proyecto" class="control-label" >Proyecto:</label></h2>
+                  <select class="form-control" id="proyecto" name="proyecto">
+                    <option value="0"> Selecciona el proyecto en el que se evalua</option>
+                    <?php foreach ($proyect as $proyects): ?>
+                      <option value="<?=$proyects->id?>"> <?=$proyects->nombre ?> </option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+
               </div>
 
 <!-- lista de insumos select -->

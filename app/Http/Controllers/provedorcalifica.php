@@ -15,6 +15,7 @@ use App\Models\provedorinsumo;
 use App\Models\User;
 use App\Models\proveedorcalifica;
 use App\Models\Areas;
+use App\Models\proyecto;
 use App\Models\insumoscalificados;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
@@ -40,8 +41,10 @@ class provedorcalifica extends Controller
       $areas = new Areas;
       $area = $areas->where('id_compania',$compañiaid)->orderBy('id')->get();
 
+      $proyecto = new proyecto;
+      $proyect = $proyecto->where('id_compania',$compañiaid)->get();
 
-      return view('/Secundarias/provedorcalifica',compact('proveedor','area'));
+      return view('/Secundarias/provedorcalifica',compact('proveedor','area','proyect'));
     }
 
     /**
@@ -90,7 +93,6 @@ class provedorcalifica extends Controller
     public function store(Request $request)
     {
 
-
       $usuarios = Auth::user();
 
       $compañiaid = $usuarios->id_compania;
@@ -116,8 +118,7 @@ class provedorcalifica extends Controller
       $fecha = $request->input('fechacalificacion');
 
 
-      $idd = DB::table('proveedorcalifica')->insertGetId(
-          [
+      $idd = DB::table('proveedorcalifica')->insertGetId([
            'idproveedor' => $request->input('proveedorid'),
            'pedido' =>  $request->input('pedido'),
            'tiempo' => $request->input('Tiempo'),
@@ -136,7 +137,7 @@ class provedorcalifica extends Controller
            'obscalidad' => $request->input('obscalidad'),
            'obsservicio' => $request->input('obsservicio'),
            'obscosto' => $request->input('obscosto'),
-
+           'proyecto_id' => $request->input('proyecto'),
            ]);
 
 
@@ -195,12 +196,16 @@ class provedorcalifica extends Controller
 //      return(dd($proveedor));
 
 
+$proyecto = new proyecto;
+$proyect = $proyecto->where('id_compania',$compañiaid)->get();
+
+
        $yesterday = Carbon::yesterday();
 
        $tomorrow = Carbon::tomorrow('Europe/London');
 
 
-       return view('/Secundarias/provedorcalificaresultado',compact('proveedor','tomorrow','yesterday'));
+       return view('/Secundarias/provedorcalificaresultado',compact('proveedor','tomorrow','yesterday','proyect'));
      }
 
 
@@ -227,7 +232,7 @@ $array = array(substr($prueba,1,strlen($prueba)));
 
 $t = "t";
 //return(dd($request->area));
-if ($request->area == $t)
+if ($request->area == $t && $request->proyecto == $t)
 {
         $calificacion = DB::table('proveedorcalifica')
                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
@@ -242,7 +247,7 @@ if ($request->area == $t)
                                  ->get();
 
 }
-else
+else if ($request->area != $t && $request->proyecto == $t)
 {
 
          $calificacion = DB::table('proveedorcalifica')
@@ -259,6 +264,45 @@ else
                                   ->get();
 
 }
+
+else if ($request->area == $t && $request->proyecto != $t)
+{
+
+         $calificacion = DB::table('proveedorcalifica')
+                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
+                                  ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
+                                  ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                  ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
+                                  ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                  ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
+                                  ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
+                                  ->where('proveedorcalifica.proyecto_id','=',$request->proyecto)
+                                  ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
+                                  ->orderby('fechacalificacion')
+                                  ->get();
+
+}
+
+else {
+
+           $calificacion = DB::table('proveedorcalifica')
+                                    ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
+                                    ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
+                                    ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                    ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
+                                    ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                    ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
+                                    ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
+                                    ->where('proveedorcalifica.proyecto_id','=',$request->proyecto)
+                                    ->where('proveedorcalifica.idarea','=',$request->area)
+                                    ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
+                                    ->orderby('fechacalificacion')
+                                    ->get();
+}
+
+
+
+
 
 //return(dd($calificacion));
 
@@ -296,9 +340,9 @@ $array = array(substr($prueba,1,strlen($prueba)));
 
 //return(dd($arr));
 
+$t = "t";
 
-
-if ($request->area == 't')
+if ($request->area == $t && $request->proyecto == $t)
 {
         $calificacion = DB::table('proveedorcalifica')
                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
@@ -311,8 +355,9 @@ if ($request->area == 't')
                                  ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
                                  ->orderby('fechacalificacion')
                                  ->get();
+
 }
-else
+else if ($request->area != $t && $request->proyecto == $t)
 {
 
          $calificacion = DB::table('proveedorcalifica')
@@ -327,8 +372,43 @@ else
                                   ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
                                   ->orderby('fechacalificacion')
                                   ->get();
+
 }
 
+else if ($request->area == $t && $request->proyecto != $t)
+{
+
+         $calificacion = DB::table('proveedorcalifica')
+                                  ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
+                                  ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
+                                  ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                  ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
+                                  ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                  ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
+                                  ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
+                                  ->where('proveedorcalifica.proyecto_id','=',$request->proyecto)
+                                  ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
+                                  ->orderby('fechacalificacion')
+                                  ->get();
+
+}
+
+else {
+
+           $calificacion = DB::table('proveedorcalifica')
+                                    ->join('proveedores','proveedores.id','=','proveedorcalifica.idproveedor')
+                                    ->join('insumoscalificados','insumoscalificados.idcalificacion','=','proveedorcalifica.id')
+                                    ->join('insumos','insumoscalificados.idinsumo','=','insumos.id')
+                                    ->select('proveedorcalifica.*','insumoscalificados.idinsumo','proveedores.proveedor','insumos.Producto_o_Servicio')
+                                    ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                                    ->where('proveedorcalifica.idproveedor','=',$request->proveedor)
+                                    ->wherein('insumoscalificados.idinsumo',$array)//$insumoid)
+                                    ->where('proveedorcalifica.proyecto_id','=',$request->proyecto)
+                                    ->where('proveedorcalifica.idarea','=',$request->area)
+                                    ->wherebetween('fechacalificacion', [$request->fech, $request->fecha2])
+                                    ->orderby('fechacalificacion')
+                                    ->get();
+}
 
 //return(dd($calificacion));
 
@@ -399,6 +479,33 @@ else
                                  return response()->json($area);
 
     }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function llenaproyectos($id,Request $request)
+    {
+      // obtiene las areas que han calificado al proveedor este query debe realizarse al elegir proveedor
+      $usuarios = Auth::user();
+      $compañiaid = $usuarios->id_compania;
+
+      $proyecto = DB::table('proveedorcalifica')
+                               ->join('proyectos','proyectos.id','=','proveedorcalifica.proyecto_id')
+                               ->select('proveedorcalifica.proyecto_id','proyectos.nombre')
+                               ->distinct()
+                               ->where('proveedorcalifica.idcompania','=',$compañiaid)
+                               ->where('proveedorcalifica.idproveedor','=',$id)
+                               ->get();
+
+      //return(dd($));
+                                 return response()->json($proyecto);
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.

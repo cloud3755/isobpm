@@ -32,6 +32,7 @@ class proveedorcalifica extends Migration
       $table->string('obscalidad');
       $table->string('obsservicio');
       $table->string('obscosto');
+      $table->integer('proyecto_id');
       $table->timestamps();
     });
     }

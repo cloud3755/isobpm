@@ -33,6 +33,17 @@
         });
 
 
+        var route = "/provedores/califica/proyectos/"+ $('#proveedor').val();
+          $("#proyecto").empty();
+          $("#proyecto").append('<option value="t">Sin proyecto seleccionado</option>');
+          $.get(route, function(res){
+            for (var i = 0; i < res.length; i++) {
+              $("#proyecto").append('<option value="'+res[i].id+'">'+res[i].nombre+'</option>');
+            }
+            console.log(res);
+            });
+
+
 
               });
 
@@ -85,6 +96,7 @@ grafica();
      $('#elistaSeleccionada').empty();
      $('#area').empty();
      $('#areas').hide();
+      $('#proyectos').hide();
      $('#fech').hide();
      $('#fecha2').hide();
      $('#selectinsumos').hide();
@@ -96,6 +108,7 @@ grafica();
 
    function enseñatodo(){
      $('#areas').show();
+     $('#proyectos').show();
      $('#fech').show();
      $('#fecha2').show();
      $('#selectinsumos').show();

@@ -17,6 +17,7 @@
 
 
 
+
   $("#proveedor").change(function() {
     //$('#proveedor').val('0').find('option[value="0"]‌​').remove();
     $("#proveedor option[value='0']").remove();
