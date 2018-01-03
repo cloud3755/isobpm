@@ -91,8 +91,7 @@
     }
 
 </script>
-
-<br><br><br><br>
+<br><br>
 <?php foreach ($proceso as $procesos): ?>
 <?php endforeach ?>
 <div class="row">
@@ -185,7 +184,7 @@
                                   </div>
 
                                   <div class="col-lg-11 col-md-11 col-sm-11">
-
+                                            <div class="table-responsive">
                                                 <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
                                                     <thead style='background-color: #868889; color:#FFF'>
                                                         <tr>
@@ -210,7 +209,7 @@
                                                       <?php endforeach ?>
                                                     </tbody>
                                                 </table>
-
+                                              </div>
                                   </div>
 
                                   <div class="col-lg-1 col-md-1 col-sm-1">
@@ -287,7 +286,7 @@
                                     <p></p>
                                   </div>
                               </div>
-                              <div class="col-md-6 col-sm-6 col-lg-4">
+                              <!--<div class="col-md-6 col-sm-6 col-lg-4">
                                 <h2><label for="Usuario" >Lista de distribucion:</label></h2>
                               <div>
                                    <p>
@@ -300,9 +299,6 @@
                                            <tr>
                                                <td>
                                                    <select multiple name="elistaUsuariosDisponibles[]"  id="elistaUsuariosDisponibles" size="7" style="width: 100%;" onclick="agregaSeleccion('elistaUsuariosDisponibles', 'lista_de_distribucion');">
-                                                     <?php foreach ($Users as $user1): ?>
-                                                       <option value="<?=$user1->id?>"> <?=$user1->nombre ?> </option>
-                                                     <?php endforeach ?>
 
                                                    </select>
 
@@ -333,9 +329,7 @@
 
                                            <td>
                                                <select multiple name="lista_de_distribucion[]" id="lista_de_distribucion"  size="7" style="width: 100%;" onclick="agregaSeleccion('lista_de_distribucion', 'elistaUsuariosDisponibles');">
-                                                 <?php foreach ($listaenvio as $lista): ?>
-                                                     <option value="<?=$lista->id?>" selected="true"> <?=$lista->nombre ?> </option>
-                                                 <?php endforeach ?>
+                                                 
                                                </select>
                                            </td>
                                        </tr>
@@ -343,7 +337,7 @@
                                <p></p>
                              </div>
 
-                             </div>
+                           </div>-->
 
                              <div class="col-md-6 col-sm-6 col-lg-4">
                                <h2><label for="Usuario" >Activos de informacion:</label></h2>
@@ -567,13 +561,13 @@
                                      </div>
 
                                  <div class="col-md-6 col-sm-6 col-lg-4">
-                                   <a  href="/abcriesgos/create">
+                                   <a  href="/analisisrisk/registro/<?=$procesos['id']?>">
                                      <img class="imagesOfficeBar" src="/img/navBar office style images/Riesgos.jpg"/>
                                      <br>
                                      Riesgos</a>
                                 </div>
                                  <div class="col-md-6 col-sm-6 col-lg-4">
-                                   <a  href="/abcoportunidades/create">
+                                   <a  href="/analisisopor/registro/<?=$procesos['id']?>">
                                      <img class="imagesOfficeBar" src="/img/navBar office style images/oportunidades.png"/>
                                      <br>
                                      Oportunidades</a>
@@ -760,7 +754,7 @@
   </div>
 
   <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
@@ -773,23 +767,23 @@
                   <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">S:</label></h2>
-                        <input class="form-control input-lg" id="S" type="Text" placeholder="S" name="S" required>
+                        <textarea class="form-control input-lg" id="S" type="Text" placeholder="S" name="S" required rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">I:</label></h2>
-                        <input class="form-control input-lg" id="I" type="Text" placeholder="I" name="I" required>
+                        <textarea class="form-control input-lg" id="I" type="Text" placeholder="I" name="I" required rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">P:</label></h2>
-                        <input class="form-control input-lg" id="P" type="Text" placeholder="P" name="P" required>
+                        <textarea class="form-control input-lg" id="P" type="Text" placeholder="P" name="P" required rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">O:</label></h2>
-                        <input class="form-control input-lg" id="O" type="Text" placeholder="O" name="O" required>
+                        <textarea class="form-control input-lg" id="O" type="Text" placeholder="O" name="O" required rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">C:</label></h2>
-                        <input class="form-control input-lg" id="C" type="Text" placeholder="C" name="C" required>
+                        <textarea class="form-control input-lg" id="C" type="Text" placeholder="C" name="C" required rows="4" cols="50"></textarea>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -818,23 +812,23 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">S:</label></h2>
-                      <input class="form-control input-lg" id="eS" type="Text" placeholder="S" name="eS" required>
+                      <textarea class="form-control input-lg" id="eS" type="Text" placeholder="S" name="eS" required rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">I:</label></h2>
-                      <input class="form-control input-lg" id="eI" type="Text" placeholder="I" name="eI" required>
+                      <textarea class="form-control input-lg" id="eI" type="Text" placeholder="I" name="eI" required rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">P:</label></h2>
-                      <input class="form-control input-lg" id="eP" type="Text" placeholder="P" name="eP" required>
+                      <textarea class="form-control input-lg" id="eP" type="Text" placeholder="P" name="eP" required rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">O:</label></h2>
-                      <input class="form-control input-lg" id="eO" type="Text" placeholder="O" name="eO" required>
+                      <textarea class="form-control input-lg" id="eO" type="Text" placeholder="O" name="eO" required rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">C:</label></h2>
-                      <input class="form-control input-lg" id="eC" type="Text" placeholder="C" name="eC" required>
+                      <textarea class="form-control input-lg" id="eC" type="Text" placeholder="C" name="eC" required rows="4" cols="50"></textarea>
                   </div>
                 </div>
               </form>

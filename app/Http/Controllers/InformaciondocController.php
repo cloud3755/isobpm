@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Validator;
 
 class InformaciondocController extends Controller
 {
@@ -92,50 +93,61 @@ class InformaciondocController extends Controller
     $usuarios = Auth::user();
     $documentos = new Documentos;
 
-    $documentos->id_tipo = $request->input('id_tipo');
-    $documentos->nombre = $request->input('nombre');
-    $documentos->descripcion = $request->input('descripcion');
-    $documentos->id_user = $usuarios->id;
-    $documentos->id_compania = $usuarios->id_compania;
-    $documentos->review = 1;
-    if ($usuarios->perfil != 4) {
-      $documentos->status = 1;
-    }else {
-      $documentos->status = 0;
-    }
-    //Para lista de accesos
-    $paralista = uniqid('infac_');
-    $documentos->acceso = $paralista;
+    $v = \Validator::make($request->all(), [
+        'nombre'    => 'unique:documentos',
+    ]);
+    if ($v->fails())
+     {
+       return redirect()->back()->withInput()->withErrors('Nombre de documento duplicado');
 
-    //Todo para el Archivo
+     }else {
 
-    $file1                            = $request->file('archivo');
-    $extension1                       = strtolower($file1->getclientoriginalextension());
-    $nombreunicoarchivo1              = uniqid().'.'.$extension1;
-    $bytes                            = \File::size($file1);
-    $documentos->size                 = $bytes;
-    $documentos->archivo              = $file1->getClientOriginalName();
-    $documentos->nombreunico          = $nombreunicoarchivo1;
+       $documentos->id_tipo = $request->input('id_tipo');
+       $documentos->nombre = $request->input('nombre');
+       $documentos->descripcion = $request->input('descripcion');
+       $documentos->id_user = $usuarios->id;
+       $documentos->id_compania = $usuarios->id_compania;
+       $documentos->review = 1;
+       if ($usuarios->perfil != 4) {
+         $documentos->status = 1;
+       }else {
+         $documentos->status = 0;
+       }
+       //Para lista de accesos
+       $paralista = uniqid('infac_');
+       $documentos->acceso = $paralista;
+
+       //Todo para el Archivo
+
+       $file1                            = $request->file('archivo');
+       $extension1                       = strtolower($file1->getclientoriginalextension());
+       $nombreunicoarchivo1              = uniqid().'.'.$extension1;
+       $bytes                            = \File::size($file1);
+       $documentos->size                 = $bytes;
+       $documentos->archivo              = $file1->getClientOriginalName();
+       $documentos->nombreunico          = $nombreunicoarchivo1;
 
 
-    $documentos->save();
+       $documentos->save();
 
-    //Guardad documento
-    \Storage::disk('documentos')->put($nombreunicoarchivo1,  \File::get($file1));
+       //Guardad documento
+       \Storage::disk('documentos')->put($nombreunicoarchivo1,  \File::get($file1));
 
 
-    //Se guarda la lista de accesos
-    $acces=$request->input('lista_de_accesos'); //$_POST["lista_de_distribucion"];
-  //  return(dd($request->input('lista_de_accesos')));
-    for ($i=0;$i<count($acces);$i++)
-    {
-      $acce = new informacion_accesos;
-      $acce ->id_usuario = $acces[$i];
-      $acce ->id_documento = $paralista;
-      $acce ->save();
-    }
+       //Se guarda la lista de accesos
+       $acces=$request->input('lista_de_accesos'); //$_POST["lista_de_distribucion"];
+       //  return(dd($request->input('lista_de_accesos')));
+       for ($i=0;$i<count($acces);$i++)
+       {
+         $acce = new informacion_accesos;
+         $acce ->id_usuario = $acces[$i];
+         $acce ->id_documento = $paralista;
+         $acce ->save();
+       }
 
-    return redirect()->action('InformaciondocController@mostrar', [$documentos->id_tipo]);
+       return redirect()->action('InformaciondocController@mostrar', [$documentos->id_tipo]);
+
+     }
   }
 
 

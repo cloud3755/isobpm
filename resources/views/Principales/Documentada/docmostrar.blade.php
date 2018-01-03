@@ -7,7 +7,13 @@
         <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none"><?=$datos['nombre'] ?></h1>
     </div>
 </div>
-
+@if($errors->has())
+    <div class="alert alert-warning" role="alert">
+       @foreach ($errors->all() as $error)
+          <div>{{ $error }}</div>
+      @endforeach
+    </div>
+@endif 
 <br><br><br><br><br>
 <div class="row">
     <div class="col-lg-12">
@@ -201,7 +207,7 @@
                 <div class="form-group form-group-lg">
                     <h2><label for="Usuario" class="control-label col-md-12">(*) Nombre:</label></h2>
                     <div class="col-md-6 col-sm-9">
-                        <input class="form-control input-lg" id="enombre" type="Text" placeholder="Nombre" name="enombre" required>
+                        <input class="form-control input-lg" id="enombre" type="Text" placeholder="Nombre" name="enombre" readonly required>
                     </div>
                 </div>
                 <div class="form-group form-group-lg">

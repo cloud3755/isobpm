@@ -38,9 +38,29 @@ class ProcesosControllerVisual extends Controller
     public function create()
     {
       $usuario = Auth::user();
-      //
       if ($usuario->perfil == 4) {
         $iduser = $usuario->id;
+        $collection_one = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->select('procesos.*')
+        ->join('lista_puestos_procesos','procesos.puestos', '=', 'lista_puestos_procesos.id_proceso')
+        ->join('users','users.id_puesto','=','lista_puestos_procesos.id_puesto')
+        ->select('procesos.*')
+        ->where('users.id',$iduser)
+        ->get());
+
+        $collection_two = \Illuminate\Support\Collection::make(DB::table('procesos')
+        ->select('procesos.*')
+        ->leftJoin('lista_puestos_procesos','procesos.puestos', '=', 'lista_puestos_procesos.id_proceso')
+        ->whereNull('id_proceso')
+        ->where('usuario_responsable_id',$iduser)
+        ->orwhere(function ($querys) use ($iduser) {
+          $querys->whereNull('id_proceso')
+          ->Where('Creador_id', '=', DB::raw("'".$iduser."'"));
+        })
+        ->get());
+
+
+        /*
         $collection_one = \Illuminate\Support\Collection::make(DB::table('procesos')
         ->select('procesos.*')
         ->join('lista_envios', function($join) use ($iduser)
@@ -71,7 +91,7 @@ class ProcesosControllerVisual extends Controller
           ->Where('Creador_id', '=', DB::raw("'".$iduser."'"));
         })
         ->get());
-
+        */
         $proceso = new \Illuminate\Database\Eloquent\Collection;
         $proceso = $collection_one->merge($collection_two);
 
@@ -133,22 +153,26 @@ class ProcesosControllerVisual extends Controller
       //
       $archivoabrir = $proceso->nombreunicoarchivo;
       if (!empty($archivoabrir)) {
-        $rutacompleta = public_path(). "/storage/$archivoabrir";
-        //$rutacompleta = "public/storage/$archivoabrir";
-        $zipper = new Zipper();
-        $zipper->make($rutacompleta)->folder('')->extractTo('storage/bizagi');
-        $rutaalindex = "";
-        foreach ($zipper->listFiles() as $lista):
-          if ((stripos($lista,"index.html") !== false))
-          {
-            $rutaalindex = $lista;
-             $rutaalindex2 = 'si es';
-          }
-        endforeach;
+        if(ends_with($archivoabrir,'zip')){
+          $rutacompleta = public_path(). "/storage/$archivoabrir";
+          //$rutacompleta = "public/storage/$archivoabrir";
+          $zipper = new Zipper();
+          $zipper->make($rutacompleta)->folder('')->extractTo('storage/bizagi');
+          $rutaalindex = "";
+          foreach ($zipper->listFiles() as $lista):
+            if ((stripos($lista,"index.html") !== false))
+            {
+              $rutaalindex = $lista;
+               $rutaalindex2 = 'si es';
+            }
+          endforeach;
 
-        $rutaalindex = str_replace("/","\\",$rutaalindex);
+          $rutaalindex = str_replace("/","\\",$rutaalindex);
 
-        $rutaalindex = "\storage\bizagi\\$rutaalindex";
+          $rutaalindex = "\storage\bizagi\\$rutaalindex";
+        }else{
+          $rutacompleta = public_path(). "/storage/$archivoabrir";
+        }
       }
 
       $indicator = $proceso['indicadores'];
@@ -175,7 +199,7 @@ class ProcesosControllerVisual extends Controller
                                ->join('users','procesos.usuario_responsable_id','=','users.id')
                                ->where('procesos.id',$id)->first();
 
-      $listaenvio = \DB::table('lista_envios')
+    /*  $listaenvio = \DB::table('lista_envios')
                       ->select('lista_envios.id_proceso','users.id','users.nombre')
                       ->join('users','users.id', '=', 'lista_envios.id_usuario')
                       ->where('lista_envios.id_proceso',$lista)
@@ -198,6 +222,8 @@ class ProcesosControllerVisual extends Controller
                       ->whereNull('id_proceso')
                       //->where('lista_envios.id_proceso',$lista)
                       ->get();
+
+                      */
       //return(dd($User));
 
       $indicadoresrelacion = \DB::table('indicadores')
