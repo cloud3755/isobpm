@@ -54,9 +54,9 @@ alert ('{{Session::get('flash_message')}}')
                 </div>
 
                 <div class="col-sm-4">
-                  <h2><label for="proyecto" class="control-label" >Proyecto:</label></h2>
+                  <h2><label for="proyecto" class="control-label" >Contrato/Pedido:</label></h2>
                   <select class="form-control" id="proyecto" name="proyecto">
-                    <option value="0"> Selecciona el proyecto en el que se evalua</option>
+                    <option value="0"> Selecciona el Contrato/Pedido en el que se evalua</option>
                     <?php foreach ($proyect as $proyects): ?>
                       <option value="<?=$proyects->id?>"> <?=$proyects->nombre ?> </option>
                     <?php endforeach ?>

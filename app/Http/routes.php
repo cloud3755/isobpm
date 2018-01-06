@@ -85,11 +85,15 @@ Route::group( ['middleware' => 'auth'],
 
 			//ruta para procesos
 			Route::get('procesos/create', 'ProcesosController@create');
+			Route::get('procesocrear/{id}', 'ProcesosControllerVisual@crearshow');
 		// ruta para controladores de procesosQ
 		//Route::get('/procesos/create',function() {  return view('procesos');});
 		Route::get('/procesos/visual','ProcesosControllerVisual@create');
 		Route::get('/procesos/create','ProcesosController@create');
 		Route::post('/procesos/store','ProcesosController@store');
+		Route::post('/procesos/store2/{id}','ProcesosController@store2');
+		Route::post('/procesos/store3/{id}','ProcesosController@edit3');
+
 		Route::post('/procesos/edit/{id}','ProcesosController@edit');
 		Route::post('/procesos/edit2/{id}','ProcesosController@edit2');
 		Route::post('/procesos/edit3/{id}','ProcesosController@edit3');

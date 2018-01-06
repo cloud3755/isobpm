@@ -67,79 +67,108 @@ memory_limit = 10M
     public function store(Request $request)
     {
       $Users = Auth::user();
-      $data = \Request::all();
 
-      // $rules = array('proceso'=>'required',
-      //                'usuario_responsable_id'=>'required');
-
-        // $v = \Validator::make($data,$rules);
-        //
-        // if ($v->fails())
-        // {
-        //
-        //   return redirect()->back()
-        //          ->withErrors($v->errors())
-        //          ->withInput(\Request::all());
-        // }
-
-// para guardar a BD el registro del proceso
       $proceso= new Proceso;
       $proceso->tipo = $request->input('tipo');
-      $proceso->descripcion = $request->input('descripcion');
       $proceso->proceso = $request->input('proceso');
+      $proceso->descripcion = $request->input('descripcion');
       $proceso->usuario_responsable_id = $request->input('usuario_responsable_id');
       $proceso->rev = $request->input('rev');
       $proceso->detalle_de_rev = $request->input('detalle_de_rev');
-      //obtenemos el campo file definido en el formulario
-      $file = $request->file('file');
-
-      if($file != null)
-      {
-          $extension = strtolower($file->getclientoriginalextension());
-          $nombreunicoarchivo = uniqid('proc_').'.'.$extension;
-          $proceso->archivo_html = $file->getClientOriginalName();
-          $proceso->nombreunicoarchivo = $nombreunicoarchivo;
-          $nombre = $file->getClientOriginalName();
-          \Storage::disk('local')->put($nombreunicoarchivo,  \File::get($file));
-      }
-//      $proceso->lista_de_distribucion = $request->input('lista_de_distribucion');
-      //obtenemos un id para relacionar la lista de envio
-      $paralista = uniqid('list_');
-      $proceso->lista_de_distribucion = $paralista;
-      $paraindicador = uniqid('ind_');
-      $proceso->indicadores = $paraindicador;
-
+      $proceso->tipoarchivo = $request->input('tipoarchivo');
       $proceso->idcompañia = $Users->id_compania;
       $proceso->creador_id = $Users->id;
+
+      //obtenemos el campo file definido en el formulario
+      $file = $request->file('file');
+      if  ($file != null)
+      {
+
+        $file = $request->file('file');
+        $extension = strtolower($file->getclientoriginalextension());
+        $nombreunicoarchivo = uniqid('proc_').'.'.$extension;
+        $proceso->archivo_html = $file->getClientOriginalName();
+        $proceso->nombreunicoarchivo = $nombreunicoarchivo;
+        $nombre = $file->getClientOriginalName();
+        \Storage::disk('local')->put($nombreunicoarchivo,  \File::get($file));
+      }
       $proceso->save();
+      return $proceso->id;
+    }
 
-//    guardamos archivo
+    public function store2(Request $request, $id)
+    {
+      $Users = Auth::user();
+      // para editar registro
+      $proceso = Proceso::findOrFail($id);
 
-//    guardamos lista de indicadores
-$indi=$request->input('indicadores'); //$_POST["lista_de_distribucion"];
-for ($i=0;$i<count($indi);$i++)
-{
-  $ind = new lista_indicadores_proceso;
-  $ind ->id_indicador = $indi[$i];
-  $ind ->id_proceso = $paraindicador;
-  $ind ->save();
-}
+      //obtenemos un id para relacionar la lista de envio
+      $proceso->indicadores = uniqid('ind_');
+      $paraindicador = $proceso->indicadores;
 
+      //    guardamos lista de indicadores
+      $indi=$request->input('indicadores'); //$_POST["lista_de_distribucion"];
+      for ($i=0;$i<count($indi);$i++)
+      {
+        $ind = new lista_indicadores_proceso;
+        $ind ->id_indicador = $indi[$i];
+        $ind ->id_proceso = $paraindicador;
+        $ind ->save();
+      }
 
-//    guardanmos lista de envio
-$envio=$request->input('lista_de_distribucion'); //$_POST["lista_de_distribucion"];
-for ($i=0;$i<count($envio);$i++)
-{
-  $lista = new lista_envio;
-  $lista->id_usuario = $envio[$i];
-  $lista->id_proceso = $paralista;
-  $lista->save();
-}
+      //Procesos lista
+      $proceso->puestos = uniqid('pue_');
+      $parapuestos = $proceso->puestos;
+      //    guardamos lista de Procesos
+      $indi=$request->input('Puestos'); //$_POST["lista_de_distribucion"];
+      for ($i=0;$i<count($indi);$i++)
+      {
+        $ind = new lista_puestos_procesos;
+        $ind ->id_puesto = $indi[$i];
+        $ind ->id_proceso = $parapuestos;
+        $ind ->save();
+      }
 
+      //Insumos id
+      $proceso->insumos = uniqid('insu_');
+      $parainsumos = $proceso->insumos;
+      //    guardamos lista de indicadores
+      $indi=$request->input('Insumos'); //$_POST["lista_de_distribucion"];
+      for ($i=0;$i<count($indi);$i++)
+      {
+        $ind = new lista_insumos_procesos;
+        $ind ->id_insumo = $indi[$i];
+        $ind ->id_proceso = $parainsumos;
+        $ind ->save();
+      }
 
-      return Redirect('/procesos/visual');
-    //  return response()->json($proceso)
+      //Documentos id
+      $proceso->documento = uniqid('doc_');
+      $paradocumento = $proceso->documento;
+      //    guardamos lista de indicadores
+      $indi=$request->input('Doculist'); //$_POST["lista_de_distribucion"];
+      for ($i=0;$i<count($indi);$i++)
+      {
+        $ind = new lista_documentos_procesos;
+        $ind ->id_documento = $indi[$i];
+        $ind ->id_proceso = $paradocumento;
+        $ind ->save();
+      }
 
+      //Activos id
+      $proceso->activo = uniqid('act_');
+      $paraactivo = $proceso->activo;
+      //    guardamos lista de indicadores
+      $indi=$request->input('Activos'); //$_POST["lista_de_distribucion"];
+      for ($i=0;$i<count($indi);$i++)
+      {
+        $ind = new lista_activos_procesos;
+        $ind ->id_activo = $indi[$i];
+        $ind ->id_proceso = $paraactivo;
+        $ind ->save();
+      }
+
+      $proceso->save();
     }
 
     public function save(Request $request)

@@ -4,7 +4,7 @@
 <br>
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Proyectos</h1>
+    <h1 class="page-header text-center" style="font-weight: bold; text-shadow: 1px 1px #222; color:#0070B0;font-family: 'LeagueGothic';word-spacing: 5px; letter-spacing: 2px; border-bottom: none">Contrato/Pedido</h1>
   </div>
 </div>
 
@@ -13,7 +13,7 @@
         <div class="col-lg-12">
             <div class="panel panel-red">
                 <div class="panel-heading">
-                    Proyectos
+                    Contrato/Pedido
                     <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
                 </div>
             <div class="panel-body">
@@ -38,7 +38,8 @@
                             <form class="" action="/proyectos/destroy/{{ $proyects->id }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                              <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" ><i class="fa fa-trash"></i></button>
+                              <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;"  onclick="
+                                return confirm('Estas seguro de eliminar el Proyecto <?=$proyects['nombre']?>?')"><i class="fa fa-trash"></i></button>
                             </form>
                           </td>
                         </tr>
@@ -56,7 +57,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">ALTA DE PROYECTO</h2>
+                    <h2 class="modal-title">ALTA DE Contrato/Pedido</h2>
                 </div>
                 <div class="modal-body">
         <div class="container">
@@ -85,7 +86,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">EDITAR PROYECTO</h2>
+                    <h2 class="modal-title">EDITAR Contrato/Pedido</h2>
                 </div>
                 <div class="modal-body">
                   <div class="container">

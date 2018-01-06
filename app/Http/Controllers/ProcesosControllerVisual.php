@@ -121,6 +121,40 @@ class ProcesosControllerVisual extends Controller
       return View('/Principales/procesosvisual', compact('proceso','User','tipoproceso','indicador'));
     }
 
+    public function crearshow($id)
+    {
+      $tipoproceso = $id;
+      $usuario = Auth::user();
+
+      $Users = new User;
+      $User = $Users->where('id_compania',$usuario->id_compania)
+      ->where('perfil',4)
+      ->get();
+
+      $indicador = \DB::table('indicadores')
+                               ->join('objetivos','indicadores.objetivo_id','=','objetivos.id')
+                               ->select('indicadores.*','objetivos.id_compania')
+                               ->where('objetivos.id_compania','=',$usuario->id_compania)
+                               ->get();
+      $Activos = \DB::table('activosdeinfs')
+                      ->where('id_compania',$usuario->id_compania)
+                      ->get();
+
+      $Documentos = \DB::table('documentos')
+                        ->where('id_compania',$usuario->id_compania)
+                        ->get();
+
+      $Insumos = \DB::table('insumos')
+                      ->where('idcompañia',$usuario->id_compania)
+                      ->get();
+
+      $Puesto = \DB::table('puestos')
+                     ->where('id_compania',$usuario->id_compania)
+                     ->get();
+
+      return View('/Secundarias/ProcesosAgregar', compact('usuario','tipoproceso','User','indicador','Activos','Documentos','Insumos','Puesto'));
+    }
+
 
 
 

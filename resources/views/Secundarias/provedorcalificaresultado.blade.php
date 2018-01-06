@@ -62,7 +62,7 @@
 
     <div class="col-sm-4">
         <div id="proyectos">
-      <h2><label for="proyecto" class="control-label" >Proyecto:</label></h2>
+      <h2><label for="proyecto" class="control-label" >Contrato/Pedido:</label></h2>
       <select class="form-control" id="proyecto" name="proyecto">
 
       </select>

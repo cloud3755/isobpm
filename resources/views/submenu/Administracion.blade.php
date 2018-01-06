@@ -202,7 +202,7 @@
                   </div>
                   <div class="col-xs-9 text-right">
                       <div class="huge" id="divProviders"></div>
-                      <div>Proyectos</div>
+                      <div>Contrato/Pedido</div>
                   </div>
               </div>
           </div>
