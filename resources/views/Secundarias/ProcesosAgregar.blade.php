@@ -680,7 +680,7 @@ $(document).ready(function(){
             processData: false,  // tell jQuery not to process the data
             contentType: false,
             success: function(){
-
+              location.href = "/procesos/visual";
             }
           });
 

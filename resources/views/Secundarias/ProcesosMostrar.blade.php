@@ -744,7 +744,7 @@
       <center><button type="button" class="btn btn-lg btn-default" onclick=location="/procesos/visual" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-arrow-left"></i></button></center>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
-      <center><a class="btn btn-lg btn-primary" role="button" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i></a></center>
+      <center><a class="btn btn-lg btn-success" role="button" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i></a></center>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
       <form class="" action="/procesos/delete/<?=$procesos['id']?>" method="post">
@@ -769,23 +769,23 @@
                   <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">S:</label></h2>
-                        <textarea class="form-control input-lg" id="S" type="Text" placeholder="S" name="S" required rows="4" cols="50"></textarea>
+                        <textarea class="form-control input-lg" id="S" type="Text" placeholder="S" name="S" rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">I:</label></h2>
-                        <textarea class="form-control input-lg" id="I" type="Text" placeholder="I" name="I" required rows="4" cols="50"></textarea>
+                        <textarea class="form-control input-lg" id="I" type="Text" placeholder="I" name="I" rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">P:</label></h2>
-                        <textarea class="form-control input-lg" id="P" type="Text" placeholder="P" name="P" required rows="4" cols="50"></textarea>
+                        <textarea class="form-control input-lg" id="P" type="Text" placeholder="P" name="P" rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">O:</label></h2>
-                        <textarea class="form-control input-lg" id="O" type="Text" placeholder="O" name="O" required rows="4" cols="50"></textarea>
+                        <textarea class="form-control input-lg" id="O" type="Text" placeholder="O" name="O" rows="4" cols="50"></textarea>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <h2><label for="Usuario" class="control-label">C:</label></h2>
-                        <textarea class="form-control input-lg" id="C" type="Text" placeholder="C" name="C" required rows="4" cols="50"></textarea>
+                        <textarea class="form-control input-lg" id="C" type="Text" placeholder="C" name="C" rows="4" cols="50"></textarea>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -814,23 +814,23 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">S:</label></h2>
-                      <textarea class="form-control input-lg" id="eS" type="Text" placeholder="S" name="eS" required rows="4" cols="50"></textarea>
+                      <textarea class="form-control input-lg" id="eS" type="Text" placeholder="S" name="eS" rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">I:</label></h2>
-                      <textarea class="form-control input-lg" id="eI" type="Text" placeholder="I" name="eI" required rows="4" cols="50"></textarea>
+                      <textarea class="form-control input-lg" id="eI" type="Text" placeholder="I" name="eI" rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">P:</label></h2>
-                      <textarea class="form-control input-lg" id="eP" type="Text" placeholder="P" name="eP" required rows="4" cols="50"></textarea>
+                      <textarea class="form-control input-lg" id="eP" type="Text" placeholder="P" name="eP" rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">O:</label></h2>
-                      <textarea class="form-control input-lg" id="eO" type="Text" placeholder="O" name="eO" required rows="4" cols="50"></textarea>
+                      <textarea class="form-control input-lg" id="eO" type="Text" placeholder="O" name="eO" rows="4" cols="50"></textarea>
                   </div>
                   <div class="col-md-12 col-sm-12">
                       <h2><label for="Usuario" class="control-label">C:</label></h2>
-                      <textarea class="form-control input-lg" id="eC" type="Text" placeholder="C" name="eC" required rows="4" cols="50"></textarea>
+                      <textarea class="form-control input-lg" id="eC" type="Text" placeholder="C" name="eC" rows="4" cols="50"></textarea>
                   </div>
                 </div>
               </form>
