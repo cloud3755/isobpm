@@ -189,7 +189,8 @@ class ProcesosControllerVisual extends Controller
       if (!empty($archivoabrir)) {
         if(ends_with($archivoabrir,'zip')){
           $rutacompleta = public_path(). "/storage/$archivoabrir";
-          //$rutacompleta = "public/storage/$archivoabrir";
+          //Para el servidor descomentar la siguiente lines
+          //$rutacompleta = "/home/isobpmcom/public_html/storage/$archivoabrir";
           $zipper = new Zipper();
           $zipper->make($rutacompleta)->folder('')->extractTo('storage/bizagi');
           $rutaalindex = "";
