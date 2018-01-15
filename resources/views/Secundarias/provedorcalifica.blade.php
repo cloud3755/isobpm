@@ -142,8 +142,8 @@ alert ('{{Session::get('flash_message')}}')
 
   <div class="col-sm-4">
         <div id="pedidos">
-          <h2><label for="pedidos" class="control-label" >(*) Pedido:</label></h2>
-            <input class="form-control pedido" id="pedido" type="Text" placeholder="Agrega un identificador del pedido" name="pedido" required>
+          <h2><label for="pedidos" class="control-label" >Orden de compra:</label></h2>
+            <input class="form-control pedido" id="pedido" type="Text" placeholder="Agrega un identificador del pedido" name="pedido">
         </div>
   </div>
 

@@ -495,7 +495,7 @@ else {
 
       $proyecto = DB::table('proveedorcalifica')
                                ->join('proyectos','proyectos.id','=','proveedorcalifica.proyecto_id')
-                               ->select('proveedorcalifica.proyecto_id','proyectos.nombre')
+                               ->select('proveedorcalifica.proyecto_id as id','proyectos.nombre')
                                ->distinct()
                                ->where('proveedorcalifica.idcompania','=',$compañiaid)
                                ->where('proveedorcalifica.idproveedor','=',$id)
