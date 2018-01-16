@@ -193,8 +193,36 @@ class BienvenidaController extends Controller
                    ->get());
                    //Final Acciones correctivas
 
+
+                  $mesnoconf = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                  ->select(DB::RAW('month(noconformidades.fecha) as mes'))
+                  ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                  ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
+                  ->where('noconformidades.estatus_id','!=',3)
+                  ->orwhere(function ($querys) use ($iduser) {
+                    $querys->where('noconformidades.estatus_id','!=',3)
+                    ->where('noconformidades.creador_id', '=', DB::raw("'".$iduser."'"));
+                  })
+                  ->groupBy('mes')
+                  ->orderBy('fecha', 'ASC')
+                  ->get());
+
+                  $dianoconf = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                  ->select(DB::RAW('day(noconformidades.fecha) as dia'), DB::RAW('month(noconformidades.fecha) as mes'))
+                  ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                  ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
+                  ->where('noconformidades.estatus_id','!=',3)
+                  ->orwhere(function ($querys) use ($iduser) {
+                    $querys->where('noconformidades.estatus_id','!=',3)
+                    ->where('noconformidades.creador_id', '=', DB::raw("'".$iduser."'"));
+                  })
+                  ->groupBy('dia', 'mes')
+                  ->orderBy('fecha', 'ASC')
+                  ->get());
+
+
                    $Noconformidades = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
-                   ->select('noconformidades.*')
+                   ->select('noconformidades.id',DB::RAW('month(noconformidades.fecha) as mes'),DB::RAW('day(noconformidades.fecha) as dia'))
                    ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
                    ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
                    ->where('noconformidades.estatus_id','!=',3)
@@ -242,9 +270,27 @@ class BienvenidaController extends Controller
                    ->get());
 
                    $Noconformidades = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
-                   ->select('noconformidades.*')
+                   ->select('noconformidades.id',DB::RAW('month(noconformidades.fecha) as mes'),DB::RAW('day(noconformidades.fecha) as dia'))
                    ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
                    ->get());
+
+                   //return dd($Noconformidades);
+
+                   $mesnoconf = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                   ->select(DB::RAW('month(noconformidades.fecha) as mes'))
+                   ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                   ->groupBy('mes')
+                   ->orderBy('fecha', 'ASC')
+                   ->get());
+
+                   $dianoconf = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                   ->select(DB::RAW('day(noconformidades.fecha) as dia'), DB::RAW('month(noconformidades.fecha) as mes'))
+                   ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                   ->groupBy('dia', 'mes')
+                   ->orderBy('fecha', 'ASC')
+                   ->get());
+
+                   //return dd($mesnoconf);
 		  }
 
       //Para los modales
@@ -393,7 +439,9 @@ $calendar = \Calendar::setCallbacks([
         'Link',
         'productos',
         'estatus',
-        'mejorasid')
+        'mejorasid',
+        'mesnoconf',
+        'dianoconf')
       );
 
     }

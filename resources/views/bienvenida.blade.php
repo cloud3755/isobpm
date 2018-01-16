@@ -1,6 +1,7 @@
 @extends('layouts.principal2')
 
 @section('content')
+<link rel="stylesheet" href="Tree/themes/default/style.min.css" />
 <div>
     @if(Auth::user()->nombreimagen!=null)
         <img style="width: 80px;height: 80px;"  src="/storage/imagenesusuarios/{{Auth::user()->nombreunicoimagen}}" />
@@ -100,15 +101,34 @@
             <a data-toggle="collapse" href="#collapseNoConformidades">
             <i class="fa fa-thumbs-o-down fa-2x"></i>No conformidades</a>
             <div id="collapseNoConformidades" class="collapse">
+              <div id="jstree">
+                <!-- in this example the tree is populated from inline HTML -->
                 <ul>
-                    @if(count($Noconformidades)<=0)
-                        <li class="text-danger">Sin items</li>
-                    @else
-                        @foreach($Noconformidades as $Noconformidad)
-                            <li><a data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC({{$Noconformidad->id}});">{{$Noconformidad->descripcion}}</a></li>
-                        @endforeach
-                    @endif
+                  @if(count($Noconformidades)<=0)
+                      <li class="text-danger">Sin items</li>
+                  @else
+                    @foreach($mesnoconf as $mesnoconfs)
+                    <li>{{$mesnoconfs->mes}}
+                      <ul>
+                      @foreach($dianoconf as $dianoconfs)
+                        @if($dianoconfs->mes == $mesnoconfs->mes)
+                          <li>{{$dianoconfs->dia}}
+                            <ul>
+                              @foreach($Noconformidades as $Noconformidad)
+                                @if($mesnoconfs->mes == $Noconformidad->mes and $dianoconfs->dia == $Noconformidad->dia)
+                                  <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC({{$Noconformidad->id}});">{{$Noconformidad->id}}</a></li>
+                                @endif
+                              @endforeach
+                            </ul>
+                          </li>
+                        @endif
+                      @endforeach
+                      </ul>
+                    </li>
+                    @endforeach
+                  @endif
                 </ul>
+              </div>
             </div>
             <br>
             <a data-toggle="collapse" href="#collapseProyectos">
@@ -1043,8 +1063,20 @@
 <button style="display:none;" id="mostrarevento" data-toggle="modal" data-target="#modaleventoclick"/>
 
 <!--script cargar datos modales-->
+  <script src="Tree/jstree.min.js"></script>
     <script type="text/javascript">
+    //funcion de Tree para que arranque
+    $(function () {
+      // 6 create an instance when the DOM is ready
+      $('#jstree').jstree();
 
+      // 8 interact with the tree - either way is OK
+      /*$('button').on('click', function () {
+        $('#jstree').jstree(true).select_node('child_node_1');
+        $('#jstree').jstree('select_node', 'child_node_1');
+        $.jstree.reference('#jstree').select_node('child_node_1');
+      });*/
+    });
     function pagina1()
     {
       document.getElementById("lip1").className = "active";
@@ -1291,6 +1323,8 @@ function agregaSeleccion(origen, destino) {
       });
 
       $(document).ready(function(){
+
+        $(function () { $('#jstree_demo_div').jstree(); });
 
         $("#btn_modalversion").click();
 
