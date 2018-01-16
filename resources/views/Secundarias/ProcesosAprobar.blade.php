@@ -180,16 +180,6 @@
                                         @endif
                                       </form>
                                   </div>
-
-                                  <div class="col-lg-8 col-md-8 col-sm-8">
-                                      <h3><label for="Usuario" class="control-label">Archivo HTML:</label></h3>
-                                        <input class="form-control input-lg" id="probproces" type="Text" placeholder="Sin archivo adjunto" name="filetext" disabled="disabled" value ="<?=$procesos['archivo_html']?>">
-                                        <input class="form-control input-lg" id="probproces" type="file" accept=".zip" placeholder="<?=$procesos['archivo_html']?>" name="file" >
-                                        <progress id="progress" value="0"></progress>
-                                  </div>
-                                  <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalUpload"><i class="glyphicon glyphicon-floppy-save"></i></button>
-                                  </div>
                                   <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="table-responsive">
                                                 <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
@@ -741,63 +731,21 @@
     </div>
 <div class="row">
     <div class="col-sm-4 col-md-4 col-lg-4">
-      <center><button type="button" class="btn btn-lg btn-default" onclick=location="/procesos/visual" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-arrow-left"></i></button></center>
+      <center><button type="button" class="btn btn-lg btn-default" onclick=location="/procesosadmin" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-arrow-left"></i></button></center>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
-      <center><a class="btn btn-lg btn-success" role="button" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-floppy-save"></i></a></center>
+      <form class="" action="/proceso/aprobado/{{ $procesos['id'] }}" method="post">
+        {{ csrf_field() }}
+        <center><button type="submit" class="btn btn-md btn-primary" id="aprobar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Aprobar</button></center>
+    </form>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
-      <form class="" action="/procesos/delete/<?=$procesos['id']?>" method="post">
-        <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-        <center><button type="submit" class="btn btn-lg btn-danger" id="btndelete_<?=$procesos['id']?>" style="font-family: Arial;" dataid="<?=$procesos['id']?>" onclick="
-          return confirm('Estas seguro de eliminar el proceso <?=$procesos['proceso']?>?')"><i class="fa fa-trash"></i></button></center>
-      </form>
+      <form class="" action="/proceso/denegado/{{ $procesos['id'] }}" method="post">
+        {{ csrf_field() }}
+        <center><button  type="submit" class="btn btn-md btn-danger" id="denegar" style="font-family: Arial;"><i class="fa fa-trash"></i><br>Denegar</button></center>
+    </form>
     </div>
   </div>
-
-  <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                  <h3 class="modal-title">ALTA DE SIPOC</h3>
-              </div>
-              <div class="modal-body">
-                <form class="" action="/sipoc/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <input type="hidden" id="porceso_id" name="porceso_id" value="<?=$procesos['id']?>">
-                  <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <h2><label for="Usuario" class="control-label">S:</label></h2>
-                        <textarea class="form-control input-lg" id="S" type="Text" placeholder="S" name="S" rows="4" cols="50"></textarea>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <h2><label for="Usuario" class="control-label">I:</label></h2>
-                        <textarea class="form-control input-lg" id="I" type="Text" placeholder="I" name="I" rows="4" cols="50"></textarea>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <h2><label for="Usuario" class="control-label">P:</label></h2>
-                        <textarea class="form-control input-lg" id="P" type="Text" placeholder="P" name="P" rows="4" cols="50"></textarea>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <h2><label for="Usuario" class="control-label">O:</label></h2>
-                        <textarea class="form-control input-lg" id="O" type="Text" placeholder="O" name="O" rows="4" cols="50"></textarea>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <h2><label for="Usuario" class="control-label">C:</label></h2>
-                        <textarea class="form-control input-lg" id="C" type="Text" placeholder="C" name="C" rows="4" cols="50"></textarea>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="btnobjetivo"><i class="glyphicon glyphicon-floppy-save"></i><br>Agregar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
-                  </div>
-                </form>
-              </div>
-          </div>
-      </div>
-    </div>
-
 
   <div class="modal inmodal" id="modaledit" name="modaledit" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -835,9 +783,7 @@
                 </div>
               </form>
                 <div class="modal-footer">
-                  <a class="btn btn-primary" id="actualizarsipoc" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
-                  <a class="btn btn-danger" id="btndeletesipoc" style="font-family: Arial;" onclick="destroysipoc()"><i class="fa fa-trash"></i><br>Eliminar</a>
                 </div>
             </div>
         </div>
@@ -885,113 +831,7 @@ function Editar(btn){
 
 $(document).ready(function(){
 
-  $("#actualizar").click(function(){
-    var value = $("#id").val();
-    var route = "/procesos/edit/"+value+"";
-    var fd = new FormData(document.getElementById("fileinfo"));
-    var progressBar = document.getElementById("progress");
-
-    $.ajax({
-      url: route,
-      headers: {'X-CSRF-Token': $('meta[name="_token"]').attr('content')},
-      type: 'post',
-      data: fd,
-      processData: false,  // tell jQuery not to process the data
-      contentType: false,
-      xhr: function() {
-        var xhr = $.ajaxSettings.xhr();
-        xhr.upload.onprogress = function(e) {
-          progressBar.max = e.total;
-          progressBar.value = e.loaded;
-            console.log(Math.floor(e.loaded / e.total *100) + '%');
-        };
-        return xhr;
-      },
-      success: function(valida){
-        if (valida == "true") {
-          var route = "/procesos/edit2/"+value+"";
-          var fd = new FormData(document.getElementById("fileinfo2"));
-
-          $.ajax({
-            url: route,
-            headers: {'X-CSRF-Token': $('meta[name="_token"]').attr('content')},
-            type: 'post',
-            data: fd,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,
-            success: function(){
-
-            }
-          });
-
-          var route = "/procesos/edit3/"+value+"";
-          var fd = new FormData(document.getElementById("fileinfo3"));
-
-          $.ajax({
-            url: route,
-            headers: {'X-CSRF-Token': $('meta[name="_token"]').attr('content')},
-            type: 'post',
-            data: fd,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,
-            success: function(){
-              alert("Cambios guardados correctamente");
-              location.reload();
-            }
-          });
-        }else {
-          alert("Ya se encuentra una edicion en espera");
-          location.href = "/procesos/visual";
-        }
-      }
-    });
-
-
-
-  });
-
-  $("#actualizarsipoc").click(function(){
-    var value = $("#eid").val();
-    var route = "/sipoc/edit/"+value+"";
-    var token = $("#token").val();
-    var fd = new FormData(document.getElementById("fileinfosipoc"));
-
-    $.ajax({
-      url: route,
-      headers: {'X-CSRF_TOKEN': token},
-      type: 'post',
-      data: fd,
-      processData: false,  // tell jQuery not to process the data
-      contentType: false,
-      success: function(){
-        alert("Cambios guardados correctamente");
-        location.reload();
-      }
-    });
-  });
-
 });
-
-function destroysipoc(){
-  var value = $("#eid").val();
-  if(confirm('Estas seguro de querer borrar el registro '+value+'?')){
-    var route = "/sipoc/destroy/"+value+"";
-
-
-    $.ajax({
-        url: route,
-        headers: {'X-CSRF-Token': $('meta[name="_token"]').attr('content')},
-        type: 'delete',
-        success: function(result) {
-          alert("Cambios guardados correctamente");
-          location.reload();
-        }
-    });
-
-  }else {
-    console.log('no');
-  }
-}
 </script>
 
 @Stop

@@ -181,20 +181,6 @@
             </div>
         </li>
         <li>
-            <div id="Documentos" class="officeColorStyleFont Menu">
-                <center >
-                    <span>Documentos</span>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div id="Recursos" class="officeColorStyleFont Menu">
-                <center >
-                    <span>Recursos</span>
-                </center>
-            </div>
-        </li>
-        <li>
             <div id="Estrategia" class="officeColorStyleFont Menu">
                 <center >
                     <span>Estrategia</span>
@@ -205,13 +191,6 @@
             <div id="Procesos" class="officeColorStyleFont Menu">
                 <center >
                     <span>Procesos</span>
-                </center>
-            </div>
-        </li>
-        <li>
-            <div id="Proveedores" class="officeColorStyleFont Menu">
-                <center >
-                    <span>Proveedores</span>
                 </center>
             </div>
         </li>
@@ -228,7 +207,29 @@
                     <span>Oportunidades</span>
                 </center>
             </div>
-        </li><li>
+        </li>
+        <li>
+            <div id="Recursos" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Recursos</span>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div id="Documentos" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Documentos</span>
+                </center>
+            </div>
+        </li>
+        <li>
+            <div id="Proveedores" class="officeColorStyleFont Menu">
+                <center >
+                    <span>Proveedores</span>
+                </center>
+            </div>
+        </li>
+        <li>
             <div id="Mejora" class="officeColorStyleFont Menu">
                 <center >
                     <span>Mejora</span>

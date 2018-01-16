@@ -8,6 +8,7 @@ use App\Models\Indicadores;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Proceso;
+use App\Models\procesostmps;
 use App\Models\puestos;
 use App\Models\User;
 use App\Models\tipoproceso;
@@ -46,6 +47,7 @@ class ProcesosControllerVisual extends Controller
         ->join('users','users.id_puesto','=','lista_puestos_procesos.id_puesto')
         ->select('procesos.*')
         ->where('users.id',$iduser)
+        ->where('procesos.status','!=',1)
         ->get());
 
         $collection_two = \Illuminate\Support\Collection::make(DB::table('procesos')
@@ -53,8 +55,10 @@ class ProcesosControllerVisual extends Controller
         ->leftJoin('lista_puestos_procesos','procesos.puestos', '=', 'lista_puestos_procesos.id_proceso')
         ->whereNull('id_proceso')
         ->where('usuario_responsable_id',$iduser)
+        ->where('procesos.status','!=',1)
         ->orwhere(function ($querys) use ($iduser) {
           $querys->whereNull('id_proceso')
+          ->where('procesos.status','!=',1)
           ->Where('Creador_id', '=', DB::raw("'".$iduser."'"));
         })
         ->get());
@@ -99,6 +103,7 @@ class ProcesosControllerVisual extends Controller
         $procesos = new Proceso;
         $proceso = $procesos
         ->where('idcompañia',$usuario->id_compania)
+        ->where('status','!=',1)
         ->get();
       }
 
@@ -179,11 +184,14 @@ class ProcesosControllerVisual extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($tipo,$id)
     {
       $usuario = Auth::user();
-      $procesos = new Proceso;
-      $proceso = $procesos->where('id',$id)->first();
+      $proceso = Proceso::where('id',$id)->first();
+      if ($proceso->status == 3 and $tipo == 2) {
+        $proceso = procesostmps::where('procesoOrigen',$id)->first();
+        $proceso->status = 3;
+      }
       //
       $archivoabrir = $proceso->nombreunicoarchivo;
       if (!empty($archivoabrir)) {
@@ -217,8 +225,12 @@ class ProcesosControllerVisual extends Controller
       $Documentoslist = $proceso['documento'];
       $Activoslist = $proceso['activo'];
 
-      $procesos = new Proceso;
-      $proceso = $procesos->where('id',$id)->get();
+      if ($proceso->status == 3 and $tipo == 2) {
+        $proceso = procesostmps::where('procesoOrigen',$id)->get();
+        $proceso[0]->id = $proceso[0]->procesoOrigen;
+      }else {
+        $proceso = Proceso::where('id',$id)->get();
+      }
 
       $Users = new User;
       $User = $Users->where('id_compania',$usuario->id_compania)
@@ -392,8 +404,12 @@ $Activosrelacion = \DB::table('lista_activos_procesos')
                       ->get();
 
 
+      if ($tipo == 1) {
+        return View('/Secundarias/ProcesosMostrar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex','archivoabrir','rutacompleta','rutaalindex2','Puesto','Puestorelacion','Insumos','Documentos','Activos','Insumosrelacion','Documentosrelacion','Activosrelacion','sipoc'));
+      }else {
+        return View('/Secundarias/ProcesosAprobar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex','archivoabrir','rutacompleta','rutaalindex2','Puesto','Puestorelacion','Insumos','Documentos','Activos','Insumosrelacion','Documentosrelacion','Activosrelacion','sipoc'));
+      }
 
-       return View('/Secundarias/ProcesosMostrar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex','archivoabrir','rutacompleta','rutaalindex2','Puesto','Puestorelacion','Insumos','Documentos','Activos','Insumosrelacion','Documentosrelacion','Activosrelacion','sipoc'));
     }
 
     /**

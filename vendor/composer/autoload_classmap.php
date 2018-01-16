@@ -45,6 +45,7 @@ return array(
     'CreatePendientesTable' => $baseDir . '/database/migrations/2017_08_10_005254_create_pendientes_table.php',
     'CreatePlansTable' => $baseDir . '/database/migrations/2017_04_08_022426_create_plans_table.php',
     'CreateProcesosTable' => $baseDir . '/database/migrations/2017_03_08_050021_create_procesos_table.php',
+    'CreateProcesostmpsTable' => $baseDir . '/database/migrations/2018_01_15_224648_create_procesostmps_table.php',
     'CreateProductosTable' => $baseDir . '/database/migrations/2017_04_07_040703_create_productos_table.php',
     'CreateQuejasTable' => $baseDir . '/database/migrations/2017_03_12_215148_create_quejas_table.php',
     'CreateResultadosTable' => $baseDir . '/database/migrations/2017_02_26_220947_create_resultados_table.php',

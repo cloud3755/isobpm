@@ -52,6 +52,7 @@ class CreateProcesosTable extends Migration
             $table->string('Tiempomin')->nullable();
             $table->string('taktseg')->nullable();
             $table->integer('tipoarchivo')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps(); // created at and updated at
         });
     }

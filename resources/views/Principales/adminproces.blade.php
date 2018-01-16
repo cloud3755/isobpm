@@ -14,7 +14,7 @@
         <h2 class="page-header" style="margin-bottom: 0px; margin: 0px; border-bottom: none">
             <ol class="breadcrumb iso-breadcumb">
                 <li><a href="/bienvenida/" style='color:#FFF'>Procesos</a></li>
-                <li class="active">Visualizacion de Procesos</li>
+                <li class="active" style='color:#FFF'>Procesos por aprobar</li>
             </ol>
         </h2>
     </div>
@@ -35,7 +35,6 @@
             <div class="panel-heading">
               <!--<center>             </center>-->
                 <?=$tipoproc['nombreproceso'] ?>
-                <button type="button" class="btn btn-success btn-xs" id="<?=$tipoproc['nombreproceso'] ?>" onclick='location.href = "/procesocrear/<?=$tipoproc['nombreproceso'] ?>"'><i class="glyphicon glyphicon-floppy-save"></i></button>
             </div>
 </br>
 
@@ -55,39 +54,11 @@
 <script type="text/javascript">
 
 function Abrir(btn){
-  location.href = "/procesos/registro/1/"+btn.value;
+  location.href = "/procesos/aprobar/2/"+btn.value;
 }
 
 $(document).ready(function(){
 
-  $("#actualizar").click(function(){
-    var route = "/procesos/store";
-    var token = $("#token").val();
-    var fd = new FormData(document.getElementById("fileinfo"));
-    var progressBar = document.getElementById("progress");
-
-    $.ajax({
-      url: route,
-      headers: {'X-CSRF_TOKEN': $('input[name="_token"]').val()},
-      type: 'post',
-      data: fd,
-      processData: false,  // tell jQuery not to process the data
-      contentType: false,
-      xhr: function() {
-        var xhr = $.ajaxSettings.xhr();
-        xhr.upload.onprogress = function(e) {
-          progressBar.max = e.total;
-          progressBar.value = e.loaded;
-            console.log(Math.floor(e.loaded / e.total *100) + '%');
-        };
-        return xhr;
-      },
-      success: function(){
-        alert("Cambios guardados correctamente");
-        location.reload();
-      }
-    });
-  });
 
 });
 </script>

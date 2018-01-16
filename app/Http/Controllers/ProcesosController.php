@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Proceso;
+use App\Models\procesostmps;
 use App\Models\User;
 use App\Models\tipoproceso;
 use App\Models\Indicadores;
@@ -78,6 +79,12 @@ memory_limit = 10M
       $proceso->tipoarchivo = $request->input('tipoarchivo');
       $proceso->idcompañia = $Users->id_compania;
       $proceso->creador_id = $Users->id;
+
+      if ($Users->perfil == 4) {
+        $proceso->status = 1;
+      }else {
+        $proceso->status = 0;
+      }
 
       //obtenemos el campo file definido en el formulario
       $file = $request->file('file');
@@ -186,22 +193,122 @@ memory_limit = 10M
     }
 
 
+      public function aprobar(Request $request, $id){
+        $proceso = Proceso::find($id);
+        if ($proceso->status == 1) {
+          $proceso->status = 0;
+          $proceso->save();
+        }elseif ($proceso->status == 2) {
+          $proceso-> delete();
+        }else {
+          $paralista = $proceso->indicadores;
+          DB::table('lista_indicadores_procesos')->where('id_proceso',$paralista)->delete();
+          $paralista = $proceso->puestos;
+          DB::table('lista_puestos_procesos')->where('id_proceso',$paralista)->delete();
+          $paralista = $proceso->insumos;
+          DB::table('lista_insumos_procesos')->where('id_proceso',$paralista)->delete();
+          $paralista = $proceso->documento;
+          DB::table('lista_documentos_procesos')->where('id_proceso',$paralista)->delete();
+          $paralista = $proceso->activo;
+          DB::table('lista_activos_procesos')->where('id_proceso',$paralista)->delete();
+
+          $proceso2 = procesostmps::where('procesoOrigen', $id)->first();
+
+          $proceso->tipo = $proceso2->tipo;
+          $proceso->proceso = $proceso2->proceso;
+          $proceso->descripcion = $proceso2->descripcion;
+          $proceso->usuario_responsable_id = $proceso2->usuario_responsable_id;
+          $proceso->rev = $proceso2->rev;
+          $proceso->detalle_de_rev = $proceso2->detalle_de_rev;
+          $proceso->tipoarchivo = $proceso2->tipoarchivo;
+          $proceso->archivo_html = $proceso2->archivo_html;
+          $proceso->nombreunicoarchivo = $proceso2->nombreunicoarchivo;
+          $proceso->indicadores = $proceso2->indicadores;
+          $proceso->puestos = $proceso2->puestos;
+          $proceso->insumos = $proceso2->insumos;
+          $proceso->documento = $proceso2->documento;
+          $proceso->activo = $proceso2->activo;
+
+          $proceso->demandamen = $proceso2->demandamen;
+          $proceso->diasmes = $proceso2->diasmes;
+          $proceso->turnosdia = $proceso2->turnosdia;
+          $proceso->turnoshora = $proceso2->turnoshora;
+          $proceso->horades = $proceso2->horades;
+          $proceso->Tiemposeg = $proceso2->Tiemposeg;
+          $proceso->Tiempomin = $proceso2->Tiempomin;
+          $proceso->Takt = $proceso2->Takt;
+          $proceso->taktseg = $proceso2->taktseg;
+
+          $proceso->Yield = $proceso2->Yield;
+          $proceso->RTY = $proceso2->RTY;
+          $proceso->DPMO = $proceso2->DPMO;
+          $proceso->Sigma = $proceso2->Sigma;
+          $proceso->Persona = $proceso2->Persona;
+          $proceso->Maquina = $proceso2->Maquina;
+          $proceso->dinero = $proceso2->dinero;
+          $proceso->SLA1 = $proceso2->SLA1;
+          $proceso->SLA2 = $proceso2->SLA2;
+          $proceso->SLA3 = $proceso2->SLA3;
+          $proceso->Mes = $proceso2->Mes;
 
 
+          $proceso->status = 0;
+          $proceso->save();
+          $proceso2-> delete();
+        }
+        return Redirect('/procesosadmin');
+      }
 
-    /**
-    * guarda un archivo en nuestro directorio local.
-    *
-    * @return Response
-    */
 
+    public function denegar($id){
+      $proceso = Proceso::find($id);
+      if ($proceso->status == 1) {
+        $this->destroy($id);
+      }elseif ($proceso->status == 2) {
+        $proceso->status = 0;
+        $proceso->save();
+      }else {
+        $proceso->status = 0;
+        $proceso->save();
+        $proceso = procesostmps::where('procesoOrigen', $id)->first();
+        $paralista = $proceso->indicadores;
+        DB::table('lista_indicadores_procesos')->where('id_proceso',$paralista)->delete();
+        $paralista = $proceso->puestos;
+        DB::table('lista_puestos_procesos')->where('id_proceso',$paralista)->delete();
+        $paralista = $proceso->insumos;
+        DB::table('lista_insumos_procesos')->where('id_proceso',$paralista)->delete();
+        $paralista = $proceso->documento;
+        DB::table('lista_documentos_procesos')->where('id_proceso',$paralista)->delete();
+        $paralista = $proceso->activo;
+        DB::table('lista_activos_procesos')->where('id_proceso',$paralista)->delete();
+        $proceso-> delete();
+      }
+      return Redirect('/procesosadmin');
+    }
 
 
 
     public function edit($id,Request $request)
     {
+      $User = Auth::user();
         // para editar registro
-        $proceso = Proceso::findOrFail($id);
+        if ($User->perfil == 4) {
+          $procesoOrigen = Proceso::findOrFail($id);
+          if ($procesoOrigen->status != 0) {
+            return "false";
+          }
+          $procesoOrigen->status = 3;
+          $procesoOrigen->save();
+          $proceso = new procesostmps;
+          $proceso->procesoOrigen = $id;
+          $proceso->status = 0;
+          $proceso->creador_id = $procesoOrigen->creador_id;
+          $proceso->idcompañia = $procesoOrigen->idcompañia;
+        }else {
+          $proceso = Proceso::findOrFail($id);
+        }
+
+
         $proceso->tipo = $request->input('tipo');
         $proceso->proceso = $request->input('proceso');
         $proceso->descripcion = $request->input('descripcion');
@@ -216,7 +323,7 @@ memory_limit = 10M
         {
           $archivoborrar = $proceso->nombreunicoarchivo;
           $file2 = $request->input('filetext');
-    // borramos el archivo zip
+          // borramos el archivo zip
           if  ($file2 != null)
           {
             \Storage::disk('local')->delete($archivoborrar);
@@ -232,34 +339,24 @@ memory_limit = 10M
           \Storage::disk('local')->put($nombreunicoarchivo,  \File::get($file));
         }
         $proceso->save();
+        return "true";
     }
 
     public function edit2($id,Request $request)
     {
+      $User = Auth::user();
         // para editar registro
-        $proceso = Proceso::findOrFail($id);
-
-        $paraindicador = $proceso->indicadores;
-        //obtenemos un id para relacionar la lista de envio
-        $paralista = $proceso->lista_de_distribucion;
-
-        //    borramos lista de envio
-
-        DB::table('lista_envios')->where('id_proceso',$paralista)->delete();
-
-        //    guardamos la nueva lista de envio
-        $envio=$request->input('lista_de_distribucion'); //$_POST["lista_de_distribucion"];
-        for ($i=0;$i<count($envio);$i++)
-        {
-          $lista = new lista_envio;
-          $lista->id_usuario = $envio[$i];
-          $lista->id_proceso = $paralista;
-          $lista->save();
+        if ($User->perfil == 4) {
+          $proceso = procesostmps::where('procesoOrigen', $id)->first();
+        }else {
+          $proceso = Proceso::findOrFail($id);
         }
 
-
+        $paraindicador = $proceso->indicadores;
         DB::table('lista_indicadores_procesos')->where('id_proceso',$paraindicador)->delete();
 
+        $proceso->indicadores = uniqid('indi_');
+        $paraindicador = $proceso->indicadores;
         //    guardamos lista de indicadores
         $indi=$request->input('indicadores'); //$_POST["lista_de_distribucion"];
         for ($i=0;$i<count($indi);$i++)
@@ -336,8 +433,12 @@ memory_limit = 10M
 
     public function edit3($id,Request $request)
     {
+      $User = Auth::user();
         // para editar registro
         $proceso = Proceso::findOrFail($id);
+        if ($proceso->status == 3) {
+          $proceso = procesostmps::where('procesoOrigen', $id)->first();
+        }
 
         $proceso->demandamen = $request->input('demandamen');
         $proceso->diasmes = $request->input('diasmes');
@@ -370,27 +471,44 @@ memory_limit = 10M
 
     public function destroy($id)
     {
-
+      $Users = Auth::user();
       $proceso = Proceso::findorfail($id);
 
-      // borramos el archivo zip
-      $archivoborrar = $proceso->nombreunicoarchivo;
-      if(!empty($archivoborrar)){
-        \Storage::disk('local')->delete($archivoborrar);
+      if ($Users->perfil == 4) {
+        if ($procesoOrigen->status != 0) {
+          return "false";
+        }else {
+          $proceso->status = 2;
+          $proceso->save();
+          return "true";
+        }
+      }else {
+        // borramos el archivo zip
+        $archivoborrar = $proceso->nombreunicoarchivo;
+        if(!empty($archivoborrar)){
+          \Storage::disk('local')->delete($archivoborrar);
+        }
+
+        // borramos la lista de indicadores
+        $paralista = $proceso->indicadores;
+        DB::table('lista_indicadores_procesos')->where('id_proceso',$paralista)->delete();
+        // borramos la lista de indicadores
+        $paralista = $proceso->puestos;
+        DB::table('lista_puestos_procesos')->where('id_proceso',$paralista)->delete();
+
+        $paralista = $proceso->insumos;
+        DB::table('lista_insumos_procesos')->where('id_proceso',$paralista)->delete();
+
+        $paralista = $proceso->documento;
+        DB::table('lista_documentos_procesos')->where('id_proceso',$paralista)->delete();
+
+        $paralista = $proceso->activo;
+        DB::table('lista_activos_procesos')->where('id_proceso',$paralista)->delete();
+        //  storage::delete($rutacompleta);
+        // borramos el registro de la tabla
+        $proceso-> delete();
       }
 
-      // borramos la lista de envios
-      $paralista = $proceso->lista_de_distribucion;
-      DB::table('lista_envios')->where('id_proceso',$paralista)->delete();
-
-      // borramos la lista de indicadores
-      $paralista = $proceso->indicadores;
-      DB::table('lista_indicadores_procesos')->where('id_proceso',$paralista)->delete();
-
-
-      //  storage::delete($rutacompleta);
-      // borramos el registro de la tabla
-      $proceso-> delete();
       return Redirect('/procesos/visual');
       //  return dd($rutacompleta);
     }

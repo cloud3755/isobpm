@@ -99,9 +99,13 @@ Route::group( ['middleware' => 'auth'],
 		Route::post('/procesos/edit3/{id}','ProcesosController@edit3');
 		Route::post('/procesos/delete/{id}','ProcesosController@destroy');
 		Route::get('/procesos/visual/{id}','ProcesosControllerVisual@visualzip');
-    Route::get('/procesos/registro/{id}','ProcesosControllerVisual@show');
+    Route::get('/procesos/registro/{tipo}/{id}','ProcesosControllerVisual@show');
     Route::get('/bizagi/{id}','ProcesosControllerVisual@ver');
 
+    //Procesos para aprobar
+    Route::get('/procesos/aprobar/{tipo}/{id}','ProcesosControllerVisual@show');
+    Route::post('/proceso/aprobado/{id}','ProcesosController@aprobar');
+    Route::post('/proceso/denegado/{id}','ProcesosController@denegar');
 
 		//ruta para Resultados
 		Route::get('/resultado/index','ResultadoController@index');
@@ -290,6 +294,9 @@ Route::group( ['middleware' => 'auth'],
 
     Route::get('/documentoseliminados', 'AdministradosController@doceliminados');
     Route::delete('/doceliminar/destroy/{id}', 'InformaciondocController@doceliminar');
+
+    //Admin procesos
+    Route::get('/procesosadmin', 'AdministradosController@procesosadmin');
 
     // prueba calendario
     Route::get('/calendarioagenda', 'calendariopersonal@index');

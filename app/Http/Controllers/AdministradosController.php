@@ -17,6 +17,8 @@ use App\Models\Status;
 use App\Models\Plans;
 use App\Models\Documentos;
 use App\Models\Documentoseliminados;
+use App\Models\Proceso;
+use App\Models\tipoproceso;
 use App\Models\Noticias;
 use App\Models\Pendientes;
 use App\Models\lista_eventos;
@@ -903,6 +905,26 @@ class AdministradosController extends Controller
         $proyecto->save();
         return redirect('/proyectos');
       }
+
+
+      //Procesos admin
+
+      public function procesosadmin()
+      {
+        $usuarios = Auth::user();
+        if ($usuarios->perfil != 4) {
+          $Procesos = new Proceso;
+          $proceso = $Procesos->where('idcompañia',$usuarios->id_compania)->where('status','!=',0)->get();
+
+          $tipoprocesos = new tipoproceso;
+          $tipoproceso = $tipoprocesos->orderBy('id')->get();
+          //return dd($Proceso);
+          return view('/Principales/adminproces', compact('proceso','tipoproceso'));
+        }else {
+          return redirect('bienvenida');
+        }
+      }
+
 
 
 
