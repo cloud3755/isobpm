@@ -436,8 +436,10 @@ memory_limit = 10M
       $User = Auth::user();
         // para editar registro
         $proceso = Proceso::findOrFail($id);
+        $validar = "admin";
         if ($proceso->status == 3) {
           $proceso = procesostmps::where('procesoOrigen', $id)->first();
+          $validar = "usuario";
         }
 
         $proceso->demandamen = $request->input('demandamen');
@@ -464,6 +466,7 @@ memory_limit = 10M
         $proceso->Mes = $request->input('Mes');
 
         $proceso->save();
+        return $validar;
     }
 
 

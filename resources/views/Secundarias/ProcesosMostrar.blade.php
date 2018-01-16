@@ -749,8 +749,13 @@
     <div class="col-sm-4 col-md-4 col-lg-4">
       <form class="" action="/procesos/delete/<?=$procesos['id']?>" method="post">
         <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+        @if($usuario->perfil == 4 )
+        <center><button type="submit" class="btn btn-lg btn-danger" id="btndelete_<?=$procesos['id']?>" style="font-family: Arial;" dataid="<?=$procesos['id']?>" onclick="
+          return confirm('Estas seguro de eliminar el proceso <?=$procesos['proceso']?>?, se enviara a aprobacion')"><i class="fa fa-trash"></i></button></center>
+        @else
         <center><button type="submit" class="btn btn-lg btn-danger" id="btndelete_<?=$procesos['id']?>" style="font-family: Arial;" dataid="<?=$procesos['id']?>" onclick="
           return confirm('Estas seguro de eliminar el proceso <?=$procesos['proceso']?>?')"><i class="fa fa-trash"></i></button></center>
+        @endif
       </form>
     </div>
   </div>
@@ -934,9 +939,14 @@ $(document).ready(function(){
             data: fd,
             processData: false,  // tell jQuery not to process the data
             contentType: false,
-            success: function(){
-              alert("Cambios guardados correctamente");
-              location.reload();
+            success: function(validar){
+              if (validar == "usuario") {
+                alert("Cambios procesados, Se enviaran a aprobar");
+                location.href = "/procesos/visual";
+              }else {
+                alert("Cambios guardados correctamente");
+                location.reload();
+              }
             }
           });
         }else {

@@ -405,7 +405,7 @@ $Activosrelacion = \DB::table('lista_activos_procesos')
 
 
       if ($tipo == 1) {
-        return View('/Secundarias/ProcesosMostrar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex','archivoabrir','rutacompleta','rutaalindex2','Puesto','Puestorelacion','Insumos','Documentos','Activos','Insumosrelacion','Documentosrelacion','Activosrelacion','sipoc'));
+        return View('/Secundarias/ProcesosMostrar', compact('usuario','proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex','archivoabrir','rutacompleta','rutaalindex2','Puesto','Puestorelacion','Insumos','Documentos','Activos','Insumosrelacion','Documentosrelacion','Activosrelacion','sipoc'));
       }else {
         return View('/Secundarias/ProcesosAprobar', compact('proceso','User','Users','tipoproceso','procesosrelacion','listaenvio','indicadoresrelacion','indicador','rutaalindex','archivoabrir','rutacompleta','rutaalindex2','Puesto','Puestorelacion','Insumos','Documentos','Activos','Insumosrelacion','Documentosrelacion','Activosrelacion','sipoc'));
       }
