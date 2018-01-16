@@ -166,16 +166,18 @@ class QuejasController extends Controller
       $queja = Quejas::findorfail($id);
 
       //nombre del archivo
-      $file1                            = $request->file('earchivo1_q');
-      $file2                            = $request->file('earchivo2_q');
+      $file2                            = $request->file('earchivo1_q');
+      $file1                            = $request->file('earchivo2_q');
       //se valida que no este vacio el archivo 2
       if($file1!= null )
       {
           $extension1                       = strtolower($file1->getclientoriginalextension());
           $nombreunicoarchivo1              = uniqid().'.'.$extension1;
           if($queja->uniquearchivoqueja != null)
-          \Storage::disk('quejas')->delete($queja->uniquearchivoqueja);
 
+          if (\Storage::disk('quejas')->exists($queja->uniquearchivoqueja)) {
+          \Storage::disk('quejas')->delete($queja->uniquearchivoqueja);
+          }
           \Storage::disk('quejas')->put($nombreunicoarchivo1,  \File::get($file1));
           $queja->archivoqueja              = $file1->getClientOriginalName();
           $queja->uniquearchivoqueja        = $nombreunicoarchivo1;
@@ -187,8 +189,10 @@ class QuejasController extends Controller
         $nombreunicoarchivo2              = uniqid().'.'.$extension2;
 
         if($queja->uniquearchivoevidencia != null)
-        \Storage::disk('quejas')->delete($queja->uniquearchivoevidencia);
 
+        if (\Storage::disk('quejas')->exists($queja->uniquearchivoevidencia)) {
+        \Storage::disk('quejas')->delete($queja->uniquearchivoevidencia);
+      }
         \Storage::disk('quejas')->put($nombreunicoarchivo2,  \File::get($file2));
         $queja->archivoqueja              = $file2->getClientOriginalName();
         $queja->uniquearchivoqueja        = $nombreunicoarchivo2;
@@ -236,7 +240,15 @@ class QuejasController extends Controller
     public function destroy($id)
     {
 
+
+      $usuario = Auth::user();
+      //
+      $iduser = $usuario->id;
+      $compañiaid = $usuario->id_compania;
+
             $queja = Quejas::findorfail($id);
+
+      if($queja->idcompañia == $compañiaid){
 
             if($queja->uniquearchivoqueja != null)
               \Storage::disk('quejas')->delete($queja->uniquearchivoqueja);
@@ -246,8 +258,9 @@ class QuejasController extends Controller
             $queja-> delete();
             //return Redirect('/quejas/create');
             $msg = "se elimino correctmente";
-            return response()->json(array('msg'=> $msg), 200);
-            //return Response::json($msg);
 
+            //return Response::json($msg);
+       }
+       return Redirect('/quejas/create');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
+
 use Illuminate\Support\Facades\DB;
 use App\Models\Accioncorrectiva1;
 use App\Http\Requests;
@@ -16,6 +18,7 @@ use App\Models\Evidencia;
 use App\Models\Productos;
 use App\Models\Areas;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 class AccionescorrectivasControllerVisual extends Controller
@@ -319,9 +322,10 @@ class AccionescorrectivasControllerVisual extends Controller
 
       $accion->save();
 
-      return response()->json([
-        'mensaje' => "listo"
-      ]);
+      Session::flash('flash_message', 'Se guardo el cambio.');
+
+      return redirect('/accioncorrectiva');
+
     }
 
     public function editM($id){

@@ -1,13 +1,62 @@
 @extends('layouts.principal2')
 
 @section('content')
+
+
+<!-- Data Tables -->
+<link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<link href="/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+<link href="/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+
+
+<!-- Data Tables-->
+<script src="/js/plugins/dataTables/jquery-2.1.1.js"></script>
+<script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+
+    <style>
+        body.DTTT_Print {
+            background: #fff;
+
+        }
+        .DTTT_Print #page-wrapper {
+            margin: 0;
+            background:#fff;
+        }
+
+        button.DTTT_button, div.DTTT_button, a.DTTT_button {
+            border: 1px solid #e7eaec;
+            background: #fff;
+            color: #676a6c;
+            box-shadow: none;
+            padding: 6px 8px;
+        }
+        button.DTTT_button:hover, div.DTTT_button:hover, a.DTTT_button:hover {
+            border: 1px solid #d2d2d2;
+            background: #fff;
+            color: #676a6c;
+            box-shadow: none;
+            padding: 6px 8px;
+        }
+
+        .dataTables_filter label {
+            margin-right: 5px;
+
+        }
+    </style>
+
+
 <script src="/js/EXCEL/src/jquery.table2excel.js"></script>
 
 <script type="text/javascript">
 
 function EditarNC(btn){
-  var route = "/noconformidad/"+btn.value+"/edit";
+
+  var route = "/noconformidad/"+btn+"/edit";
   $.get(route, function(res){
+    $("#btnpro").hide();
+
     $("#id_nc").val(res.id);
     $("#fecha_nc").val(res.fecha);
     $('#proceso_id_nc option[value="' + res.proceso_id + '"]').attr("selected", "selected");
@@ -24,125 +73,60 @@ function EditarNC(btn){
     $('#estatus_id_nc option[value="' + res.estatus_id + '"]').attr("selected", "selected");
     $("#monto_nc").val(res.monto);
 
+    $("#evidenciaNCMod").attr("href","/storage/noconformidad/" + res.apertura_unic );
+    $("#evidenciaNCMod").attr("downloadFile",res.apertura_unic );
+
+    $("#evidenciaCierreMod").attr("href","/storage/noconformidad/" + res.evidencia_unic );
+    $("#evidenciaCierreMod").attr("downloadFile",res.evidencia_unic);
+
+  $("#fileinfo_nc").attr("action","/noconformidad/edit/" + res.id );
+
+    if($("#id_ufr").val() != res.usuario_responsable_id ){
+       $("#btnpro").show();
+      }
+
   });
 
 }
 
+function deletemod(){
 
+  var x = confirm("Estas seguro de borrar la no conformidad?");
 
-//Funciones para la tabla
-$.fn.pageMe = function(opts){
-    var $this = this,
-        defaults = {
-            perPage: 7,
-            showPrevNext: false,
-            hidePageNumbers: false
-        },
-        settings = $.extend(defaults, opts);
+  if (x){
 
-    var listElement = $this;
-    var perPage = settings.perPage;
-    var children = listElement.children();
-    var pager = $('.pager');
-
-    if (typeof settings.childSelector!="undefined") {
-        children = listElement.find(settings.childSelector);
-    }
-
-    if (typeof settings.pagerSelector!="undefined") {
-        pager = $(settings.pagerSelector);
-    }
-
-    var numItems = children.size();
-    var numPages = Math.ceil(numItems/perPage);
-
-    pager.data("curr",0);
-
-    if (settings.showPrevNext){
-        $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
-    }
-
-    var curr = 0;
-    while(numPages > curr && (settings.hidePageNumbers==false)){
-        $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
-        curr++;
-    }
-
-    if (settings.showPrevNext){
-        $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
-    }
-
-    pager.find('.page_link:first').addClass('active');
-    pager.find('.prev_link').hide();
-    if (numPages<=1) {
-        pager.find('.next_link').hide();
-    }
-      pager.children().eq(1).addClass("active");
-
-    children.hide();
-    children.slice(0, perPage).show();
-
-    pager.find('li .page_link').click(function(){
-        var clickedPage = $(this).html().valueOf()-1;
-        goTo(clickedPage,perPage);
-        return false;
-    });
-    pager.find('li .prev_link').click(function(){
-        previous();
-        return false;
-    });
-    pager.find('li .next_link').click(function(){
-        next();
-        return false;
+    var route = "/noconformidad/delete/"+$("#id_nc").val();
+    $.get(route, function(res){
+     location.reload();
     });
 
-    function previous(){
-        var goToPage = parseInt(pager.data("curr")) - 1;
-        goTo(goToPage);
-    }
+}
 
-    function next(){
-        goToPage = parseInt(pager.data("curr")) + 1;
-        goTo(goToPage);
-    }
+ return false;
 
-    function goTo(page){
-        var startAt = page * perPage,
-            endOn = startAt + perPage;
 
-        children.css('display','none').slice(startAt, endOn).show();
-
-        if (page>=1) {
-            pager.find('.prev_link').show();
-        }
-        else {
-            pager.find('.prev_link').hide();
-        }
-
-        if (page<(numPages-1)) {
-            pager.find('.next_link').show();
-        }
-        else {
-            pager.find('.next_link').hide();
-        }
-
-        pager.data("curr",page);
-        pager.children().removeClass("active");
-        pager.children().eq(page+1).addClass("active");
-
-    }
-};
+}
 
 $(document).ready(function(){
 
-  $("#excel").click(function(){
-  $("#datos").table2excel({
-    filename: "ReporteNC",
-    fileext:".xls"
-  });
+
+
+  $('.dataTables-example').dataTable({
+    responsive: true,
+    "dom": 'T<"clear">lfrtip',
+    "tableTools": {
+        "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+    }
   });
 
-  $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
+
+    $("#excel").click(function(){
+    $("#datos").table2excel({
+      filename: "ReporteNC",
+      fileext:".xls"
+    });
+    });
+
 
   $("#actualizar_nc").click(function(){
     var value = $("#id_nc").val();
@@ -166,43 +150,13 @@ $(document).ready(function(){
 
 });
 
-function doSearch()
-{
-  var tableReg = document.getElementById('datos');
-  var searchText = document.getElementById('searchTerm').value.toLowerCase();
-  var cellsOfRow="";
-  var found=false;
-  var compareWith="";
-
-  // Recorremos todas las filas con contenido de la tabla
-  for (var i = 1; i < tableReg.rows.length; i++)
-  {
-    cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-    found = false;
-    // Recorremos todas las celdas
-    for (var j = 0; j < cellsOfRow.length-1 && !found; j++)
-    {
-      compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-      // Buscamos el texto en el contenido de la celda
-      if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
-      {
-        found = true;
-      }
-    }
-    if(found)
-    {
-      tableReg.rows[i].style.display = '';
-    } else {
-      // si no ha encontrado ninguna coincidencia, esconde la
-      // fila de la tabla
-      tableReg.rows[i].style.display = 'none';
-    }
-  }
-}
-
 </script>
 
-
+@if(Session::has('flash_message'))
+<script>
+alert ('{{Session::get('flash_message')}}')
+</script>
+@endif
 <br><br><br><br><br>
 <br><br>
     <div class="row">
@@ -234,11 +188,9 @@ function doSearch()
                 </div>
             <div class="panel-body">
               <div class="table-responsive">
-                <form>
-                    Buscar <input id="searchTerm" type="text" onkeyup="doSearch()" />
-                </form>
+
                 <div class="dataTable_wrapper">
-                    <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
+                    <table width="100%" class="table table-striped table-bordered table-hover dataTables-example" id="datos">
                       <thead style='background-color: #868889; color:#FFF'>
                         <tr>
                           <th>  <div class="th-inner sortable both">    id  </div></th>
@@ -246,57 +198,28 @@ function doSearch()
                           <th>  <div class="th-inner sortable both">    Descripcion  </div></th>
                           <th>  <div class="th-inner sortable both">    Responsable  </div></th>
                          <th>  <div class="th-inner sortable both">    Fecha Plan  </div></th>
-                          <th>  <div class="th-inner sortable both">    Evidencia  </div></th>
-                          <th>  <div class="th-inner sortable both">    Evidencia Apertura  </div></th>
+
                           <th>  <div class="th-inner sortable both">    Fecha cierre  </div></th>
                           <th>  <div class="th-inner sortable both">    Status  </div></th>
                           <th>  <div class="th-inner sortable both">    Creador  </div></th>
-                          <th>  <div class="th-inner sortable both">    Editar  </div></th>
-                          <th>  <div class="th-inner sortable both">  Eliminar</div></th>
+
                         </tr>
                       </thead>
                       <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
                       <tbody id = "myTable">
                         <?php foreach ($relaciontabla as $noconformidad): ?>
-                        <tr>
+                        <tr class="gradeX" data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC(<?=$noconformidad->id?>);"> <strong>
                           <td>  <?=$noconformidad->id?> </td>
                           <td>  <?=$noconformidad->fecha?> </td>
                           <td>  <?=$noconformidad->descripcion?></td>
                           <td>  <?=$noconformidad->usuarionombre?></td>
                           <td>  <?=$noconformidad->fecha_plan?></td>
-                          <td>  <?=$noconformidad->evidencia?>
-                            @IF($noconformidad->evidencia != '')
-                            <a href="/storage/noconformidad/<?=$noconformidad->evidencia_unic?>" downloadFile="<?=$noconformidad->evidencia_unic?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-warning">
-                                   <i class="glyphicon glyphicon-cloud-download"></i>
-                              </button>
-                            </a>
-                            @endif
-                          </td>
-                          <td>  <?=$noconformidad->evidenciapertura?>
-                            @IF($noconformidad->evidenciapertura != '')
-                            <a href="/storage/noconformidad/<?=$noconformidad->apertura_unic?>" downloadFile="<?=$noconformidad->apertura_unic?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-warning">
-                                   <i class="glyphicon glyphicon-cloud-download"></i>
-                              </button>
-                            </a>
-                            @endif
-                          </td>
+
                           <td>  <?=$noconformidad->fecha_cierre?></td>
                           <td>  <?=$noconformidad->estatusnombre?></td>
                           <td>  <?=$noconformidad->creador?></td>
-                          <td>
-                            <button type="button" class="btn btn-primary" value = "<?=$noconformidad->id?>" data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC(this);"><i class="glyphicon glyphicon-edit"></i></button>
-                          </td>
-                          <td>
-<!-- se creara un bucle para generar los n modales necesarios para la edicion de datos -->
-                              <form class="" action="/noconformidad/delete/<?=$noconformidad->id?>" method="post">
-                                  {{ csrf_field() }}
-                                  {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="
-  return confirm('Estas seguro de eliminar la queja numero: <?=$noconformidad->id?>?')"><i class="fa fa-trash"></i></button>
-                              </form>
-                          </td>
+
+                        </strong>
                         </tr>
                         <?php endforeach ?>
                       </tbody>
@@ -324,6 +247,8 @@ function doSearch()
                       <input type="hidden" name="_token" value="{{ csrf_token()}}">
                       <input type="hidden" name="id_area" value="{{ Auth::user()->id_area }}">
                       <input type="hidden" name="id_compania" value="{{Auth::user()->id_compania}}">
+                      <input type="hidden" name="id_ufr" id="id_ufr" value="{{Auth::user()->id}}">
+
                     <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <h3><label>Fecha:</label></h3>
@@ -439,7 +364,7 @@ function doSearch()
                     <h2 class="modal-title">EDITAR NO CONFORMIDADES</h2>
                 </div>
                 <div class="modal-body">
-                    <form id="fileinfo_nc" method="post">
+                    <form id="fileinfo_nc" method="post" accept-charset="UTF-8" enctype="multipart/form-data" action="">
                       <input type="hidden" name="_token" value="{{ csrf_token()}}">
                       <input type="hidden" id="id_nc">
                     <div class="row">
@@ -480,7 +405,8 @@ function doSearch()
 
                     <div class="col-lg-8 col-md-8 col-sm-8">
                         <h3><label>Evidencia no conformidad:</label></h3>
-                        <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivoa_nc" id="archivoa_nc" >
+
+                        <a id="evidenciaNCMod" href="" downloadFile="" style='color:#FFF' title="Ver archivo" target="_blank"><input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivoa_nc" id="archivoa_nc" > </a>
                         <input class="file" id="archivo1_nc" type="file" placeholder="Archivo" name="archivo1_nc">
                     </div>
 
@@ -516,7 +442,7 @@ function doSearch()
 
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <h3><label>Evidencia de cierre:</label></h3>
-                        <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivob_nc" id="archivob_nc" >
+                        <a id="evidenciaCierreMod" href="" downloadFile="" style='color:#FFF' title="Ver archivo" target="_blank"><input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivob_nc" id="archivob_nc" ></a>
                         <input class="file" id="archivo2_nc" type="file" placeholder="Evidencia del cierre" name="archivo2_nc">
                     </div>
 
@@ -542,10 +468,16 @@ function doSearch()
 
 
                         <div class="modal-footer">
-                          <a class="btn btn-primary" id="actualizar_nc" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+           <button type="button" class="btn btn-danger" id="btnpro" style="font-family: Arial;" onclick="deletemod();"><i class="fa fa-trash"></i><br>Borrar</button>
+
+                         <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                         </div>
                       </form>
+
+
+
+
                     </div>
                 </div>
             </div>

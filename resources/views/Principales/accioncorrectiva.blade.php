@@ -2,6 +2,52 @@
 
 @section('content')
 
+<!-- Data Tables -->
+<link href="/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<link href="/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+<link href="/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+
+
+<!-- Data Tables-->
+<script src="/js/plugins/dataTables/jquery-2.1.1.js"></script>
+<script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<style>
+    body.DTTT_Print {
+        background: #fff;
+
+    }
+    .DTTT_Print #page-wrapper {
+        margin: 0;
+        background:#fff;
+    }
+
+    button.DTTT_button, div.DTTT_button, a.DTTT_button {
+        border: 1px solid #e7eaec;
+        background: #fff;
+        color: #676a6c;
+        box-shadow: none;
+        padding: 6px 8px;
+    }
+    button.DTTT_button:hover, div.DTTT_button:hover, a.DTTT_button:hover {
+        border: 1px solid #d2d2d2;
+        background: #fff;
+        color: #676a6c;
+        box-shadow: none;
+        padding: 6px 8px;
+    }
+
+    .dataTables_filter label {
+        margin-right: 5px;
+
+    }
+</style>
+@if(Session::has('flash_message'))
+<script>
+alert ('{{Session::get('flash_message')}}')
+</script>
+@endif
 
 <br><br><br><br><br><br><br><br>
     <div class="row">
@@ -32,11 +78,9 @@
                 </div>
             <div class="panel-body">
               <div class="table-responsive">
-                <form>
-                    Buscar <input id="searchTerm" type="text" onkeyup="doSearch()" />
-                </form>
+
                 <div class="dataTable_wrapper">
-                    <table width="100%" class="table table-responsive table-striped table-bordered table-hover" id="datos">
+                    <table width="100%"  class="table table-striped table-bordered table-hover dataTables-example" id="datos">
                       <thead style='background-color: #868889; color:#FFF'>
                         <tr>
                           <th><div class="th-inner sortable both">  ID</div></th>
@@ -44,46 +88,32 @@
                           <th><div class="th-inner sortable both">  Descripcion</div></th>
                           <th><div class="th-inner sortable both">  Responsable</div></th>
                           <th><div class="th-inner sortable both">  Fecha de accion</div></th>
-                          <th><div class="th-inner sortable both">  Evidencia</div></th>
+
                           <th><div class="th-inner sortable both">  Status</div></th>
-                          <th><div class="th-inner sortable both">   Subir Evidencia</div></th>
-                          <th><div class="th-inner sortable both">   Editar accion</div></th>
+                          <th><div class="th-inner sortable both">  Subir evidencia</div></th>
+
                         </tr>
                       </thead>
                       <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
                       <tbody id = "myTable">
                         <?php foreach ($relaciontabla as $accioncorrectivas): ?>
-                        <tr>
-                          <td> <?=$accioncorrectivas->id?> </td>
-                          <td> <?=$accioncorrectivas->fechaalta?> </td>
-                          <td> <?=$accioncorrectivas->descripcion?> </td>
-                          <td> <?=$accioncorrectivas->usernombre?> </td>
-                          <td> <?=$accioncorrectivas->fechaaccion?> </td>
-                          <td>
-                            @if($accioncorrectivas->uniqueevidencia != '')
-                            <?=$accioncorrectivas->evidencia?>
-                            <a href="/storage/accioncorrectiva/<?=$accioncorrectivas->uniqueevidencia?>" target="_blank" downloadFile="<?=$accioncorrectivas->uniqueevidencia?>" style='color:#FFF'>
-                              <button type="button" class="btn btn-warning">
-                                   <span class="glyphicon glyphicon-cloud-download"></span>
-                              </button>
-                            </a>
-                            @endif
-                          </td>
-                          <td> <?=$accioncorrectivas->statusnombre?> </td>
-                          <td>
-<!-- se creara un bucle para generar los n modales necesarios para la edicion de datos -->
-                            <form class="" action="/subirevidencia/evidencia/<?=$accioncorrectivas->id?>">
-                              <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
-                              <input type="hidden" name="responsable_id" value="<?=$accioncorrectivas->responsable_id?>">
-                                <button type="submit" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i></button>
-                            </form>
-                          </td>
-                          <td>
-                            @if(Auth::user()->perfil != 4 or Auth::user()->id == $accioncorrectivas->responsable_id or Auth::user()->id == $accioncorrectivas->creador_id)
-                              <button type="button" class="btn btn-primary" value = "<?=$accioncorrectivas->id?>" data-toggle="modal" data-target="#modaledit" onclick="Editar(this);"><i class="glyphicon glyphicon-edit"></i> </button>
-                            @endif
-                          </td>
+                        <tr class="gradeX"> <strong>
+                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->id?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->fechaalta?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->descripcion?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->usernombre?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->fechaaccion?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->statusnombre?> </td>
+                        <td></a>
 
+            <!-- se creara un bucle para generar los n modales necesarios para la edicion de datos -->
+                          <form class="" action="/subirevidencia/evidencia/<?=$accioncorrectivas->id?>">
+                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}">
+                            <input type="hidden" name="responsable_id" value="<?=$accioncorrectivas->responsable_id?>">
+                              <button type="submit" class="btn btn-info" ><i class="glyphicon glyphicon-pencil"></i></button>
+                          </form>
+                        </td>
+                           </strong>
                         </tr>
                         <?php endforeach ?>
                       </tbody>
@@ -272,7 +302,7 @@
                     <h3 class="modal-title">ACTUALIZAR ACCION CORRECTIVA</h3>
                 </div>
                 <div class="modal-body">
-                  <form id="fileinfo" method="post">
+                  <form id="fileinfo" method="post" accept-charset="UTF-8" enctype="multipart/form-data" action="" >
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
                     <input type="hidden" id="id">
                     <input type="hidden" id="creador" value="{{ Auth::user()->id }} ">
@@ -335,7 +365,7 @@
 
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             <h3><label>Archivo de Accion correctiva:</label></h3>
-                                <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoa" id="earchivoa" >
+                                <a id="earchivoaa" href="" downloadFile="" style='color:#FFF' title="Ver archivo" target="_blank"><input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoa" id="earchivoa" ></a>
                                 <input class="file" type="file" placeholder="Archivo" name="archivoa" id="archivoa">
                         </div>
 
@@ -383,7 +413,7 @@
 
                         <div class="col-lg-7 col-md-7 col-sm-7">
                             <h2><label>Archivo de evidencia:</label></h2>
-                                <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoe" id="earchivoe" >
+                                  <a id="earchivoea" href="" downloadFile="" style='color:#FFF' title="Ver archivo" target="_blank"> <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoe" id="earchivoe" > </a>
                                 <input class="file" type="file" placeholder="Archivo" name="archivoe" id="archivoe">
                         </div>
 
@@ -404,7 +434,8 @@
 
                     </div>
                     <div class="modal-footer">
-                      <a class="btn btn-primary" id="actualizar" style="font-family: Arial;"><i class="glyphicon glyphicon-edit"></i><br>Editar</a>
+                      <!--<button type="button" id=""  class="btn btn-danger" onclick="deletemod();"><i class="fa fa-trash"></i><br>Eliminar</button>-->
+                      <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i><br>Editar</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseUpload"><i class="glyphicon glyphicon-remove"></i><br>Cerrar</button>
                     </div>
                   </form>
@@ -417,9 +448,27 @@
     <script type="text/javascript">
 
 
+    function deletemod(){
+
+      var x = confirm("Estas seguro de borrar la accion correctiva?");
+
+      if (x){
+
+        var route = "/quejas/delete/"+$("#id").val();
+        $.get(route, function(res){
+         location.reload();
+        });
+
+    }
+
+     return false;
+
+
+    }
+
 
     function Editar(btn){
-      var route = "/accioncorrectiva/"+btn.value+"/edit";
+      var route = "/accioncorrectiva/"+btn+"/edit";
       $.get(route, function(res){
         $("#efechaalta").val(res.fechaalta);
         $('#eindicador_id option[value="' + res.indicador_id + '"]').attr("selected", "selected");
@@ -458,6 +507,14 @@
           $("#eestatus").attr('disabled','disabled');
         }
 
+        $("#earchivoaa").attr("href","/storage/accioncorrectiva/" + res.uniquedocumento );
+        $("#earchivoaa").attr("downloadFile", res.uniquedocumento  );
+
+        $("#earchivoea").attr("href","/storage/accioncorrectiva/"+res.uniqueevidencia );
+        $("#earchivoea").attr("downloadFile",res.uniqueevidencia);
+
+        $("#fileinfo").attr("action","/accioncorrectiva/edit/" + res.id );
+
 
       });
 
@@ -465,112 +522,29 @@
 
 
 
-    //Funciones para la tabla
-    $.fn.pageMe = function(opts){
-        var $this = this,
-            defaults = {
-                perPage: 7,
-                showPrevNext: false,
-                hidePageNumbers: false
-            },
-            settings = $.extend(defaults, opts);
 
-        var listElement = $this;
-        var perPage = settings.perPage;
-        var children = listElement.children();
-        var pager = $('.pager');
 
-        if (typeof settings.childSelector!="undefined") {
-            children = listElement.find(settings.childSelector);
-        }
-
-        if (typeof settings.pagerSelector!="undefined") {
-            pager = $(settings.pagerSelector);
-        }
-
-        var numItems = children.size();
-        var numPages = Math.ceil(numItems/perPage);
-
-        pager.data("curr",0);
-
-        if (settings.showPrevNext){
-            $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
-        }
-
-        var curr = 0;
-        while(numPages > curr && (settings.hidePageNumbers==false)){
-            $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
-            curr++;
-        }
-
-        if (settings.showPrevNext){
-            $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
-        }
-
-        pager.find('.page_link:first').addClass('active');
-        pager.find('.prev_link').hide();
-        if (numPages<=1) {
-            pager.find('.next_link').hide();
-        }
-          pager.children().eq(1).addClass("active");
-
-        children.hide();
-        children.slice(0, perPage).show();
-
-        pager.find('li .page_link').click(function(){
-            var clickedPage = $(this).html().valueOf()-1;
-            goTo(clickedPage,perPage);
-            return false;
-        });
-        pager.find('li .prev_link').click(function(){
-            previous();
-            return false;
-        });
-        pager.find('li .next_link').click(function(){
-            next();
-            return false;
-        });
-
-        function previous(){
-            var goToPage = parseInt(pager.data("curr")) - 1;
-            goTo(goToPage);
-        }
-
-        function next(){
-            goToPage = parseInt(pager.data("curr")) + 1;
-            goTo(goToPage);
-        }
-
-        function goTo(page){
-            var startAt = page * perPage,
-                endOn = startAt + perPage;
-
-            children.css('display','none').slice(startAt, endOn).show();
-
-            if (page>=1) {
-                pager.find('.prev_link').show();
-            }
-            else {
-                pager.find('.prev_link').hide();
-            }
-
-            if (page<(numPages-1)) {
-                pager.find('.next_link').show();
-            }
-            else {
-                pager.find('.next_link').hide();
-            }
-
-            pager.data("curr",page);
-          	pager.children().removeClass("active");
-            pager.children().eq(page+1).addClass("active");
-
-        }
-    };
 
     $(document).ready(function(){
 
-      $('#myTable').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:10});
+      $("#fileinfo").submit(function(e) {
+        e.preventDefault();
+
+          $("#fileinfo").find('input, textarea, button, select').prop('disabled', false);
+
+         this.submit();
+     });
+
+
+
+      $('.dataTables-example').dataTable({
+        responsive: true,
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+        }
+      });
+
 
       $("#actualizar").click(function(){
         var value = $("#id").val();
@@ -593,40 +567,6 @@
       });
 
     });
-
-    function doSearch()
-    {
-      var tableReg = document.getElementById('datos');
-      var searchText = document.getElementById('searchTerm').value.toLowerCase();
-      var cellsOfRow="";
-      var found=false;
-      var compareWith="";
-
-      // Recorremos todas las filas con contenido de la tabla
-      for (var i = 1; i < tableReg.rows.length; i++)
-      {
-        cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-        found = false;
-        // Recorremos todas las celdas
-        for (var j = 0; j < cellsOfRow.length-1 && !found; j++)
-        {
-          compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-          // Buscamos el texto en el contenido de la celda
-          if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
-          {
-            found = true;
-          }
-        }
-        if(found)
-        {
-          tableReg.rows[i].style.display = '';
-        } else {
-          // si no ha encontrado ninguna coincidencia, esconde la
-          // fila de la tabla
-          tableReg.rows[i].style.display = 'none';
-        }
-      }
-    }
 
     </script>
 @stop

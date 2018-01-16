@@ -72,7 +72,7 @@ Route::group( ['middleware' => 'auth'],
 			//ruta para quejas
 			Route::get('quejas/create', 'QuejasController@create');
 			Route::post('quejas/store', 'QuejasController@store');
-      Route::post('quejas/delete/{id}', 'QuejasController@destroy');
+      Route::get('quejas/delete/{id}', 'QuejasController@destroy');
       Route::post('quejas/edit/{id}', 'QuejasController@edit');
       Route::get('quejas/{id}/edit', 'QuejasController@editM');
 
@@ -81,7 +81,7 @@ Route::group( ['middleware' => 'auth'],
 			Route::post('noconformidad/store', 'NoconformidadesController@store');
       Route::post('noconformidad/edit/{id}', 'NoconformidadesController@edit');
       Route::get('noconformidad/{id}/edit', 'NoconformidadesController@editM');
-      Route::delete('noconformidad/delete/{id}', 'NoconformidadesController@destroy');
+      Route::get('noconformidad/delete/{id}', 'NoconformidadesController@destroy');
 
 			//ruta para procesos
 			Route::get('procesos/create', 'ProcesosController@create');

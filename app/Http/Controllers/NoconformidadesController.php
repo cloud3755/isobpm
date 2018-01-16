@@ -164,8 +164,8 @@ class NoconformidadesController extends Controller
     public function edit($id,Request $request)
     {
       $Noconformidad = Noconformidades::findorfail($id);
-        $file1                            = $request->file('archivo1_nc');
-        $file2                            = $request->file('archivo2_nc');
+        $file2                            = $request->file('archivo1_nc');
+        $file1                            = $request->file('archivo2_nc');
 
       if($file1!= null )
       {
@@ -239,14 +239,25 @@ class NoconformidadesController extends Controller
      */
     public function destroy($id)
     {
+
+
+      $usuario = Auth::user();
+      //
+      $iduser = $usuario->id;
+      $compañiaid = $usuario->id_compania;
+
       $Noconformidad = Noconformidades::findorfail($id);
 
+      if ($Noconformidad->idcompañia == $compañiaid)
+      {
       if($Noconformidad->evidencia_unic != null)
         \Storage::disk('noconformidad')->delete($Noconformidad->evidencia_unic);
       if($Noconformidad->apertura_unic != null)
       \Storage::disk('noconformidad')->delete($Noconformidad->apertura_unic);
 
       $Noconformidad-> delete();
+      }
       return Redirect('/noconformidad/create');
+
     }
 }
