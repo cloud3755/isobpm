@@ -73,37 +73,37 @@ alert ('{{Session::get('flash_message')}}')
       <div class="row">
         <div class="form-group col-sm-12">
           <label class="control-label col-sm-12" for="misionPuesto">Mision del puesto:</label>
-            <textarea class="form-control input-lg" id = "misionPuesto" rows="3" placeholder="Mision del puesto" name="misionPuesto" maxlength="255"><?=  $descriptorpuesto->mision ?></textarea>
+            <textarea class="form-control input-lg" id = "misionPuesto" rows="3" placeholder="Mision del puesto" name="misionPuesto" maxlength="2100"><?=  $descriptorpuesto->mision ?></textarea>
         </div>
       </div>
       <br>
         <div class="row">
             <div class="col-sm-4">
             <label class="control-label col-sm-12" for="funcionPuesto">Funciones del puesto:</label>
-            <textarea class="form-control input-lg" id = "funcionPuesto" rows="3" placeholder="Funciones del puesto" name="funcionPuesto" maxlength="255"><?=  $descriptorpuesto->funciones ?></textarea>
+            <textarea class="form-control input-lg" id = "funcionPuesto" rows="3" placeholder="Funciones del puesto" name="funcionPuesto" maxlength="2100"><?=  $descriptorpuesto->funciones ?></textarea>
             </div>
             <div class="col-sm-4">
             <label class="control-label col-sm-12" for="responsabilidadPuesto">Responsabilidades del puesto:</label>
-            <textarea class="form-control input-lg" id = "responsabilidadPuesto" rows="3" placeholder="Responsabilidades del puesto" name="responsabilidadPuesto" maxlength="255"><?=  $descriptorpuesto->responsabilidades ?></textarea>
+            <textarea class="form-control input-lg" id = "responsabilidadPuesto" rows="3" placeholder="Responsabilidades del puesto" name="responsabilidadPuesto" maxlength="2100"><?=  $descriptorpuesto->responsabilidades ?></textarea>
             </div>
             <div class="col-sm-4">
             <label class="control-label col-sm-12" for="autoridadesPuesto">Autoridades del puesto:</label>
-            <textarea class="form-control input-lg" id = "autoridadesPuesto" rows="3" placeholder="Autoridades del puesto" name="autoridadesPuesto" maxlength="255"><?=  $descriptorpuesto->autoridades ?></textarea>
+            <textarea class="form-control input-lg" id = "autoridadesPuesto" rows="3" placeholder="Autoridades del puesto" name="autoridadesPuesto" maxlength="2100"><?=  $descriptorpuesto->autoridades ?></textarea>
             </div>
         </div>
 <br>
         <div class="row">
             <div class="col-sm-4">
             <label class="control-label col-sm-12" for="capacitacionPuesto">Capacitacion del puesto:</label>
-            <textarea class="form-control input-lg" id = "capacitacionPuesto" rows="3" placeholder="Capacitacion del puesto" name="capacitacionPuesto" maxlength="255"><?=  $descriptorpuesto->capacitacion ?></textarea>
+            <textarea class="form-control input-lg" id = "capacitacionPuesto" rows="3" placeholder="Capacitacion del puesto" name="capacitacionPuesto" maxlength="2100"><?=  $descriptorpuesto->capacitacion ?></textarea>
             </div>
             <div class="col-sm-4">
             <label class="control-label col-sm-12" for="herramientasdetrabajo">Herramientas de trabajo:</label>
-            <textarea class="form-control input-lg" id = "herramientasdetrabajo" rows="3" placeholder="Herramientas de trabajo" name="herramientasdetrabajo" maxlength="255"><?=  $descriptorpuesto->herramientas ?></textarea>
+            <textarea class="form-control input-lg" id = "herramientasdetrabajo" rows="3" placeholder="Herramientas de trabajo" name="herramientasdetrabajo" maxlength="2100"><?=  $descriptorpuesto->herramientas ?></textarea>
             </div>
             <div class="col-sm-4">
             <label class="control-label col-sm-12" for="softwareactivosinformacion">Software y activos de informacion:</label>
-            <textarea class="form-control input-lg" id = "softwareactivosinformacion" rows="3" placeholder="Software y activos de informacion" name="softwareactivosinformacion" maxlength="255"><?=  $descriptorpuesto->softwareactivos ?></textarea>
+            <textarea class="form-control input-lg" id = "softwareactivosinformacion" rows="3" placeholder="Software y activos de informacion" name="softwareactivosinformacion" maxlength="2100"><?=  $descriptorpuesto->softwareactivos ?></textarea>
             </div>
         </div>
     </form>
@@ -156,26 +156,26 @@ alert ('{{Session::get('flash_message')}}')
          <div class="row">
            <div class="form-group col-sm-12">
              <label class="control-label col-sm-12" for="conocimientosgenerales">Conocimientos generales del puesto:</label>
-               <textarea class="form-control input-lg" id = "conocimientosgenerales" rows="3" placeholder="Conocimientos generales del puesto" name="conocimientosgenerales" maxlength="255"><?=  $perfilpuesto->conocimientos ?></textarea>
+               <textarea class="form-control input-lg" id = "conocimientosgenerales" rows="3" placeholder="Conocimientos generales del puesto" name="conocimientosgenerales" maxlength="2100"><?=  $perfilpuesto->conocimientos ?></textarea>
            </div>
          </div>
          <br>
          <div class="row">
              <div class="col-sm-3">
              <label class="control-label col-sm-12" for="educacion">Educacion:</label>
-             <textarea class="form-control input-lg" id = "educacion" rows="5" placeholder="Educacion" name="educacion" maxlength="255"><?=  $perfilpuesto->educacion ?></textarea>
+             <textarea class="form-control input-lg" id = "educacion" rows="5" placeholder="Educacion" name="educacion" maxlength="2100"><?=  $perfilpuesto->educacion ?></textarea>
              </div>
              <div class="col-sm-3">
              <label class="control-label col-sm-12" for="formacion">Formacion:</label>
-             <textarea class="form-control input-lg" id = "formacion" rows="5" placeholder="Formacion" name="formacion" maxlength="255"><?=  $perfilpuesto->formacion ?></textarea>
+             <textarea class="form-control input-lg" id = "formacion" rows="5" placeholder="Formacion" name="formacion" maxlength="2100"><?=  $perfilpuesto->formacion ?></textarea>
              </div>
              <div class="col-sm-3">
              <label class="control-label col-sm-12" for="habilidades">Habilidades:</label>
-             <textarea class="form-control input-lg" id = "habilidades" rows="5" placeholder="Habilidades" name="habilidades" maxlength="255"><?=  $perfilpuesto->habilidades ?></textarea>
+             <textarea class="form-control input-lg" id = "habilidades" rows="5" placeholder="Habilidades" name="habilidades" maxlength="2100"><?=  $perfilpuesto->habilidades ?></textarea>
              </div>
              <div class="col-sm-3">
              <label class="control-label col-sm-12" for="experiencias">Experiencias:</label>
-             <textarea class="form-control input-lg" id = "experiencias" rows="5" placeholder="Experiencias" name="experiencias" maxlength="255"><?=  $perfilpuesto->experiencias ?></textarea>
+             <textarea class="form-control input-lg" id = "experiencias" rows="5" placeholder="Experiencias" name="experiencias" maxlength="2100"><?=  $perfilpuesto->experiencias ?></textarea>
              </div>
          </div>
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Mail;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Noconformidades;
@@ -119,7 +119,7 @@ class NoconformidadesController extends Controller
       $Noconformidad->monto                 = $request->input('monto');
       $Noconformidad->idcompañia            = $request->input('id_compania');
       $Noconformidad->id_area               = $request->input('id_area');
-      $Noconformidad->creador_id               = $usuarios->id;
+      $Noconformidad->creador_id            = $usuarios->id;
 
       $file1                                = $request->file('archivo1');
 
@@ -141,6 +141,14 @@ class NoconformidadesController extends Controller
           \Storage::disk('noconformidad')->put($nombreunicoarchivo2,  \File::get($file2));
       }
       $Noconformidad->save();
+
+
+
+      Mail::send('emails.noconformidadabierta', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+        $m->to($Noconformidad->responsable->email,$Noconformidad->responsable->nombre)->subject('Tienes una no conformidad asignada');
+      });
+
+
       return redirect('noconformidad/create');
     }
 
