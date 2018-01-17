@@ -198,10 +198,10 @@ class BienvenidaController extends Controller
                   ->select(DB::RAW('month(noconformidades.fecha) as mes'))
                   ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
                   ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
-                  ->where('noconformidades.estatus_id','!=',3)
+                  ->where('noconformidades.estatus_id','=',1)
                   ->orwhere(function ($querys) use ($iduser) {
-                    $querys->where('noconformidades.estatus_id','!=',3)
-                    ->where('noconformidades.creador_id', '=', DB::raw("'".$iduser."'"));
+                    $querys->where('noconformidades.estatus_id','=',5)
+                    ->where('noconformidades.usuario_responsable_id', '=', DB::raw("'".$iduser."'"));
                   })
                   ->groupBy('mes')
                   ->orderBy('fecha', 'ASC')
@@ -211,10 +211,10 @@ class BienvenidaController extends Controller
                   ->select(DB::RAW('day(noconformidades.fecha) as dia'), DB::RAW('month(noconformidades.fecha) as mes'))
                   ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
                   ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
-                  ->where('noconformidades.estatus_id','!=',3)
+                  ->where('noconformidades.estatus_id','=',1)
                   ->orwhere(function ($querys) use ($iduser) {
-                    $querys->where('noconformidades.estatus_id','!=',3)
-                    ->where('noconformidades.creador_id', '=', DB::raw("'".$iduser."'"));
+                    $querys->where('noconformidades.estatus_id','=',5)
+                    ->where('noconformidades.usuario_responsable_id', '=', DB::raw("'".$iduser."'"));
                   })
                   ->groupBy('dia', 'mes')
                   ->orderBy('fecha', 'ASC')
@@ -225,11 +225,38 @@ class BienvenidaController extends Controller
                    ->select('noconformidades.id',DB::RAW('month(noconformidades.fecha) as mes'),DB::RAW('day(noconformidades.fecha) as dia'))
                    ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
                    ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
-                   ->where('noconformidades.estatus_id','!=',3)
+                   ->where('noconformidades.estatus_id','=',1)
                    ->orwhere(function ($querys) use ($iduser) {
-                     $querys->where('noconformidades.estatus_id','!=',3)
-                     ->where('noconformidades.creador_id', '=', DB::raw("'".$iduser."'"));
+                     $querys->where('noconformidades.estatus_id','=',5)
+                     ->where('noconformidades.usuario_responsable_id', '=', DB::raw("'".$iduser."'"));
                    })
+                   ->get());
+
+                   //Para creador
+                  $mesnoconfcreador = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                  ->select(DB::RAW('month(noconformidades.fecha) as mes'))
+                  ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                  ->where('noconformidades.creador_id','=',$iduser)
+                  ->where('noconformidades.estatus_id','!=',3)
+                  ->groupBy('mes')
+                  ->orderBy('fecha', 'ASC')
+                  ->get());
+
+                  $dianoconfcreador = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                  ->select(DB::RAW('day(noconformidades.fecha) as dia'), DB::RAW('month(noconformidades.fecha) as mes'))
+                  ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                  ->where('noconformidades.creador_id','=',$usuarios->id)
+                  ->where('noconformidades.estatus_id','!=',3)
+                  ->groupBy('dia', 'mes')
+                  ->orderBy('fecha', 'ASC')
+                  ->get());
+
+
+                   $Noconformidadescreador = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                   ->select('noconformidades.id',DB::RAW('month(noconformidades.fecha) as mes'),DB::RAW('day(noconformidades.fecha) as dia'))
+                   ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                   ->where('noconformidades.creador_id','=',$usuarios->id)
+                   ->where('noconformidades.estatus_id','!=',3)
                    ->get());
 
 
@@ -416,7 +443,6 @@ $calendar = \Calendar::setCallbacks([
 
      ]);
 // termina Para el calendario
-
       return View('bienvenida',
       compact(
         'objetivo',
@@ -431,6 +457,7 @@ $calendar = \Calendar::setCallbacks([
         'indicador',
         'indicadora',
         'User',
+        'usuarios',
         'pendiente',
         'accionesCorrectivas',
         'Noconformidades',
@@ -441,7 +468,10 @@ $calendar = \Calendar::setCallbacks([
         'estatus',
         'mejorasid',
         'mesnoconf',
-        'dianoconf')
+        'dianoconf',
+        'mesnoconfcreador',
+        'dianoconfcreador',
+        'Noconformidadescreador')
       );
 
     }

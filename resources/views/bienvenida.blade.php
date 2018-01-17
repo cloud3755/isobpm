@@ -105,8 +105,12 @@
                 <!-- in this example the tree is populated from inline HTML -->
                 <ul>
                   @if(count($Noconformidades)<=0)
-                      <li class="text-danger">Sin items</li>
+                    <li class="text-success">Asignados
+                      <ul>
+                        <li class="text-success">Sin PNC</li>
                   @else
+                  <li class="text-danger">Asignados
+                    <ul>
                     @foreach($mesnoconf as $mesnoconfs)
                     <li>{{$mesnoconfs->mes}}
                       <ul>
@@ -116,17 +120,48 @@
                             <ul>
                               @foreach($Noconformidades as $Noconformidad)
                                 @if($mesnoconfs->mes == $Noconformidad->mes and $dianoconfs->dia == $Noconformidad->dia)
-                                  <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC({{$Noconformidad->id}});">{{$Noconformidad->id}}</a></li>
+                                  <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC({{$Noconformidad->id}},{{ Auth::user() }}, 1);">{{$Noconformidad->id}}</a></li>
                                 @endif
                               @endforeach
                             </ul>
                           </li>
-                        @endif
-                      @endforeach
-                      </ul>
-                    </li>
-                    @endforeach
-                  @endif
+                          @endif
+                        @endforeach
+                          </ul>
+                        </li>
+                        @endforeach
+                      @endif
+                    </ul>
+                  </li>
+                  @if(count($Noconformidadescreador)<=0)
+                    <li class="text-success">Creados
+                      <ul>
+                        <li class="text-success">Sin PNC</li>
+                  @else
+                  <li class="text-danger">Creados
+                    <ul>
+                    @foreach($mesnoconfcreador as $mesnoconfcreadors)
+                    <li>{{$mesnoconfcreadors->mes}}
+                      <ul>
+                      @foreach($dianoconfcreador as $dianoconfcreadors)
+                        @if($dianoconfcreadors->mes == $mesnoconfcreadors->mes)
+                          <li>{{$dianoconfcreadors->dia}}
+                            <ul>
+                              @foreach($Noconformidadescreador as $Noconformidad)
+                                @if($mesnoconfcreadors->mes == $Noconformidad->mes and $dianoconfcreadors->dia == $Noconformidad->dia)
+                                  <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC({{$Noconformidad->id}}, {{ Auth::user() }}, 2);">{{$Noconformidad->id}}</a></li>
+                                @endif
+                              @endforeach
+                            </ul>
+                          </li>
+                          @endif
+                        @endforeach
+                          </ul>
+                        </li>
+                        @endforeach
+                      @endif
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -1122,9 +1157,11 @@
       $('#pagina4').show();
     }
 
-    function EditarNC(btn){
+    function EditarNC(btn, responsable, bandeja){
       var route = "/noconformidad/"+btn+"/edit";
       $.get(route, function(res){
+        $("#fileinfo_nc").find('input, textarea, button, select').prop('disabled', false);
+        $("#estatus_id_nc").find('option').prop('disabled', false);
         $("#id_nc").val(res.id);
         $("#fecha_nc").val(res.fecha);
         $('#proceso_id_nc option[value="' + res.proceso_id + '"]').attr("selected", "selected");
@@ -1138,7 +1175,31 @@
         $("#fecha_plan_nc").val(res.fecha_plan);
         $("#archivob_nc").val(res.evidencia);
         $("#fecha_cierre_nc").val(res.fecha_cierre);
+
         $('#estatus_id_nc option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+        if (bandeja == 1) {
+          if (res.estatus_id == 1 || res.estatus_id == 5) {
+            $("#fecha_nc").attr("disabled", "disabled");
+            $("#proceso_id_nc").attr("disabled", "disabled");
+            $("#producto_id_nc").attr("disabled", "disabled");
+            $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
+            $('#estatus_id_nc option[value="3"]').attr("disabled", "disabled");
+            $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
+          }
+        }else {
+          if (res.estatus_id == 1 || res.estatus_id == 5) {
+            $('#estatus_id_nc').attr("disabled", "disabled");
+          }else if (res.estatus_id == 2) {
+            $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
+            $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
+            $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
+          }else if (res.estatus_id == 4) {
+            $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
+            $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
+            $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
+          }
+        }
+
         $("#monto_nc").val(res.monto);
 
       });
@@ -1369,6 +1430,8 @@ function agregaSeleccion(origen, destino) {
         });
 
         $("#actualizar_nc").click(function(){
+          $("#fileinfo_nc").find('input, textarea, button, select').prop('disabled', false);
+          $("#estatus_id_nc").find('option').prop('disabled', false);
           var value = $("#id_nc").val();
           var route = "/noconformidad/edit/"+value+"";
           var token = $("#token").val();

@@ -248,6 +248,7 @@ alert ('{{Session::get('flash_message')}}')
                       <input type="hidden" name="id_area" value="{{ Auth::user()->id_area }}">
                       <input type="hidden" name="id_compania" value="{{Auth::user()->id_compania}}">
                       <input type="hidden" name="id_ufr" id="id_ufr" value="{{Auth::user()->id}}">
+                      <input type="hidden" name="estatus_id" id="estatus_id" value="1">
 
                     <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
@@ -328,15 +329,6 @@ alert ('{{Session::get('flash_message')}}')
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <h3><label>Fecha Cierre:</label></h3>
                           <input class="form-control input-lg" id="fecha_cierre" type="date" placeholder="Fecha para el cierre" name="fecha_cierre">
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <h3><label>Status:</label></h3>
-                            <select class="form-control input-lg" name="estatus_id" id="estatus_id">
-                              <?php foreach ($estatus as $estatuses): ?>
-                                <option value="<?=$estatuses['id']?>"><?=$estatuses['nombre']?></option>
-                              <?php endforeach ?>
-                            </select>
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-4">

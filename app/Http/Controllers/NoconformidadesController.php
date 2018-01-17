@@ -56,27 +56,24 @@ class NoconformidadesController extends Controller
 
       if($usuarios->perfil == 4)
       {
-
-            $relaciontabla = \DB::table('noconformidades')
-            ->join('procesos','noconformidades.proceso_id','=','procesos.id')
-            ->join('estatuses','noconformidades.estatus_id','=','estatuses.id')
-            ->join('users as u1','noconformidades.usuario_responsable_id','=','u1.id')
-            ->join('users as u2','noconformidades.creador_id','=','u2.id')
-            ->join('productos','noconformidades.producto_id','=','productos.id')
-            ->select('noconformidades.*','procesos.proceso as procesonombre','estatuses.nombre as estatusnombre','u1.nombre as usuarionombre','productos.nombre as productonombre','u2.nombre as creador')
-            ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
-            ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
-            ->orwhere('noconformidades.creador_id','=',$usuarios->id)
-            ->get();
-      }
-
-      else {
         $relaciontabla = \DB::table('noconformidades')
-        ->join('procesos','noconformidades.proceso_id','=','procesos.id')
-        ->join('estatuses','noconformidades.estatus_id','=','estatuses.id')
+        ->leftjoin('procesos','noconformidades.proceso_id','=','procesos.id')
+        ->leftjoin('estatuses','noconformidades.estatus_id','=','estatuses.id')
         ->join('users as u1','noconformidades.usuario_responsable_id','=','u1.id')
         ->join('users as u2','noconformidades.creador_id','=','u2.id')
-        ->join('productos','noconformidades.producto_id','=','productos.id')
+        ->leftjoin('productos','noconformidades.producto_id','=','productos.id')
+        ->select('noconformidades.*','procesos.proceso as procesonombre','estatuses.nombre as estatusnombre','u1.nombre as usuarionombre','productos.nombre as productonombre','u2.nombre as creador')
+        ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+        ->where('noconformidades.usuario_responsable_id','=',$usuarios->id)
+        ->orwhere('noconformidades.creador_id','=',$usuarios->id)
+        ->get();
+      }else {
+        $relaciontabla = \DB::table('noconformidades')
+        ->leftjoin('procesos','noconformidades.proceso_id','=','procesos.id')
+        ->leftjoin('estatuses','noconformidades.estatus_id','=','estatuses.id')
+        ->leftjoin('users as u1','noconformidades.usuario_responsable_id','=','u1.id')
+        ->leftjoin('users as u2','noconformidades.creador_id','=','u2.id')
+        ->leftjoin('productos','noconformidades.producto_id','=','productos.id')
         ->select('noconformidades.*','procesos.proceso as procesonombre','estatuses.nombre as estatusnombre','u1.nombre as usuarionombre','productos.nombre as productonombre','u2.nombre as creador')
         ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
         ->get();
