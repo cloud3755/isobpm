@@ -12,6 +12,7 @@
 </div>
 <div>
 <p>bienvenido: <strong>{{Auth::user()->nombre}}</strong><p>
+  <input type="hidden" name="Perfil" id="Perfil" value="{{Auth::user()->perfil}}">
 </div>
 <div >
     <div class="col-sm-4">
@@ -1227,45 +1228,47 @@
         $("#fecha_plan_nc").val(res.fecha_plan);
         $("#archivob_nc").val(res.evidencia);
         $("#fecha_cierre_nc").val(res.fecha_cierre);
-
-        $('#estatus_id_nc option[value="' + res.estatus_id + '"]').attr("selected", "selected");
-        if (bandeja == 1) {
-          if (res.estatus_id == 1 || res.estatus_id == 5) {
-            $("#fecha_nc").attr("disabled", "disabled");
-            $("#proceso_id_nc").attr("disabled", "disabled");
-            $("#producto_id_nc").attr("disabled", "disabled");
-            $("#id_area_nc").attr("disabled", "disabled");
-
-            $("#archivo1_nc").attr("disabled", "disabled");
-            $("#documento_nc").attr("disabled", "disabled");
-            $("#descripcion_nc").attr("disabled", "disabled");
-            $("#usuario_responsable_id_nc").attr("disabled", "disabled");
-
-            $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="3"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
-          }
-        }else {
-          $("#acciones_nc").attr("disabled", "disabled");
-          $("#fecha_plan_nc").attr("disabled", "disabled");
-          $("#fecha_cierre_nc").attr("disabled", "disabled");
-          $("#archivo2_nc").attr("disabled", "disabled");
-
-          if (res.estatus_id == 1 || res.estatus_id == 5) {
-            $('#estatus_id_nc').attr("disabled", "disabled");
-          }else if (res.estatus_id == 2) {
-            $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
-          }else if (res.estatus_id == 4) {
-            $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
-          }
-        }
-
         $("#monto_nc").val(res.monto);
 
+        $('#estatus_id_nc option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+        $('#estatus_id_nc option[value="6"]').attr("disabled", "disabled");
+        var Perfil = document.getElementById('Perfil').value;
+        if (Perfil== 4) {
+          if (bandeja == 1) {
+            if (res.estatus_id == 1 || res.estatus_id == 5) {
+              $("#fecha_nc").attr("disabled", "disabled");
+              $("#proceso_id_nc").attr("disabled", "disabled");
+              $("#producto_id_nc").attr("disabled", "disabled");
+              $("#id_area_nc").attr("disabled", "disabled");
+
+              $("#archivo1_nc").attr("disabled", "disabled");
+              $("#documento_nc").attr("disabled", "disabled");
+              $("#descripcion_nc").attr("disabled", "disabled");
+              $("#usuario_responsable_id_nc").attr("disabled", "disabled");
+
+              $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="3"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
+            }
+          }else {
+            $("#acciones_nc").attr("disabled", "disabled");
+            $("#fecha_plan_nc").attr("disabled", "disabled");
+            $("#fecha_cierre_nc").attr("disabled", "disabled");
+            $("#archivo2_nc").attr("disabled", "disabled");
+
+            if (res.estatus_id == 1 || res.estatus_id == 5) {
+              $('#estatus_id_nc').attr("disabled", "disabled");
+            }else if (res.estatus_id == 2) {
+              $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
+            }else if (res.estatus_id == 4) {
+              $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
+            }
+          }
+        }
       });
 
     }
@@ -1295,46 +1298,49 @@
         $("#id").val(res.id);
         $('#eestatus option[value="' + res.estatus_id + '"]').attr("selected", "selected");
 
-        var creador = document.getElementById('creador').value;
-        if (bandeja == 1) {
-          $("#efechaalta").attr('disabled','disabled');
-          $("#eindicador_id").attr('disabled','disabled');
-          $("#eproceso_id").attr('disabled','disabled');
-          $("#eproducto_id").attr('disabled','disabled');
-          $("#eid_area").attr('disabled','disabled');
-          $("#emonto").attr('disabled','disabled');
-          $("#edocumento").attr('disabled','disabled');
-          $("#archivoa").attr('disabled','disabled');
-          $("#edescripcion").attr('disabled','disabled');
-          $("#eresponsable_id").attr('disabled','disabled');
-          $("#efechacierre").attr('disabled','disabled');
-          $('#eestatus option[value="1"]').attr("disabled", "disabled");
-          $('#eestatus option[value="3"]').attr("disabled", "disabled");
-          $('#eestatus option[value="5"]').attr("disabled", "disabled");
-          $('#eestatus option[value="6"]').attr("disabled", "disabled");
-        }else {
-          $("#eanalisis").attr('disabled','disabled');
-          $("#eaccioncorrectiva").attr('disabled','disabled');
-          $("#efechaaccion").attr('disabled','disabled');
-          $("#eevidenciaaccion").attr('disabled','disabled');
-          $("#archivoe").attr('disabled','disabled');
-          $("#efechacierre").attr('disabled','disabled');
-          if (res.estatus_id == 1 || res.estatus_id == 5 || res.estatus_id == 6) {
-            $('#eestatus').attr("disabled", "disabled");
-          }else if (res.estatus_id == 2) {
+        var Perfil = document.getElementById('Perfil').value;
+        if (Perfil== 4) {
+
+          if (bandeja == 1) {
+            $("#efechaalta").attr('disabled','disabled');
+            $("#eindicador_id").attr('disabled','disabled');
+            $("#eproceso_id").attr('disabled','disabled');
+            $("#eproducto_id").attr('disabled','disabled');
+            $("#eid_area").attr('disabled','disabled');
+            $("#emonto").attr('disabled','disabled');
+            $("#edocumento").attr('disabled','disabled');
+            $("#archivoa").attr('disabled','disabled');
+            $("#edescripcion").attr('disabled','disabled');
+            $("#eresponsable_id").attr('disabled','disabled');
+            $("#efechacierre").attr('disabled','disabled');
             $('#eestatus option[value="1"]').attr("disabled", "disabled");
-            $('#eestatus option[value="2"]').attr("disabled", "disabled");
-            $('#eestatus option[value="4"]').attr("disabled", "disabled");
             $('#eestatus option[value="3"]').attr("disabled", "disabled");
-          }else if (res.estatus_id == 4) {
-            $('#eestatus option[value="2"]').attr("disabled", "disabled");
-            $('#eestatus option[value="3"]').attr("disabled", "disabled");
-            $('#eestatus option[value="4"]').attr("disabled", "disabled");
             $('#eestatus option[value="5"]').attr("disabled", "disabled");
             $('#eestatus option[value="6"]').attr("disabled", "disabled");
+          }else {
+            $("#eanalisis").attr('disabled','disabled');
+            $("#eaccioncorrectiva").attr('disabled','disabled');
+            $("#efechaaccion").attr('disabled','disabled');
+            $("#eevidenciaaccion").attr('disabled','disabled');
+            $("#archivoe").attr('disabled','disabled');
+            $("#efechacierre").attr('disabled','disabled');
+            if (res.estatus_id == 1 || res.estatus_id == 5 || res.estatus_id == 6) {
+              $('#eestatus').attr("disabled", "disabled");
+            }else if (res.estatus_id == 2) {
+              $('#eestatus option[value="1"]').attr("disabled", "disabled");
+              $('#eestatus option[value="2"]').attr("disabled", "disabled");
+              $('#eestatus option[value="4"]').attr("disabled", "disabled");
+              $('#eestatus option[value="3"]').attr("disabled", "disabled");
+            }else if (res.estatus_id == 4) {
+              $('#eestatus option[value="2"]').attr("disabled", "disabled");
+              $('#eestatus option[value="3"]').attr("disabled", "disabled");
+              $('#eestatus option[value="4"]').attr("disabled", "disabled");
+              $('#eestatus option[value="5"]').attr("disabled", "disabled");
+              $('#eestatus option[value="6"]').attr("disabled", "disabled");
+            }
           }
-        }
 
+        }
 
       });
 
@@ -1361,42 +1367,46 @@
         $("#earchivoa2_q").val(res.archivoevidencia);
         $("#efecha_cierre_q").val(res.fecha_cierre);
         $('#estatus_id_q option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+        var Perfil = document.getElementById('Perfil').value;
+        console.log(Perfil);
+        if (Perfil == 4) {
 
-        if (bandeja == 1) {
-          $("#efecha_q").attr('disabled','disabled');
-          $("#earea_q").attr('disabled','disabled');
-          $("#eproceso_id_q").attr('disabled','disabled');
-          $("#eproducto_id_q").attr('disabled','disabled');
-          $("#emonto_q").attr('disabled','disabled');
-          $("#ecliente_id_q").attr('disabled','disabled');
-          $("#edescripcion_q").attr('disabled','disabled');
-          $("#file-1").attr('disabled','disabled');
-          $("#eresponsable_q").attr('disabled','disabled');
+          if (bandeja == 1) {
+            $("#efecha_q").attr('disabled','disabled');
+            $("#earea_q").attr('disabled','disabled');
+            $("#eproceso_id_q").attr('disabled','disabled');
+            $("#eproducto_id_q").attr('disabled','disabled');
+            $("#emonto_q").attr('disabled','disabled');
+            $("#ecliente_id_q").attr('disabled','disabled');
+            $("#edescripcion_q").attr('disabled','disabled');
+            $("#file-1").attr('disabled','disabled');
+            $("#eresponsable_q").attr('disabled','disabled');
 
-          $('#estatus_id_q option[value="1"]').attr("disabled", "disabled");
-          $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
-          $('#estatus_id_q option[value="5"]').attr("disabled", "disabled");
-          $('#estatus_id_q option[value="6"]').attr("disabled", "disabled");
-        }else {
-          $("#eacciones_q").attr('disabled','disabled');
-          $("#efecha_plan_q").attr('disabled','disabled');
-          $("#eevidencia_q").attr('disabled','disabled');
-          $("#file-2").attr('disabled','disabled');
-          $("#efecha_cierre_q").attr('disabled','disabled');
-
-          if (res.estatus_id == 1 || res.estatus_id == 5 || res.estatus_id == 6) {
-            $('#estatus_id_q').attr("disabled", "disabled");
-          }else if (res.estatus_id == 2) {
             $('#estatus_id_q option[value="1"]').attr("disabled", "disabled");
-            $('#estatus_id_q option[value="2"]').attr("disabled", "disabled");
-            $('#estatus_id_q option[value="4"]').attr("disabled", "disabled");
             $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
-          }else if (res.estatus_id == 4) {
-            $('#estatus_id_q option[value="2"]').attr("disabled", "disabled");
-            $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
-            $('#estatus_id_q option[value="4"]').attr("disabled", "disabled");
             $('#estatus_id_q option[value="5"]').attr("disabled", "disabled");
             $('#estatus_id_q option[value="6"]').attr("disabled", "disabled");
+          }else {
+            $("#eacciones_q").attr('disabled','disabled');
+            $("#efecha_plan_q").attr('disabled','disabled');
+            $("#eevidencia_q").attr('disabled','disabled');
+            $("#file-2").attr('disabled','disabled');
+            $("#efecha_cierre_q").attr('disabled','disabled');
+
+            if (res.estatus_id == 1 || res.estatus_id == 5 || res.estatus_id == 6) {
+              $('#estatus_id_q').attr("disabled", "disabled");
+            }else if (res.estatus_id == 2) {
+              $('#estatus_id_q option[value="1"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="4"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
+            }else if (res.estatus_id == 4) {
+              $('#estatus_id_q option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="4"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="5"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="6"]').attr("disabled", "disabled");
+            }
           }
         }
       });
