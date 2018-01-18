@@ -32,6 +32,7 @@ class CreateQuejasTable extends Migration
             $table->integer('proceso');
             $table->integer('producto');
             $table->double('monto');
+            $table->integer('creador_id');
           });
     }
 

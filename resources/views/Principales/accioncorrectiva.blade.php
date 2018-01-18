@@ -141,6 +141,7 @@ alert ('{{Session::get('flash_message')}}')
                       <input type="hidden" name="_token" value="{{ csrf_token()}}">
                       <input type="hidden" name="creador_id" value="{{Auth::user()->id}}">
                       <input type="hidden" name="id_compania" value="{{Auth::user()->id_compania}}">
+                      <input type="hidden" name="estatus_id" id="estatus_id" value="1">
 
                     <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
@@ -246,13 +247,6 @@ alert ('{{Session::get('flash_message')}}')
                             <textarea class="form-control" id = "respuestaaccion" rows="3" placeholder="Acciones tomadas" name="evidenciaaccion"></textarea>
                     </div>
 
-                    <!-- <div class="form-group form-group-lg">
-                        <h2><label for="Usuario" class="control-label col-md-12">Evidencia:</label></h2>
-                        <div class="col-md-6">
-                            <input class="form-control input-lg" id="evidencia" type="text" placeholder="evidencia" name="evidencia">
-                        </div>
-                    </div> -->
-
                     <div class="col-lg-7 col-md-7 col-sm-7">
                         <h3><label for="tipo" class="control-label col-md-12" >Archivo de evidencia:</label></h3>
                             <input class="file" id="file-1" type="file" placeholder="Archivo" name="archivo2">
@@ -262,23 +256,6 @@ alert ('{{Session::get('flash_message')}}')
                       <h3><label for="fecha requerimiento" class="control-label col-md-12">Fecha Cierre:</label></h3>
                           <input class="form-control input-lg" id="fechacierre" type="date" placeholder="Fecha" name="fechacierre">
                     </div>
-
-                    <!-- <div class="form-group form-group-lg">
-                      <h2><label for="criterio" class="control-label col-md-12">Criterio:</label></h2>
-                      <div class="col-md-6">
-                          <textarea class="form-control" id = "crierio" rows="3" placeholder="" name="crierio"></textarea>
-                      </div>
-                    </div> -->
-
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h3><label>Status:</label></h3>
-                            <select class="form-control input-lg" name="estatus_id" id="estatus_id" required="">
-                              <?php foreach ($estatus as $estatuses): ?>
-                                <option value="<?=$estatuses['id']?>"><?=$estatuses['nombre']?></option>
-                              <?php endforeach ?>
-                            </select>
-                    </div>
-
         </div>
 
 

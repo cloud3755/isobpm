@@ -100,11 +100,12 @@ class BienvenidaController extends Controller
     public function show()
     {
       $usuarios = Auth::user();
+      $iduser = $usuarios->id;
+      $idcompania = $usuarios->id_compania;
 
 		  if($usuarios->perfil == 4)
 		  {
 
-        $iduser = $usuarios->id;
         //Proyectos de mejora
                     $mejorasid = \DB::table('mejoras')
                    ->join('users','mejoras.responsable_id','=','users.id')
@@ -170,13 +171,27 @@ class BienvenidaController extends Controller
                    //Quejas
 
                    $quejas = \Illuminate\Support\Collection::make(\DB::table('quejas')
-                   ->join('clientes','quejas.cliente_id','=','clientes.id')
-                   ->join('users','quejas.usuario_responsable_id','=','users.id')
-                   ->join('estatuses','quejas.estatus_id','=','estatuses.id')
+                   ->leftjoin('clientes','quejas.cliente_id','=','clientes.id')
+                   ->leftjoin('users','quejas.usuario_responsable_id','=','users.id')
+                   ->leftjoin('estatuses','quejas.estatus_id','=','estatuses.id')
                    ->select('quejas.*','users.nombre as usernombre','clientes.nombre as clientenombre','estatuses.nombre as statusnombre')
                    ->where('quejas.idcompañia','=',$usuarios->id_compania)
-                   ->where('quejas.usuario_responsable_id','=',$usuarios->id)
+                   ->where('quejas.estatus_id','=',1)
+                   ->where('quejas.usuario_responsable_id','=',$iduser)
+                   ->orwhere(function ($querys) use ($iduser) {
+                     $querys->where('quejas.estatus_id','=',5)
+                     ->where('quejas.usuario_responsable_id','=',$iduser);
+                   })
+                   ->get());
+
+                   $quejascreados = \Illuminate\Support\Collection::make(\DB::table('quejas')
+                   ->leftjoin('clientes','quejas.cliente_id','=','clientes.id')
+                   ->leftjoin('users','quejas.usuario_responsable_id','=','users.id')
+                   ->leftjoin('estatuses','quejas.estatus_id','=','estatuses.id')
+                   ->select('quejas.*','users.nombre as usernombre','clientes.nombre as clientenombre','estatuses.nombre as statusnombre')
+                   ->where('quejas.idcompañia','=',$usuarios->id_compania)
                    ->where('quejas.estatus_id','!=',3)
+                   ->where('quejas.creador_id','=',$iduser)
                    ->get());
                    //Final de quejas
 
@@ -184,12 +199,19 @@ class BienvenidaController extends Controller
                    $accionesCorrectivas = \Illuminate\Support\Collection::make(\DB::table('accioncorrectiva1s')
                    ->select('accioncorrectiva1s.*')
                    ->where('accioncorrectiva1s.idcompañia','=',$usuarios->id_compania)
-                   ->where('accioncorrectiva1s.responsable_id','=',$usuarios->id)
-                   ->where('accioncorrectiva1s.estatus_id','!=',3)
+                   ->where('accioncorrectiva1s.estatus_id','=',1)
+                   ->where('accioncorrectiva1s.responsable_id','=',$iduser)
                    ->orwhere(function ($querys) use ($iduser) {
-                     $querys->where('accioncorrectiva1s.estatus_id','!=',3)
-                     ->where('accioncorrectiva1s.creador_id', '=', DB::raw("'".$iduser."'"));
+                     $querys->where('accioncorrectiva1s.estatus_id','=',5)
+                     ->where('accioncorrectiva1s.responsable_id','=',$iduser);
                    })
+                   ->get());
+
+                   $accionesCorrectivascreado = \Illuminate\Support\Collection::make(\DB::table('accioncorrectiva1s')
+                   ->select('accioncorrectiva1s.*')
+                   ->where('accioncorrectiva1s.idcompañia','=',$usuarios->id_compania)
+                   ->where('accioncorrectiva1s.estatus_id','!=',3)
+                   ->where('accioncorrectiva1s.creador_id','=',$iduser)
                    ->get());
                    //Final Acciones correctivas
 
@@ -282,30 +304,77 @@ class BienvenidaController extends Controller
                    ->get();
 
                    $quejas = \Illuminate\Support\Collection::make(\DB::table('quejas')
-                   ->join('clientes','quejas.cliente_id','=','clientes.id')
-                   ->join('users','quejas.usuario_responsable_id','=','users.id')
-                   ->join('estatuses','quejas.estatus_id','=','estatuses.id')
+                   ->leftjoin('clientes','quejas.cliente_id','=','clientes.id')
+                   ->leftjoin('users','quejas.usuario_responsable_id','=','users.id')
+                   ->leftjoin('estatuses','quejas.estatus_id','=','estatuses.id')
                    ->select('quejas.*','users.nombre as usernombre','clientes.nombre as clientenombre','estatuses.nombre as statusnombre')
                    ->where('quejas.idcompañia','=',$usuarios->id_compania)
-                   ->where('quejas.estatus_id','!=',3)
+                   ->where('quejas.estatus_id','=',1)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('quejas.estatus_id','=',5)
+                     ->where('quejas.idcompañia','=',$idcompania);
+                   })
+                   ->get());
+
+                   $quejascreados = \Illuminate\Support\Collection::make(\DB::table('quejas')
+                   ->leftjoin('clientes','quejas.cliente_id','=','clientes.id')
+                   ->leftjoin('users','quejas.usuario_responsable_id','=','users.id')
+                   ->leftjoin('estatuses','quejas.estatus_id','=','estatuses.id')
+                   ->select('quejas.*','users.nombre as usernombre','clientes.nombre as clientenombre','estatuses.nombre as statusnombre')
+                   ->where('quejas.idcompañia','=',$usuarios->id_compania)
+                   ->where('quejas.estatus_id','=',2)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('quejas.estatus_id','=',4)
+                     ->where('quejas.idcompañia','=',$idcompania);
+                   })
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('quejas.estatus_id','=',6)
+                     ->where('quejas.idcompañia','=',$idcompania);
+                   })
                    ->get());
 
                    $accionesCorrectivas = \Illuminate\Support\Collection::make(\DB::table('accioncorrectiva1s')
                    ->select('accioncorrectiva1s.*')
                    ->where('accioncorrectiva1s.idcompañia','=',$usuarios->id_compania)
-                   ->where('accioncorrectiva1s.estatus_id','!=',3)
+                   ->where('accioncorrectiva1s.estatus_id','=',1)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('accioncorrectiva1s.estatus_id','=',5)
+                     ->where('accioncorrectiva1s.idcompañia','=',$idcompania);
+                   })
+                   ->get());
+
+                   $accionesCorrectivascreado = \Illuminate\Support\Collection::make(\DB::table('accioncorrectiva1s')
+                   ->select('accioncorrectiva1s.*')
+                   ->where('accioncorrectiva1s.idcompañia','=',$usuarios->id_compania)
+                   ->where('accioncorrectiva1s.estatus_id','=',2)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('accioncorrectiva1s.estatus_id','=',4)
+                     ->where('accioncorrectiva1s.idcompañia','=',$idcompania);
+                   })
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('accioncorrectiva1s.estatus_id','=',6)
+                     ->where('accioncorrectiva1s.idcompañia','=',$idcompania);
+                   })
                    ->get());
 
                    $Noconformidades = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
                    ->select('noconformidades.id',DB::RAW('month(noconformidades.fecha) as mes'),DB::RAW('day(noconformidades.fecha) as dia'))
                    ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                   ->where('noconformidades.estatus_id','=',1)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('noconformidades.estatus_id','=',5)
+                     ->where('noconformidades.idcompañia','=',$idcompania);
+                   })
                    ->get());
-
-                   //return dd($Noconformidades);
 
                    $mesnoconf = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
                    ->select(DB::RAW('month(noconformidades.fecha) as mes'))
                    ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                   ->where('noconformidades.estatus_id','=',1)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('noconformidades.estatus_id','=',5)
+                     ->where('noconformidades.idcompañia','=',$idcompania);
+                   })
                    ->groupBy('mes')
                    ->orderBy('fecha', 'ASC')
                    ->get());
@@ -313,11 +382,51 @@ class BienvenidaController extends Controller
                    $dianoconf = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
                    ->select(DB::RAW('day(noconformidades.fecha) as dia'), DB::RAW('month(noconformidades.fecha) as mes'))
                    ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                   ->where('noconformidades.estatus_id','=',1)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('noconformidades.estatus_id','=',5)
+                     ->where('noconformidades.idcompañia','=',$idcompania);
+                   })
                    ->groupBy('dia', 'mes')
                    ->orderBy('fecha', 'ASC')
                    ->get());
 
-                   //return dd($mesnoconf);
+                   //Para creador
+                  $mesnoconfcreador = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                  ->select(DB::RAW('month(noconformidades.fecha) as mes'))
+                  ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                  ->where('noconformidades.estatus_id','=',2)
+                  ->orwhere(function ($querys) use ($idcompania) {
+                    $querys->where('noconformidades.estatus_id','=',4)
+                    ->where('noconformidades.idcompañia','=',$idcompania);
+                  })
+                  ->groupBy('mes')
+                  ->orderBy('fecha', 'ASC')
+                  ->get());
+
+                  $dianoconfcreador = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                  ->select(DB::RAW('day(noconformidades.fecha) as dia'), DB::RAW('month(noconformidades.fecha) as mes'))
+                  ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                  ->where('noconformidades.estatus_id','=',2)
+                  ->orwhere(function ($querys) use ($idcompania) {
+                    $querys->where('noconformidades.estatus_id','=',4)
+                    ->where('noconformidades.idcompañia','=',$idcompania);
+                  })
+                  ->groupBy('dia', 'mes')
+                  ->orderBy('fecha', 'ASC')
+                  ->get());
+
+
+                   $Noconformidadescreador = \Illuminate\Support\Collection::make(\DB::table('noconformidades')
+                   ->select('noconformidades.id',DB::RAW('month(noconformidades.fecha) as mes'),DB::RAW('day(noconformidades.fecha) as dia'))
+                   ->where('noconformidades.idcompañia','=',$usuarios->id_compania)
+                   ->where('noconformidades.estatus_id','=',2)
+                   ->orwhere(function ($querys) use ($idcompania) {
+                     $querys->where('noconformidades.estatus_id','=',4)
+                     ->where('noconformidades.idcompañia','=',$idcompania);
+                   })
+                   ->get());
+
 		  }
 
       //Para los modales
@@ -447,6 +556,7 @@ $calendar = \Calendar::setCallbacks([
       compact(
         'objetivo',
         'quejas',
+        'quejascreados',
         'proceso',
         'procesoa',
         'cuentaproveedor',
@@ -460,6 +570,7 @@ $calendar = \Calendar::setCallbacks([
         'usuarios',
         'pendiente',
         'accionesCorrectivas',
+        'accionesCorrectivascreado',
         'Noconformidades',
         'Areas',
         'cliente',

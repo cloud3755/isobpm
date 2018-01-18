@@ -254,6 +254,9 @@ alert ('{{Session::get('flash_message')}}')
                   <form  action="/quejas/store" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                       <input type="hidden" name="_token" value="{{ csrf_token()}}">
                       <input type="hidden" name="id_compania" value="{{Auth::user()->id_compania}}">
+                      <input type="hidden" name="status_id" id="status_id" value="1">
+                      <input type="hidden" name="creador_id" id="creador_id" value="{{Auth::user()->id}}">
+                      
                     <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <h3><label>Fecha:</label></h3>
@@ -349,15 +352,6 @@ alert ('{{Session::get('flash_message')}}')
                     <div class="col-lg-6 col-md-6 col-sm-6">
                       <h3><label>Fecha Cierre:</label></h3>
                       <input class="form-control input-lg" type="date" placeholder="Fecha" name="fecha_cierre">
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <h3><label>Status:</label></h3>
-                            <select class="form-control input-lg" name="status_id">
-                              <?php foreach ($estatus as $estatuses): ?>
-                                <option value="<?=$estatuses['id']?>"><?=$estatuses['nombre']?></option>
-                              <?php endforeach ?>
-                            </select>
                     </div>
 
               </div>

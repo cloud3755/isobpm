@@ -73,29 +73,79 @@
             <a data-toggle="collapse" href="#collapseQuejas">
             <i class="fa fa-user-times fa-2x"></i>Quejas</a>
             <div id="collapseQuejas" class="collapse">
+              <div id="jstreequejas">
                 <ul>
                     @if(count($quejas)<=0)
-                        <li class="text-danger">Sin quejas</li>
+                    <li class="text-success">Asignados
+                      <ul>
+                        <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}' class="text-success">Sin quejas</li>
+                      </ul>
+                    </li>
                     @else
+                    <li class="text-danger">Asignados
+                      <ul>
                         @foreach($quejas as $queja)
-                            <li><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$queja->id}});">{{$queja->descripcion}}</a></li>
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$queja->id}});">{{$queja->descripcion}}</a></li>
                         @endforeach
+                      </ul>
+                    </li>
+                    @endif
+                    @if(count($quejascreados)<=0)
+                    <li class="text-success">Creados
+                      <ul>
+                        <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}' class="text-success">Sin quejas</li>
+                      </ul>
+                    </li>
+                    @else
+                    <li class="text-danger">Creados
+                      <ul>
+                        @foreach($quejascreados as $quejascreado)
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$quejascreado->id}});">{{$quejascreado->descripcion}}</a></li>
+                        @endforeach
+                      </ul>
+                    </li>
                     @endif
                 </ul>
+              </div>
             </div>
             <br>
             <a data-toggle="collapse" href="#collapseAcciones">
             <i class="fa fa-user-times fa-2x"></i>Acciones correctivas</a>
             <div id="collapseAcciones" class="collapse">
+              <div id="jstreeacciones">
                 <ul>
                     @if(count($accionesCorrectivas)<=0)
-                        <li class="text-danger">Sin Acciones</li>
+                    <li class="text-success">Asignados
+                      <ul>
+                        <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}' class="text-success">Sin Acciones</li>
+                      </ul>
+                    </li>
                     @else
-                        @foreach($accionesCorrectivas as $accion)
-                            <li><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accion->id}});">{{$accion->descripcion}}</a></li>
+                    <li class="text-danger">Asignados
+                      <ul>
+                        @foreach($accionesCorrectivas as $accionesCorrectiva)
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accionesCorrectiva->id}});">{{$accionesCorrectiva->descripcion}}</a></li>
                         @endforeach
+                      </ul>
+                    </li>
+                    @endif
+                    @if(count($accionesCorrectivascreado)<=0)
+                    <li class="text-success">Creados
+                      <ul>
+                        <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}' class="text-success">Sin Acciones</li>
+                      </ul>
+                    </li>
+                    @else
+                    <li class="text-danger">Creados
+                      <ul>
+                        @foreach($accionesCorrectivascreado as $accionesCorrectivascreados)
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accionesCorrectivascreados->id}});">{{$accionesCorrectivascreados->descripcion}}</a></li>
+                        @endforeach
+                      </ul>
+                    </li>
                     @endif
                 </ul>
+              </div>
             </div>
             <br>
             <a data-toggle="collapse" href="#collapseNoConformidades">
@@ -1104,6 +1154,8 @@
     $(function () {
       // 6 create an instance when the DOM is ready
       $('#jstree').jstree();
+      $('#jstreequejas').jstree();
+      $('#jstreeacciones').jstree();
 
       // 8 interact with the tree - either way is OK
       /*$('button').on('click', function () {
@@ -1230,7 +1282,6 @@
         $('#eestatus option[value="' + res.estatus_id + '"]').attr("selected", "selected");
 
         var creador = document.getElementById('creador').value;
-        console.log(creador);
         if (creador == res.responsable_id) {
           $("#efechaalta").attr('disabled','disabled');
           $("#eindicador_id").attr('disabled','disabled');

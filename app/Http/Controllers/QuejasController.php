@@ -110,6 +110,7 @@ class QuejasController extends Controller
         $queja->monto                  = $request->input('monto');
         $queja->producto            = $request->input('producto_id');
         $queja->monto                 = $request->input('monto');
+        $queja->creador_id             = $request->input('creador_id');
 
 
 
