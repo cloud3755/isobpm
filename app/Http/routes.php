@@ -123,6 +123,8 @@ Route::group( ['middleware' => 'auth'],
     Route::get('/oportunidades', 'MenuController@oportunidades');
     Route::get('/mejoras', 'MenuController@mejoras');
     Route::get('/admin', 'MenuController@admin');
+    Route::get('/config', 'MenuController@config');
+    Route::post('/config', 'MenuController@configstore');
     Route::get('/infdocumentada', 'MenuController@infdocumentada');
 
 

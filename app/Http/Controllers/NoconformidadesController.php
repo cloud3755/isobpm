@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Mail;
+use Illuminate\Mail\Message;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Noconformidades;
@@ -139,12 +140,12 @@ class NoconformidadesController extends Controller
       }
       $Noconformidad->save();
 
-
-
+    if( $usuarios->empresas->mensajesNC == 1)
+    {
       Mail::send('emails.noconformidadabierta', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
         $m->to($Noconformidad->responsable->email,$Noconformidad->responsable->nombre)->subject('Tienes una no conformidad asignada');
       });
-
+     }
 
       return redirect('noconformidad/create');
     }
@@ -168,6 +169,8 @@ class NoconformidadesController extends Controller
      */
     public function edit($id,Request $request)
     {
+      $usuarios = Auth::user();
+
       $Noconformidad = Noconformidades::findorfail($id);
         $file2                            = $request->file('archivo1_nc');
         $file1                            = $request->file('archivo2_nc');
@@ -212,6 +215,43 @@ class NoconformidadesController extends Controller
       $Noconformidad->id_area                = $request->input('id_area_nc');
 
       $Noconformidad->save();
+
+
+      if( $usuarios->empresas->mensajesNC == 1)
+      {
+
+         if($Noconformidad->estatus_id == 2)
+          {
+          Mail::send('emails.noconformidadenvioaprobacion', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+            $m->to($Noconformidad->creador->email,$Noconformidad->creador->nombre)->subject('Tienes una no conformidad pendiente de aprobar');
+          });
+          }
+
+          if($Noconformidad->estatus_id == 4)
+           {
+           Mail::send('emails.noconformidadrechazoresponsable', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+             $m->to($Noconformidad->creador->email,$Noconformidad->creador->nombre)->subject('Tienes una no conformidad rechazada por el responsable');
+           });
+           }
+
+           if($Noconformidad->estatus_id == 5)
+            {
+            Mail::send('emails.noconformidadrechazosolucion', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+              $m->to($Noconformidad->responsable->email,$Noconformidad->responsable->nombre)->subject('La solucion a la no conformidad ha sido rechazada');
+            });
+            }
+
+
+
+           if($Noconformidad->estatus_id == 3)
+            {
+              $emails = [$Noconformidad->creador->email => $Noconformidad->creador->nombre, $Noconformidad->responsable->email => $Noconformidad->responsable->nombre];
+            Mail::send('emails.noconformidadcerrada', ['NC' => $Noconformidad], function ($m) use ($Noconformidad,$emails){
+              $m->to($emails)->subject('No conformidad cerrada');
+            });
+            }
+
+      }
 
       return Redirect('/noconformidad/create');
     }

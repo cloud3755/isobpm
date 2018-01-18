@@ -27,6 +27,9 @@ class CreateEmpresasTable extends Migration
             $table->double('cuota_usada', 15, 8);
             $table->string('img');
             $table->integer('id_creador');
+            $table->integer('mensajesQuejas');
+            $table->integer('mensajesNC');
+            $table->integer('mensajesAC');
 
             $table->timestamps();
         });

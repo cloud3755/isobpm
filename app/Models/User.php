@@ -36,4 +36,11 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+
+    public function empresas()
+    {
+      return $this->belongsTo(Empresas::class,'id_compania');
+    }
+
 }

@@ -14,5 +14,19 @@ class Noconformidades extends Model
     return $this->belongsTo(User::class, 'usuario_responsable_id','id');
   }
 
+  public function creador()
+  {
+    return $this->belongsTo(User::class, 'creador_id','id');
+  }
+
+  public function proceso()
+  {
+    return $this->belongsTo(Proceso::class);
+  }
+
+  public function estatus()
+  {
+    return $this->belongsTo(Estatus::class,'estatus_id');
+  }
 
 }

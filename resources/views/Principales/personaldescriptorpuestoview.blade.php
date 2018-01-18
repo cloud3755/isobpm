@@ -8,7 +8,6 @@
 <script src="/js/descriptorpuestoview.js"></script>
 <script src="/js/printThis.js"></script>
 
-
 </br>
 
 @if(Session::has('flash_message'))

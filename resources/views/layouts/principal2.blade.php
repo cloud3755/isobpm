@@ -136,6 +136,7 @@
                           <li><a href="/perfil"><i class="fa fa-user fa-fw"></i> Mi Perfil</a></li>
                           @if(Auth::user()->perfil != 4)
                             <li><a href="/admin"><i class="fa fa-wrench fa-fw"></i> Administración</a></li>
+                            <li><a href="/config"><i class="fa fa-cog fa-fw"></i> Configuración</a></li>
                             @endif
                             <li><a href="{{ Route('admin.auth.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Salir</a></li>
                         </ul>

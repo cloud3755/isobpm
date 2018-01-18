@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,6 +14,7 @@ use App\Models\Analisisriesgos;
 use App\Models\Oportunidades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Empresas;
 
 class MenuController extends Controller
 {
@@ -79,6 +82,56 @@ class MenuController extends Controller
         return redirect('/bienvenida');
       }
     }
+
+    public function config()
+    {
+      $usuarios = Auth::user();
+
+      if ($usuarios->perfil != 4) {
+        return View('submenu/Configuracion',compact('usuarios'));
+      }else {
+        return redirect('/bienvenida');
+      }
+    }
+
+    public function configstore(Request $request)
+    {
+      $usuarios = Auth::user();
+
+     if( $request->has('mensajesQuejas') ) {
+     $mensajesQuejas = 1;
+     }
+     else{
+     $mensajesQuejas = 0;
+     }
+     if( $request->has('mensajesAC') ) {
+     $mensajesAC = 1;
+     }
+     else{
+     $mensajesAC = 0;
+     }
+
+     if( $request->has('mensajesNC') ) {
+     $mensajesNC = 1;
+     }
+     else{
+     $mensajesNC = 0;
+     }
+
+     $empresas = Empresas::findorfail($usuarios->id_compania);
+
+     $empresas->mensajesQuejas = $mensajesQuejas;
+     $empresas->mensajesAC = $mensajesAC;
+     $empresas->mensajesNC = $mensajesNC;
+
+     $empresas->save();
+
+    Session::flash('flash_message', 'Se guardo el cambio en la configuracion.');
+
+     return View('submenu/Configuracion',compact('usuarios'));
+
+    }
+
 
     public function infdocumentada()
     {
