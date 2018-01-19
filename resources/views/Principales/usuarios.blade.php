@@ -214,8 +214,10 @@
                         <label style="font-weight: bold">Perfil:</label>
                         <select class="form-control" id="eperfil" name="eperfil">
                             <option value="" selected></option>
-                            <option value="1">Super-Administrador</option>
-                            <option value="2">Partner</option>
+                            @if(Auth::user()->perfil == 1)
+                              <option value="1">Super-Administrador</option>
+                              <option value="2">Partner</option>
+                            @endif
                             <option value="3">Administrador</option>
                             <option value="4">Usuario</option>
                         </select>
