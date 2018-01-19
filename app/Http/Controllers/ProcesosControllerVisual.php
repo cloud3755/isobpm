@@ -106,10 +106,14 @@ class ProcesosControllerVisual extends Controller
         ->where('status','!=',1)
         ->get();
       }
-
+      $iduser = $usuario->id_compania;
       $Users = new User;
       $User = $Users->where('id_compania',$usuario->id_compania)
       ->where('perfil',4)
+      ->orwhere(function ($querys) use ($iduser) {
+        $querys->where('perfil',3)
+        ->where('id_compania', '=', DB::raw("'".$iduser."'"));
+      })
       ->get();
 
       $tipoprocesos = new tipoproceso;
@@ -131,9 +135,14 @@ class ProcesosControllerVisual extends Controller
       $tipoproceso = $id;
       $usuario = Auth::user();
 
+      $iduser = $usuario->id_compania;
       $Users = new User;
       $User = $Users->where('id_compania',$usuario->id_compania)
       ->where('perfil',4)
+      ->orwhere(function ($querys) use ($iduser) {
+        $querys->where('perfil',3)
+        ->where('id_compania', '=', DB::raw("'".$iduser."'"));
+      })
       ->get();
 
       $indicador = \DB::table('indicadores')
@@ -232,9 +241,14 @@ class ProcesosControllerVisual extends Controller
         $proceso = Proceso::where('id',$id)->get();
       }
 
+      $iduser = $usuario->id_compania;
       $Users = new User;
       $User = $Users->where('id_compania',$usuario->id_compania)
       ->where('perfil',4)
+      ->orwhere(function ($querys) use ($iduser) {
+        $querys->where('perfil',3)
+        ->where('id_compania', '=', DB::raw("'".$iduser."'"));
+      })
       ->get();
 
       $tipoprocesos = new tipoproceso;

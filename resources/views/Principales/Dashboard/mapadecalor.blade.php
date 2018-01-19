@@ -158,7 +158,7 @@
                                     <td><?=$Analisisriesgos->probabilidad?></td>
                                     <td><?=$Analisisriesgos->controles?></td>
                                     <td><?=$Analisisriesgos->Severidad2?></td>
-                                    <td><?=$Analisisriesgos->probabilidad?></td>
+                                    <td><?=$Analisisriesgos->probabilidad2?></td>
                                     <td><?=$Analisisriesgos->riesgo_inherente?></td>
                                     <td><?=$Analisisriesgos->riesgo_residual?></td>
                                     <td>

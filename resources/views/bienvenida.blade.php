@@ -12,6 +12,7 @@
 </div>
 <div>
 <p>bienvenido: <strong>{{Auth::user()->nombre}}</strong><p>
+  <input type="hidden" name="Perfil" id="Perfil" value="{{Auth::user()->perfil}}">
 </div>
 <div >
     <div class="col-sm-4">
@@ -85,7 +86,7 @@
                     <li class="text-danger">Asignados
                       <ul>
                         @foreach($quejas as $queja)
-                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$queja->id}});">{{$queja->descripcion}}</a></li>
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$queja->id}},1);">{{$queja->descripcion}}</a></li>
                         @endforeach
                       </ul>
                     </li>
@@ -100,7 +101,7 @@
                     <li class="text-danger">Creados
                       <ul>
                         @foreach($quejascreados as $quejascreado)
-                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$quejascreado->id}});">{{$quejascreado->descripcion}}</a></li>
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaleditq" onclick="EditarQ({{$quejascreado->id}},2);">{{$quejascreado->descripcion}}</a></li>
                         @endforeach
                       </ul>
                     </li>
@@ -124,7 +125,7 @@
                     <li class="text-danger">Asignados
                       <ul>
                         @foreach($accionesCorrectivas as $accionesCorrectiva)
-                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accionesCorrectiva->id}});">{{$accionesCorrectiva->descripcion}}</a></li>
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accionesCorrectiva->id}},1);">{{$accionesCorrectiva->descripcion}}</a></li>
                         @endforeach
                       </ul>
                     </li>
@@ -139,7 +140,7 @@
                     <li class="text-danger">Creados
                       <ul>
                         @foreach($accionesCorrectivascreado as $accionesCorrectivascreados)
-                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accionesCorrectivascreados->id}});">{{$accionesCorrectivascreados->descripcion}}</a></li>
+                            <li data-jstree='{"icon":"glyphicon glyphicon-ban-circle"}'><a data-toggle="modal" data-target="#modaledit" onclick="Editar({{$accionesCorrectivascreados->id}},2);">{{$accionesCorrectivascreados->descripcion}}</a></li>
                         @endforeach
                       </ul>
                     </li>
@@ -843,7 +844,7 @@
                   <div class="col-lg-6 col-md-6 col-sm-6">
                       <h3><label>Archivo de evidencia:</label></h3>
                       <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="earchivoa2_q" id="earchivoa2_q" >
-                      <input class="file" id="file-1" type="file" placeholder="Archivo" name="earchivo2_q">
+                      <input class="file" id="file-2" type="file" placeholder="Archivo" name="earchivo2_q">
                   </div>
 
                   <div class="col-lg-6 col-md-6 col-sm-6">
@@ -1072,7 +1073,7 @@
                 <div class="col-lg-8 col-md-8 col-sm-8">
                     <h3><label>Evidencia no conformidad:</label></h3>
                     <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivoa_nc" id="archivoa_nc" >
-                    <input class="file" id="archivo1_nc" type="file" placeholder="Archivo" name="archivo1_nc">
+                    <input class="file" id="archivo1_nc" type="file" placeholder="Archivo" name="archivo1_nc" id="archivo1_nc">
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12">
@@ -1108,7 +1109,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                     <h3><label>Evidencia de cierre:</label></h3>
                     <input class="form-control" type="text" placeholder="Archivo anterior ninguno" readonly name="archivob_nc" id="archivob_nc" >
-                    <input class="file" id="archivo2_nc" type="file" placeholder="Evidencia del cierre" name="archivo2_nc">
+                    <input class="file" id="archivo2_nc" type="file" placeholder="Evidencia del cierre" name="archivo2_nc" id ="archivo2_nc">
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -1227,40 +1228,56 @@
         $("#fecha_plan_nc").val(res.fecha_plan);
         $("#archivob_nc").val(res.evidencia);
         $("#fecha_cierre_nc").val(res.fecha_cierre);
-
-        $('#estatus_id_nc option[value="' + res.estatus_id + '"]').attr("selected", "selected");
-        if (bandeja == 1) {
-          if (res.estatus_id == 1 || res.estatus_id == 5) {
-            $("#fecha_nc").attr("disabled", "disabled");
-            $("#proceso_id_nc").attr("disabled", "disabled");
-            $("#producto_id_nc").attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="3"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
-          }
-        }else {
-          if (res.estatus_id == 1 || res.estatus_id == 5) {
-            $('#estatus_id_nc').attr("disabled", "disabled");
-          }else if (res.estatus_id == 2) {
-            $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
-          }else if (res.estatus_id == 4) {
-            $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
-            $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
-          }
-        }
-
         $("#monto_nc").val(res.monto);
 
+        $('#estatus_id_nc option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+        $('#estatus_id_nc option[value="6"]').attr("disabled", "disabled");
+        var Perfil = document.getElementById('Perfil').value;
+        if (Perfil== 4) {
+          if (bandeja == 1) {
+            if (res.estatus_id == 1 || res.estatus_id == 5) {
+              $("#fecha_nc").attr("disabled", "disabled");
+              $("#proceso_id_nc").attr("disabled", "disabled");
+              $("#producto_id_nc").attr("disabled", "disabled");
+              $("#id_area_nc").attr("disabled", "disabled");
+
+              $("#archivo1_nc").attr("disabled", "disabled");
+              $("#documento_nc").attr("disabled", "disabled");
+              $("#descripcion_nc").attr("disabled", "disabled");
+              $("#usuario_responsable_id_nc").attr("disabled", "disabled");
+
+              $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="3"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
+            }
+          }else {
+            $("#acciones_nc").attr("disabled", "disabled");
+            $("#fecha_plan_nc").attr("disabled", "disabled");
+            $("#fecha_cierre_nc").attr("disabled", "disabled");
+            $("#archivo2_nc").attr("disabled", "disabled");
+
+            if (res.estatus_id == 1 || res.estatus_id == 5) {
+              $('#estatus_id_nc').attr("disabled", "disabled");
+            }else if (res.estatus_id == 2) {
+              $('#estatus_id_nc option[value="1"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
+            }else if (res.estatus_id == 4) {
+              $('#estatus_id_nc option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="4"]').attr("disabled", "disabled");
+              $('#estatus_id_nc option[value="5"]').attr("disabled", "disabled");
+            }
+          }
+        }
       });
 
     }
 
-    function Editar(btn){
+    function Editar(btn, bandeja){
       var route = "/accioncorrectiva/"+btn+"/edit";
       $.get(route, function(res){
+        $("#fileinfo").find('input, textarea, button, select').prop('disabled', false);
+        $("#eestatus").find('option').prop('disabled', false);
         $("#efechaalta").val(res.fechaalta);
         $('#eindicador_id option[value="' + res.indicador_id + '"]').attr("selected", "selected");
         $('#eproceso_id option[value="' + res.id_proceso + '"]').attr("selected", "selected");
@@ -1281,30 +1298,59 @@
         $("#id").val(res.id);
         $('#eestatus option[value="' + res.estatus_id + '"]').attr("selected", "selected");
 
-        var creador = document.getElementById('creador').value;
-        if (creador == res.responsable_id) {
-          $("#efechaalta").attr('disabled','disabled');
-          $("#eindicador_id").attr('disabled','disabled');
-          $("#eproceso_id").attr('disabled','disabled');
-          $("#eproducto_id").attr('disabled','disabled');
-          $("#eid_area").attr('disabled','disabled');
-          $("#emonto").attr('disabled','disabled');
-          $("#edocumento").attr('disabled','disabled');
-          $("#archivoa").attr('disabled','disabled');
-          $("#edescripcion").attr('disabled','disabled');
-          $("#eresponsable_id").attr('disabled','disabled');
-          $("#efechacierre").attr('disabled','disabled');
-          $("#eestatus").attr('disabled','disabled');
-        }
+        var Perfil = document.getElementById('Perfil').value;
+        if (Perfil== 4) {
 
+          if (bandeja == 1) {
+            $("#efechaalta").attr('disabled','disabled');
+            $("#eindicador_id").attr('disabled','disabled');
+            $("#eproceso_id").attr('disabled','disabled');
+            $("#eproducto_id").attr('disabled','disabled');
+            $("#eid_area").attr('disabled','disabled');
+            $("#emonto").attr('disabled','disabled');
+            $("#edocumento").attr('disabled','disabled');
+            $("#archivoa").attr('disabled','disabled');
+            $("#edescripcion").attr('disabled','disabled');
+            $("#eresponsable_id").attr('disabled','disabled');
+            $("#efechacierre").attr('disabled','disabled');
+            $('#eestatus option[value="1"]').attr("disabled", "disabled");
+            $('#eestatus option[value="3"]').attr("disabled", "disabled");
+            $('#eestatus option[value="5"]').attr("disabled", "disabled");
+            $('#eestatus option[value="6"]').attr("disabled", "disabled");
+          }else {
+            $("#eanalisis").attr('disabled','disabled');
+            $("#eaccioncorrectiva").attr('disabled','disabled');
+            $("#efechaaccion").attr('disabled','disabled');
+            $("#eevidenciaaccion").attr('disabled','disabled');
+            $("#archivoe").attr('disabled','disabled');
+            $("#efechacierre").attr('disabled','disabled');
+            if (res.estatus_id == 1 || res.estatus_id == 5 || res.estatus_id == 6) {
+              $('#eestatus').attr("disabled", "disabled");
+            }else if (res.estatus_id == 2) {
+              $('#eestatus option[value="1"]').attr("disabled", "disabled");
+              $('#eestatus option[value="2"]').attr("disabled", "disabled");
+              $('#eestatus option[value="4"]').attr("disabled", "disabled");
+              $('#eestatus option[value="3"]').attr("disabled", "disabled");
+            }else if (res.estatus_id == 4) {
+              $('#eestatus option[value="2"]').attr("disabled", "disabled");
+              $('#eestatus option[value="3"]').attr("disabled", "disabled");
+              $('#eestatus option[value="4"]').attr("disabled", "disabled");
+              $('#eestatus option[value="5"]').attr("disabled", "disabled");
+              $('#eestatus option[value="6"]').attr("disabled", "disabled");
+            }
+          }
+
+        }
 
       });
 
     }
 
-    function EditarQ(btn){
+    function EditarQ(btn, bandeja){
       var route = "/quejas/"+btn+"/edit";
       $.get(route, function(res){
+        $("#fileinfo_q").find('input, textarea, button, select').prop('disabled', false);
+        $("#estatus_id_q").find('option').prop('disabled', false);
         $("#id_q").val(res.id);
         $("#efecha_q").val(res.fecha);
         $('#earea_q option[value="' + res.area + '"]').attr("selected", "selected");
@@ -1321,6 +1367,48 @@
         $("#earchivoa2_q").val(res.archivoevidencia);
         $("#efecha_cierre_q").val(res.fecha_cierre);
         $('#estatus_id_q option[value="' + res.estatus_id + '"]').attr("selected", "selected");
+        var Perfil = document.getElementById('Perfil').value;
+        console.log(Perfil);
+        if (Perfil == 4) {
+
+          if (bandeja == 1) {
+            $("#efecha_q").attr('disabled','disabled');
+            $("#earea_q").attr('disabled','disabled');
+            $("#eproceso_id_q").attr('disabled','disabled');
+            $("#eproducto_id_q").attr('disabled','disabled');
+            $("#emonto_q").attr('disabled','disabled');
+            $("#ecliente_id_q").attr('disabled','disabled');
+            $("#edescripcion_q").attr('disabled','disabled');
+            $("#file-1").attr('disabled','disabled');
+            $("#eresponsable_q").attr('disabled','disabled');
+
+            $('#estatus_id_q option[value="1"]').attr("disabled", "disabled");
+            $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
+            $('#estatus_id_q option[value="5"]').attr("disabled", "disabled");
+            $('#estatus_id_q option[value="6"]').attr("disabled", "disabled");
+          }else {
+            $("#eacciones_q").attr('disabled','disabled');
+            $("#efecha_plan_q").attr('disabled','disabled');
+            $("#eevidencia_q").attr('disabled','disabled');
+            $("#file-2").attr('disabled','disabled');
+            $("#efecha_cierre_q").attr('disabled','disabled');
+
+            if (res.estatus_id == 1 || res.estatus_id == 5 || res.estatus_id == 6) {
+              $('#estatus_id_q').attr("disabled", "disabled");
+            }else if (res.estatus_id == 2) {
+              $('#estatus_id_q option[value="1"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="4"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
+            }else if (res.estatus_id == 4) {
+              $('#estatus_id_q option[value="2"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="3"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="4"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="5"]').attr("disabled", "disabled");
+              $('#estatus_id_q option[value="6"]').attr("disabled", "disabled");
+            }
+          }
+        }
       });
 
     }
@@ -1441,6 +1529,8 @@ function agregaSeleccion(origen, destino) {
         $("#btn_modalversion").click();
 
         $("#actualizar").click(function(){
+          $("#fileinfo").find('input, textarea, button, select').prop('disabled', false);
+          $("#eestatus").find('option').prop('disabled', false);
           var value = $("#id").val();
           var route = "/accioncorrectiva/edit/"+value+"";
           var token = $("#token").val();
@@ -1461,6 +1551,8 @@ function agregaSeleccion(origen, destino) {
         });
 
         $("#actualizarq").click(function(){
+          $("#fileinfo_q").find('input, textarea, button, select').prop('disabled', false);
+          $("#estatus_id_q").find('option').prop('disabled', false);
           var value = $("#id_q").val();
           var route = "/quejas/edit/"+value+"";
           var token = $("#token").val();
