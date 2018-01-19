@@ -122,7 +122,7 @@
                       <div class="form-group form-group-lg">
                       <h2><label for="Usuario" class="control-label col-md-12">Decripcion:</label></h2>
                       <div class="col-md-6">
-                          <textarea class="form-control" id = "prodescripcionind" rows="3" placeholder="Descripcion del producto o servicio" value = "<?=$productos['descripcion']?>" name="descripcion"></textarea>
+                          <textarea class="form-control" id = "prodescripcionind" rows="3" placeholder="Descripcion del producto o servicio" value = "" name="descripcion"><?=$productos['descripcion']?></textarea>
                       </div>
                       </div>
 
