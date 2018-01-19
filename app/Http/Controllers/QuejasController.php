@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Mail;
+use Illuminate\Mail\Message;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Quejas;
@@ -25,6 +27,7 @@ class QuejasController extends Controller
      */
     public function index()
     {
+
         return view('Quejas');
     }
 
@@ -92,6 +95,8 @@ class QuejasController extends Controller
      */
     public function store(Request $request)
     {
+       $usuarios = Auth::user();
+
         $queja = new Quejas;
 
         $queja->fecha                  = $request->input('fecha');
@@ -136,6 +141,15 @@ class QuejasController extends Controller
 
         $queja->save();
 
+
+        if( $usuarios->empresas->mensajesQuejas == 1)
+        {
+          Mail::queue('emails.quejas.quejaabierta', ['Queja' => $queja], function ($m) use ($queja){
+            $m->to($queja->responsable->email,$queja->responsable->nombre)->subject('Tienes una queja asignada');
+          });
+         }
+
+
         return redirect('quejas/create');
     }
 
@@ -164,7 +178,12 @@ class QuejasController extends Controller
      */
     public function edit($id,Request $request)
     {
+
+      $usuarios = Auth::user();
+
       $queja = Quejas::findorfail($id);
+
+
 
       //nombre del archivo
       $file2                            = $request->file('earchivo1_q');
@@ -214,6 +233,59 @@ class QuejasController extends Controller
       $queja->proceso    = $request->input('eproceso_id_q');
 
       $queja->save();
+
+
+
+      if( $usuarios->empresas->mensajesQuejas == 1)
+      {
+
+        if($queja->estatus_id == 2)
+         {
+         Mail::queue('emails.quejas.quejaaprobacion', ['Queja' => $queja], function ($m) use ($queja){
+           $m->to($queja->creador->email,$queja->creador->nombre)->subject('Tienes una queja pendiente de aprobar');
+         });
+        }
+
+
+       if($queja->estatus_id == 3)
+        {
+       $emails = [$queja->creador->email => $queja->creador->nombre, $queja->responsable->email => $queja->responsable->nombre];
+       Mail::queue('emails.quejas.quejacerrada', ['Queja' => $queja], function ($m) use ($queja, $emails){
+         $m->to($emails)->subject('Queja cerrada');
+       });
+      }
+
+
+        if($queja->estatus_id == 4)
+         {
+        Mail::queue('emails.quejas.quejarechazoresponsable', ['Queja' => $queja], function ($m) use ($queja){
+          $m->to($queja->creador->email,$queja->creador->nombre)->subject('Tienes una queja rechazada por el responsable');
+        });
+       }
+
+     if($queja->estatus_id == 5)
+      {
+     Mail::queue('emails.quejas.quejarechazosolucion', ['Queja' => $queja], function ($m) use ($queja){
+       $m->to($queja->responsable->email,$queja->responsable->nombre)->subject('La solucion a tu queja ha sido rechazada');
+      });
+      }
+
+    if($queja->estatus_id == 6)
+     {
+       $admins = user::where('perfil','=',3)->where('id_compania','=',$usuarios->id_compania)->get();
+
+       foreach ($admins as $key) {
+
+         $emails = [$key->email => $key->nombre];
+
+     Mail::queue('emails.quejas.quejaaprobacioncalidad', ['Queja' => $queja], function ($m) use ($queja,$emails){
+       $m->to($emails)->subject('Tienes una queja pendiente de aprobar');
+
+     });
+     }
+
+    }
+}
 
       return Redirect('/quejas/create');
 

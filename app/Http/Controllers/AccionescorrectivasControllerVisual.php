@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
-
+use Mail;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
 use App\Models\Accioncorrectiva1;
 use App\Http\Requests;
@@ -134,6 +134,8 @@ class AccionescorrectivasControllerVisual extends Controller
         }
         $evidencia->save();
 
+
+
         return redirect('/accioncorrectiva');
 
 
@@ -148,6 +150,9 @@ class AccionescorrectivasControllerVisual extends Controller
      */
     public function store(Request $request)
     {
+
+      $usuarios = Auth::user();
+
       $accion = new Accioncorrectiva1;
 
       //para el primer archivo
@@ -194,6 +199,15 @@ class AccionescorrectivasControllerVisual extends Controller
       $accion->area             =   $request->input('id_area');
 
       $accion->save();
+
+
+      if( $usuarios->empresas->mensajesAC == 1)
+      {
+        Mail::queue('emails.accionesCorrectivas.ACabierta', ['AC' => $accion], function ($m) use ($accion){
+          $m->to($accion->responsable->email,$accion->responsable->nombre)->subject('Tienes una accion correctiva asignada');
+        });
+       }
+
 
       return redirect('/accioncorrectiva');
 
@@ -262,6 +276,8 @@ class AccionescorrectivasControllerVisual extends Controller
      */
     public function edit($id,Request $request)
     {
+      $usuarios = Auth::user();
+
       $accion = Accioncorrectiva1::find($id);
 
       //para el primer archivo
@@ -321,6 +337,60 @@ class AccionescorrectivasControllerVisual extends Controller
       $accion->fechacierre      =   $request->input('efechacierre');
 
       $accion->save();
+
+
+      if( $usuarios->empresas->mensajesAC == 1)
+      {
+
+        if($accion->estatus_id == 2)
+         {
+         Mail::queue('emails.accionesCorrectivas.ACaprobacion', ['AC' => $accion], function ($m) use ($accion){
+           $m->to($accion->creador->email,$accion->creador->nombre)->subject('Tienes una accion correctiva pendiente de aprobar');
+         });
+        }
+
+
+       if($accion->estatus_id == 3)
+        {
+       $emails = [$accion->creador->email => $accion->creador->nombre, $accion->responsable->email => $accion->responsable->nombre];
+       Mail::queue('emails.accionesCorrectivas.ACcerrada', ['AC' => $accion], function ($m) use ($accion, $emails){
+         $m->to($emails)->subject('Accion correctiva cerrada');
+       });
+      }
+
+
+        if($accion->estatus_id == 4)
+         {
+        Mail::queue('emails.accionesCorrectivas.ACrechazoresponsable', ['AC' => $accion], function ($m) use ($accion){
+          $m->to($accion->creador->email,$accion->creador->nombre)->subject('Tienes una accion correctiva rechazada por el responsable');
+        });
+       }
+
+     if($accion->estatus_id == 5)
+      {
+     Mail::queue('emails.accionesCorrectivas.ACrechazosolucion', ['AC' => $accion], function ($m) use ($accion){
+       $m->to($accion->responsable->email,$accion->responsable->nombre)->subject('La solucion a tu accion correctiva ha sido rechazada');
+      });
+      }
+
+    if($accion->estatus_id == 6)
+     {
+       $admins = user::where('perfil','=',3)->where('id_compania','=',$usuarios->id_compania)->get();
+
+       foreach ($admins as $key) {
+
+         $emails = [$key->email => $key->nombre];
+
+     Mail::queue('emails.accionesCorrectivas.ACaprobacioncalidad', ['AC' => $accion], function ($m) use ($accion,$emails){
+       $m->to($emails)->subject('Tienes una accion correctiva pendiente de aprobar');
+
+     });
+     }
+
+    }
+}
+
+
 
       Session::flash('flash_message', 'Se guardo el cambio.');
 

@@ -142,7 +142,7 @@ class NoconformidadesController extends Controller
 
     if( $usuarios->empresas->mensajesNC == 1)
     {
-      Mail::send('emails.noconformidadabierta', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+      Mail::queue('emails.noconformidades.noconformidadabierta', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
         $m->to($Noconformidad->responsable->email,$Noconformidad->responsable->nombre)->subject('Tienes una no conformidad asignada');
       });
      }
@@ -222,31 +222,31 @@ class NoconformidadesController extends Controller
 
          if($Noconformidad->estatus_id == 2)
           {
-          Mail::send('emails.noconformidadenvioaprobacion', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+          Mail::queue('emails.noconformidades.noconformidadenvioaprobacion', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
             $m->to($Noconformidad->creador->email,$Noconformidad->creador->nombre)->subject('Tienes una no conformidad pendiente de aprobar');
           });
           }
 
           if($Noconformidad->estatus_id == 4)
            {
-           Mail::send('emails.noconformidadrechazoresponsable', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+           Mail::queue('emails.noconformidades.noconformidadrechazoresponsable', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
              $m->to($Noconformidad->creador->email,$Noconformidad->creador->nombre)->subject('Tienes una no conformidad rechazada por el responsable');
            });
            }
 
            if($Noconformidad->estatus_id == 5)
             {
-            Mail::send('emails.noconformidadrechazosolucion', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
+            Mail::queue('emails.noconformidades.noconformidadrechazosolucion', ['NC' => $Noconformidad], function ($m) use ($Noconformidad){
               $m->to($Noconformidad->responsable->email,$Noconformidad->responsable->nombre)->subject('La solucion a la no conformidad ha sido rechazada');
             });
             }
 
-
+            
 
            if($Noconformidad->estatus_id == 3)
             {
               $emails = [$Noconformidad->creador->email => $Noconformidad->creador->nombre, $Noconformidad->responsable->email => $Noconformidad->responsable->nombre];
-            Mail::send('emails.noconformidadcerrada', ['NC' => $Noconformidad], function ($m) use ($Noconformidad,$emails){
+            Mail::queue('emails.noconformidades.noconformidadcerrada', ['NC' => $Noconformidad], function ($m) use ($Noconformidad,$emails){
               $m->to($emails)->subject('No conformidad cerrada');
             });
             }

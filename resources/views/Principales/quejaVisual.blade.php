@@ -256,7 +256,7 @@ alert ('{{Session::get('flash_message')}}')
                       <input type="hidden" name="id_compania" value="{{Auth::user()->id_compania}}">
                       <input type="hidden" name="status_id" id="status_id" value="1">
                       <input type="hidden" name="creador_id" id="creador_id" value="{{Auth::user()->id}}">
-                      
+
                     <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                       <h3><label>Fecha:</label></h3>
@@ -378,7 +378,7 @@ alert ('{{Session::get('flash_message')}}')
                 <h3 class="modal-title">EDITAR QUEJA</h3>
             </div>
             <div class="modal-body">
-              <form id="fileinfo_q"  method="post" accept-charset="UTF-8" enctype="multipart/form-data" action="">
+              <form id="fileinfo_q"  method="post" accept-charset="UTF-8" enctype="multipart/form-data" action="/quejas/edit/9">
                 <input type="hidden" name="_token" value="{{ csrf_token()}}">
                 <input type="hidden" id="id_q">
                 <div class="row">
