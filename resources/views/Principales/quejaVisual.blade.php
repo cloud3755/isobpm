@@ -219,7 +219,7 @@ alert ('{{Session::get('flash_message')}}')
                       <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
                       <tbody id = "myTable">
                         <?php foreach ($relaciontabla as $queja): ?>
-                          <tr class="gradeX" data-toggle="modal" data-target="#modaleditq" onclick="EditarQ(<?=$queja->id?>);"> <strong>
+                          <tr class="gradeX" data-toggle="modal" data-target="#modaleditq" ondblclick="EditarQ(<?=$queja->id?>);"> <strong>
                           <td> <?=$queja->id?> </td>
                           <td> <?=$queja->fecha?> </td>
                           <td> <?=$queja->usernombre?> </td>

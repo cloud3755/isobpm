@@ -98,12 +98,12 @@ alert ('{{Session::get('flash_message')}}')
                       <tbody id = "myTable">
                         <?php foreach ($relaciontabla as $accioncorrectivas): ?>
                         <tr class="gradeX"> <strong>
-                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->id?> </td>
-                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->fechaalta?> </td>
-                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->descripcion?> </td>
-                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->usernombre?> </td>
-                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->fechaaccion?> </td>
-                          <td data-toggle="modal" data-target="#modaledit" onclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->statusnombre?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" ondblclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->id?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" ondblclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->fechaalta?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" ondblclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->descripcion?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" ondblclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->usernombre?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" ondblclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->fechaaccion?> </td>
+                          <td data-toggle="modal" data-target="#modaledit" ondblclick="Editar(<?=$accioncorrectivas->id?>);" title="Editar"> <?=$accioncorrectivas->statusnombre?> </td>
                         <td></a>
 
             <!-- se creara un bucle para generar los n modales necesarios para la edicion de datos -->

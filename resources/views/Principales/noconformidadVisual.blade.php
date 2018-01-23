@@ -208,7 +208,7 @@ alert ('{{Session::get('flash_message')}}')
                       <!-- aqui va la consulta a la base de datos para traer las filas se hace desde el controlador-->
                       <tbody id = "myTable">
                         <?php foreach ($relaciontabla as $noconformidad): ?>
-                        <tr class="gradeX" data-toggle="modal" data-target="#modaledit_nc" onclick="EditarNC(<?=$noconformidad->id?>);"> <strong>
+                        <tr class="gradeX" data-toggle="modal" data-target="#modaledit_nc" ondblclick="EditarNC(<?=$noconformidad->id?>);"> <strong>
                           <td>  <?=$noconformidad->id?> </td>
                           <td>  <?=$noconformidad->fecha?> </td>
                           <td>  <?=$noconformidad->descripcion?></td>
