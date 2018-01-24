@@ -1,4 +1,0 @@
-1	flujo de valor
-2	Desperdicios y Restricciones
-3	EVENTOS Y KAIZEN
-4	Control de Mejoras
